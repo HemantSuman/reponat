@@ -1,0 +1,82 @@
+<style>
+    .newCls{
+        margin: 30px
+    }
+    .text-center{text-align: center;}
+    .parallel{display: inline-block; margin-right: -3px; width: 50%;}
+    .newCls{font-family: 'Source Sans Pro',sans-serif}
+    .newCls{font-size:9px}
+</style>
+<div class="panel panel-default newCls">
+    <div class="panel-body">
+        <div class=""aggremtSign>
+            <h3 class="text-center">Arbitration agreement</h3>
+            <h3 class="text-center">Arbitration agreement No- <%= data.id %></h3>
+            <p>This arbitration agreement made on this <strong><%= site.momentObj(data.added_date).format("DD-MMMM-YYYY") %></strong> at <strong><%= data.agreement_place %></strong></p>
+            <p class="text-center"><strong>BETWEEN</strong></p>
+            <%
+            var partyType='';
+            %>
+            <% data.members.forEach(function(rows){ %>
+
+            <% if(partyType != rows.arbitration_agreement_party_number  && partyType){ %>
+            <p class="text-center"><strong>AND</strong></p>
+            <% }else{ %>
+
+            <% } %>
+
+
+            <p><span><%= rows.member_title %></span> <strong><%= rows.member_name %></strong> <span><%= rows.member_relation_of %></span> <strong><%= rows.member_relation_name %></strong>, Age- <strong><%= rows.member_age %> Year</strong>, Caste- <strong><%= rows.member_caste %></strong>, Resident of <strong><%= rows.member_address %></strong> with (<%= rows.govt_id_type %> <strong><%= rows.govt_id_number %></strong> and PAN number <strong><%= rows.member_pan_number %></strong> and Aadhar number <strong><%= rows.member_aadhar %></strong>)</p>
+
+
+            <%
+            partyType=rows.arbitration_agreement_party_number;
+            %>
+
+            <% }); %>
+
+
+
+            <p>WHEREAS if any disputes or differences arises between the aforesaid parties relating to <strong><%= data.service_details.service_details_name %> (<%= data.service_detail_documents.documents_name %>)</strong>  dated <strong><%= site.momentObj(data.added_date).format("DD.MMMM.YYYY") %></strong>  and executed on stamp paper no. <strong><%= data.stamp_number %></strong>  at  <strong><%= data.agreement_place %></strong>and effective from <strong><%= data.document_valid_from %></strong> to <strong><%= data.document_valid_to %></strong> </p>
+
+            <p>AND WHEREAS the Parties agree that any dispute arising out of or in connection with aforementioned agreement / contract, including any question regarding its existence, validity or termination, shall be referred to and finally resolved by arbitration in accordance with the Nyaya Peeth Arbitration (Procedural)  Rules.</p>
+
+            <p>Now the parties hereby agree as follows: -</p>
+
+            <ol>
+                <li>The arbitration shall be conducted by a sole arbitrator & Arbitrator shall be appoint  in accordance with the Nyaya Peeth Arbitration (Procedural)  Rules. </li>
+                <li>The place of arbitration shall be <%= data.agreement_place %>, or such other place where any of the regional offices of  Nyaya Peeth is situated. </li>
+                <li>The language of Arbitration proceeding shall be English/Hindi or both.</li>
+                <li>The award made by sole arbitrator shall be final & binding upon the parties.</li>
+            </ol>
+
+            <p>In Witness whereof, this Agreement has been signed this <strong><%= site.momentObj(data.added_date).format("DD-MMMM-YYYY") %></strong> at <strong><%= data.agreement_place %> </strong>.</p>
+
+            <% data.members.forEach(function(rows){ %>
+            <div class="parallel">
+                <p><strong>Party-<%= rows.arbitration_agreement_party_number %></strong></p>
+                <br>
+                <p><span><strong><%= rows.member_title %></strong></span> <strong><%= rows.member_name %></strong> <span><%= rows.member_relation_of %></span> <strong><%= rows.member_relation_name %></strong></p>
+            </div>
+            <%
+            partyType=rows.arbitration_agreement_party_number;
+            %>
+
+            <% }); %>
+
+            <br><br>
+
+            <% if(data.first_witness_title && data.first_witness_title !=''){ %>
+            <p><strong>Witness 1 Details</strong></p>
+            <p><span><strong><%= data.first_witness_title %></strong></span> <strong><%= data.first_witness_name %> </strong> <span><%= data.first_witness_relation %></span> <strong><%= data.first_witness_relation_name %></strong> Aadhar number <strong><%= data.first_witness_aadhar_no %></strong>  and <%= data.first_witness_govt_id_name %>  <strong><%= data.first_witness_govt_id_number %></strong>  <strong><%= data.first_witness_address %></strong></p>
+
+            <p><strong>Witness 2 Details</strong></p>
+            <p><span><strong><%= data.second_witness_title %></strong></span> <strong><%= data.second_witness_name %> </strong> <span><%= data.second_witness_relation %></span> <strong><%= data.second_witness_relation_name %></strong> Aadhar number <strong><%= data.second_witness_aadhar_no %></strong>  and <%= data.second_witness_govt_id_name %>  <strong><%= data.second_witness_govt_id_number %></strong> <strong><%= data.second_witness_address %></strong></p>
+            <% } %>
+
+            <p></p>
+            <p><strong>Statutory Alert : The authenticity of this Arbitration Agreement should be verified at www.nayaportal.in .Any discrepancy in the details on this Arbitration Agreement and as available on the website renders it invalid.</strong></p>
+
+        </div>
+    </div>
+</div>

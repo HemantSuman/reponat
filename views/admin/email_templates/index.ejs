@@ -1,0 +1,53 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <%- include('../helper/commonHtml.ejs', {htmlType:''}); %>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#ID</th>
+                                <th>Title</th>
+                                <th>Slug</th>
+                                <th>Template for</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.title %></td>
+                                <td><%= rows.slug %></td>
+                                <td>
+                                    <% if(rows.template_for == 1) { %>Email<% } else { %>Mobile<% } %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <%- include ../helper/pagination.ejs %>
+                        </div>
+                    </div>
+                </div>  
+
+        </div>
+</section>

@@ -1,0 +1,78 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+
+    <!-- general form elements -->
+    <div class="box box-primary">
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%=extraVar.viewDirectory%>/update' enctype="multipart/form-data">
+            <input type="hidden" name='id' value='<%= results.id %>'>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Select Slab<em>*</em></label>
+                            <select class="form-control select2" name="slab_id" id="slab_id">
+                                <option value="" >--Please Select Slab--</option>
+                                <% data.slabs.forEach(function(rows){ %>
+                                <option <% if(results.slab_id==rows.id){ %>selected<% } %> value="<%= rows.id %>"><%= rows.name %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="slab_id_error"></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Minimum value<em>*</em></label>
+
+                            <input type="text" value="<%= results.min_value %>" class="form-control" id="min_value" name='min_value'>
+                            <lable class="error_mgs_lable" id="min_value_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Percentage<em>*</em></label>
+
+                            <input type="text" value="<%= results.percentage %>" class="form-control" id="percentage" name='percentage' >
+                            <lable class="error_mgs_lable" id="percentage_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div> 
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-7d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+</script>

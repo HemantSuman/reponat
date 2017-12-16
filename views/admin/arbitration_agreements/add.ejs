@@ -1,0 +1,155 @@
+<%- include('../helper/Heading-Page.ejs', {title:''}); %>
+
+<section class="content arbitForm">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight"> <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a> </div>
+        </div>
+        <div class="box-body">
+            <div id="formWizard">
+                <input type="hidden" id="popBlockTrue">
+                <!--<div  style="" class="navbar">-->
+                <div  style="display: none;" class="navbar">
+                    <div class="navbar-inner">
+                        <ul>
+                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                            <li><a href="#tab0" id="tab0Li" data-toggle="tab">Step 0</a></li>
+                            <% } %>
+                            <li><a href="#tab1" id="tab1Li" data-toggle="tab">Step 1</a></li>
+                            <!--tabStatus="second" destinationId="tab2" modelNames="countries" renderTemplate="admin/arbitration_agreements/view_detail" rendringType="htmlType" url="/admin/loadAgreementTypeContent"-->
+                            <li><a href="#tab2" id="tab2Li" data-toggle="tab">Step 2</a></li>
+                            <li><a  href="#tab3" id="tab3Li" data-toggle="tab">Step 3</a></li>
+                            <li><a  href="#tab4" id="tab4Li" data-toggle="tab">Step 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+
+                    <!-- tab 0 -->
+                    <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                    <div class="tab-pane" id="tab0">
+                        <form role="form" id="preFormAgreement" name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/pre_stamp_check' enctype="multipart/form-data">
+                            <div class="panel panel-default">
+
+                                <div class="panel-body">
+                                    <div class="panel panel-default" >
+                                        <div class="panel-body panel-grey">
+                                            <div class="row ">
+                                                <div class="col-md-3 col-xs-12">
+                                                    <label> Document Stamp Number <em>*</em></label>
+                                                    <input type="text" id="pre_stamp_number" name="pre_stamp_number" class="form-control inputtxt">
+                                                    <label class="errorMsg" id="pre_stamp_number_error"></label>
+                                                </div>
+                                                <div class="col-md-12 col-xs-12">
+                                                    <label class="opacity-0lab">&nbsp;</label>
+                                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                                </div>
+                                            </div>
+                                            <div class="row   stamp_detail_msg">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <% } %>
+                    <!-- tab 1 -->
+                    <div class="tab-pane" id="tab1">
+                        <form role="form" id="formAgreement" name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/proceed_to_view' enctype="multipart/form-data">
+                            <input type="hidden" name='product_id' value='<%= extraVar.product_id %>'>
+                            <input type="hidden" name='user_id' value='<%= locals.loginUser.id %>'>
+                            <!--<input name="image_path" type="hidden" value="public/uploads/signature">-->
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <!--<h4></h4>-->
+
+                                        <h5 class="text-danger">* marked fields are mandatory.</h5>
+                                        <br>
+                                        <div class="chk-outer" >
+                                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer'){
+                                            var classForRoleWise = 'classForDW';
+                                            } else {
+                                            var classForRoleWise = '';
+                                            } %>
+                                            <input type="checkbox" id="term_conditions" class="emptyValidation <%= classForRoleWise %>" name="term_conditions">
+                                            <label for="term_conditions"><span>By creating Arbitration Agreement , you are agreeing <a target="_blank" href="/pages/terms-condition">terms and conditions</a> and you want to create Nyaya card with us</span><em>*</em>
+                                            </label>
+                                            <br>
+                                            <label class="errorMsg" id="term_conditions_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="radio-btn">
+                                            <% if(locals.loginUser.user_type.role_type_slug == 'bank'){
+
+                                            var modelNames = 'countries,states,service_details,government_id_types,states_is_business';
+                                            var className = 'class_for_bank_detail';
+                                            } else {
+
+                                            var modelNames = 'countries,states,service_details,government_id_types,states_is_business';
+                                            var className = '';
+
+                                            } %>
+
+                                            <input type="radio" rendringType='htmlType' renderTemplate='admin/arbitration_agreements/default_member_form' modelNames="<%=modelNames%>" destinationId='agreementTypeDiv' url="/common/loadAgreementTypeContent" class="agreementType1 agreementType <%= className %>" name="agreement_type" value="single" id="singletier">   <label for="singletier">Single Tier </label>
+
+                                            <input type="radio" rendringType='htmlType' renderTemplate='admin/arbitration_agreements/default_member_form' modelNames="<%=modelNames%>" destinationId='agreementTypeDiv' url="/common/loadAgreementTypeContent" class="agreementType2 agreementType <%= className %>" name="agreement_type" value="two" id="twotier"> <label for="twotier">Two Tier </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col2">
+                                        <span>This arbitration agreement made on this <strong> <%= site.momentObj(Date.now()).format('DD-MM-YYYY HH:mm:ss') %> </strong>at <em style="color:#ff0000">*</em>
+                                            <div>
+                                                <label class="doNotRemove---"></label>
+                                                <input type="text" name="agreement_place" id="agreement_place" class="inputtxt emptyValidation" placeholder="Enter City/Town/Kasba">
+                                                <label class="errorMsg" id="agreement_place_error"></label>
+                                            </div>
+                                        </span>
+
+                                    </div>
+                                    <!--                                <div class="text-center">
+                                                                        <strong>BETWEEN</strong>
+                                                                    </div>-->
+
+
+                                    <div id="agreementTypeDiv"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- tab 2 -->
+                    <div class="tab-pane" id="tab2">
+
+                    </div>
+                    <!-- /tab 2 -->
+                    <!-- tab 3 -->
+                    <div class="tab-pane" id="tab3">
+
+
+                    </div>
+                    <!-- /tab 3 -->
+                    <div class="tab-pane" id="tab4">
+
+
+                    </div>
+                    <!-- /tab 4 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include('../helper/confirmation_popup.ejs'); %>
+<%- include('../helper/popup_for_single_tier.ejs'); %>
+<%- include('../helper/popup_for_two_tier.ejs'); %>
+<script src="/admin/js/arbitration_agreement_form.js"></script>
+<script>
+                                                                                        var freezDealStampData = {};
+                                                                                        var freezDealStampDataNotExist = '';
+                                                                                        //On load first click
+//    $(".agreementType1").prop("checked", true).trigger('change');
+
+
+</script>

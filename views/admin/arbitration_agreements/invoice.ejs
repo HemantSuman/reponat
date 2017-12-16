@@ -1,0 +1,697 @@
+<% if(show==1){ %>
+<style>
+
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) no-repeat center center; background-size:400px;}
+    .wrapperDoc {
+        margin: 0 auto;
+        max-width:1060px;
+        width: 100%;
+        padding:5px 0;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-size:13px; font-weight:400;
+        background-color: white;  border:2px solid #666666;
+        padding: 20px;
+
+    }
+    .headingtxt {
+        text-align:center;
+        font-weight:600;
+        font-size:17px;
+    }
+    .print-date {
+        text-align:right;background-color:#fff;
+    }
+    .print-date span {
+        display:inline-block;
+        margin-right:10px; font-size:10px; color:#000; font-weight:400;
+    }
+    .main-table td {
+        padding:4px;
+        vertical-align:top
+    }
+    .main-table {
+        width:100%;
+        margin-top:0;
+    }
+    .main-table table{ width: 100%}
+    .main-table td span {
+        display:block;
+    }
+    .text-right{ text-align:right;margin-top: 0px;}
+    .bold-txt{ font-weight:600;}
+    .text-center{ text-align:center}
+    .thankmsg{ font-size:10px; margin:0; padding:0px;}
+    .fix-wid span span{ display: inline-block; width: 40%; margin-right: 10px; vertical-align: top}
+    .fix-wid span strong{ display: inline-block; width: 50%; }
+    span.total-amount-fee{border-top:1px dotted #000; border-bottom:1px dotted #000; padding:5px 0; display: inline-block !important}
+    .total-amount-txt{border-top:1px dotted transparent; border-bottom:1px dotted transparent; padding:5px 0}
+
+    /*new*/
+    .header{ padding:10px;}
+    .header .left{ float: left;}
+    .header .left > p { margin-bottom:0px; margin-top:7px;}
+    .header .left > div{ display: inline-block;; margin-right: 10px; vertical-align: middle;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 11px; display: block;;}
+    .header .right{ float: right; width: 30%;}
+    .headingtxt.mid{ padding: 1px 0; color: #e99243; border-top: 0px solid #707070;border-bottom: 0px solid #707070; margin-top: 1px; margin-bottom:20px; text-decoration:underline;}
+    .headingtxt.sec-mid{ color: #000000; margin-top:20px;}
+    .party-heading{ background: #ffebd9; padding:10px;}
+    .document-table tr td:first-child{background: #d6f2e2}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:1px solid #9f9f9f}
+    .table-bordered{border-collapse: collapse;}
+    .main-table .invoice-table > tbody > tr > td > div{width:49%;padding:0; display: inline-block; vertical-align: top}
+    .main-table .invoice-table > tbody > tr > td:nth-child(odd){ padding-right: 2%}
+
+    .td-width2{width: 231px !important;}
+    .td-width1{width: 235px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 25px}
+    .offset-top-35{margin-top: 7px;}
+    .offset-top-10{margin-top: 10px;}
+    .offset-top-20{margin-top: 20px;}
+    .offset-top-50{margin-top: 50px;}
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    .right-table, .left-table{width: 50%; padding: 0 !important; border: 1px solid #9f9f9f; border-top: 0;}
+
+
+    .left-table thead td{border: 1px solid #9f9f9f; padding: 10px; font-size:18px;}
+    .right-table thead td:first-of-type,
+    .left-table thead td:first-of-type{border-left: 0;}
+    .left-table thead td:last-of-type,
+    .right-table thead td:last-of-type{border-right: 0;}
+    .left-table tbody tr:last-of-type td{border-bottom: 1px solid #9f9f9f;}
+    .right-table .table-bordered>tbody>tr>td:first-of-type{border-left: 0;}
+    .right-table .table-bordered>tbody>tr>td:last-of-type{border-right: 0;}
+    .right-table .table-bordered>tbody>tr:last-of-type>td{border-bottom: 0;}
+    .right-table thead td{padding: 10px; font-size:18px;}
+
+    .footer-logo { float: right; text-align: center; padding-right: 10px;}
+    .table-aligned-bottom{ position: absolute; bottom: 0 }
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+    .text-capital {
+        text-transform: capitalize;
+    }
+</style>
+<% }else{ %>
+
+<style>
+
+    body{margin:0px; padding:0px;}
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+    .wrapperDoc{max-width: 790px; min-height: 595px;}
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) repeat-y center center; border:2px solid #666666; padding:0 10px;  }
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    td {font-size: 8px; line-height: 15px;}
+    span{font-size: 8px  ; line-height: 15px;  }
+    div,strong,li,ul,ol{ line-height: 15px;}
+    strong{ font-weight: 700; color: #000}
+    .wrapperDoc { margin: 0 auto;padding:0px;border:none;font-family: Verdana,Geneva,sans-serif;font-size:8px;font-weight:300;line-height: 15px;color: #000; line-height: 16px; padding-left:7px;
+    }
+    .headingtxt {text-align:center; margin-bottom:1px; font-weight:700;font-size:10px;}
+    .print-date { text-align:right;}
+    .print-date span {display:inline-block;margin-right:10px;font-size:8px;font-weight:400;}
+    .main-table td {padding:0px 3px;vertical-align:top}
+    .main-table {width:100%;margin-top:15px;}
+    .main-table td span {display:block; }
+    .text-right { text-align:right}
+    .text-left {text-align:left}
+    .bold-txt {font-weight:500;}
+    .text-center {text-align:center}
+
+    .big-text{ font-size:10px;}
+    .thankmsg{ font-size:8px; text-align:center; margin-top:5px; color: #555}
+    .thankmsg span{ display:block; margin-bottom:5px;}
+
+    .fix-wid span span{ display: inline-block; width: 40%; margin-right: 10px; vertical-align: top}
+    .fix-wid span strong{ display: inline-block; width: 50%; }
+    span.total-amount-fee{border-top:thin dotted #000; border-bottom:thin dotted #000; padding:5px 0; display: inline-block !important}
+    .total-amount-txt{border-top:thin dotted transparent; border-bottom:thin dotted transparent; padding:5px 0}
+
+    /*new*/
+    .header{ padding:10px; padding-bottom:0px;}
+    .header .left{ float: left;}
+    .header .left > p { margin-bottom:0px; margin-top:2px;}
+    .header .left >div{ display: inline-block;; margin-right: 10px; vertical-align: middle;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 7px; display: block; color: #000;}
+    .header .right{ float: right; width: 35%;}
+    .headingtxt.mid{ padding: 1px 0; color: #000; border-top: 0px solid #707070;border-bottom: 0px solid #707070; margin-top: 1px; margin-bottom:6px; text-decoration:underline; font-weight: 700;}
+    .headingtxt.sec-mid{ color: #000000; margin-top:5px; }
+    .party-heading{ background: #ffebd9; padding:5px 10px;}
+    .document-table tr td:first-child{background: #d6f2e2}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:1px solid #000}
+    .table-bordered{border-collapse: collapse;}
+    .main-table .invoice-table > tbody > tr > td > div{width:100%;padding:0;}
+    .main-table .invoice-table > tbody > tr > td:nth-child(odd){ padding-right: 0}
+    .invoicetxt{ color: #555}
+    .td-width2{width: 101px !important;}
+    .td-width1{width: 100px !important;}
+    .offset-top-35 .td-width2{width: 103px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 15px !important;}
+    .offset-top-35{margin-top:10px;}
+    .offset-top-50{margin-top: 25px;}
+    .offset-top-10{margin-top: 5px;}
+    .offset-top-20{margin-top: 10px;}
+    .right-table, .left-table{width: 50%; padding: 0 !important;}
+    .left-table, .right-table{border: 1px solid #000; border-top: 0;}
+    .left-table{ border-right:none;}
+    .left-table thead td{border: 1px solid #000;}
+
+    .right-table thead td:first-of-type,
+    .left-table thead td:first-of-type{border-left: 0;}
+    .left-table thead td:last-of-type,
+    .right-table thead td:last-of-type{border-right: 0;}
+    .left-table tbody tr:last-of-type td{border-bottom: 1px solid #000;}
+    .right-table .table-bordered>tbody>tr>td:first-of-type {border-left: 0;}
+    .right-table .table-bordered>tbody>tr:last-of-type>td{border-bottom: 0;}
+
+    .footer-logo { float: right; text-align: center; padding-right: 10px;}
+
+    .right-table .table-bordered > tbody > tr > td:last-of-type {
+        border-right: 0 none;
+    }
+    .table-aligned-bottom{ position: absolute; bottom: 0 }
+    .fontBold{font-weight: 700;}
+    .td-width2.td-width3{width: 176px !important;}
+    .td-middle-width.td-width-tiny{width: 25px !important;}
+    .td-middle-width.td-width-small{width: 50px !important;}
+    .td-with-auto{width: auto !important;}
+    .text-capital {
+        text-transform: capitalize;
+    }
+</style>
+<% } %>
+<!--<tr class="print-date">
+        <td><span>Print Date:<%= site.momentObj().format("DD-MM-YYYY") %> , Time:<%= site.momentObj().format("hh:mm") %></span></td>
+     </tr>-->
+<div class="wrapperDoc va-top">
+    <div class="wrapperDoc-inner">
+        <div class="header clearfix">
+            <div class="left left-half">
+                <div>
+                    <img src="<%= site.fullUrl %>/images/nat_logo_round.png"  style="height:70px; width:auto; vertical-align:middle"></div>
+                <div class="headingtxt">
+                    NATIONAL ARBITRAL TRIBUNAL
+                    <span>Legal Resolution Centre Pvt. Ltd. </span>
+
+                </div>
+                <!-- <p>GSTIN NUMBER: <%= settingData.gstin_no %></p>
+                <p>STATE CODE: <%= settingData.state_code %></p> -->
+
+            </div>
+            <div class="right right-half">
+                <span><%= settingData.address %></span></br>
+                <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+                    <tr>
+                        <td style=" vertical-align: top;"><strong class="fontBold"> Website </strong></td>
+                        <td style=" vertical-align: top;"><span><%= settingData.website %></span></td>
+                    </tr>
+                    <tr>
+                        <td style=" vertical-align: top;"><strong class="fontBold"> E-mail</strong> </td>
+                        <td style=" vertical-align: top;"><span><%= settingData.email %></span></td>
+                    </tr>
+                    <tr>
+                        <td style=" vertical-align: top;"><strong class="fontBold">Contact No</strong></td>
+                        <td style=" vertical-align: top;"><span><%= settingData.phone %></span></td>
+                    </tr>
+                    <tr>
+                        <td style=" vertical-align: top;"> <strong class="fontBold">GSTIN No</strong> </td>
+                        <td style=" vertical-align: top;"><span><%= settingData.gstin_no %></span></td>
+                    </tr>
+                    <tr>
+                        <td style=" vertical-align: top;"><strong class="fontBold">STATE CODE</strong></td>
+                        <td style=" vertical-align: top;"><span><%= settingData.state_code %></span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        <div class="headingtxt mid">TAX INVOICE CUM RECEIPT</div>
+
+        <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-35">
+            <tr>
+                <td class="td-width1" style="width: 85px!important"><strong>Invoice /Receipt No.</strong></td>
+                <td align="center" class="td-middle-width">:</td>
+                <td class="td-width2" style="width: 160px !important"><%= data.invoice_no %></td>
+                <td class="td-width1" style="width: 80px!important"><strong><%= data.user.user_role.role_type_name %></strong></td>
+                <td align="center" class="td-middle-width">:</td>
+                <td class="td-width2" style="width: 152px !important">
+
+
+                    <% if(data.user.gender=='male'){ %>
+                    Mr.
+                    <% }else{ %>
+                    Mrs.
+                    <% } %>
+                    <%= data.user.first_name %>
+
+
+                </td>
+            </tr>
+            <tr>
+                <td class="td-width1"><strong>Invoice/ Receipt Date</strong></td>
+                <td align="center" class="td-middle-width">:</td>
+                <td class="td-width2"><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></td>
+                <td class="td-width1"><strong>Id No. & Mobile No.</strong></td>
+                <td align="center" class="td-middle-width">:</td>
+                <td class="td-width2">
+                    <%= data.user.gid %> &
+
+                    <%= data.user.mobile %>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <table cellpadding="0" cellspacing="0" class="main-table offset-top-20" style="width:100%">
+            <!-- <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" style="width:100%">
+                        <tr>
+                            <td style="padding:0 10px">
+                                <div>Invoice/ Receipt Number : <strong><%= data.invoice_no %></strong></div>
+                                <div>Invoice/ Receipt Date : <strong><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></strong></div> </td>
+                            <td class="text-right" style="padding:0 10px">
+                                <div>
+                                    <strong><span><%= data.user.user_role.role_type_name %> Details </span></strong>
+    
+                                    id : <%= data.user.id %> ,
+                                    Name :
+                                    <% if(data.user.gender=='male'){ %>
+                                    Mr.
+                                    <% }else{ %>
+                                    Mrs.
+                                    <% } %>
+                                    <%= data.user.first_name %> ,
+                                    Mobile no : <%= data.user.mobile %>
+    
+                                </div>
+                                <% if(data.user_freeze){ %>
+                                <div>
+    
+                                    <strong> <span><%= data.user_freeze.user_role_freeze.role_type_name %> Details :</span></strong>
+    
+                                    id : <%= data.user_freeze.id %> ,
+                                    Name :
+                                    <% if(data.user_freeze.gender=='male'){ %>
+                                    Mr.
+                                    <% }else{ %>
+                                    Mrs.
+                                    <% } %>
+                                    <%= data.user_freeze.first_name %>  ,
+                                    Mobile no : <%= data.user_freeze.mobile %>
+    
+    
+    
+                                </div>
+                                <% } %>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+    
+            </tr> -->
+
+            <tr>
+                <td class="left-table" style="position: relative;">
+                    <table cellpadding="0" cellspacing="0" style="width:100%" class="invoice-table">
+                        <thead>
+                            <tr>
+                                <td colspan="3" class="text-left"><strong>Bill To</strong></td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="td-width1" style="border-bottom: none;">
+                                    <strong><%= data.invoice_billing_to %></strong><br>
+                                    <strong>Address : <%= data.invoice_address %>
+                                        <%= data.invoice_town %>
+                                        <%= data.invoice_tehsil_id %>
+                                        <%= data.invoice_district_id %>
+                                        <%= data.invoice_division_id %>
+                                        <%= data.invoice_state_id %>
+                                    </strong><br>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <table cellpadding="0" cellspacing="0" style="width:100%" class="invoice-table table-aligned-bottom">
+                        <tbody>
+                            <tr>
+                                <td class="td-width1" style="border-bottom: none;">
+                                    <strong>GSTIN No : <%= data.invoice_gst_no %></strong><br>
+                                    <strong>State Code : <%= data.invoice_state_code %></strong><br>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </td>
+
+
+
+
+                <!-- <div>
+                  <span>
+                      <%
+                      var partyType='';
+                      %>
+                      <div class="party-heading"> <strong>Party-1</strong></div>
+                      <% data.members.forEach(function(rows){ %>
+    
+                      <% if(partyType != rows.arbitration_agreement_party_number  && partyType){ %>
+                      <div class="party-heading"><strong>Party <%= rows.arbitration_agreement_party_number %></strong></div>
+                      <% }else{ %>
+    
+                      <% } %>
+                      <p>
+                          <span>
+                              <%= rows.member_title %> <%= rows.member_name %>
+                          </span>
+                          <%= rows.member_relation_of %> <%= rows.member_relation_name %>
+    
+                          <% if(rows.business_name && rows.business_name != ''){ %>
+                          <br>On Behalf of
+                          <%= rows.business_name %> (<%= rows.designation %>)
+                          <% } %>
+    
+    
+                          <% if(rows.on_behalf_of && rows.on_behalf_of != ''){ %>
+                          <br>On Behalf of
+                          <%= rows.on_behalf_of %>
+                          <% } %>
+                      </p>
+    
+    
+                  <%
+                  partyType=rows.arbitration_agreement_party_number;
+                  %>
+    
+                  <% }); %>
+                  </span>
+              </div> -->
+
+                <td class="right-table">
+                    <table cellpadding="0" cellspacing="0" style="width:100%" class="table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="3" class="text-center"><strong>Description of Document</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Type of Document</span></strong></td>
+                                <td style="width: 30px !important"><%= data.service_details_id %> (<%= data.service_detail_documents_id %>)</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span><% if(locals.settingData.document_category_for_monthly_rent.split(',').indexOf(data.service_details_id) >= 0){ %>Monthly Lease Rent<% } else { %>Document Value<% } %></span></strong></td>
+                                <td style="width: 30px!important"><%= site.formatCurrencyObj(data.agreement_value) %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Stamp Paper Number</span></strong></td>
+                                <td style="width: 30px!important"><%= data.stamp_number %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Date of Execution</span></strong></td>
+                                <td style="width: 30px!important"><%= site.momentObj(data.stamp_date).format("DD-MM-YYYY") %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Document W.E.F</span></strong></td>
+                                <td style="width: 30px!important"><%= site.momentObj(data.document_valid_from).format("DD-MM-YYYY") %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Document Valid Up To</span></strong></td>
+                                <td style="width: 30px!important"><%= site.momentObj(data.document_valid_to).format("DD-MM-YYYY") %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Document Executed At</span></strong></td>
+                                <td style="width: 30px!important"><%= data.stamp_town %>,<%= data.stamp_district_id %>,<%= data.stamp_division_id %>,<%= data.stamp_state_id %></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Nyaya Card Number</span></strong></td>
+                                <td style="width: 30px!important"><%= data.ar_id %></td>
+                            </tr>
+                            <!--                        <tr>
+                                                        <td><strong><span>Arb. Agreement Date</span></strong></td>
+                                                        <td><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></td>
+                                                    </tr>-->
+                            <tr>
+                                <td style="width: 70px!important"><strong><span>Valid Period of Nyaya Card</span></strong></td>
+                                <td style="width: 30px!important">
+                                    <%
+                                    var new_date = site.momentObj(data.added_date, "DD-MM-YYYY").add(parseInt(data.fess.holiday_period), 'M');
+                                    %>
+                                    <%# site.momentObj(new_date).format("DD-MM-YYYY") %>
+
+                                    <%
+                                    var new_date = site.momentObj(new_date).add(parseInt(data.fess.arbitration_agreement_total_year), 'Y');
+                                    %>
+
+                                    <%= site.momentObj(data.fess.nc_start_date).format("DD-MM-YYYY") %> To <%= site.momentObj(data.fess.nc_end_date).format("DD-MM-YYYY") %> 11:59:59 PM
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="headingtxt sec-mid">Description of Fee</div>
+        <table cellpadding="0" cellspacing="0" style="width:100%" class="offset-top-10 table-bordered main-table">
+
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong>Sr. No.</strong> </td>
+                <td class="td-middle-width td-width-small text-center"><strong>SAC</strong></td>
+                <td class="td-width2 td-width3 text-center" style="vertical-align: middle;"><strong>Description</strong></td>
+                <td class="td-middle-width"></td>
+                <td class="td-width1 td-with-auto text-center" style="vertical-align: middle;"><strong>Amount in INR</strong></td>
+            </tr>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong>1</strong> </td>
+                <td class="td-middle-width td-width-small"><strong> <%= settingData.sac_key_for_invoice %> </strong> </td>
+                <td class="td-width2 td-width3"><strong>Basic Fee</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><%= site.formatCurrencyObj(data.fess.arbitration_agreement_basic_fee) %></td>
+            </tr>
+
+
+            <% nextYr=0; %>
+            <% for(var i=1; i<= data.fess.arbitration_agreement_total_year; i++) { %>
+            <%
+            if(i==1)
+            curYr=data.fess.arbitration_agreement_start_year;
+            else
+            curYr=nextYr;
+            nextYr=parseInt(data.fess.arbitration_agreement_start_year)+i;
+            %>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong><%= i+1 %></strong></td>
+                <td class="td-middle-width td-width-small"><strong> <%= settingData.sac_key_for_invoice %> </strong> </td>
+                <td class="td-width2 td-width3"><strong>Nyaya Card Fee for F.Y. <%= curYr %>-<%= nextYr %></strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_per_year_fee) %></td>
+            </tr>
+
+            <% } %>
+            <% if(data.parent_arbitration_agreements_id != 0){ %>
+            <% var tAmntBfrtax =  data.fess.arbitration_agreement_basic_fee + (data.fess.arbitration_agreement_per_year_fee * data.fess.arbitration_agreement_total_year) %>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong>TOTAL AMOUNT BEFORE TAX</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong><%= site.formatCurrencyObj(tAmntBfrtax) %></td>
+            </tr>
+            <% } %>
+
+            <% if(data.fess.arbitration_agreement_services_discount > 0){ %>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong>DISCOUNT (<%= data.fess.arbitration_agreement_services_discount_per %>%)</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong> -<%= data.fess.arbitration_agreement_services_discount %></td>
+            </tr>
+            <% } %>
+
+            <% if(data.fess.arbitration_agreement_renew_discount > 0){ %>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong>NO DISPUTE BONUS (<%= data.fess.arbitration_agreement_renew_discount_per %>%)</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong> -<%= data.fess.arbitration_agreement_renew_discount %></td>
+            </tr>
+            <% } %>
+
+
+
+
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong>TOTAL PAYABLE AMOUNT BEFORE TAX</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_total_fees_without_tax) %></td>
+            </tr>
+
+            <% data.tax.forEach(function(rows){ %>
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong><%= rows['tax_name'] %>(<%= rows['tax_value'] %>%)</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong><%= site.formatCurrencyObj(rows['tax_amount']) %></td>
+            </tr>
+            <% }); %>
+
+
+            <tr>
+                <td class="td-middle-width td-width-tiny"><strong></strong></td>
+                <td class="td-middle-width td-width-small"><strong> &nbsp; </strong> </td>
+                <td class="td-width2 td-width3" align="right"><strong>TOTAL AMOUNT PAYABLE INCLUSIVE OF GST</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td class="td-width1 td-with-auto text-center"><strong></strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_total_fees) %></td>
+            </tr>
+            <tr>
+                <td  colspan="3" class="td-middle-width td-width-tiny" align="right"><strong>AMOUNT IN WORDS</strong></td>
+                <td class="td-middle-width text-center">:</td>
+                <td colspan="1" class="td-middle-width td-width-tiny text-center text-capital">Rs. <%= site.numberToWord(data.fess.arbitration_agreement_total_fees) %> Only</td>
+            </tr>
+
+
+        </table>
+
+        <!-- <tr>
+            <td>
+                <table cellpadding="0" cellspacing="0" style="width:100%" class="offset-top-35">
+    
+                    <tr class="fee-td">
+    
+                        <td style="padding:0 ;width:40%">
+                            <table cellpadding="0" cellspacing="0" style="width:100%" class="table-bordered">
+                                <tr>
+                                    <td style="background-color:#ffebd9"><span>Nyaya Card Basic Fee</span></td>
+                                </tr>
+    
+                                <% nextYr=0; %>
+                                <% for(var i=1; i<= data.fess.arbitration_agreement_total_year; i++) { %>
+                                <%
+                                if(i==1)
+                                curYr=data.fess.arbitration_agreement_start_year;
+                                else
+                                curYr=nextYr;
+                                nextYr=parseInt(data.fess.arbitration_agreement_start_year)+i;
+                                %>
+                                <tr> <td style="background-color:#ffebd9"><span>Nyaya Card Fee for F.Y. <%= curYr %>-<%= nextYr %></span></td></tr>
+                                <% } %>
+                                <% if(data.fess.arbitration_agreement_services_discount > 0){ %>
+                                <tr><td style="background-color:#d6f2e2"><span>Discount to Consumer (<%= data.fess.arbitration_agreement_services_discount_per %>%)</span></td></tr>
+                                <% } %>
+    
+                                <% if(data.fess.arbitration_agreement_renew_discount > 0){ %>
+                                <tr><td style="background-color:#d6f2e2"><span>No Dispute bonus (<%= data.fess.arbitration_agreement_renew_discount_per %>%)</span></td></tr>
+                                <% } %>
+    
+                                <tr><td style="background-color:#d6f2e2"><span>Total</span></td></tr>
+    
+                            </table>
+                        </td>
+    
+                        <td align="right" style="padding:0 ;width:60%">
+                            <table cellpadding="0" cellspacing="0" style="width:100%" class="table-bordered">
+                                <tr>
+                                    <td align="right"><strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_basic_fee) %></strong></td>
+                                </tr>
+                                <% for(var i=1; i<= data.fess.arbitration_agreement_total_year; i++) { %>
+                                <tr><td align="right"><strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_per_year_fee) %></strong></td></tr>
+                                <% } %>
+    
+                                <% if(data.fess.arbitration_agreement_services_discount > 0){ %>
+                                <tr><td style="background-color:#d6f2e2" align="right">
+                                        <strong>
+                                            -<%= data.fess.arbitration_agreement_services_discount %>
+                                        </strong></td></tr>
+                                <% } %>
+    
+                                <% if(data.fess.arbitration_agreement_renew_discount > 0){ %>
+                                <tr><td style="background-color:#d6f2e2" align="right">
+                                        <strong>
+                                            -<%= data.fess.arbitration_agreement_renew_discount %>
+                                        </strong></td></tr>
+                                <% } %>
+    
+                                <tr><td style="background-color:#d6f2e2" align="right"><strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_total_fees_without_tax) %></strong></td></tr>
+                            </table>
+    
+    
+                        </td>
+                    </tr>
+                    <tr style="">
+                        <td style="padding:0 ;width:40%; padding-top:15px;">
+                            <table cellpadding="0" cellspacing="0" style="width:100%" class="table-bordered">
+                                <% data.tax.forEach(function(rows){ %>
+                                <tr><td style="background-color:#d6f2e2"><%= rows['tax_name'] %>@<%= rows['tax_value'] %>%</td></tr>
+                                <% }); %>
+    
+                                <tr><td style="background-color:#ffebd9"><strong>Grand Total</strong></td></tr>
+                            </table>
+                        </td>
+                        <td align="right" style="padding:0 ;width:60%;padding-top:15px;">
+                            <table cellpadding="0" cellspacing="0" style="width:100%" class="table-bordered">
+                                <% data.tax.forEach(function(rows){ %>
+                                <tr><td align="right"><strong><%= site.formatCurrencyObj(rows['tax_amount']) %></strong></</td></tr>
+                                <% }); %>
+    
+                                <tr><td style="background-color:#ffebd9" align="right"><strong><%= site.formatCurrencyObj(data.fess.arbitration_agreement_total_fees) %></strong></td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr> -->
+        <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table offset-top-35">
+            <tr>
+                <td class="" style="padding:0">
+                    <table cellpadding="0" cellspacing="0" style="width:100%" class="">
+                        <tr>
+                            <td align="left" style="vertical-align: middle">
+                                <ul style="padding-left: 10px;">
+                                    <li> The Authenticity of this invoice should be verified at <a href="http://www.nyayaportal.in/">www.nyayaportal.in</a>, any discrepancy in the details on this receipt and as available on the website renders it invalid. </li>
+                                    <li>    This is Computer Generated Invoice. No Signature is Required. We thank you for your business and the trust you have placed on us by purchasing this product. Please keep this invoice for future reference.</li>
+                                </ul>
+                            </td>
+                            <td align="right" style="vertical-align: middle; width: 200px;">
+                                <div class="footer-logo">
+                                    <span > <img src="<%= site.fullUrl %>/images/nat_logo_round.jpeg"  style="height:50px; width:auto"> </span>
+                                    <span>Thank you for choosing us.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+
+
+        </table>
+
+
+        <% if(show==1){ %>
+        <div class="fee-info" style="text-align: center;">
+            <a class="btn btn-primary button-next" href="/admin/arbitration_agreements/download_invoice/<%= data.id %>/0">Download Invoice</a>
+        </div>
+        <% } %>
+    </div>
+</div>

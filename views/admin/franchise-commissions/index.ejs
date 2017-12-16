@@ -1,0 +1,108 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%# include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content-header">
+    
+    <% if(extraVar.product_id==1){ %>
+    
+        <h1>Promoter Incentive for Nyaya Card</h1>
+    <% } else if(extraVar.product_id==3) { %>
+        <h1>Promoter Incentive for Membership</h1>
+    <% } else { %> 
+        <h1>Promoter Incentive for Nyaya Card</h1>
+    <%} %>
+    <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li></i> <%= extraVar.titleName %></li>
+        <!--<li class="active"></li>-->
+    </ol>
+</section>
+<section class="content">
+    
+            <div class="box box-primary">
+                <div class="filterBar">
+                    <div class="filterBarRight">
+                       <a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                    </div>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#Id</th>
+                                <th>Franchise Level</th>
+                                <th>Commision Type</th>
+
+                                <th>Commision Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.level.franchise_name %></td>
+                                <td>
+
+                                    <% if(rows.commission_type==0){ %>  
+                                    Rs
+                                    <% }else{ %>
+                                    %
+                                    <% } %>     
+
+                                </td>
+
+                                <td>
+                                    <%= rows.commission_value %>
+                                </td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+                                    <% 
+                                    if(rows.service_detail_id){
+                                    path='edit';
+                                    }else{
+                                    path='edit_provider';
+                                    }
+                                    %>
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= extraVar.product_id %>/<%= rows.id %>" title="Edit" >
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= extraVar.product_id %>/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                 <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                              <%- include ../helper/pagination_with_product_id.ejs %>
+                        </div>
+                    </div>
+                         
+                </div>
+            
+        <!-- /.col -->
+    </div>
+</section>

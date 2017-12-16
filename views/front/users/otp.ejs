@@ -1,0 +1,132 @@
+<!--<section class="Innerpage">-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <input type="hidden" value="<%= results.user_id %>" name="user_id" id="user_id" >
+      <div class="col-md-6 mobileDiv">
+        <form method="post" id="otpMobileSubmit">
+          <div class="form-row">
+            <label>Enter OTP from mobile</label>
+            <input type="text" class="form-control" name="mobile_otp" id="mobile_otp">
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn btn-orange submitOtp" forType="mobile" >Submit</button>
+          </div>
+        </form>
+        <div  class="otp-link" style="margin-left: -12px">
+          <ul>
+            <li>
+            <p style="display: none">Time left for resend OTP option : <span id="timer_rem_time_1"></span> seconds</p>
+            <a href="#" onclick="resendOtp('<%= results.user_id %>', 'mobile')" class="resendOtp" id="resendOtpLink_1"  style="display: none">Resend OTP</a></li>
+            <!--                        <li>or</li>
+                                                <li><a href="#"><i class="fa fa-phone"></i> Call for OTP</a></li>-->
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 emailDiv">
+        <form method="post" id="otpEmailSubmit">
+          <div class="form-row">
+            <label>Enter OTP from email</label>
+            <input type="text" class="form-control" name="email_otp" id="email_otp">
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn btn-orange submitOtp" forType="email" >Submit</button>
+          </div>
+        </form>
+        <div  class="otp-link" style="margin-left: -12px">
+          <ul>
+            <li>
+            <p style="display: none">Time left for resend OTP option : <span id="timer_rem_time_2"></span> seconds</p>
+            <a href="#" onclick="resendOtp('<%= results.user_id %>', 'email')" class="resendOtp" id="resendOtpLink_2" style="display: none">Resend OTP</a></li>
+            <!--                        <li>or</li>
+                                                <li><a href="#"><i class="fa fa-phone"></i> Call for OTP</a></li>-->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--</section>--> 
+
+<script type="text/javascript">
+    $(document).on('submit', '#otpEmailSubmit', function (e) {
+        e.preventDefault();
+
+        var otp = $('#email_otp').val();
+        var type = 'email';
+        confirmOtp(otp, type)
+
+    });
+
+    $(document).on('submit', '#otpMobileSubmit', function (e) {
+        e.preventDefault();
+
+        var otp = $('#mobile_otp').val();
+        var type = 'mobile';
+        confirmOtp(otp, type)
+
+    });
+
+    function confirmOtp(otp, type) {
+
+        var otpType;
+        var removeDiv;
+
+        if (type == 'mobile') {
+            if (otp == '') {
+                bootstrapNotify.showMessage('Please enter otp!', 'danger');
+                return false;
+            }
+            otpType = 'otp_mobile';
+            removeDiv = 'mobileDiv';
+
+        }
+        else if (type == 'email') {
+            if (otp == '') {
+                bootstrapNotify.showMessage('Please enter otp!', 'danger');
+                return false;
+            }
+            otpType = 'otp_email';
+            removeDiv = 'emailDiv';
+        }
+
+        $.ajax(
+                {
+                    type: "POST",
+                    url: '/common/confirm_otp',
+                    data: {
+                        otp: otp,
+                        otpType: otpType,
+                        user_id: $('#user_id').val()
+                    },
+//                    dataType: "json",
+//                    processData: false,
+//                    contentType: false,
+                    //json: true,
+                    cache: false,
+                    success: function (response) {
+                        if (response.status) {
+                            
+                            if (response.complete) {
+                                bootstrapNotify.showMessage(response.messages, 'success');
+                                setTimeout(function(){ window.location.href = '/users/login'; }, 4000);
+                            } else {
+                                bootstrapNotify.showMessage(response.messages, 'success');
+                                $('.' + removeDiv).fadeOut("normal", function () {
+                                    $(this).remove();
+                                });
+                            }
+                        } else {
+                            bootstrapNotify.showMessage(response.messages, 'danger');
+                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('not updated!', 'danger');
+                    }
+                });
+
+    }
+
+</script>

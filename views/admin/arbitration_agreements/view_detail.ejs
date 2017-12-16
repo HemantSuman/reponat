@@ -1,0 +1,400 @@
+<style>
+.wrapperDoc {
+    margin: 0 auto;
+    width: 100%;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size:12px;
+    font-weight:400;
+    background-color: white;
+}
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) no-repeat center center; background-size:400px;}
+    .newCls{
+        margin: 10px;
+        background-color: #fff;
+    }
+    .text-center{text-align: center;}
+    .text-right { text-align:right}
+    .text-left { text-align:left !important}
+    .parallel{display: inline-block; margin-right: -3px; width: 50%;}
+    .newCls{font-family: Tahoma, Geneva, sans-serif;}
+    .newCls{font-size:14px}
+    .sign,p.sign{ background: #f3f3f3; height: 40px}
+    .newClassForPadding{ padding: 20px;}
+    .border-img{width:100%; margin:10px auto; height:2px; max-width:100%}
+    p{ margin-bottom: 7px !important;}
+
+    .headingtxt {
+        text-align:center;
+        margin-bottom:15px;
+        font-weight:700;
+        font-size:15px;
+    }
+    .header .left .headingtxt { text-align: left; width:270px;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 11px; display: block;}
+    .headingtxt.mid{ padding:0px 0; color: #333; margin-bottom:7px;  margin-top:20px}
+    .trd-mid{ padding:0px 0; color: #333; margin-bottom:0px;  margin-top:0px}
+    .h-210 {height: 210px;}
+    .p-b-35 { padding: 0px 0px 35px;}
+    .p-b-10 { padding: 0px 0px 10px;}
+
+</style>
+<section class="content">
+
+    <div class="panel panel-default newCls">
+      <div class="wrapperDoc">
+        <div class="wrapperDoc-inner">
+        <image src="<%= site.fullUrl %>/images/stamp.jpg" style="width:100%;height:auto"/>
+        <div class="panel-body newClassForPadding">
+            <div class=""aggremtSign>
+                <h3 class="text-center" style="text-transform:uppercase;">Arbitration agreement</h3>
+                <img src="<%= site.fullUrl %>/images/border.jpg" style="" class="border-img">
+
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="left" valign="top" class="p-b-35">This arbitration agreement made on this <strong><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></strong> at <strong><%= data.agreement_place %></td>
+                    </tr>
+                    <tr> <td align="center" valign="top"><div class="headingtxt mid">BETWEEN</div></td></tr>
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px;" class="p-b-35">   <%
+                            var partyType='';
+                            %>
+                            <% data.members.forEach(function(rows){ %>
+
+                            <% if(partyType != rows.arbitration_agreement_party_number  && partyType){ %>
+
+
+
+
+                            <p class="text-center"><div class="headingtxt mid">AND</div></p>
+                            <% }else{ %>
+
+                            <% } %>
+
+                            <p>
+                                <% if(rows.user_type == 'behalf_of_company'){ %>
+                                <strong><%= rows.business_name %></strong>, through it’s <strong><%= rows.designation %></strong></strong>
+
+                                <% } else if(rows.user_type == 'power_of_attorney_holder') { %>
+                                <strong><%= rows.on_behalf_of %></strong> through it’s power of attorney holder
+                                <% } %>
+                                <span><strong><%= rows.member_title %></span> <%= rows.member_name %></strong> <span><%= rows.member_relation_of %></span>  <strong> Mr. <%= rows.member_relation_name %></strong>,
+                                Age- <strong><%= rows.member_age %> Year</strong>,
+                                <% if(rows.member_caste && rows.member_caste != ''){ %>
+                                Caste- <strong><%= rows.member_caste %></strong>,
+                                <% } %>
+                                <% if(rows.user_type == 'behalf_of_company'){ %>
+                                Business Address
+                                <% } else { %>
+                                Resident of
+                                <% } %>
+                                 -<strong><%= rows.member_address %></strong>,
+                                 Town/Kasba- <strong><%= rows.member_town %></strong>,
+                                 Tehsil- <strong> <%= rows.member_tehsil_id %></strong>,
+                                 District- <strong> <%= rows.member_district_id %></strong>,
+                                 State- <strong> <%= rows.member_state_id %></strong>
+
+                                <% if((rows.govt_id_type && rows.govt_id_type != '') || (rows.member_aadhar && rows.member_aadhar != '')){ %>
+                                (
+                                <% if(rows.govt_id_type && rows.govt_id_type != ''){ %>
+                                <%= rows.govt_id_type %> <strong><%= rows.govt_id_number %></strong>
+                                <% } %>
+
+                                <% if((rows.govt_id_type && rows.govt_id_type != '') && (rows.member_aadhar && rows.member_aadhar != '')){ %>
+                                ,
+                                <% } %>
+
+                                <% if(rows.member_aadhar && rows.member_aadhar != ''){ %>
+                                Aadhar number <strong><%= rows.member_aadhar %></strong>
+                                <% } %>
+                                )</p>
+                            <% } %>
+                            <%
+                            partyType=rows.arbitration_agreement_party_number;
+                            %>
+                            <!--</br>-->
+                            <% }); %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; padding:0px 0 15px;">WHEREAS if any disputes or differences arises between the aforesaid parties relating to <strong><%= data.service_details_id %> (<%= data.service_detail_documents_id %>)</strong>  dated <strong><%= site.momentObj(data.stamp_date).format("DD-MM-YYYY") %></strong>  and executed on stamp paper no. <strong><%= data.stamp_number %></strong>  at Town/Kasba- <strong><%= data.stamp_town %></strong>, District- <strong><%= data.stamp_district_id %></strong>, Division- <strong><%= data.stamp_division_id %></strong>, State- <strong><%= data.stamp_state_id %></strong> and effective from <strong><%= site.momentObj(data.document_valid_from).format("DD-MM-YYYY") %></strong> to <strong><%= site.momentObj(data.document_valid_to).format("DD-MM-YYYY") %></strong> </td>
+                    </tr>
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; padding:0px 0 15px;">AND WHEREAS the Parties agree that if any dispute arising out of or in connection with aforementioned agreement / contract, including any question regarding its existence, validity or termination, shall be referred to and finally resolved by arbitration in accordance with the National Arbitral Tribunal (Procedural) Rules, 2017.
+                            <% if(data.agreement_type == 'two'){ %>
+                            If either party is in disagreement with the arbitration result, either party will have the right to appeal to a second arbitration within a period of 60 days from the date of arbitration result in accordance with the National Arbitral Tribunal (Procedural) Rules, 2017 and the result of this second arbitration shall be final &amp; binding upon the parties.
+                            <% } %>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; padding:0px 0 10px; text-align: justify;">Now the parties hereby agree as follows: -</td>
+                    </tr>
+
+                    <% if(data.agreement_type == 'two'){ %>
+                        <tr>
+                        <td align="justify" valign="top" style="margin:0px; padding:0px 0 15px;">
+                            <ol style="margin:0px; padding:0px 0 0 13px;">
+                                <li style="margin:0px; text-align: justify;" class="p-b-10">The arbitration and appeal to a second arbitration shall be conducted by a sole arbitrator & Arbitrator shall be Appointed in accordance with the National Arbitral Tribunal (Procedural) Rules 2017. </li>
+                                <li style="margin:0px; text-align: justify;" class="p-b-10">The Arbitration and appeal to the second arbitration shall be administered by the National Arbitral Tribunal in accordance with the National Arbitral Tribunal (Procedural)  Rules, 2017. </li>
+                                <!--                    <li style="margin:0px; padding:0px 0 10px 0px;">The place of arbitration shall be <%= data.agreement_place %>
+                                                        <% if(data.agreement_type == 'two'){ %>
+                                                            and Place of Appeal shall be <%= data.place_of_appeal %>
+                                                        <% } %>
+                                                        , or such other place where any of the regional offices of National Arbitral Tribunal is situated. </li>-->
+                                <li style="margin:0px; text-align: justify; padding-bottom: 20px;" class="p-b-10">
+                                    The arbitration proceeding shall be held at any regional office of National Arbitral Tribunal in the state of <%= data.place_of_arbitration %> and the second arbitration proceeding shall be held at any regional office of National Arbitral Tribunal in the state of <%= data.place_of_appeal %>.
+                                </li>
+                                <li style="margin:0px; text-align: justify;" class="p-b-10">The language of Arbitration and the second arbitration proceeding shall be English/Hindi or both.</li>
+                            </ol></td>
+                    </tr>
+                    <% } else if(data.agreement_type == 'single') { %>
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; padding:0px 0 15px;">
+                            <ol style="margin:0px; padding:0px 0 0 13px;">
+                                <li style="margin:0px;" class="p-b-10">The arbitration shall be conducted by a sole arbitrator & Arbitrator shall be Appointed  in accordance with the National Arbitral Tribunal (Procedural) Rules 2017. </li>
+                                <li style="margin:0px;" class="p-b-10">The arbitration proceeding shall be held at any regional office of National Arbitral
+                                    Tribunal in the state of <%= data.place_of_arbitration %>. </li>
+                                <!--                    <li style="margin:0px; padding:0px 0 10px 0px;">The place of arbitration shall be <%= data.agreement_place %>
+                                                        <% if(data.agreement_type == 'two'){ %>
+                                                            and Place of Appeal shall be <%= data.place_of_appeal %>
+                                                        <% } %>
+                                                        , or such other place where any of the regional offices of National Arbitral Tribunal is situated. </li>-->
+                                <li style="margin:0px; text-align: justify;" class="p-b-10">The language of Arbitration proceeding shall be English/Hindi or both.</li>
+                                <li style="margin:0px; text-align: justify;" class="p-b-10">The award made by sole arbitrator shall be final & binding upon the parties.</li>
+                            </ol></td>
+                    </tr>
+                    <% } %>
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; text-align: justify;" class="p-b-35">In Witness whereof, this Agreement has been signed this <strong><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></strong> at <strong><%= data.agreement_place %> </strong>.</td>
+                    </tr>
+
+                    <tr>
+                        <td align="justify" valign="top" style="margin:0px; text-align: justify;">
+
+
+
+
+
+
+
+                            <!--#########################-->
+
+
+                            <!--<div class="row party-row">-->
+                            <% cls=''; counter=1; %>
+                            <% data.members.forEach(function(rows){ %>
+
+                            <% if(partyType != rows.arbitration_agreement_party_number  && partyType){ var cls='parallel'; %>
+                            <% if(counter !=1){ %>
+
+                            <% } %>
+                            <div class="arty-col-height h-210" style="width:48%; margin:0 1% 0 0%; text-align:left; padding:0px; display: inline-block;float: left;">
+                                <table class="main-table" style="width:100%">
+                                    <!--<div class="<%# cls %>">-->
+
+                                    <tr><td><div class="headingtxt mid text-left ">Signature </div></td></tr>
+                                    <tr><td class="sign">&nbsp;</td></tr>
+
+                                    <tr><td><span><%= rows.member_title %> <%= rows.member_name %> <%= rows.member_relation_of %> Mr. <%= rows.member_relation_name %></span></td></tr>
+                                    <% if(rows.business_name && rows.business_name != ''){ %>
+                                    <tr><td>
+
+
+                                            <span>On Behalf of
+                                                <%= rows.business_name %> (<%= rows.designation %>)
+
+                                            </span></td></tr>
+                                    <% } %>
+                                    <% if(rows.on_behalf_of && rows.on_behalf_of != ''){ %>
+                                    <tr><td>    <span>
+
+                                                On Behalf of
+                                                <%= rows.on_behalf_of %>
+
+                                            </span></td></tr> <% } %>
+                                    <% if(rows.govt_id_type && rows.govt_id_type != ''){ %>
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <%= rows.govt_id_type %>: <strong><%= rows.govt_id_number %></strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                    <!-- <tr>
+                                        <td>
+                                            <p>
+                                                Resident of -<strong><%= rows.member_address %></strong>,
+                                                Town/Kasba- <strong><%= rows.member_town %></strong>,
+                                                Tehsil- <strong> <%= rows.member_tehsil_id %></strong>,
+                                                District- <strong> <%= rows.member_district_id %></strong>,
+                                                State- <strong> <%= rows.member_state_id %></strong>
+                                            </p>
+                                        </td>
+                                    </tr> -->
+                                    <tr><td><p><strong> Party-<%= rows.arbitration_agreement_party_number %> member-<%= rows.member_no %></strong></p></td></tr>
+                                </table>
+                            </div>
+                            <% }else{ var cls=''; %>
+                            <div class="party-col-height h-210" style="width:48%; margin:0 1% 0 0%; text-align:left; padding:0px; display: inline-block;float: left;">
+                                <table class="main-table" style="width:100%">
+                                    <tr><td><div class="headingtxt text-left mid">Signature </div></td></tr>
+                                    <tr><td class="sign">&nbsp;</td></tr>
+                                    <tr><td><span><%= rows.member_title %>                   <%= rows.member_name %>
+                                                <%= rows.member_relation_of %> Mr.
+                                                <%= rows.member_relation_name %>
+
+                                                <%# rows.member_title %> <%# rows.member_name %></span></td></tr>
+
+                                    <% if(rows.business_name && rows.business_name != ''){ %>
+                                    <tr><td>
+                                            <span> On Behalf of
+                                                <%= rows.business_name %> (<%= rows.designation %>)
+                                            </span></td></tr>
+                                    <% } %>
+
+
+                                    <% if(rows.on_behalf_of && rows.on_behalf_of != ''){ %>
+                                    <tr><td><span>
+                                                On Behalf of
+                                                <%= rows.on_behalf_of %>
+                                            </span></td></tr>
+                                    <% } %>
+
+                                    <% if(rows.govt_id_type && rows.govt_id_type != ''){ %>
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <%= rows.govt_id_type %>: <strong><%= rows.govt_id_number %></strong>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                    <!-- <tr>
+                                        <td>
+                                            <p>
+                                                Resident of -<strong><%= rows.member_address %> </strong>,
+                                                Town/Kasba- <strong><%= rows.member_town %></strong>,
+                                                Tehsil- <strong> <%= rows.member_tehsil_id %></strong>,
+                                                District- <strong> <%= rows.member_district_id %></strong>,
+                                                State- <strong> <%= rows.member_state_id %></strong>
+                                            </p>
+                                        </td>
+                                    </tr> -->
+                                    <tr><td><p><strong>Party-<%= rows.arbitration_agreement_party_number %> member-<%= rows.member_no %></strong></p></td></tr>
+                                </table>
+                            </div>
+                            <% } %>
+                            <!--</div>-->
+                            <%
+                            partyType=rows.arbitration_agreement_party_number;
+                            %>
+
+                            <% if(counter == data.members.length){ %>
+                            <!--                </div>-->
+                            <% } %>
+
+                            <%
+                            partyType=rows.arbitration_agreement_party_number;
+                            counter++;
+                            %>
+                            <% }); %>
+
+                            <!--###########################-->
+
+                            <!--##########-->
+
+
+                        </td>
+                    </tr>
+
+
+
+                    <% if(data.first_witness_name && data.first_witness_name !=''){ %>
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px 0 15px;">
+
+
+                            <div class="headingtxt text-left mid">Witness 1.</div>
+                            <p class="sign">&nbsp;</p>
+                            <span><%= data.first_witness_title %></span> <strong style="margin:0px; padding:0px 0 0 0px;"><%= data.first_witness_name %></strong> <span style="margin:0px; padding:0px 0 0 0px;"><%= data.first_witness_relation %></span> Mr. <strong><%= data.first_witness_relation_name %></strong><% if(data.first_witness_age != '' && data.first_witness_age ){ %>, Age-<strong><%=data.first_witness_age%> Year</strong><% } %>
+
+                            <!--<p> <%# data.first_witness_address %></p>-->
+                            <!-- <span>
+                                Resident of -<strong><%= data.first_witness_address %></strong>, Town/Kasba- <strong><%= data.first_witness_town %></strong>, Tehsil- <strong> <%= data.first_witness_tehsil_id %></strong>, District- <strong> <%= data.first_witness_district_id %></strong>, State- <strong> <%= data.first_witness_state_id %></strong>
+                            </span> --><br>
+                            <span> <%= data.first_witness_govt_identity_types_id %> <strong>  <%= data.first_witness_govt_id_number %></strong></span><% if(data.first_witness_aadhar_no != '' && data.first_witness_aadhar_no ){ %>, Aadhar number   <strong> <%= data.first_witness_aadhar_no %></strong>
+                            <% } %>
+
+                        </td>
+                    </tr>
+                    <% } %>
+
+                    <% if(data.second_witness_name && data.second_witness_name !=''){ %>
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px 0 15px;">
+
+
+                            <div class="headingtxt text-left mid">Witness 2.</div>
+                            <p class="sign">&nbsp;</p>
+                            <span><%= data.second_witness_title %></span> <strong style="margin:0px; padding:0px 0 0 0px;"><%= data.second_witness_name %></strong> <span style="margin:0px; padding:0px 0 0 0px;"><%= data.second_witness_relation %></span> Mr. <strong><%= data.second_witness_relation_name %></strong></span><% if(data.second_witness_age != '' && data.second_witness_age ){ %>, Age-<strong><%=data.second_witness_age%> Year</strong><% } %>
+                             
+                            <!--<%# data.second_witness_address %>-->
+                            <!-- <span>
+                            Resident of -<strong><%= data.second_witness_address %> </strong>, Town/Kasba- <strong><%= data.second_witness_town %></strong>, Tehsil- <strong> <%= data.second_witness_tehsil_id %></strong>, District- <strong> <%= data.second_witness_district_id %></strong>,State- <strong> <%= data.second_witness_state_id %></strong>
+                            </span> --><br>
+                            <span> <%= data.second_witness_govt_identity_types_id %> <strong><%= data.second_witness_govt_id_number %></strong></span><% if(data.second_witness_aadhar_no != '' && data.second_witness_aadhar_no ){ %>, Aadhar number <strong><%= data.second_witness_aadhar_no %></strong>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px;">
+                            <% if(data.parent_arbitration_agreements_id == 0){ %>
+                            <a href="/admin/arbitration_agreements/edit/<%=data.id%>/<%=data.product_id%>" id="backButton--" class="btn btn-primary">Back to Edit</a>
+                            <% }  %>
+                            <button type="button" id="gotoFeeDetail" class="btn btn-primary button-next" style="float: right;">Proceed to Payment</button>
+                        </td>
+                    </tr>
+
+                    <tr> <td align="left" valign="top"><div class="headingtxt text-left mid">Note :</div></td></tr>
+
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px 0 15px; text-align: justify;">
+                            <strong style="margin:0px; padding:0px 10px 0 0;">1.</strong> This arbitration agreement is created at <a href="//nyayaportal.in" target="_blank">www.nyayaportal.in</a> is valid only when it will be either e-signed or manually signed by all the parties and witnesses. At the time of dispute submission, original arbitration agreement, either e-signed or manually has to be produced with the claim. Any discrepancy in the agreement will make this document invalid to take the benefits of Nyaya Card at the time of dispute submission. Please make sure that all the parties to this agreement have exchanged the duly signed copies.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px 0 15px; text-align: justify;">
+                            <strong style="margin:0px; padding:0px 10px 0 0;">2.</strong> E-Sign is legally valid and it is a recognized form of signature under the provisions of Information Technology Act, 2000. Section 2(t)(a) of Information Technology Act, 2000, confirms the usage of eSign while Section III of the Act provides for authentication of electronic records. The Government of India through a notification in <a href='http://cca.gov.in/cca/sites/default/files/files/eSign_gazette_notification.pdf' target="_blank">The Gazette of India, Extraordinary, Part II, Section III, dated January 28th, 2015</a>, has recognised the usage of eSign.
+
+                        </td>
+                    </tr>
+<!--                    <tr>
+                        <td align="left" valign="top" style="margin:0px; padding:0px; text-align: justify;">
+                            <strong style="margin:0px; padding:0px 10px 0 0;">3.</strong>  The Authenticity of this Arbitration agreement if e-signed, should be verified at <a href="www.nyayaportal.in" target="_blank">www.nyayaportal.in</a> Any discrepancy in the details on this agreement and as available on the website renders it invalid.
+
+                        </td>
+                    </tr>-->
+
+
+                </table>
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+</section>
+

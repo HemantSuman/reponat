@@ -1,0 +1,49 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header --> 
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/update' enctype="multipart/form-data">
+                    <input type="hidden" name='id' value='<%= results.my_model.id %>'>
+                    <input type="hidden" value="<%= extraVar.master_type %>" name="master_type" >
+                    <div class="box-body">
+
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Professional Type</label>
+
+                            <input type="text" class="form-control" id="master_name" name='master_name' value="<%= results.my_model.master_name %>">
+                            <label class="error_mgs_lable" id="master_name_error"></label>
+
+                        </div>
+                        
+                        <div class="form-group col-md-12">
+                            <div class="checkbox">
+                                <label>                           
+                                    <input type="checkbox" name="is_active"  id="is_active" <%= (results.my_model.is_active==0)? '':'checked' %> >Status
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.master_type %>" class="btn btn-primary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+        </div>
+    </div>
+</section>

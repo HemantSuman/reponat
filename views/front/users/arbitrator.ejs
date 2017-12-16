@@ -1,0 +1,115 @@
+<div class="row form-row">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Full Name<span class="required">*</span></label>
+        <input type="text" class="form-control" id="first_name" name="first_name">
+        <label class="errorMsg" id="first_name_error"></label>
+    </div>
+
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Email Address<span class="required">*</span></label>
+        <input type="text" class="form-control" id="email" name="email">
+        <label class="errorMsg" id="email_error"></label>
+    </div>
+    
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Mobile<span class="required">*</span></label>
+        <input type="text" class="form-control" id="mobile" name="mobile">
+        <label class="errorMsg" id="mobile_error"></label>
+    </div>
+    
+</div>
+
+<div class="row form-row">
+    
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Profession type<span class="required">*</span></label>
+        <select class="form-control custom-select" id="profession_type_id" name="arbitrator_details[profession_type_id]">
+            <option value=""> Please Select </option>
+
+
+            <%for (var i=0; i< profession_type.length; i++) {%>
+            <option value="<%= profession_type[i]['id'] %>">
+                <%= profession_type[i]['profession_type'] %>
+            </option>
+            <% } %>
+
+        </select>
+        <label class="errorMsg" id="profession_type_id_error"></label>
+
+    </div>
+    
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Court type<span class="required">*</span></label>
+        <select class="form-control custom-select" id="service_court_type_id" name="arbitrator_details[service_court_type_id]">
+            <option value=""> Please Select </option>
+
+
+            <%for (var i=0; i< court_type.length; i++) {%>
+            <option value="<%= court_type[i]['id'] %>">
+                <%= court_type[i]['court_types'] %>
+            </option>
+            <% } %>
+
+        </select>
+        <label class="errorMsg" id="service_court_type_id_error"></label>
+
+    </div>
+
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Registration number</label>
+        <input type="text" class="form-control" id="registration_number" name="arbitrator_details[arbitrator_registration_number]">
+        <input type="hidden" class="form-control" name="arbitrator_profile_documents[]">
+        <label class="errorMsg" id="registration_number_error"></label>
+    </div> 
+
+    
+
+        
+
+</div>
+
+<div class="row form-row">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password" name="password">
+            <label class="errorMsg" id="password_error"></label>
+        </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Confirm Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+            <label class="errorMsg" id="password_confirm_error"></label>
+        </div> 
+</div>
+
+
+
+ 
+<div class="office_address">
+
+    <!--<h3>Office Details</h3>-->
+    <!-- <label>
+     <input type="checkbox" name="" id=""> Same as residence address?
+    </label> --> 
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <label>Experience Detail</label>
+            <textarea class="form-control" id="bussiness_address" rows="5" name="arbitrator_details[experience_detail]"></textarea>
+            <label class="errorMsg" id="bussiness_address_error"></label>
+        </div>
+    </div> 
+
+    <!-- <div class="row form-row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Select Village</label>
+            <select class="form-control custom-select" id="office_village_id" name="bussiness_details[office_village_id]">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="office_village_id_error"></label>
+        </div>
+        
+        
+
+    </div>  -->
+
+</div>

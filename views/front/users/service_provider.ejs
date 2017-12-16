@@ -1,0 +1,53 @@
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Select Type<span class="required">*</span></label>
+        <select class="form-control custom-select" id="provider_type" name="provider_type">
+            <option value="">--Please Select--</option>
+                  <option value="individual">Individual</option>
+                  <option value="firm/company">Firm/Company</option>
+        </select>
+        <label id="provider_type_error"></label>
+    </div>
+	<div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Full Name<span class="required">*</span></label>
+        <input type="text" class="form-control" id="first_name" name="first_name">
+        <label class="errorMsg" id="first_name_error"></label>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Email Address<span class="required">*</span></label>
+        <input type="text" class="form-control" id="email" name="email">
+        <label class="errorMsg" id="email_error"></label>
+    </div>
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Mobile<span class="required">*</span></label>
+        <input type="text" class="form-control" id="mobile" name="mobile">
+        <label class="errorMsg" id="mobile_error"></label>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12 profession_type_element">
+        <label>Profession type<span class="required">*</span></label>
+        <select class="form-control custom-select" id="role_type_id" name="role_type_id">
+            <option alias="select" value="">Please Select</option>
+            <% results.role_types.forEach(function(value){ %>
+            <option value="<%= value['id'] %>"><%= value['role_type_name'] %></option>
+            <% }); %>
+        </select>
+        <label class="errorMsg" id="role_type_id_error"></label>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Password<span class="required">*</span></label>
+        <input type="password" class="form-control" id="password" name="password">
+        <label class="errorMsg" id="password_error"></label>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <label>Confirm Password<span class="required">*</span></label>
+        <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+        <label class="errorMsg" id="password_confirm_error"></label>
+    </div> 
+</div> 

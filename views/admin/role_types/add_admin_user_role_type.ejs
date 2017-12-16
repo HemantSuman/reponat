@@ -1,0 +1,111 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/admin-users-role-types/<%= extraVar.role_type %><%= extraVar.role_id %>"  class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+            </div>
+            
+            <!-- /.box-header --> 
+            <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create-admin-user-role-types' enctype="multipart/form-data">
+                    <div class="box-body">
+                        <input type="hidden" value="<%= extraVar.role_id %>" name="role_id" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group ">
+                                    <label for="exampleInputEmail1"><%= extraVar.titleName %><em>*</em></label>
+
+                                    <input type="text" class="form-control" id="role_type_name" name='role_type_name'>
+                                    <label class="error_mgs_lable" id="role_type_name_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Set Permissions</h3>
+                                        <div class="box-tools pull-right">
+                                            <div class="form-group">
+                                                <div class="chk-outer">      
+                                                    <input type="checkbox" id="select_all" >
+                                                    <label for="select_all"> Select All</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <% results.acl_data.forEach(function(value,index){  %>
+                                            <% if(value.role_list.length){ %>
+                                                <h3><%= value.name %></h3>
+
+                                                <div class="row admin-user-role-list">
+                                                <% value.role_list.forEach(function(value2,index2){  %>
+                                                	<div class="col-lg-4 col-sm-6">
+                                                    <h5><%= value2.acl_list_name %></h5>
+                                                    
+                                                    <%# JSON.stringify(value2) %>
+                                                    <%# value2['position'] %>
+                                                    
+                                                    <% if(value2.position && value2.position != ''){ var res = value2.position.split(","); var icon = value2.icon.split(","); var counter=0; %>
+                                                    
+                                                    <% res.forEach(function(types,indexType){  %>
+                                                    <div class="chk-outer"> <input type="checkbox" id='chkbox_<%= icon[counter] %>' value='<%= icon[counter] %>' name="perms_data[<%= value.slug %>___<%= value.id %>][]" class="per_chckbx">  <label for='chkbox_<%= icon[counter] %>'> <%= types %> </label> </div>
+                                                    <% counter++ });  %>    
+                                                    <% } %>
+                                                    </div>
+                                                <% });  %> 
+                                                </div>
+                                            <% } %>
+                                        <% });  %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="chk-outer">
+                                                                 
+                                            <input type="checkbox" name="is_active"  id="is_active" checked ><label for="is_active">   Status
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                         <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a href="/admin/<%= extraVar.viewDirectory %>/admin-users-role-types/<%= extraVar.role_type %><%= extraVar.role_id %>" class="btn btn-primary">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function() {
+        $("#select_all").change(function(ev) {
+            //per_chckbx
+            if($(this).prop("checked") == true) {
+                $(".per_chckbx").prop("checked", true)
+            } else {
+                $(".per_chckbx").prop("checked", false)
+            }
+        })
+    })
+</script>

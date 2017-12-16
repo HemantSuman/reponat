@@ -1,0 +1,50 @@
+.loginWrap
+{
+	.btn-orange,
+	.btn-gray
+	{
+		display: block;
+		width: 100%;
+		
+	}
+
+}
+.login-link
+{
+	position: relative;
+	 padding: 100px 0 0 30px;
+	ul
+	{
+		li
+		{
+			display: block;
+			margin: 10px 0;
+			a
+			{
+				display: inline-block;
+				border-bottom: 2px solid $bluebg;
+				color: $bluebg;
+				font-size: $font16;
+				&:hover
+				{
+					color: $orangebg;
+					border-bottom: 2px solid $orangebg;
+
+				}
+				
+			}
+		}
+	}
+	&:before
+	{
+		 content: '';
+		 display: block;
+		  height: 225px;
+		   width: 1px;
+		    position: absolute;
+		    top:0;
+		    left:0;
+		     background:url(../img/login-sep.png) 0 0 no-repeat;
+
+	}
+}

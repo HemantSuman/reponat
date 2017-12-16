@@ -1,0 +1,164 @@
+
+
+<div class="office_address">
+
+    <h3>Branch Details</h3>
+    <!-- <label>
+     <input type="checkbox" name="" id=""> Same as residence address?
+    </label> --> 
+
+    <div class="row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Branch Name<span class="required">*</span></label>
+            <input type="text" class="form-control" id="bussiness_name" name="bussiness_details[bussiness_name]">
+            <label class="errorMsg" id="bussiness_name_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Branch Address<span class="required">*</span></label>
+            <input type="text" class="form-control" id="bussiness_address" name="bussiness_details[bussiness_address]">
+            <label class="errorMsg" id="bussiness_address_error"></label>
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Country<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_country_id" name="bussiness_details[office_country_id]" onChange="getStates(this.value, 'office_state_id');">
+                <option value="">Please Select</option>
+                <% for(var i=0; i < countries.length; i++) { %>
+
+                <option value="<%= countries[i]['id'] %>">
+                    <%= countries[i]['country_name'] %>
+                </option>
+                <% } %>
+            </select>
+            <label class="errorMsg" id="office_country_id_error"></label>
+        </div>
+
+
+
+    </div> 
+
+    <div class="row form-row">
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>State<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_state_id" name="bussiness_details[office_state_id]" onChange="getDistricts(this.value, 'office_district_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="office_state_id_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>District<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_district_id" name="bussiness_details[office_district_id]" onchange="getTehsils(this.value, 'office_tehsil_id');">            
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="office_district_id_error"></label>
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Tehsil<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_tehsil_id" name="bussiness_details[office_tehsil_id]" onchange="getBlocks(this.value, 'office_block_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="office_tehsil_id_error"></label>
+        </div>
+
+
+
+    </div>
+
+    <div class="row form-row">
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Block<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_block_id" name="bussiness_details[office_block_id]" onchange="getVillages(this.value, 'office_village_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="office_block_id_error"></label>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>PIN code</label>
+            <input type="text" class="form-control" id="office_pincode" name="bussiness_details[office_pincode]">
+            <label class="errorMsg" id="office_pincode_error"></label>
+        </div> 
+       
+
+    </div>
+
+  
+
+    <h3>Contact person Details</h3>
+
+    <div class="row form-row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Full Name<span class="required">*</span></label>
+            <input type="text" class="form-control" id="first_name" name="first_name">
+            <label class="errorMsg" id="first_name_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Email Address<span class="required">*</span></label>
+            <input type="text" class="form-control" id="email" name="email">
+            <label class="errorMsg" id="email_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Mobile<span class="required">*</span></label>
+            <input type="text" class="form-control" id="mobile" name="mobile">
+            <label class="errorMsg" id="mobile_error"></label>
+        </div>
+
+    </div>
+    
+
+    <div class="row form-row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Contact Person Designation</label>
+            <input type="text" class="form-control" id="associated_user_designation" name="bussiness_details[associated_user_designation]">
+            <label class="errorMsg" id="associated_user_designation_error"></label>
+        </div>
+
+         <div class="col-md-4 col-sm-12 col-xs-12">
+        <label>Registration number</label>
+        <input type="text" class="form-control" id="registration_number" name="bussiness_details[registration_number]">
+        <label class="errorMsg" id="registration_number_error"></label>
+    </div> 
+
+     <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password" name="password">
+            <label class="errorMsg" id="password_error"></label>
+        </div>       
+
+
+    </div> 
+
+ <div class="row form-row">
+     <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Confirm Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+            <label class="errorMsg" id="password_confirm_error"></label>
+        </div> 
+ </div>
+
+</div>
+
+ 
+
+<div class="row form-row">
+        
+        
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <label>Description</label>
+            <textarea class="form-control" id="description" rows="5" name="description"></textarea>
+            <label class="errorMsg" id="description_error"></label>
+        </div>
+
+    </div>
+

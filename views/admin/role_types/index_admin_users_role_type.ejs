@@ -1,0 +1,63 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/add-admin-user-role-type/<%= extraVar.role_id %>"  class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+        <div class="box-body">
+                <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#Id</th>
+                                <th><%= extraVar.titleName %></th>
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.role_type_name %></td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit-admin-user-role-type/<%= extraVar.role_id %>/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete-admin-user-role-type/<%= extraVar.role_id %>/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                    </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+
+                         <%- include ../helper/pagination.ejs %>
+                         </div>
+                    </div>
+                 </div>
+
+        <!-- /.col -->
+    </div>
+</section>

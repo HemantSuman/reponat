@@ -1,0 +1,35 @@
+<% if(reqData.no_of_years > 0) { %>
+    <div class="box">
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover documentListingTable">
+                <tbody>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Duration in years</th>
+                        <th>Fee Value</th>
+                        <!-- <th>Action</th> -->
+                    </tr>
+                    
+                    <% for(j = 1; j <= reqData.no_of_years; j++ ) { %>
+                        <tr>
+                            <td><%= j %></td>
+                            <td><%= j %> <% if(j > 1) { %>Years <% } else { %>Year<% } %></td>
+                            <td>
+                                <input type="text" name="membership_plan_fees[<%= j %>][fees]" class="form-control">
+                                <input type="hidden" name="membership_plan_fees[<%= j %>][number_of_years]" value="<%= j %>">
+                                <% if(reqData.ie == 1) { %>
+                                    <input type="hidden" name="membership_plan_fees[<%= j %>][membership_plan_id]" value="<%= reqData.up_prm_id %>">
+                                <% } %>
+                                <label class="error_mgs_lable" id="fees_<%= j %>_error"></label>
+                            </td>
+                            <!-- <td>
+                                <a class="btn btn-danger btn-xs" href="javascript:void(0);"><i class="fa fa-close"></i></a>
+                            </td> -->
+                        </tr>
+                    <% } %>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+<% } %>

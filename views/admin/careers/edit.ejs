@@ -1,0 +1,55 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+
+    <!-- general form elements -->
+    <div class="box box-primary">
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%=extraVar.viewDirectory%>/update' enctype="multipart/form-data">
+            <input type="hidden" name='id' value='<%= results.id %>'>
+            <div class="box-body">
+                <div class="row">    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name<em>*</em></label>
+
+                            <input type="text" class="form-control" value="<%= results.title%>" id="arbitrator_name" name='title'>
+                            <lable class="error_mgs_lable" id="title_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Description<em>*</em></label>
+
+                            <textarea onkeypress="onTestChange();" rows="8" type="text" class="form-control" id="description" name='description' ><%= results.description%></textarea>
+                            <lable class="error_mgs_lable" id="description_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div> 
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+</section>
+
+<script>
+    $(function() {
+        CKEDITOR.replace('description', {
+            basicEntities: false
+        });
+    })
+</script>

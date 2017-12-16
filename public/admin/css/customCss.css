@@ -1,0 +1,30 @@
+.error_mgs_lable {
+	color: #d8000c
+}
+
+.register-section .form-control {
+    border-color: #ccc;
+    border-radius: 0;
+}
+.register-page .main-header .logo{ width: auto; height: auto; float: none;}
+.register-page .main-header{ max-height: 100%; background: #fff}
+
+input[type="file"].form-control{padding: 4px 6px; height: auto; min-height: 34px; max-height: 34px}
+.register-body form{ padding: 20px}
+.register-body .form-group{ margin-bottom: 9px}
+.register-body .form-group.register-btn{ text-align: right; }
+.register-btn .btn{ display: inline-block; padding: 12px 20px; line-height: 100%; width: auto;}
+.otp-verify{ padding: 25px 15px}
+.otp-link {
+    position: relative;
+    padding: 10px 0;}
+    .otp-link ul li {
+    display: inline-block;
+    margin: 0 10px;
+}
+.otp-link ul li a {
+    display: inline-block;
+    border-bottom: 2px solid #267ec2;
+    color: #267ec2;
+    font-size: 16px;
+}

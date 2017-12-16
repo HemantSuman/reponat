@@ -1,0 +1,92 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<style>
+    .sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    .sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+    .sortable li span { position: absolute; margin-left: -1.3em; }
+</style>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" class="ftbl" method='post'>
+                <div class="table-responsive full-tbl">
+                    <table class="table table-bordered" id="fd-tbl">
+                        <tr class="">
+                            <th>First News</th>
+                            <th>Second News</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr class="">
+                            <td><%= rows.first_news %></td>
+                            <td><%= rows.second_news %></td>
+                            <td>
+                                <% if(rows.is_active==1){ %>
+                                <input class="newsToggle" type="checkbox" data-size="small" checked data-toggle="toggle" newsId="<%= rows.id %>" >
+                                <% }else{ %>
+                                <input class="newsToggle" type="checkbox" data-size="small" data-toggle="toggle" newsId="<%= rows.id %>" >
+                                <% } %>
+
+                            </td>
+                            <td>
+                                <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                <!--<a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>-->
+                            </td>
+
+                        </tr>
+                        <% }); %>
+
+                    </table>
+                </div>
+                <%- include('../element/no-record.ejs', {results:results}); %>
+        </div>
+        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+        </form>
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <%- include ../helper/pagination_with_product_id.ejs %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</section>
+<script>
+    $(function () {
+        $('.newsToggle').change(function () {
+            console.log($(this).prop('checked'))
+            if ($(this).prop('checked')) {
+                var toggleStatus = 1;
+            } else {
+                var toggleStatus = 0;
+            }
+            var id = $(this).attr('newsId');
+            $.ajax({
+                url: '/admin/news/change_status',
+                data: {toggleStatus: toggleStatus, id: id},
+                method: "POST",
+                cache: false,
+                success: function (response) {
+                    if(response.status){
+                        window.location = response.url;
+                    }
+                }
+            })
+//            $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+        })
+    })
+</script>

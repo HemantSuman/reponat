@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../element/head.ejs %>
+        <% include ../element/css.ejs %>
+    </head>
+    <body class="hold-transition <%= site.theme %>">
+        <div class="wrapper">
+
+            <header class="main-header">
+
+                <% include ../element/header.ejs %>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <% include ../element/sidebar.ejs %>
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <%-body %>     
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <% include ../element/footer.ejs %>
+            </footer>
+
+            <!-- Control Sidebar -->
+            <span>
+                <%# include ../element/control_sidebar.ejs %>
+            </span>
+
+        </div>
+        <!-- ./wrapper -->
+
+
+
+        <div id="bankDetailsAdd" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        
+        <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content  e-sign-popup">
+            <div class="modal-header">
+                <h3 class="modal-title">Reminder to add Bank Account Details</h3>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                To get the incentives in your bank account, Please update your bank account on your profile. It will be activated within 24 working hours and it is recommended to start your business operation after bank detail verifications.
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <a href="/admin/users/profile" class="btn btn-default">UPDATE NOW</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="bRCan1" style="display:none">Cancel</button>
+                <a href="/admin/users/profile" class="btn btn-default" id="bRCan2">Cancel</a>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+        <% include ../element/js.ejs %>
+        <script>
+           $(window).on('resize load', function() {
+                $(".select2").select2();
+            });
+            
+            $(function(){
+                <% if (messages.type_messages){ %>
+                    bootstrapNotify.showMessage('<%= messages.messages %>', '<%= messages.type_messages %>');
+                <% } %>
+            });
+    
+        <% if(loginUser.user_type.role_type_slug == 'super_admin'){ %>    
+        $(document).ready(function () {
+        var d = new Date();
+        var weekday = new Array(7);
+        weekday[0] = "sunday";
+        weekday[1] = "monday";
+        weekday[2] = "tuesday";
+        weekday[3] = "wednesday";
+        weekday[4] = "thursday";
+        weekday[5] = "friday";
+        weekday[6] = "saturday";
+
+        var n = weekday[d.getDay()];
+        
+        var alertFlag=localStorage.getItem("payAlert");
+        console.log(alertFlag);
+        if(alertFlag==''){
+        alertFlag='yes';    
+        }
+        console.log(n,alertFlag);
+        
+        if(n=='monday' && alertFlag=='yes'){
+        $('#payConformWeek').modal('show');
+        }else{
+        if(n!='monday'){
+        localStorage.setItem("payAlert",'yes');   
+        }
+        }
+        });
+        <% } %>
+        
+        $("#alertConfirm").change(function() {
+        if(this.checked) {            
+            localStorage.setItem("payAlert",'no');    
+        }
+        });
+
+
+        <% 
+        if((loginUser.user_type.role_type_slug != 'super_admin') && (! loginUser.user_bank_details.account_no || loginUser.user_bank_details.account_no =='')){ 
+        %>
+        if(! $('#email').length){
+        $('#bankDetailsAdd').modal('show');
+
+        if($('#popBlockTrue').length){
+            $("#bRCan1").hide();
+            $("#bRCan2").show();
+        }else{
+
+        $("#bRCan1").show();
+        $("#bRCan2").hide();   
+
+        }
+
+        }
+        <% } %>
+
+        </script>
+        <%- script %>
+    </body>
+</html>

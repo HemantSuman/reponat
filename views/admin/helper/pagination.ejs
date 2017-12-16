@@ -1,0 +1,33 @@
+<% if (extraVar.pageCount > 1) {  %>
+<ul class="pagination pagination-sm no-margin pull-right">
+    <% if (extraVar.currentPage > 1) { %>
+    <li><a href="/admin/<%= extraVar.viewDirectory %>?page=<%= extraVar.pre %>" class="changePage">&laquo;</a></li>
+    <% } %>
+    <% var i = 1;
+    if (extraVar.currentPage > 5) {
+    i = +extraVar.currentPage - 4;
+    } %>
+    <% if (i !== 1) { %>
+    <!--<li class="disabled"><a href="#">...</a></li>-->
+    <% } %>
+    <% for (i; i<=extraVar.pageCount; i++) { %>
+    <% if (extraVar.currentPage == i) { %>
+    <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+    <% } else { %>
+    <li><a href="/admin/<%= extraVar.viewDirectory %>?page=<%= i %>" class="changePage"><%= i %></a></li>
+    <% } %>
+    <% if (i == (+extraVar.currentPage + 4)) { %>
+    <!--<li class="disabled"><a href="#">...</a></li>-->
+    <% break; } %>
+    <% } %>
+    <% if (extraVar.currentPage != extraVar.pageCount) { %>
+    <li><a href="/admin/<%= extraVar.viewDirectory %>?page=<%= extraVar.next %>" class="changePage">&raquo;</a></li>
+    <% } %>
+</ul>
+<% } %>
+<% 
+    var prePage = parseInt(locals.site.currentPage) - 1;
+    var totalRecordPrePage = prePage * parseInt(locals.settingData.page_list_limit);
+    var newSerialNo = parseInt(totalRecordPrePage) + 1;
+  %>
+ <input type="hidden" value="<%= newSerialNo %>" id="newSerialStartNo" >

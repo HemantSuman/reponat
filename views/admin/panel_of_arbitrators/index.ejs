@@ -1,0 +1,98 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<style>
+    .sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    .sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
+    .sortable li span { position: absolute; margin-left: -1.3em; }
+</style>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" class="ftbl" method='post'>
+                <div class="table-responsive h-800 full-tbl">
+                    <table class="table table-bordered" id="fd-tbl">
+                        <thead>
+                            <tr class="noSerialNo">
+                                <th>&nbsp</th>
+                                <th>S.No.</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr id="<%= rows.id %>" class="noSerialNo">
+                                <td class="handle"><i class="fa fa-arrows"></i></td>
+                                <td><%= rows.position %></td>
+                                <td><%= rows.arbitrator_name %></td>
+                                <td style="width:20px;"><%- rows.description %></td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+                        </tbody>
+
+                    </table>
+                </div>
+                <%- include('../element/no-record.ejs', {results:results}); %>
+        </div>
+        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+        </form>
+    </div>
+    <!-- /.box-body -->
+
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <%- include ../helper/pagination_with_product_id.ejs %>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<script>
+    $(function () {
+        $("tbody").sortable({
+            handle: ".handle",
+            update: function (event, ui) {
+//            console.log(ui,event);
+                console.log($(this).sortable('serialize'));
+                console.log($(this).sortable("toArray"));
+                $.ajax({
+                    url: '/admin/panel_of_arbitrators/sortable_list',
+                    data: {sortArr: $(this).sortable("toArray")},
+                    type: 'POST',
+                    success: function (response) {
+                        if (response.status) {
+                            bootstrapNotify.showMessage(response.message, 'success');
+                        }
+                    }
+                })
+
+            }
+        });
+//    $( ".sortableTable" ).disableSelection();
+    });
+</script>

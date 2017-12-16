@@ -1,0 +1,211 @@
+<div class="panel panel-default position_relative" id="parties_<%=data.party_no%>">
+    <div class="panel-heading">Party No. <span class="partyNoTitleCount"></span></div>
+    <div class="panel-body">
+        <a party_no="<%=data.party_no%>" href="javascript:void(0);" class="closeParty partyCloseDivClass" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+        <div class="position_relative party_content" id="party_content_<%=data.party_no%>">
+            <div id="member_content_<%=data.party_no%>_<%=data.member_no%>" class="member_content_class">
+                <a party_no="<%=data.party_no%>" member_no="<%=data.member_no%>" href="javascript:void(0);" class="closeMember memberCloseDivClass_<%=data.party_no%>_<%=data.member_no%>" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                <div class="panel panel-default">
+                    <div class="panel-body panel-grey">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="hidden" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][arbitration_agreement_party_number]" value="<%=data.party_no%>" >
+                                <input type="hidden" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][party_no]" value="<%=data.party_no%>" >
+                                <input type="hidden" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_no]" value="<%=data.member_no%>" >
+                                <div class="radio-btn">
+                                    <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][user_type]" type="radio" value='individual' class="userTypeCls" userTypeAlias='individual' checked="checked" party_no='<%=data.party_no%>' member_no='<%=data.member_no%>' id="individual<%= data.party_no %><%= data.member_no %>"/><label for="individual<%= data.party_no %><%= data.member_no %>"> Individual </label>
+                                    <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][user_type]" type="radio" value='behalf_of_company' class="userTypeCls" userTypeAlias='behalf_of_company' party_no='<%=data.party_no%>' member_no='<%=data.member_no%>' id="comp<%= data.party_no %><%= data.member_no %>"/> <label for="comp<%= data.party_no %><%= data.member_no %>">Behalf of Company or Firm </label>
+                                    <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][user_type]" type="radio" value='power_of_attorney_holder' class="userTypeCls" userTypeAlias='power_of_attorney_holder' party_no='<%=data.party_no%>' member_no='<%=data.member_no%>' id="Attor<%= data.party_no %><%= data.member_no %>"  /> <label for="Attor<%= data.party_no %><%= data.member_no %>" >Power of Attorney Holder </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row userTypeBehalf_<%=data.party_no%>_<%=data.member_no%>">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-12">
+                                <label class="labeled name_of_party_member_title_<%=data.party_no%>_<%=data.member_no%>">Name of party<em>*</em></label>
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_title]" id="member_title_<%=data.party_no%>_<%=data.member_no%>" class=" inputtxt emptyValidation">
+                                    <option value="Mr.">Mr.</option>
+                                    <option value="Mrs.">Mrs.</option>
+                                    <option value="Miss.">Miss.</option><option value="Ms.">Ms.</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label> &nbsp; </label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_name]" id="member_name_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt emptyValidation" >
+                                <label class="errorMsg" id="member_name_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label class="d-f">
+                                    <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_relation_of]" type="radio" class="" value="S/O" checked="checked"> S/O
+                                    &nbsp;<input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_relation_of]" type="radio" class="" value="W/O" > W/O
+                                    &nbsp;<input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_relation_of]" type="radio" class="" value="D/O" > D/O
+                                </label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_relation_name]" id="member_relation_name_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt emptyValidation">
+                                <label class="errorMsg" id="member_relation_name_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <label> Age in Years <em>*</em></label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_age]" id="member_age_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt emptyValidation">
+                                <label class="errorMsg" id="member_age_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+
+                            <!-- <div class="col-md-2 col-xs-12">
+                                <label> Caste</label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_caste]" id="member_caste_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt">
+                                <label class="errorMsg" id="member_caste_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-xs-12">
+                                <label class="label_of_party_full_address_<%=data.party_no%>_<%=data.member_no%>">Full Address<em>*</em> </label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_address]" id="member_address_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt emptyValidation">
+                                <label class="errorMsg" id="member_address_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label> Town/Kasba <em>*</em></label>
+                                <input type="text" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_town]" id="member_town_<%=data.party_no%>_<%=data.member_no%>" class="inputtxt emptyValidation">
+                                <label class="errorMsg" id="member_town_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <label>Country <em>*</em></label>
+                                <input type="hidden" value="" id="member_country_id_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_country_primary_id]" >
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_country_id]" id="member_country_id_<%=data.party_no%>_<%=data.member_no%>" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                        formType="agreement" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'state_name asc', 'member_state_id_<%=data.party_no%>_<%=data.member_no%>', ['id', 'state_name'], ['member_division_id_<%=data.party_no%>_<%=data.member_no%>', 'member_district_id_<%=data.party_no%>_<%=data.member_no%>', 'member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>']);"
+                                        >
+                                    <% for(var i=0; i < data.countries.length; i++) { %>
+                                    <option primaryId="<%= data.countries[i]['id'] %>" value="<%= data.countries[i]['country_name'] %>" >
+                                        <%= data.countries[i]['country_name'] %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                                <label class="errorMsg" id="member_country_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>State <em>*</em></label>
+                                <input type="hidden" value="" id="member_state_id_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_state_primary_id]" >
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_state_id]" id="member_state_id_<%=data.party_no%>_<%=data.member_no%>" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                        formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'member_division_id_<%=data.party_no%>_<%=data.member_no%>', ['id', 'division_name'], ['member_district_id_<%=data.party_no%>_<%=data.member_no%>', 'member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>']);"
+                                        >
+                                    <option value="">State</option>
+                                    <% for(var i=0; i < data.states.length; i++) { %>
+                                    <option primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                        <%= data.states[i]['state_name'] %>
+                                    </option>
+                                    <% } %>
+                                </select>
+                                <label class="errorMsg" id="member_state_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-12">
+                                <label>Division<em>*</em></label>
+                                <input type="hidden" value="" id="member_division_id_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_division_primary_id]" >
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_division_id]" id="member_division_id_<%=data.party_no%>_<%=data.member_no%>" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                        formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'district_name asc', 'member_district_id_<%=data.party_no%>_<%=data.member_no%>', ['id', 'district_name'], ['member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>']);"
+                                        >
+                                    <option value="">Division</option>
+                                </select>
+                                <label class="errorMsg" id="member_division_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-2 col-xs-12">
+                                <label>District<em>*</em></label>
+                                <input type="hidden" value="" id="member_district_id_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_district_primary_id]" >
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_district_id]" id="member_district_id_<%=data.party_no%>_<%=data.member_no%>" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                        formType="agreement" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'tehsil_name asc', 'member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>', ['id', 'tehsil_name'], []);"
+                                        >
+                                    <option value="">District</option>
+                                </select>
+                                <label class="errorMsg" id="member_district_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>Tehsil<em>*</em></label>
+                                <input type="hidden" value="" id="member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_tehsil_primary_id]" >
+                                <select name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_tehsil_id]" id="member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>" class="  inputtxt emptyValidation onChangeForPrimaryId">
+                                    <option value="">Tehsil</option>
+                                </select>
+                                <label class="errorMsg" id="member_tehsil_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+
+                            <div class="col-md-2 col-xs-12">
+                                <label>Pincode</label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_pincode]" id="member_pincode_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt">
+                                <label class="errorMsg" id="member_pincode_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>Mobile Number<em>*</em></label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_mobile_number]" id="member_mobile_number_<%=data.party_no%>_<%=data.member_no%>" type="text" class="emptyValidation mobileDigitValidation inputtxt">
+                                <label class="errorMsg" id="member_mobile_number_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-md-3 col-xs-12">
+                                <label>Govt. ID Type</label>
+                                <input type="hidden" value="" id="govt_id_type_<%=data.party_no%>_<%=data.member_no%>_primary_id" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][govt_id_type_primary_id]">
+                                <select  name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][govt_id_type]" id="govt_id_type_<%=data.party_no%>_<%=data.member_no%>" class=" onChangeForPrimaryId inputtxt govt_id_type_class" party="<%=data.party_no%>" member="<%=data.member_no%>">
+                                    <option value="">--Please Select--</option>
+                                    <% for(var i=0; i < data.government_id_types.length; i++) { %>
+                                    <option primaryId="<%= data.government_id_types[i]['id'] %>" value="<%= data.government_id_types[i]['government_id_type_name'] %>" ><%= data.government_id_types[i]['government_id_type_name'] %></option>
+                                    <% } %>
+                                </select>
+                                <label class="errorMsg" id="govt_id_type_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>Govt ID Number</label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][govt_id_number]" id="govt_id_number_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt govt_id_number_class_<%=data.party_no%>_<%=data.member_no%> govtIdValidation">
+                                <label class="errorMsg" id="govt_id_number_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div> -->
+
+
+                            <div class="col-md-3 col-xs-12">
+                                <label>Email Address</label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_email]" id="member_email_<%=data.party_no%>_<%=data.member_no%>" type="email" class="inputtxt emailValidation">
+                                <label class="errorMsg" id="member_email_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <label>Aadhar Number for E-Sign<em>*</em></label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_aadhar]" id="member_aadhar_<%=data.party_no%>_<%=data.member_no%>" type="text" class="emptyValidation aadharDigitValidation inputtxt">
+                                <label class="errorMsg" id="member_aadhar_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>
+<!--                            <div class="col-md-2 col-xs-12">
+                                <label>PAN Number<em>*</em></label>
+                                <input name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][member_pan_number]" id="member_pan_number_<%=data.party_no%>_<%=data.member_no%>" type="text" class="inputtxt">
+                                <label class="errorMsg" id="member_pan_number_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+                            </div>-->
+                            <!--<div class="col-md-2 col-xs-12">
+                                <label>&nbsp;</label>
+                                <input type="button" class="btn btn-default inputtxt" value="Verify by e-KYC">
+                            </div>-->
+                        </div>
+                        <div class="row userTypePowerOf_<%=data.party_no%>_<%=data.member_no%>">
+
+                        </div>
+                        <div class="row" style="display: none;">
+                            <div class="col-sm-1">
+                                <img src="http://www.tenderyears-school.in/wp-content/uploads/2015/04/dummy-image.jpg" alt="" class="img-responsive">
+                            </div>
+                            <div class="col-sm-11">
+                                <p><strong>Register Information of the Party in Aadhar Card for e-KYC verification</strong></p>
+                                <p>Name: &lt;name of the user come from e-KYC service &gt;</p>
+                                <p>Address: &lt;address of the user come from e-KYC service &gt;</p>
+                                <p>Mobile: &lt;mobile no. of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+                                <p>Email: &lt;email of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row addMemberDiv_<%=data.party_no%> text-right">
+            <div class="col-md-12">
+                <button type="button" party_no="<%=data.party_no%>" member_no="<%=data.member_no%>" renderTemplate="admin/arbitration_agreements/other_member_form" modelnames="countries,states" rendringType='appendType' destinationid="party_content_<%=data.party_no%>" url="/common/loadAgreementTypeContent" class="btn btn-primary addMemberButton addMemberButton_<%=data.party_no%>"><i class="fa fa-plus-square" aria-hidden="true"></i> Add More Member</button>
+            </div>
+        </div>
+    </div>
+
+</div>

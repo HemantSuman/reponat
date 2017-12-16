@@ -1,0 +1,6 @@
+<% data.data.forEach(function(value,index){  %>
+<option value="<%= value.user_id %>">
+<%= value.first_name %>  
+(Mobile - <%= value.mobile %>)
+</option>
+<% });  %>

@@ -1,0 +1,54 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+
+    <!-- general form elements -->
+    <div class="box box-primary">
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%=extraVar.viewDirectory%>/update' enctype="multipart/form-data">
+            <input type="hidden" name='id' value='<%= results.id %>'>
+            <div class="box-body">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">First News<em>*</em></label>
+                            <input type="text" value="<%= results.first_news%>"  class="form-control" id="first_news" name='first_news'>
+                            <lable class="error_mgs_lable" id="first_news_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Second News<em>*</em></label>
+                            <input type="text" value="<%= results.second_news%>"  class="form-control" id="second_news" name='second_news'>
+                            <lable class="error_mgs_lable" id="second_news_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div> 
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+</section>
+
+<script>
+    $(function() {
+        CKEDITOR.replace('description', {
+            basicEntities: false
+        });
+    })
+</script>

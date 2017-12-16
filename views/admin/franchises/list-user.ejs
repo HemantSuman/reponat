@@ -1,0 +1,249 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'List of Professional'}); %>
+
+<section class="content">
+
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/franchises/add-user" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form role="form" name='serchFrom' method='get' action='/admin/franchises/list-user'>
+                <div class="row form-row-new">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="first_name" placeholder="Name" name="first_name" value="<% if(extraVar){ %><%= extraVar.first_name %><% } %>">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="area" placeholder="Town/Kasba" name="area" value="<% if(extraVar){ %><%= extraVar.area %><% } %>">
+                    </div>
+                    <!--                    <div class="col-md-2">
+                                            <input type="text" class="form-control" id="party_mobile_no" placeholder="Mobile Number" name="mobile" value="<% if(extraVar){ %><%= extraVar.mobile %><% } %>">  
+                                        </div>-->
+                    <div class="col-sm-2 form-group custom-select-outer">
+                        <select class="form-control select2" name="order_by">
+                            <option value="">Select</option>
+                            <option <% if(extraVar.order_by && extraVar.order_by == 'desc'){ %> selected<% } %> value="desc">Latest</option>
+                            <option <% if(extraVar.order_by && extraVar.order_by == 'asc'){ %> selected<% } %> value="asc">Oldest</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Reset Password">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <a class="btn btn-success blue" href="/admin/franchises/list-user" title="Clear Search">
+                            Clear Search
+                        </a> 
+                    </div>
+                    
+                    <br>
+                    
+                    <div class="col-md-12">
+                        <button class="btn btn-primary pull-right users-blk-upld-btn" type="button">XLS Upload</button>
+                        <a href="/sample_users_xls.xls" class="btn btn-primary pull-right" style="margin-right:2px">Download Sample Excel</a>
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="table-responsive">
+                <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Id</th>
+                            
+                            <th>Name</th>
+                            <th>Mobile No.</th>
+                            <th>Email</th>
+                            <th>Town/Kasba</th>
+                            <th>Date of Joining</th>
+                            <th><a href="<%= query_string%><%= sortStrNc %>" >Nyaya Card Created</a></th>
+                            <th><a href="<%= query_string%><%= sortStrM %>" >Membership Created</a></th>
+
+                        </tr>
+
+
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+
+                            
+                            <td><%= rows.gid %></td>
+                            <td><%= rows.first_name %></td>
+                            <td><%= rows.mobile %></td>
+                            <td><%= rows.email %></td>
+                            <td><%= rows.area %></td>
+                            <td><%= site.momentObj(rows.created).format('DD-MM-YYYY') %></td>
+                            <td><%= rows.no_card %></td>
+                            <td><%= rows.no_membership %></td>
+
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                </form>
+                <% if(results.length==0){ %>
+                <h5 class="box-title text-center">No record found</h5>
+                <% } %>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer clearfix">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%- include ../helper/pagination.ejs %>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>
+
+
+
+<div class="modal" id="users_bulk_upload">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="xls_upload_form" method="post" action="/admin/users/xls-upload-ap" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">XLS Upload</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Role Type<em>*</em></label>
+                            <select name="xls_role_type_id" class="form-control" id="xls_role_type_id">
+                                <option value="">Please select</option>
+                                <% data.forEach(function(value,index){  %>
+                                    <option value="<%= value.id %>"><%= value.role_type_name %></option>
+                                <% });  %>
+                            </select>
+                            <label class="error_mgs_lable" id="xls_role_type_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tehsil<em>*</em></label>
+                            
+                            <input type="hidden" value="<%= thData[0].country_id %>"  name="country_id"/>
+                            <input type="hidden" value="<%= thData[0].state_id %>" name="state_id"/>
+                            <input type="hidden" value="<%= thData[0].division_id %>" name="division_id"/>
+                            <input type="hidden" value="<%= thData[0].district_id %>" name="district_id"/>
+                            
+                            
+                            <select name="tehsil_id" class="form-control" id="tehsil_id">
+                                <option value="">Please select</option>
+                                <% thData.forEach(function(value,index){  %>
+                                    <option value="<%= value.tehsil_id %>">
+                                        <%= value.tehsil_name %>
+                                    </option>
+                                <% });  %>
+                            </select>
+                            <label class="error_mgs_lable" id="tehsil_id_eror"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Upload file<em>*</em></label>
+                            <input type="file" name="xls_file" class="form-control xls_file_users" id="xls_file_users">
+                        </div>
+                        <label class="error_mgs_lable" id="xls_file_users_eror"></label><br>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="b-u-errors" style="display: none">
+                            <p>Following errors need to be fixed in uploaded file :</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name='file_path' value='public/uploads/users-xls'>
+                    <input type="hidden" name="role_id" value="<%= loginUser.user_type.user_role.id %>">
+                    <button type="submit" class="btn btn-primary users-xls-sbmt-btn">Upload</button>
+                    <span class="prcs-txt hide">Please Wait ...</span>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+
+<script>
+
+    $(document).on("click", ".users-blk-upld-btn", function (ev) {
+        $("#users_bulk_upload").modal("show")
+    })
+
+
+    $(document).on("submit", "#xls_upload_form", function (ev) {
+        ev.preventDefault();
+        $(".error_mgs_lable").empty();
+        var status = 1;
+        
+        if ($("#xls_role_type_id").val() == "") {
+            $("#xls_role_type_id_error").text("Please select role type").show();
+            status = 0;
+        }
+        
+        if ($(".xls_file_users").val() == "") {
+            $("#xls_file_users_eror").text("Please select a file").show();
+            status = 0;
+        }
+        
+        if ($("#tehsil_id").val() == "") {
+            $("#tehsil_id_eror").text("Please select tehsil").show();
+            status = 0;
+        }
+
+        if (status) {
+            var thisObj = $(this);
+            var form = $(thisObj)[0];
+            var formData = new FormData(form);
+            $(".users-xls-sbmt-btn").addClass("hide");
+            $(".prcs-txt").removeClass("hide")
+            $.ajax({
+                url: $(thisObj).attr('action'),
+                data: formData,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                cache: false,
+                success: function (response) {
+                    $(".prcs-txt").addClass("hide")
+                    $(".users-xls-sbmt-btn").removeClass("hide");
+                    if (response.status) {
+                        window.location.href = response.url;
+                    } else {
+                        $("#b-u-errors").html("")
+                        $("#xls_file_users_eror").text(response.message).show();
+                    }
+                }, error: function (resData) {
+                    var errorsHtml = "<p style='margin-left: 3%'>Following errors need to be fixed in uploaded file :</p><ol>";
+                    $.each(resData.responseJSON.data, function (key, val) {
+                        errorsHtml += "<li>" + val.errors + "</li>"
+                    });
+                    $("#b-u-errors").html(errorsHtml + "</ol>").css("display", "block")
+                    $(".prcs-txt").addClass("hide")
+                    $(".users-xls-sbmt-btn").removeClass("hide");
+                }
+            });
+        } else {
+            return false;
+        }
+    })
+
+</script>

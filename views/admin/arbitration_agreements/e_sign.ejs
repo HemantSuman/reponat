@@ -1,0 +1,704 @@
+<section class="content">
+
+    <div class="panel panel-default">
+        <input type="hidden" value="<%= data.id %>" id="arbitration_id1" >
+        <div class="panel-heading">Get e-sign for Agreement</div>
+        <div class="panel-body">
+
+            <div class="eaggrement">
+
+                <p> To get Arbitration Agreement and Nyaya Card, you need to make e-sign of all the parties and witnesses involved in this agreement. e-SIGN can be only obtained with the help of Aadhar number. So for each party Aadhar number is required. Given Aadhar number on this Agreement are as follows. Please ensure their correctness and edit if needed and get your e-SIGN.</p><P> There is no payment involve now for further action to get Arbitration Agreement and Nyaya Card.</p>
+
+                <p><strong>NOTE:</strong> To get e-sign, all stake holder will get OTP on their registered mobile number with Aadhar</p>
+                <div class="row">
+
+                    <% data.members.forEach(function(rows){ %>
+                    <div class="col-md-12 col-xs-12">
+                        <p><strong>PARTY-<%= rows.arbitration_agreement_party_number %></strong></p>
+                        <p class="inline-element"><span><%= rows.member_title %></span> <strong><%= rows.member_name %></strong> <span><%= rows.member_relation_of %></span> Mr. <strong><%= rows.member_relation_name %></strong> Aadhar number 
+                        
+
+                        
+                        <div class="row">
+	                        <div class="col-sm-4">
+	                        	<div class="form-group">
+	                        	<input type="text" value="<%= rows.member_aadhar %>" class="inputtxt" id="ad_<%= rows.id %>" readonly>
+	                        	</div>
+	                        	
+
+
+	                        </div>
+	                        <div class="col-sm-4">
+	                        	<div class="form-group">
+	                        		<input type="text" value="<%= rows.member_mobile_number %>" class="inputtxt" id="ph_<%= rows.id %>" readonly>
+	                        	</div>
+	                        	<div class="form-group">
+								<% var styl_show=''; if(rows.e_sign==0){ %>
+
+                        		<% if(! data.esign_id){  styl_show='display:none'; %>
+                        	
+                        		<% } %>
+		                        <span class="hide_verify_click_<%= rows.id %> link_<%= rows.id %>" id="link_<%= rows.id %>" style="<%= styl_show %>">
+		                        <!-- <a  style="dispaly:none" href="#" onclick="m_verfiy('pop_',<%= rows.id %>)" style="dispaly:none">Verfiy by Mobile no.</a> -->
+		                        </span>
+                        		<% } %>
+	                        	</div>
+	                        </div>
+
+
+                            <div class="col-sm-2 showCheck_<%= rows.id %>" style="display:none;">
+                            <div class="form-group">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="color:#4F8A10;font-size:20px"></i>
+                            </div>
+                            </div>
+
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                <% var styl_show=''; if(rows.e_sign==0){ %>
+
+                        <% if(! data.esign_id){  styl_show='display:none'; %>
+                            
+                        <% } %>
+                        <span class="hide_verify_click_<%= rows.id %> link_<%= rows.id %>" id="link_<%= rows.id %>" style="<%= styl_show %>">
+                        <a href="#" onclick="loadDigio('<%= rows.member_mobile_number %>','pc_<%= rows.id %>',<%= rows.id %>)"  class="btn" >Get E-Sign</a>
+                        </span>
+                        <% } %>
+                            </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <input type="hidden" value="<%= rows.e_sign %>" class="verify_sts" id="verify_sts_<%= rows.id %>" readonly>
+
+                        
+                        
+
+                        
+                        </p>
+                        <p><span style="color: red"></span> 
+                            <span class="chk-outer">
+                                <span style="display:none">
+                                <input type="checkbox" name="otp_manual" value="<%= rows.id %>" 
+                                id="otpesign<%= rows.arbitration_agreement_party_number %>_<%= rows.member_no %>">
+                                </span>
+                                <label for="otpesign<%= rows.arbitration_agreement_party_number %>_<%= rows.member_no %>"></label>
+                            </span> 
+                        </p>
+                    </div> 
+                    <% }); %>
+
+
+                    <% if(data.first_witness_name && data.first_witness_name !=''){ %>
+                    <div class="col-md-12 col-xs-12">
+                        <p><strong>WITNESS-1</strong></p>
+                        <p class="inline-element">
+                        <span><%= data.first_witness_title %></span> <strong><%= data.first_witness_name %></strong> <span><%= data.first_witness_relation %></span> Mr. <strong><%= data.first_witness_relation_name %></strong> Aadhar number 
+
+                        
+                        
+                        <div class="row">
+	                    <div class="col-sm-4">
+
+	                    <div class="form-group">	
+                        <input type="text" value="<%= data.first_witness_aadhar_no %>" class="inputtxt" id="ad_w1" readonly>
+                        </div>
+
+                       
+
+
+                        <input type="hidden"  value="<%= data.first_witness_esign %>" class="verify_sts" id="verify_sts_w1" readonly>
+
+                        </div>
+
+                         <div class="col-sm-4">	
+                         <div class="form-group">	
+                         <input type="text" value="<%= data.first_witness_mobile %>" class="inputtxt" id="ph_w1" readonly>
+                         </div>
+                         <div class="form-group">
+                         <% var styl_show=''; if(data.first_witness_esign==0){ %>
+                        <% if(! data.esign_id){  styl_show='display:none'; %>                        	
+                        <% } %>
+
+                        <span class="hide_verify_click_w1 link_w1" id="link_w1" 
+                        style="<%= styl_show %>">
+                        <!-- <a href="#" onclick="m_verfiy('pop_','w1')" style="dispaly:none">Verfiy by Mobile no.</a> -->
+                        </span>
+                        <% } %>
+                         </div>
+
+                         </div>
+
+
+                        <div class="col-sm-2 showCheck_w1" style="display:none;">
+                            <div class="form-group">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="color:#4F8A10;font-size:20px"></i>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                        <% var styl_show=''; if(data.first_witness_esign==0){ %>
+                        <% if(! data.esign_id){  styl_show='display:none'; %>                           
+                        <% } %>
+
+                        <span class="hide_verify_click_w1 link_w1" id="link_w1" 
+                        style="<%= styl_show %>">
+                        <a href="#" 
+                        onclick="loadDigio('<%= data.first_witness_mobile  %>','pc_1','w1')" class="btn" >Get E-Sign</a>
+                        </span>
+                        <% } %>
+                        
+                        </div>
+                        </div>
+
+
+                        </div>
+
+                        
+
+
+
+                        
+                        </p>
+                        <p><span style="color: red"></span>
+                            <span class="chk-outer">
+                                <span style="display:none">
+                                <input type="checkbox" name="otp_manual2" value="0" id="otpesign_w_1"> 
+                                </span>
+                                <label for="otpesign_w_1"></label>
+                            </span>
+
+                            </p>
+
+                    </div>
+                    <% } %>
+
+
+
+                    <% if(data.second_witness_name && data.second_witness_name !=''){ %>
+                    <div class="col-md-12 col-xs-12">
+                        <p><strong>WITNESS-2</strong></p>
+                        <p class="inline-element">
+                        <span>
+                        <%= data.second_witness_title %></span> <strong><%= data.second_witness_name %></strong> <span><%= data.second_witness_relation %></span> Mr. <strong><%= data.second_witness_relation_name %></strong> Aadhar number 
+
+                        
+                        <div class="row">
+	                    <div class="col-sm-4">
+
+	                    <div class="form-group">
+
+                        <input type="text" value="<%= data.second_witness_aadhar_no %>" class="inputtxt" id="ad_w2" readonly>
+                        </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="col-sm-4">
+
+                        <div class="form-group">
+                        <input type="text" value="<%= data.second_witness_mobile %>" class="inputtxt" id="ph_w2" readonly>
+                        </div>
+
+                        <div class="form-group">
+                        <% var styl_show=''; if(data.second_witness_esign==0){ %>
+
+                        <% if(! data.esign_id){  styl_show='display:none'; %>
+                        	
+                        <% } %>
+                        <span class="hide_verify_click_w2 link_w2" id="link_w2" 
+                        style="<%= styl_show %>">
+                        <!-- <a href="#" onclick="m_verfiy('pop_','w2')" style="dispaly:none">Verfiy by Mobile no.</a> -->
+                        </span>
+                        <% } %>	
+                        </div>
+
+                        </div>
+
+
+                        <div class="col-sm-2 showCheck_w2" style="display:none;">
+                            <div class="form-group">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="color:#4F8A10;font-size:20px"></i>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                        <div class="form-group">
+                        <% var styl_show=''; if(data.second_witness_esign==0){ %>
+
+                        <% if(! data.esign_id){  styl_show='display:none'; %>
+                            
+                        <% } %>
+                        <span class="hide_verify_click_w2 link_w2" id="link_w2" 
+                        style="<%= styl_show %>">
+                        <a href="#" 
+                        onclick="loadDigio('<%= data.second_witness_mobile  %>','pc_2','w2')" class="btn">Get E-Sign</a>
+                        </span>
+                        <% } %> 
+                        </div>
+                        </div>
+
+
+
+                        <input type="hidden" value="<%= data.second_witness_esign %>" class="verify_sts" id="verify_sts_w2" readonly>
+
+                        </div>
+
+                        
+
+
+                        
+                        </p>
+                        <p><span style="color: red"></span> 
+                            <span class="chk-outer">
+                                <span style="display:none">
+                                <input type="checkbox" name="otp_manual2" value="0" id="otpesign_w_2"> 
+                                </span>
+                                <label for="otpdesign_w_2"></label>
+                            </span>
+                        </p>
+                    </div>
+                    <% } %>
+
+
+                </div>
+
+                <!-- <p class="text-right"><button id="viewNextButton" class="btn">Next</button></p> -->
+                <% if(! data.esign_id){ %>
+                <p class="text-right" style="display:none"><button id="get_esign" class="btn">GET E-Sign</button></p>
+                <% } %>
+
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content  e-sign-popup">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">OTP Registration</h3>
+            </div>
+            <div class="modal-body">
+                <p>If your Aadhar card is associated with your mobile no. then you will be getting OTP to enter here.</p>
+                <div class="row">
+                    <% data.members.forEach(function(rows){ %>
+                    <div class="col-md-6 col-xs-12 hide_pop" id="pop_<%= rows.id %>" style="display:none">
+                        <div class="form-group">
+                            <div>OTP for <%= rows.member_title %> <%= rows.member_name %></div>
+                            <div>Aadhar no -  <%= rows.member_aadhar %></div>
+                            <span class="inputSpan">
+                            <input type="text" value="" class="inputtxt" id="otp_<%= rows.id %>"></span> 
+                            <!-- <a href="#" class="text-center">Resend</a> -->
+                        </div>
+                    </div>
+                    <% }); %>    
+
+                    <% if(data.first_witness_name && data.first_witness_name !=''){ %>
+                    <div class="col-md-6 col-xs-6 hide_pop" id="pop_w1" style="display:none">
+                        <div class="form-group">
+                            <div>OTP for <%= data.first_witness_title %> <%= data.first_witness_name %></div>
+                            <div>Aadhar no - <%= data.first_witness_aadhar_no %></div>
+                            <span class="inputSpan">
+                            <input type="text" value="" class="inputtxt" id="otp_w1">
+                            </span> <!-- <a href="#"  class="text-center">Resend</a> --></p>
+                        </div>    
+                    </div>
+                    <% } %>
+
+
+                    <% if(data.second_witness_name && data.second_witness_name !=''){ %>
+                    <div class="col-md-6 col-xs-6 hide_pop" id="pop_w2" style="display:none">
+                        <div class="form-group">
+                            <div>OTP for <%= data.second_witness_title %> <%= data.second_witness_name %></div> 
+                            <div>Aadhar no -  <%= data.second_witness_aadhar_no %></div>
+                            <span class="inputSpan">
+                            <input type="text" value="" class="inputtxt" id="otp_w2">
+                            </span> <!-- <a href="#" class="text-center">Resend</a> -->
+                        </div>
+                    </div>
+                    <% } %>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- <a href="/admin/arbitration_agreements/view_agreement/<%= data.id %>/1" class="btn btn-default" id="finalSubmit" >Submit</a> -->
+                <!--<button type="button" class="btn btn-default" id="finalSubmit" data-dismiss="modal">Submit</button>-->
+
+                <a href="#" class="btn btn-default" onclick="verify_opt()">Verify</a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="/admin/js/digio.js" ></script>
+<script>
+var docId='<%= data.esign_id %>';
+var processId;
+var aa_id='<%= data.aa_id %>'
+var ar_id='<%= data.id %>'
+var m_otp;
+var m_id;
+
+
+function verify_opt(){
+
+	if(m_id=='w1' || m_id=='w2'){
+
+	$.ajax({
+           url: '/admin/arbitration_agreements/check_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:m_id,mobile_otp:$('#'+m_otp).val(),id:ar_id},
+           cache: false,
+           success: function (response) {
+           		 var response = JSON.parse(response);
+           	     if(response.status){
+               	 $(".hide_verify_click_"+m_id).hide();
+				 $('#myModal').modal('hide');
+				 $('#verify_sts_'+m_id).val(1);
+				 allChk();
+				}else{
+				alert(response.message);	
+				//bootstrapNotify.showMessage(response.message);	
+				}
+           }
+    });		
+
+	}else{
+
+	$.ajax({
+           url: '/admin/arbitration_agreements/check_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:m_id,mobile_otp:$('#'+m_otp).val(),id:ar_id},
+           cache: false,
+           success: function (response) {
+
+           		 var response = JSON.parse(response);
+
+           		 console.log(response);	
+           		 console.log(response.status);
+
+           	     if(response.status){
+               	 $(".hide_verify_click_"+m_id).hide();
+				 $('#myModal').modal('hide');
+				 $('#verify_sts_'+m_id).val(1);
+				 allChk();
+				 }else{
+				alert(response.message); 	
+				//bootstrapNotify.showMessage(response.message);	 	
+				}
+
+           }
+    });	
+
+    }
+    
+}
+
+
+	function m_verfiy(slug,id){
+
+	 if(id=='w1' || id=='w2'){
+
+	 var w_type='otp_w1';
+
+	 if(id=='w2')	
+     	w_type='otp_w2';
+
+	 $.ajax({
+           url: '/admin/arbitration_agreements/resend_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:id,id:ar_id},
+           cache: false,
+           success: function (response) {
+               	 $('.hide_pop').hide();	
+				 $('#'+slug+id).show(); 	
+				 $('#myModal').modal('show');
+
+				 m_otp=w_type;
+				 m_id=id;
+           }
+     });	
+	 
+	 }else{	
+	 $.ajax({
+           url: '/admin/arbitration_agreements/resend_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:id},
+           cache: false,
+           success: function (response) {
+               	 $('.hide_pop').hide();	
+				 $('#'+slug+id).show(); 	
+				 $('#myModal').modal('show');
+
+				 m_otp='otp_'+id;
+				 m_id=id;
+           }
+       });
+	   }	
+	}
+
+
+
+
+
+    $(document).on('click', '#viewNextButton', function () {
+        var checkBoxStatus = false;
+        $('input[name="otp_manual"]').each(function (index, value) {
+            var thisObjChk = $(this);
+
+            if (!$(thisObjChk).is(':checked')) {
+                checkBoxStatus = true;
+            }
+        });
+        if (checkBoxStatus) {
+            $('#myModal').modal('show');
+        } else {
+            var hrefval = $('#finalSubmit').attr('href');
+            window.location = hrefval;
+        }
+
+    });
+
+//    $(document).on('click', '#finalSubmit', function () {
+//        var dataId = $('#arbitration_id1').val();
+//        $.ajax({
+//            url: '/admin/arbitration_agreements/view_agreement/' + dataId + '/1',
+//            dataType: 'html',
+//            method: "GET",
+//            cache: false,
+//            success: function (response1) {
+//                $('#myModal').modal('hide');
+//                $('body').removeClass('modal-open');
+//                $('.modal-backdrop').remove();
+//                $('#tab4').html(response1);
+//            }
+//        });
+//    });
+
+  $(document).on('click', '#get_esign', function () {
+
+  	var arrData=[];
+  	var r_type='sandbox';
+
+  	$('input[name="otp_manual"]').each(function (index, value) {
+
+
+    var thisObjChk = $(this);
+    var chkVal=thisObjChk.val();
+
+    if (!$(thisObjChk).is(':checked')) {
+    var dataObj={};	
+    dataObj['identifier']=$('#ph_'+chkVal).val();
+    dataObj['aadhaar_id']=$('#ad_'+chkVal).val();
+    dataObj['reason']=r_type;
+    arrData.push(dataObj);
+    
+    console.log(chkVal);
+    //$("#link_"+chkVal).show();
+    }
+    });
+
+  	if ($('#otpesign_w_1').length && !$('#otpesign_w_1').is(':checked')) {
+  	var dataObj={};	
+  	dataObj['identifier']=$('#ph_w1').val();
+    dataObj['aadhaar_id']=$('#ad_w1').val();
+    dataObj['reason']=r_type;
+    //$("#link_w1").show();
+    arrData.push(dataObj);	
+
+  	}	
+
+
+  	if ($('#otpesign_w_2').length && !$('#otpesign_w_2').is(':checked')) {
+  	var dataObj={};	
+  	dataObj['identifier']=$('#ph_w2').val();
+    dataObj['aadhaar_id']=$('#ad_w2').val();
+    dataObj['reason']=r_type;
+    //$("#link_w2").show();
+    arrData.push(dataObj);	
+
+  	}
+
+
+  	if(arrData.length){
+  	//if(0){
+  	$.ajax({
+           url: '/admin/arbitration_agreements/e_sign_api/'+aa_id,
+           //dataType: 'html',
+           data:{formData:arrData},
+           method: "POST",
+           cache: false,
+           success: function (response) {
+
+           	   if(response.status){
+               console.log(response.data);
+               docId=response.data
+               $("#get_esign").hide();
+
+               $('input[name="otp_manual"]').each(function (index, value) {
+               var thisObjChk = $(this);
+    		   var chkVal=thisObjChk.val();	
+               if (!$(thisObjChk).is(':checked')) {
+    			$(".link_"+chkVal).show();
+    		    }
+
+    		   });
+               $(".link_w2").show();
+               $(".link_w1").show();
+
+              }else{
+              alert('Invalid details');	
+              }
+           }
+       });   
+  	}
+  });
+  
+
+  // $(document).on('click', '#viewNextButton', function () {
+        
+  //       // var checkBoxStatus = false;
+  //       // $('input[name="otp_manual"]').each(function (index, value) {
+  //       //     var thisObjChk = $(this);
+
+  //       //     if (!$(thisObjChk).is(':checked')) {
+  //       //         checkBoxStatus = true;
+  //       //     }
+  //       // });
+  //       // if (checkBoxStatus) {
+  //       //     $('#myModal').modal('show');
+  //       // } else {
+  //       //     var hrefval = $('#finalSubmit').attr('href');
+  //       //     window.location = hrefval;
+  //       // }
+
+		// $.ajax({
+  //          url: '/admin/arbitration_agreements/e_sign_api',
+  //          dataType: 'html',
+  //          method: "POST",
+  //          cache: false,
+  //          success: function (response1) {
+  //              console.log(response1);
+  //          }
+  //      });        
+
+  //   });	
+
+
+   $(document).on('click', '#finalSubmit', function () {
+       var dataId = $('#arbitration_id1').val();
+       $.ajax({
+           url: '/admin/arbitration_agreements/view_agreement/' + dataId + '/1',
+           dataType: 'html',
+           method: "GET",
+           cache: false,
+           success: function (response1) {
+               $('#myModal').modal('hide');
+               $('body').removeClass('modal-open');
+               $('.modal-backdrop').remove();
+               $('#tab4').html(response1);
+           }
+       });
+   });
+
+
+  function loadDigio(phone,pc_id,id){
+  processId=pc_id;
+  var options = {
+
+			"callback": function(t){
+						if(t.hasOwnProperty('error_code'))
+						{
+							//document.getElementById("loading").style.display='none';
+							//document.getElementById("result").innerHTML="failed to sign with error : "+t.message;
+							alert(t.message);
+							console.log(t);
+                            window.location = "/admin/arbitration_agreements/e_sign_step1/"+id;
+						}
+						else
+						{ 
+							//document.getElementById("result").innerHTML="Sign Successful"
+							//success();
+							$.ajax({
+						           url: '/admin/arbitration_agreements/e_sign_verify/' + id+'/'+ar_id,
+						           dataType: 'html',
+						           method: "POST",
+						           cache: false,
+						           success: function (response) {
+
+						           $(".link_"+id).hide();
+                                   $(".showCheck_"+id).show();
+                                   
+						           $("#verify_sts_"+id).val(1);
+						           allChk()	
+
+						           }
+						    });
+						    
+							//alert(t.message);
+							//console.log(t);
+						}
+			          },
+			  "logo":  "https://www.nyayaportal.in/front/assets/img/new-img/logo.png"        
+		};
+
+  var digio = new Digio(options);
+  digio.init();		
+  digio.esign(docId,phone);
+
+  }
+
+
+  function allChk(){
+  var chkVal=1;
+  $('.verify_sts').each(function (index, value) {
+    var thisObjChk = $(this);
+    console.log(thisObjChk.val());
+    if(thisObjChk.val()==0)
+    chkVal=thisObjChk.val();
+  });	
+  //alert(chkVal);
+  if(chkVal==1){
+  //if(1){ 
+  $.ajax({
+		url: '/admin/arbitration_agreements/e_sign_api_download/' + docId+'/'+aa_id,
+		dataType: 'html',
+		method: "GET",
+		cache: false,
+		success: function (response) {
+		window.location ='/admin/arbitration_agreements/view_agreement/'+ar_id+'/1';	
+		}
+		});	  
+  }	
+
+ }
+
+$(document).ready(function(){
+var chkId="<%= data.esign_id %>"   
+
+if(! chkId){    
+$("#get_esign").trigger("click"); 
+}
+});
+
+</script>

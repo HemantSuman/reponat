@@ -1,0 +1,85 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="box box-primary">
+            <div class="filterBar">
+                <div class="filterBarRight">
+                    <a href="/admin/<%= extraVar.viewDirectory %>/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                </div>
+            </div>
+
+               
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="">#Id</th>
+                                <th>Name</th>
+                                <th>Min value</th>
+                                <th>Max value</th>
+                                <th>Registration Fee</th>
+                                <th>Arbitration Fee</th>
+                                <th>Above Amount</th>
+                                <th>Percentage</th>
+                                <th>Default Percentage</th>
+                                <th>Ceiling</th>
+                                <th>Status</th>
+                                <th style="width:100px">Actions</th>
+                            </tr>
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.name %></td>
+                                <td><%= site.formatCurrencyObj(rows.min_value) %></td>
+                                <td><%= site.formatCurrencyObj(rows.max_value) %></td>
+                                <td><%= site.formatCurrencyObj(rows.registration_fee) %></td>
+                                <td><%= site.formatCurrencyObj(rows.arbitration_fee) %></td>
+                                <td><%= site.formatCurrencyObj(rows.above_amount) %></td>
+                                <td><%= rows.percentage_value %></td>
+                                <td><%= rows.default_percentage_value %></td>
+                                <td><%= site.formatCurrencyObj(rows.aceiling_amount) %></td>
+
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-success btn-xs" href="/admin/nc1-slab/edit/<%= rows.id %>" title="Edit" >
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                    </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+
+                    <%# include ../helper/page2.ejs %>
+
+
+
+
+                </div>
+           
+
+        <!-- /.col -->
+    </div>
+</section>

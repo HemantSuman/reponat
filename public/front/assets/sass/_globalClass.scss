@@ -1,0 +1,76 @@
+body
+{
+	font-family: 'Open Sans', sans-serif; font-size: $regfont;
+
+}
+
+
+li{ list-style: none;}
+a:hover,a:focus{ text-decoration: none; outline: none;}
+.st0{display:none;}
+.st1{display:inline;}
+.st2{fill:#FFFFFF;}
+.form-row
+	{
+		 margin-top: 10px;
+		 margin-bottom: 10px;
+	}
+.form-control,
+.custom-select{font-size:14px;}
+select
+{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+select.form-control
+{
+	background:$whitecolor url(../img/select-arrow.png) 96% 50% no-repeat; 
+	min-height: 7px;
+
+}
+.form-control
+{
+	background-color: $whitecolor;
+	height: 34px;
+	border: 1px solid #e6e6e6;
+	box-shadow: none;
+	border-radius: 2px;
+}
+label
+{
+	font-weight: 500;
+	font-size: $font16;
+	margin-bottom: 10px;
+	color: #303030;
+}
+.menu-btn
+{ 
+	display: none;
+}
+.btn-orange
+{
+	background-color: $orangebg;
+	border: none;
+	font-size: 16px;
+	line-height: 100%;
+	color: $whitecolor;
+	border-radius: 0;
+	padding: 12px 20px;
+	margin-left: -2px;
+	transition:all ease-in-out .5s;
+	&:hover{ background-color: $bluebg; color: $whitecolor}
+}
+.btn-gray
+{
+	background-color: #8d8d8d;
+	border: none;
+	font-size: 16px;
+	line-height: 100%;
+	color: $whitecolor;
+	border-radius: 0;
+	padding: 12px 20px;
+	margin-left: -2px;
+	transition:all ease-in-out .5s;
+	&:hover{ background-color: $orangebg; color: $whitecolor}
+}

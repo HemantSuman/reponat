@@ -1,0 +1,245 @@
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <div class="box box-primary">
+         <div class="filterBar">
+            <div class="filterBarRight">
+               
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+                    <input type="hidden" name='product_id' value='<%= extraVar.product_id %>'>
+                    <div class="box-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Document Head<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="service_details_name" name='service_details_name' value=''>
+                                            <label class="error_mgs_lable" id="service_details_name_error"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                         <div class="form-group">
+                                            <label for="exampleInputEmail1">Holiday period or Dry period (In Months)<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="dry_period"  name='dry_period' value=''>
+                                            <label class="error_mgs_lable" id="dry_period_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Maximum Duration in Months for which Nyaya Card can be issued <em>*</em></label>
+                                            <input type="text" class="form-control" id="age_for_service" name='age_for_service' value=''>
+                                            <label class="error_mgs_lable" id="age_for_service_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Document Name<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="document_name"  name='document_name' value=''>
+                                            <label class="error_mgs_lable" id="document_count_error"></label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1" class="opacity-0lab"></label>
+                                            <button type='button' class='btn btn-primary addMoreDocument'>
+                                                <i class='fa fa-plus-square' aria-hidden='true'></i> Add More Document
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="documentListingDiv" style="display: none;">
+                                   <div class="table-responsive no-padding">
+                                            <table class="table table-hover documentListingTable">
+                                                <tr>
+                                                    <th>S.No.</th>
+                                                    <th>Document Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="col-md-2">
+                                        <div class="form-group" style="margin-top:10px;">
+                                            <div class="chk-outer">
+                                                   <!-- <LABEL class="opacity-0lab"></LABEL>-->
+                                               <input type="checkbox" name="is_renewable"  id="is_renewable" > <label for="is_renewable">Is Renewable </label>
+                                            </div>
+                                            <label class="error_mgs_lable" id="is_renewable_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                         <div class="form-group renewPercentageDiv">
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                         <div class="durationWisePercentageDiv" style="display: none;">
+                                            <div class="panel-heading">Define Duration wise Percentage value on the standard calculated Fee<em>*</em></div>
+                                            <div class="table-responsive no-padding">
+                                                 <table class="table table-hover durationWisePercentageTable">
+
+                                                </table>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="panel-heading no-radius">
+                                Discount to Consumer & Exemptions 
+                            </div>
+
+                            <div class="panel-body">  
+                                 <div class=" table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th></th>
+                                            <th>Discount to Consumer (%) <label><em>*</em><label></th>
+                                            <th>Exemption on Fee Payable (%) <label><em>*</em><label></th>
+                                            <th>Exemption on Appeal Fee (%) <label><em>*</em><label></th>
+                                            <th>Exemption on Additional Disputes (%) <label><em>*</em><label></th>
+                                        </tr>
+                                        <% results.slabs.forEach(function(rows){ %>
+                                        <tr>
+                                            <td>
+                                                <input type="hidden" name="service_detail_slabs[<%= rows.id %>][slab_id]" value="<%= rows.id %>">
+                                                <b><%= rows.name %></b>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" name="service_detail_slabs[<%= rows.id %>][discount_to_consumer]" value="">
+                                        <label class="error_mgs_lable" id="discount_to_consumer_<%= rows.id %>_error"></label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="service_detail_slabs[<%= rows.id %>][examption_fee_payable]" value="" >
+                                        <label class="error_mgs_lable" id="examption_fee_payable_<%= rows.id %>_error"></label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="service_detail_slabs[<%= rows.id %>][examption_appeal_payable]" value="" >
+                                        <label class="error_mgs_lable" id="examption_appeal_payable_<%= rows.id %>_error"></label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" name="service_detail_slabs[<%= rows.id %>][examption_disputes]" value="">
+                                        <label class="error_mgs_lable" id="examption_disputes_<%= rows.id %>_error"></label>
+                                        </td>
+                                        </tr>
+                                        <% }); %>
+                                    </table>
+                                </div>
+                                <label>NOTE: Discount to Consumer will be applicable to the final calculated fee</label>
+                                <div class="form-group">
+                                    <div class="chk-outer">
+                                                                 
+                                            <input type="checkbox" name="is_active"  id="is_active" checked >
+                                           <label for="is_active">Status</label> 
+                                        
+                                    </div>
+                                </div>  
+                            </div> 
+                       </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                            </div>
+                        </div>
+                         
+                    </div>
+                </form>
+            
+        
+        </div>
+  
+</section>
+
+<script>
+    var DocumentNameArr = [];
+    $(document).on('click', '.addMoreDocument', function () {
+
+        var thisObj = $(this);
+        var service_details_name = $('#document_name').val();
+        if (service_details_name != '') {
+            DocumentNameArr.push(service_details_name);
+        } else {
+            bootstrapNotify.showMessage("Please enter the document name", "danger");
+            return false;
+        }
+
+        $('#document_name').val('');
+        if (DocumentNameArr.length >= 1) {
+            $('.documentListingDiv').show();
+        }
+        appendDocumentHtml();
+    });
+
+    $(document).on('click', '.deleteDocument', function (e) {
+
+        
+        if (!confirm("Are you sure you want to delete document '"+ $(this).attr('arrayvalue') + "' ?")) {
+            return false;
+        } else {
+            var thisObj = $(this);
+            var arrarindex = $(this).attr('arrarindex');
+            $(thisObj).parents('tr').remove();
+//        DocumentNameArr.pop(arrarindex);
+            DocumentNameArr.splice(arrarindex, 1);
+            if (DocumentNameArr.length < 1) {
+                $('.documentListingDiv').hide();
+            }
+            appendDocumentHtml();
+        }
+    });
+
+    function appendDocumentHtml() {
+        $(".documentListingTable").find("tr:gt(0)").remove();
+        $.each(DocumentNameArr, function (index, value) {
+            var indexPlus = parseInt(index) + 1;
+            var rowHtml = '<tr><td>' + indexPlus + '</td><td><input type="hidden" name="service_detail_documents[' + indexPlus + '][documents_name]" value="' + value + '">' + value + '</td><td><a class="btn btn-danger btn-xs deleteDocument" arrayValue="' + value + '" arrarIndex="' + index + '" href="javascript:void(0);" ><i class="fa fa-close"></i></a></td></tr>';
+            $('.documentListingTable').append(rowHtml);
+
+        });
+
+    }
+
+    $(document).on('click', '#is_renewable', function () {
+
+        var renewPercentage = "<span style='width: 100%;'><input type='text' class='form-control' id='renew_percentage' placeholder='No Dispute Bonus Percentage' name='renew_percentage' value=''></span><span>% (No Dispute Bonus Percentage)</span><label class='error_mgs_lable' id='renew_percentage_error'></label>";
+        if ($(this).is(':checked')) {
+            $('.renewPercentageDiv').html(renewPercentage);
+        } else {
+            $('.renewPercentageDiv').html('');
+        }
+
+    });
+
+    $(document).on('keyup', '#age_for_service', function () {
+
+        var age_for_service_no = $(this).val();
+
+        var inMonths = Math.ceil(parseInt(age_for_service_no) / 12);
+
+        if (age_for_service_no <= 12 || age_for_service_no == '') {
+            $('.durationWisePercentageDiv').hide();
+        } else {
+            $('.durationWisePercentageDiv').show();
+            $('.durationWisePercentageTable').html('');
+            for (var i = 2; i <= inMonths; i++) {
+                var durationWisePercentage = '<tr><td> <b>For ' + i + ' Year</b></td><td><input type="text" class="form-control" name="service_detail_duration_wise_percentages[' + i + '][value_of_percentage]" value="" placeholder="Value in Percentage"><input type="hidden" name="service_detail_duration_wise_percentages[' + i + '][no_of_year]" value="' + i + '" ><label class="error_mgs_lable" id="value_of_percentage_' + i + '_error"></label></td><td>%</td></tr>';
+                $('.durationWisePercentageTable').append(durationWisePercentage);
+            }
+        }
+    });
+</script>

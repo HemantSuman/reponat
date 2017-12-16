@@ -1,0 +1,52 @@
+/*==================footer============*/
+.footer
+{
+	padding: 20px 0;
+	 background-color: $footerbg;
+	
+	li{ display: block;}
+	.footerblock1{
+		ul{ width: 31%; float: left; margin-right: 10px}
+	}
+	 h3
+	 {
+	 	 font-size: $font20;
+	 	 color: $whitecolor;
+	 	 font-weight: 600;
+	 	  line-height: 130%;
+	 	   margin-bottom: 10px;
+	 	   display: inline-block;
+	 }
+	 a
+	 {
+	 	  font-size: $font13;
+	 	  color: $footerlinkcolor;
+	 	  font-weight: 400;
+	 	  display: block;  line-height: 100%; padding: 5px 0;
+	 	  &:hover{ color:$bluebg;}
+
+	 }
+	 .toggle-btn
+	 {
+	 	 display: none;
+	 	 height: 25px;
+	 	  width: 25px;
+	 	   color: $whitecolor;
+	 	    background:$orangebg;
+	 	    float: right;
+	 	     line-height: 25px;
+	 	      text-align: center;
+	 	      cursor: pointer;
+	 }
+
+}
+.below-footer
+{
+	 background:#131313;
+	  color: $whitecolor;
+	  padding: 20px 0;
+	  line-height: 100%;
+	    font-size: $font13;
+	     text-align: center;
+
+} 

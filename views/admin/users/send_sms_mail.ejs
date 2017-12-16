@@ -1,0 +1,326 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:''}); %>
+
+<section class="content">
+
+    <div class="box box-primary">
+
+        <div class="box-body">
+
+            <%# if(extraVar['viewSlug']=='professional'){ %>
+
+            <%# } %>
+            <!-- /.box-header -->
+
+            <form role="form" name='serchFrom' method='get' action='/admin/users/send-sms-mail'>
+                <div class="row form-row-new">
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="role_id" id="role_id" onChange="getDbValuesByIds(this, 'RoleType', ['role_id'], [Number(this.value)], 'id asc', 'role_type_id', ['id', 'role_type_name'], []);">
+                                <option value="">Type of user</option>
+                                <% data.roles.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.role_id == value.id) { %>selected<% } %> data-tags="true"><%= value.role_name %></option>
+                                <% });  %>
+
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="role_type_id" id="role_type_id">
+                                <option value="">User Type</option>
+
+                                <% data.role_types.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.role_type_id == value.id) { %>selected<% } %> data-tags="true"><%= value.role_type_name %></option>
+                                <% });  %>
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="first_name" placeholder="Name" name="first_name" value='<%= extraVar.query.first_name %>'>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="mobile" placeholder="Mobile Number" name="mobile" value='<%= extraVar.query.mobile %>'> 
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="email" placeholder="Email" name="email" value='<%= extraVar.query.email %>'>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id'], [Number(this.value)], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id', 'tehsil_id']);">
+                                <option value="">State</option> 
+                                <% data.state.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.state_id == value.id) { %>selected<% } %> data-tags="true"><%= value.state_name %></option>
+                                <% });  %>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="division_id" id="division_id" onChange="getDbValuesByIds(this, 'District', ['division_id'], [Number(this.value)], 'district_name asc', 'district_id', ['id', 'district_name'], ['tehsil_id']);">
+                                <option value="">Division</option>
+                                <% data.division.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.division_id == value.id) { %>selected<% } %> data-tags="true"><%= value.division_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="district_id" id="district_id" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id'], [Number(this.value)], 'tehsil_name asc', 'tehsil_id', ['id', 'tehsil_name'], []);">
+                                <option value="">District</option>
+                                <% data.district.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.district_id == value.id) { %>selected<% } %> data-tags="true"><%= value.district_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="tehsil_id" id="tehsil_id">
+                                <option value="">Tehsil</option>
+                                <% data.tehsil.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.tehsil_id == value.id) { %>selected<% } %> data-tags="true"><%= value.tehsil_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Search"><i class="fa fa-search"> </i> </a> 
+                            <a title="search" href="/admin/users/send-sms-mail" class="btn btn-success blue">Clear Search</a>
+
+                            <a class="btn btn-success blue send-mail-sms" href="javascript:void(0)" title="Search" msg-type="email">Send Mail</a> 
+                            <a class="btn btn-success blue send-mail-sms" href="javascript:void(0)" title="Search" msg-type="mobile">Send SMS</a> 
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <p><b>Select Users to send Mail/SMS</b></p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <%# if(extraVar['viewSlug']=='professional'){ %>
+                            <th>
+                                <div class="chk-outer">
+                                    <input type="checkbox" class='check_all' id="check_all" name="check_all" value=''>
+                                    <label for="check_all"></label>
+                                </div>
+                            </th>
+                            <%# } %>
+
+
+                            <th>#Id</th>
+                            <th>Name</th>
+                            <th>User Type</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Tehsil</th>
+                            <th>District</th>
+                            <th>Division</th>
+                            <th>State</th>
+                        </tr>
+                        <% if(results.length > 0) { %>
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+                            <%# if(extraVar['viewSlug']=='professional'){ %>
+                            <td>
+                                <div class="chk-outer">
+                                    <input type="checkbox" class='check_row' name="check_row" value='<%= rows.id %>' d-email="<%= rows.email %>" d-mobile="<%= rows.mobile %>" id="<%= rows.id %>">
+                                    <label for="<%= rows.id %>"></label>
+                                </div>
+                            </td>
+                            <%# } %> 
+
+                            <td><%= rows.id %></td>
+                            <td><%= rows.first_name %></td>
+                            <td><% if(rows.user_role_type) { %><%= rows.user_role_type.role_type_name %><% } %></td>
+                            <td><%= rows.mobile ? rows.mobile : 'N/A' %></td>
+                            <td><%= rows.email %></td>
+                            <td><% if(rows.user_tehsil) { %><%= rows.user_tehsil.tehsil_name %><% } %></td>
+                            <td><% if(rows.user_district) { %><%= rows.user_district.district_name %><% } %></td>
+                            <td><% if(rows.user_division) { %><%= rows.user_division.division_name %><% } %></td>
+                            <td><% if(rows.user_state) { %><%= rows.user_state.state_name %><% } %></td>
+                        </tr>
+                        <% }); %>
+                        <% } else { %>
+                        <td colspan="11" class="text-center">No Record Found.</td>
+                        <% } %>
+                    </table>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <%- include ../helper/user_page.ejs %>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /.col -->
+
+</section>
+
+<div class="modal" id="send_mail_sms_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="send_mail_sms_form" method="post" action="/admin/users/send-mail-sms" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <!-- <h4 class="modal-title">Enter text</h4> -->
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 subject-col">
+                            <div class="form-group">
+                                <label>Subject</label>
+                                <input type="text" name="subject" id="subject" class="form-control">
+                                <label class="error_mgs_lable" id="subject_eror"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea rows="8" class="form-control" name="message" id="message"></textarea>
+                                <label class="error_mgs_lable" id="message_eror"></label><br>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 attachment-col">
+                            <div class="form-group">
+                                <label>Add attachment</label>
+                                <input type="file" name="attachment" id="attachment" class="form-control">
+                                <label class="error_mgs_lable" id="attachment_eror"></label><br>
+                                <!-- <input type="hidden" name="image_path" id="image_path" value="/uploads/mail-attachments"> -->
+                                <input type="hidden" name='image_path' value='public/uploads/mail-attachments'>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="msg_type" id="msg_type" value="">
+                    <input type="hidden" name="user_data" id="user_data">
+                    <button type="button" class="btn btn-primary snd-mail-sms-sbmt-btn" onclick="send_mail_sms()">Send</button>
+                    <span class="plz-wait-txt" style="display: none">Please wait ... </span>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<script>
+    var arr = [];
+
+//    $("#check_all").click(function(){
+//        $("input:checkbox").not(this).prop("checked",this.checked)
+//    });
+    $(document).on('change', ".check_row", function () {
+        var thisObj = $(this);
+        if ($(thisObj).is(':checked')) {
+            console.log($('.check_row:checked').length)
+            if($('.check_row:checked').length > 25){
+                $(thisObj).prop('checked',false);
+                bootstrapNotify.showMessage("Minimum 25 users will be selected", "info");
+            }
+            
+        } else {
+            $('#check_all').prop('checked', false);
+        }
+    });
+
+    $(document).on('change', "#check_all", function () {
+        var thisObj = $(this);
+        $(".check_row").prop("checked",false)
+        if ($(thisObj).is(':checked')) {
+            $('.check_row').each(function (i, v) {
+                if (i < 25) {
+                    $(this).prop("checked", true);
+                }
+            });
+            bootstrapNotify.showMessage("Minimum 25 users will be selected", "info");
+        } else {
+            $('.check_row').each(function (i, v) {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+
+    $(document).on("click", ".send-mail-sms", function (c) {
+        $("input:checkbox.check_row").each(function (b) {
+            b = $(this);
+            b.prop("checked") && arr.push({email: b.attr("d-email"), mobile: b.attr("d-mobile")})
+        });
+
+        if (0 < arr.length)
+            $("#msg_type").val($(this).attr("msg-type")), ($(this).attr("msg-type") == "mobile" ? $(".subject-col, .attachment-col").hide() : $(".subject-col, .attachment-col").show()), $(".error_mgs_lable").empty(), $("#send_mail_sms_modal").modal("show");
+        else
+            return bootstrapNotify.showMessage("Please select at least one user", "error"), !1
+    });
+
+    var send_mail_sms = function () {
+        $(".snd-mail-sms-sbmt-btn").hide(), $(".plz-wait-txt").show();
+
+        $(".error_mgs_lable").empty();
+        var status = true;
+        if ("" == $("#subject").val().trim() && "email" == $("#msg_type").val().trim()) {
+            $("#subject_eror").text("This field is required").show()
+            status = false;
+        }
+
+        if ("" == $("#message").val().trim()) {
+            $("#message_eror").text("This field is required").show()
+            status = false;
+        }
+
+        if (0 < arr.length)
+            $("#user_data").val(arr);
+        else {
+            bootstrapNotify.showMessage("Please select at least one user", "error");
+            status = false;
+        }
+
+
+        if (status) {
+
+            $("#user_data").val(JSON.stringify(arr));
+
+            var thisObj = $("#send_mail_sms_form");
+            var form = $(thisObj)[0];
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: $(thisObj).attr("action"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                method: "POST",
+                cache: !1,
+                success: function (a) {
+                    //a.status ? ( $("#send_mail_sms_modal").modal("hide"), window.location.href = a.url ) : bootstrapNotify.showMessage(a.message,"error")
+                    a.status ? ($("#send_mail_sms_modal").modal("hide"), window.location.href = a.url) : ($("#attachment_eror").text(a.message).show(), $(".plz-wait-txt").hide(), $(".snd-mail-sms-sbmt-btn").show())
+                }, error: function (resData) {
+                    console.log("-------------------- In error part ---------------->>>>>>>>>>>>")
+                    console.log(resData)
+                }
+            })
+        } else {
+            $(".plz-wait-txt").hide(), $(".snd-mail-sms-sbmt-btn").show()
+            return false;
+        }
+    };
+
+</script>

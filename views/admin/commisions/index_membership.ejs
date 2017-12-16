@@ -1,0 +1,93 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+   <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/membership/add/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add Professional Incentive </a>
+            </div>
+        </div>
+            <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                        <div class="table-responsive">
+
+                       
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#Id</th>
+                                <th>User Type</th>
+                                <th>Incentive Type</th>
+
+                                <th>Incentive Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.master['role_type_name'] %></td>
+                                <td>
+
+                                    <% if(rows.commission_type==0){ %>  
+                                    Fixed
+                                    <% }else{ %>
+                                    % Based
+                                    <% } %>     
+
+                                </td>
+
+                                <td>
+                                    <% if(rows.commission_type==0){ %>  
+                                    Rs. <%= rows.commission_value %>
+                                    <% }else{ %>
+                                    <%= rows.commission_value %> %
+                                    <% } %>
+                                    
+                                </td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+                                    
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit_membership/<%= extraVar.product_id%>/<%= rows.id %>/<%= rows.role_type_id %>" title="Edit" >
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/commisions/delete_membership/<%= rows.role_type_id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                         </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <div class="row">
+                        <div class="col-md-12 text-right"><%- include ../helper/pagination_with_product_id.ejs %></div>
+                    </div>
+
+                    
+
+
+
+
+                </div>
+            </div>
+
+       
+</section>

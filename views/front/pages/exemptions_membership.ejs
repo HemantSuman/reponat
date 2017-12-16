@@ -1,0 +1,95 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+
+        <!--<div class="row">-->
+            <!--<div class="col-sm-12">-->
+                <h1>Exemption Calculator for Membership Holder</h1>
+                <p>The exemption calculator enables parties to produce an estimate of the likely exemptions in the fee of an Arbitration according to the Schedule -1 of National Arbitral Tribunal (Procedural) Rules.</p>
+                <form action="/admin/users/get_exemption_fee" method="post" enctype="multipart/form-data" id="an1-fee-calculator">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label class="">Sum in dispute/Claim Value</label>
+                            <input type="text" class="form-control" id="an1_document_value" name="an1_document_value">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <input type="submit" class="btn btn-orange" value="Get Fee">
+                            <a href="javascript:void(0)" class="btn btn-orange" onclick="location.reload()">Reset</a>
+                        </div>
+                    </div>
+                </form>
+            <!--</div>-->
+            <div class="">
+                <br/>
+                <div class="table-responsive an1-table-div no-border1">
+
+                </div>
+            </div>
+        <!--</div>-->
+    </div>
+
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--<p>* Taxes are all inclusive in the displayed Fee</p>-->
+                <p style="margin-bottom: 0px;">* Terms and conditions apply</p>
+                <p style="margin-bottom: 0px;">* Where the dispute cannot be expressed in terms of money, the Registrar shall determine the amount of exemption in such case</p>
+                <p style="margin-bottom: 0px;">* Taxes As Applicable</p>
+                <p style="margin-bottom: 0px;">* The estimation has no legal implications and should not be considered as necessarily reflecting NAT will fix in any given case.</p> 
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+//    function get_exemption_fee() {
+    $(document).on('submit','#an1-fee-calculator', function(e){
+        e.preventDefault();
+        if($('#an1_document_value').val() == '') {
+            bootstrapNotify.showMessage('Please fill document value', 'danger');
+            return false;
+        } else if(isNaN($('#an1_document_value').val())) {
+            bootstrapNotify.showMessage('Invalid value', 'danger');
+            return false;
+        }
+
+            $.ajax({
+                type: "POST",
+                url: $('#an1-fee-calculator').attr('action'),
+                data:{doc_value:$('#an1_document_value').val()},
+                cache: false,
+                success: function (response) {
+                    console.log(response)
+                    if(response.status) {
+                        var getFeeData = response.data.results;
+                        var gHtml = ''
+                        if(getFeeData) {
+                            gHtml += '<table style="width:40%;" class="table table-bordered"><tbody><tr>'
+                            gHtml += '<th>Arbitration Fee (Rs.)</th>'
+                            gHtml += '<th>Exemption (%)</th>'
+                            gHtml += '<th>Exemption (Rs.)</th></tr>'
+                            gHtml += '<tr><td>'+getFeeData.arbitrationFee+'</td>'
+                            gHtml += '<td>'+getFeeData.percentage+'</td>'
+                            gHtml += '<td>'+getFeeData.total_exe+'</td></tr>'
+                            gHtml += '</tbody></table>';
+
+                            $(".an1-table-div").html(gHtml)
+                            $("#an1_document_value").prop("disabled", true);
+                        }
+                    } else {
+                        bootstrapNotify.showMessage(response.msg, 'danger');
+                    }
+                },
+                error: function (resData) {
+                    // console.log(resData.responseJSON)
+                    // bootstrapNotify.showMessage('Please fill all fields', 'danger');
+                }
+            });
+    });
+</script>

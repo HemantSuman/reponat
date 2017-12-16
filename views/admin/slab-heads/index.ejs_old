@@ -1,0 +1,115 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.product_id %>" class="btn btn-primary">Add New</a> </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#Id</th>
+                                <th>Services Category</th>
+                                <th>Slab Name</th>
+
+                                <th>Head Name</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+                            <tr>
+                                <th style="width: 10px"></th>
+
+                                <th>
+                                    <select class="form-control select2"  name="service_details_id" id="service_details_id">
+                                        <option value='' selected>Select Category</option>    
+                                        <% resultSearch.services.forEach(function(rows){ %>
+                                        <option value="<%= rows.id %>" <% if(extraVar['query']['service_details_id']==rows.id){ %>selected<% } %>><%= rows.service_details_name %></option>
+                                        <% }); %>
+                                    </select>    
+
+
+                                </th>
+
+
+                                <th>
+                                    <select class="form-control select2" name="slab_id" id="slab_id">
+                                        <option value='' selected>Select Slab</option>
+                                        <% resultSearch.slabs.forEach(function(rows){ %>
+                                        <option value="<%= rows.id %>" <% if(extraVar['query']['slab_id']==rows.id){ %>selected<% } %> ><%= rows.name %></option>
+                                        <% }); %>
+                                    </select>                      
+                                </th>
+
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="width: 100px">
+                                    <a class="btn btn-success btn-xs" href="javascript:document.getElementById('searchData').submit();" title="Search" >
+                                        <i class="fa fa-search"></i>
+                                    </a>    
+
+                                </th>
+                            </tr>
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.service_details_name %></td>
+                                <td><%= rows.name %></td>
+                                <td><%= rows.heads_name %></td>
+                                <td>
+                                    <%= rows.amount %>
+                                    <% if(rows.fee_type==1){ %>
+                                    Rs                               
+                                    <% }else{ %>
+                                    %
+                                    <% } %> 
+                                </td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-success btn-xs" href="/admin/slab-heads/edit/<%= extraVar.product_id %>/<%= rows.sh_id %>" title="Edit" >
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/slab-heads/delete/<%= rows.sh_id %>" href="javascript:void(0);" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+
+                    <%- include ../helper/pagination_with_product_id.ejs %>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>

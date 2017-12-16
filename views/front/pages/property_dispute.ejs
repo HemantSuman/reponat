@@ -1,0 +1,47 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Property Dispute Cell</h1>
+
+        <p>India is a dynamic country and its real estate market is developing at an incredible speed.  It has a distinct identity as a hub for trade and investment which is attractive to investors; however, with the real estate boom, there has been an increasing number of disputes involving developers, contractors and investors. In the past few years disputes have increased significantly and number of cases exists in courts since a very long time, cases are pending under Transfer of Property Act, 1882; Indian Contract Act, 1872; Land Revenue Act; Specific relief Act; Co-Operative society Act; Sarfaesi Act; etc. Which can be referred to Arbitration, and for that we have created a special cell which will entertain only cases related to properties worth above 5 crores and will be resolved within the time frame mentioned in Section 29-A of Arbitration and Conciliation (Amended) Act, 2015.</p>
+
+        <h5><span style="padding: 35px 9px;float: left;">Interested parties can submit their case summary : </span><a href="javascript:void('0');" class="experts-form-open btn btn-orange">Click Here</a></h5>
+        <br>
+        <div class="experts-form-outer" style="display:none;">
+        <!-- <h4>Thereafter our experts will get in touch with you.</h4> -->
+
+        <div class="row">
+        	<form class="experts-form" action="/admin/dispute-details/create" id="property-dispute-form" novalidate>
+        		<div class="col-sm-6 col-md-6">
+                        <input class="form-control" placeholder="Name" type="text" name="name" id="name">
+                        <label class="errorMsg" id="name_error"></label>
+        		</div>
+        		<div class="col-sm-6 col-md-6">
+                        <input class="form-control" placeholder="Contact Number" type="text" name="number" id="number">
+                        <label class="errorMsg" id="number_error"></label>
+        		</div>
+        		<div class="col-sm-6 col-md-6">
+                        <input class="form-control" placeholder="Email Id" type="email" name="email" id="email">
+                        <label class="errorMsg" id="email_error"></label>
+        		</div>
+        		<div class="col-sm-6 col-md-6">
+                        <input class="form-control" placeholder="Disputed Property Situated at" type="text" name="disputed_property_situated_at" id="disputed_property_situated_at">
+                        <label class="errorMsg" id="disputed_property_situated_at_error"></label>
+        		</div>
+        		<div class="col-sm-12 col-md-12">
+                        <textarea rows="4" class="form-control" placeholder="Case facts" name="case_facts" id="case_facts"></textarea>
+                        <label class="errorMsg" id="case_facts_error"></label>
+        		</div>
+        		<div class="col-sm-12 col-md-3 col-xs-12 pull-left">
+                <input class="submit btn btn-orange" value="Submit" type="submit">
+              </div>
+        	</form>
+        </div>
+        </div>
+    </div>
+</section>

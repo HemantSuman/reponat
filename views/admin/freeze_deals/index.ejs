@@ -1,0 +1,284 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                
+                <a href="/admin/freeze-deal/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Freeze the Deal</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form role="form" name='serchFrom' method='get' action='/admin/freeze-deal/<%= extraVar.role_id %>'>
+                <div class="form-row-new row">
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" class="form-control" id="stamp_no" placeholder="Stamp No" name="stamp_no" value="<% if(srchData){ %><%= srchData['stamp_no'] %><% } %>"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" class="form-control" id="party_mobile_no" placeholder="Mobile Number" name="party_mobile_no" value="<% if(srchData){ %><%= srchData['party_mobile_no'] %><% } %>"></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" class="form-control" id="u.first_name" placeholder="Document Creator Name" name="u.first_name" value="<% if(srchData){ %><%= srchData['u.first_name'] %><% } %>"></div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group custom-select-outer"><select class="form-control select2" name="deal_status" id="deal_status">
+                                <option value="">Select</option>
+                                <option value="0" <% if(srchData['deal_status'] && srchData['deal_status']==0){ %>selected<% } %>>Freezed</option>
+                                <option value="1" <% if(srchData['deal_status'] && srchData['deal_status']==1){ %>selected<% } %>>Mature</option>
+                                <option value="2" <% if(srchData['deal_status'] && srchData['deal_status']==2){ %>selected<% } %>> Mature With Credits</option>
+                                <option value="3" <% if(srchData['deal_status'] && srchData['deal_status']==3){ %>selected<% } %>>Expired</option>
+
+                            </select> </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer"><select class="form-control select2" name="ar.is_active" id="is_active">
+                                <option value="">Select</option>
+                                <option value="1" <% if(srchData['ar.is_active'] && srchData['ar.is_active']==1){ %>selected<% } %>>Paid</option>
+                                <option value="3" <% if(srchData['ar.is_active'] && srchData['ar.is_active']==3){ %>selected<% } %>>Unpaid</option>
+
+                            </select> </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="submit" class="btn btn-success blue" style="display:none">
+                        <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="search">
+
+
+                            <i class="fa fa-search"></i>
+                        </a>
+
+
+                        <a title="Clear Search" href="/admin/freeze-deal" class="btn btn-success blue">Clear Search</a>
+
+
+                    </div>
+                </div>
+            </form>
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>#Id</th>
+                            <th>Stamp No</th>
+                            <th>Client Details</th>
+
+                            <!--                            <th>Document Creator</th>-->
+
+                            <th>Freezed Fees</th>
+                            <th>Freeze Date & Time</th>
+                            <!--                            <th>Payment Due Date</th>-->
+                            <th>Expiry Date & Time</th>
+                            <th>Deal Status</th>
+                            <!--                            <th>Reports</th>-->
+                        </tr>
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= rows.id %></td>
+                            <td><%= rows.stamp_no %></td>
+
+                            <td>
+                                Name : <%= rows.party_name %><br>
+                                Mobile No : <%= rows.party_mobile_no %><br>
+                                Document : <%= rows.service_details_name %><br>
+                                Duration : <%= rows.year %> Years
+                            </td>
+
+                            <!--                            <td>
+                                                            Name : <%= rows.first_name %><br>
+                                                            Mobile No. : <%= rows.mobile %><br>
+                                                            Email : <%= rows.email %>
+                                                        </td>-->
+
+                            <td>
+                                <%= site.formatCurrencyObj(rows.fee) %>
+
+                            </td>
+                            <td><%= site.momentObj(rows.created).format('DD-MM-YYYY HH:mm:ss')  %></td>
+                            <!--                            <td>
+                                                            <% if(rows.payment_duedate_deed_writer){ %>    
+                                                            <%= site.momentObj(dateTimeConvert(rows.payment_duedate_deed_writer)).format('DD-MM-YYYY HH:mm:ss') %>    
+                                                            <% } %>   
+                                                        </td>-->
+                            <td><%= site.momentObj(dateTimeConvert(rows.expire_date)).format('DD-MM-YYYY HH:mm:ss')  %></td>    
+                            <td>
+                                <% if(rows.deal_status==1){ %>              
+                                <span class="label label-success">Mature</span>   
+                                <% } else if(rows.deal_status==2){ %>
+                                <span class="label label-success">Mature With Credits</span>
+
+                                <% }else{ %>
+
+                                <% if(rows.is_expire){ %>
+                                <span class="label label-danger">Expired</span>
+                                <% }else{ %>
+                                <span class="label label-info">Freezed</span>
+                                <% } %>
+                                <% } %>
+                            </td>
+
+                            <!--                            <td>
+                                                            <% if(rows.deal_status==1){ %>
+                                                            <ul class="aggre-btnswrap">
+                                                                <li>   <a class="btn btn-xs" href="/admin/arbitration_agreements/view_agreement/<%= rows.ar_id %>/1">Agreement</a></li>
+                                                                <li>   <a class="btn btn-xs" href="/admin/arbitration_agreements/invoice/<%= rows.ar_id %>/1">Invoice</a></li>
+                                                                <br>
+                                                                <li style="">  <a class="btn btn-success btn-xs" href="/admin/arbitration_agreements/naya_card/<%= rows.ar_id %>/1">Nyaya Card</a></li>
+                                                            </ul>
+                                                            <% } %>
+                                                        </td>-->
+                        </tr>
+                        <% }); %>    
+                    </table>
+                </div>
+            </form>
+            <% if(results.length==0){ %>
+            <h5 class="box-title text-center">No record found</h5>
+            <% } %>  
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%- include ../helper/pagination_with_product_id.ejs %>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <label for="exampleInputEmail1">Your Party must have got OTP on the entered mobile number .Please enter OTP below or resend if not received.</label>
+                <input type="text" id="otp" class="form-control" name='otp' value='' placeholder="Enter OTP">
+                <label class="error_mgs_lable" id="otp_error"></label><br>
+                <a href="#" onclick="resendOtp()">Resend Otp</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="verify_otp()">Verify</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<input type="hidden" id="save_id" name='save_id' value=''>
+
+
+<script>
+    $(".select2").select2();
+    function openPopup(id) {
+        $('#save_id').val(id);
+        $('#myModal').modal('show');
+        resendOtp();
+    }
+
+    $(document).on("submit", "#freezeForm", function (e) {
+        e.preventDefault();
+        var thisObj = $(this);
+        var form = $(thisObj)[0];
+        var formData = new FormData(form);
+        $('.error_mgs_lable').html('');
+        $.ajax({
+            url: $(thisObj).attr('action'),
+            data: formData,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                if (response.status) {
+                    $('#myModal').modal('show');
+                    $('#save_id').val(response.data)
+                    //window.location.href = response.url;
+                } else {
+                    bootstrapNotify.showMessage(response.message);
+                }
+            }, error: function (resData) {
+                console.log(resData);
+                $.each(resData.responseJSON.data, function (key, val) {
+                    bootstrapNotify.showMessageOnField(val.message, val.path);
+                });
+            }
+        });
+    });
+    function verify_otp() {
+
+        if ($('#otp').val() == '') {
+            $('#otp_error').text('Please enter OTP');
+            return false;
+        }
+
+        $.ajax(
+                {
+                    type: "POST",
+                    url: '/admin/freeze-deal/confirm_otp',
+                    data: {
+                        otp: $('#otp').val(),
+                        id: $('#save_id').val()
+                    },
+                    cache: false,
+                    success: function (response) {
+                        if (response.status) {
+                            bootstrapNotify.showMessage(response.msg, 'success');
+                            if (response.status) {
+                                window.location.href = '/admin/freeze-deal';
+                            } else {
+
+                            }
+                        } else {
+                            $('#otp_error').text(response.msg);
+                            bootstrapNotify.showMessage(response.msg, 'danger');
+                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('not updated!', 'danger');
+                    }
+                });
+    }
+
+    function resendOtp() {
+
+        $.ajax(
+                {
+                    type: "POST",
+                    url: '/admin/freeze-deal/resendOtp',
+                    data: {
+                        id: $('#save_id').val()
+                    },
+                    cache: false,
+                    success: function (response) {
+                        if (response.status) {
+                            bootstrapNotify.showMessage(response.msg, 'success');
+                        } else {
+                            bootstrapNotify.showMessage(response.msg, 'danger');
+                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('not updated!', 'danger');
+                    }
+                });
+    }
+
+    <% if(flsh=='done'){ %>
+    $(window).on('load', function () {
+        window.history.pushState('page2', 'Title', '/admin/freeze-deal');
+    });
+    <% } %>
+</script>    

@@ -1,0 +1,403 @@
+<% if(fromData.id){ %>
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<% } else { %>
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<% } %>
+
+<section class="content">
+
+    <input type="hidden" id="popBlockTrue">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/freeze-deal" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> list of Freeze Deal</a>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='freezeForm' name='' method='post' action='/admin/freeze-deal/create' enctype="multipart/form-data">
+            <input type="hidden" id="id" name='id' value='<%= fromData.id %>'>
+
+            <input type="hidden" id="save_id" name='save_id' value=''>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Document Head</label>
+                            <select class="form-control select2" name="service_details_id" id="service_details_id" onChange="getDbValuesByIds(this, 'ServiceDetailDocument', ['service_detail_id'], [Number(this.value)], 'documents_name asc', 'service_detail_documents_id', ['id', 'documents_name'], []);">
+                                <option value="">Select</option>
+                                <% data.professional.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" service_detail_slug='<%= rows.service_details_slug %>'  document_value_text="(Monthly)"><%= rows.service_details_name %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="service_details_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Document Type</label>
+                            <select class="form-control select2" name="service_detail_documents_id" id="service_detail_documents_id">
+                                <option value="">Select</option>
+
+                            </select>
+                            <label class="error_mgs_lable" id="service_detail_documents_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group custom-select-outer">
+                            <div class="row">
+                                <div class="form-group col-md-4 custom-select-outer">
+
+                                    <span class="settingValueForMonthlyRent hide"><%= settingData.document_category_for_monthly_rent %></span>
+                                    <label for="exampleInputEmail1" class="document_value_month_class">Document Value</label>
+                                    <input type="text" id="document_value" class="form-control" name='document_value' value=''>
+                                </div>
+                                <div class="form-group col-md-8 custom-select-outer">
+                                    <a href="javascript:void(0)" class="btn btn-primary free-btn" onclick="get_fee()">Get Fee</a>
+                                    <a href="/admin/freeze-deal/add" class="btn btn-primary free-btn">Change Fee</a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-row-new">
+                    <input type="hidden" name='fee' id='fee' value=''>
+                    <div id="feeShow" style="display:none" class="clearfix fee-radio-wrap">
+                        <input type="text" name='fee' id='fee' value=''>
+                        <label for="exampleInputEmail1">Nyaya Card Fee is defined below. Please select one Fee to freeze the deal.</label>
+                        <br>
+                    </div>
+                </div>
+                <div class="row form-row-new showDiv" style="display: none">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <h5>To Freeze the deal, please provide information below:</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4"> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Stamp No<em>*</em></label>
+                            <input type="text" id="stamp_no" class="form-control" name='stamp_no' value=''>
+                            <label class="error_mgs_lable" id="stamp_no_error"></label>
+                        </div>
+                    </div> 
+
+
+
+                    <!--                        <div class="form-group col-md-4 custom-select-outer">
+                                                <label for="exampleInputEmail1">Purchase Date of Stamp</label>
+                                                <input type="text" id="purchase_date" class="form-control" name='purchase_date' value=''>
+                                                <label class="error_mgs_lable" id="purchase_date_error"></label>
+                                            </div>-->
+                    <div class="col-md-4"> 
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Party Mobile No<em>*</em></label>
+                            <input type="text" id="party_mobile_no" class="form-control" name='party_mobile_no' value=''>
+                            <label class="error_mgs_lable" id="party_mobile_no_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">                          
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Party Name</label>
+                            <input type="text" id="party_name" class="form-control" name='party_name' value=''>
+                            <label class="error_mgs_lable" id="party_name_error"></label>
+                        </div>
+
+                    </div>
+
+                    <!--                        <div class="form-group col-md-4 custom-select-outer">
+                                                <label for="exampleInputEmail1">Party Father Name</label>
+                                                <input type="text" id="party_father_name" class="form-control" name='party_father_name' value=''>
+                                                <label class="error_mgs_lable" id="party_father_name_error"></label>
+                                            </div>-->
+
+
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <span style="display:none" class="showDiv">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </span>
+                        <a href="/admin/freeze-deal" class="btn btn-primary">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <label for="exampleInputEmail1">Your Client must have received an OTP on the entered mobile number, Please enter OTP below.</label>
+                <input type="text" id="otp" class="form-control" name='otp' value='' placeholder="Enter OTP">
+
+                <label id="otp_error" class="error_mgs_lable" style="display: inline-block;"></label>
+                <label class="error_mgs_lable" id="otp_error"></label><br>
+                <p style="display: none">Time left for resend OTP option : <span id="timer_rem_time"></span> seconds</p>
+                <a href="#" onclick="resendOtp()" id="resendOtpLink" style="display: none">Resend OTP</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="verify_otp()">Verify</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    feesArr = [];
+    $(".select2").select2();
+
+    $(document).on("submit", "#freezeForm", function (e) {
+        e.preventDefault();
+
+        $("#service_details_id").prop("disabled", false);
+        $("#service_detail_documents_id").prop("disabled", false);
+
+
+        var thisObj = $(this);
+        var form = $(thisObj)[0];
+        var formData = new FormData(form);
+        $('.error_mgs_lable').html('');
+
+        $("#service_details_id").prop("disabled", true);
+        $("#service_detail_documents_id").prop("disabled", true);
+
+
+        $.ajax({
+            url: $(thisObj).attr('action'),
+            data: formData,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                if (response.status) {
+                    $('#myModal').modal('show');
+                    setTimer(60, "timer_rem_time", "resendOtpLink")
+                    $('#save_id').val(response.data)
+                    //window.location.href = response.url;
+                } else {
+                    //bootstrapNotify.showMessage(response.message, 'success');
+                }
+            }, error: function (resData) {
+                console.log(resData);
+                $.each(resData.responseJSON.data, function (key, val) {
+                    bootstrapNotify.showMessageOnField(val.message, val.path);
+                });
+            }
+        });
+    });
+
+
+
+
+
+    function verify_otp() {
+
+        $.ajax(
+                {
+                    type: "POST",
+                    url: '/admin/freeze-deal/confirm_otp',
+                    data: {
+                        otp: $('#otp').val(),
+                        id: $('#save_id').val()
+                    },
+                    cache: false,
+                    success: function (response) {
+                        if (response.status) {
+                            //bootstrapNotify.showMessage(response.msg, 'success');
+                            if (response.status) {
+                                window.location.href = '/admin/freeze-deal?msg_type=done';
+                            } else {
+
+                            }
+                        } else {
+                            $('#otp_error').text(response.msg);
+
+                            $("#otp_error").css({"color": "#FF0000", "font-weight": "bold"});
+                            //bootstrapNotify.showMessage(response.msg, 'danger');
+                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('not updated!', 'danger');
+                    }
+                });
+    }
+
+    function resendOtp() {
+
+        $.ajax(
+                {
+                    type: "POST",
+                    url: '/admin/freeze-deal/resendOtp',
+                    data: {
+                        id: $('#save_id').val()
+                    },
+                    cache: false,
+                    success: function (response) {
+                        if (response.status) {
+                            $('#otp_error').text(response.msg);
+                            $("#otp_error").css({"color": "green", "font-weight": "bold"});
+                            setTimer(60, "timer_rem_time", "resendOtpLink")
+                            //bootstrapNotify.showMessage(response.msg, 'success');
+                        } else {
+                            bootstrapNotify.showMessage(response.msg, 'danger');
+                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('not updated!', 'danger');
+                    }
+                });
+
+    }
+
+
+
+    function get_fee() {
+        var data = $('#service_detail_documents_id').select2('data')
+        //console.log(data);
+        //alert(data[0].text);
+        $.ajax(
+                {
+                    type: "GET",
+                    url: '/admin/users/fessCall/' + $('#document_value').val() + '/' + $('#service_details_id').val() + '/1/' + $('#service_detail_documents_id').val() + '/' + data.text,
+//                    data: {
+//                        document_value: $('#document_value').val(),
+//                        sid: $('#select2-service_details_id-container').val(),
+//                        did: $('#service_detail_documents_id').val()
+//                    },
+                    cache: false,
+                    success: function (response) {
+                        if (response.status == false) {
+                            bootstrapNotify.showMessage(response.msg, 'danger');
+                            return false;
+                        }
+
+                        $('#document_value').attr('readonly', true);
+                        $("#service_details_id").prop("disabled", true);
+                        $("#service_detail_documents_id").prop("disabled", true);
+
+                        var fee_no = 1;
+                        $('#feeShow').html('');
+                        sortArr = [];
+                        $.each(response.data.fees, function (key, val) {
+
+                            var newIndex = parseInt(val['year']) - 1;
+
+                            console.log(newIndex);
+
+                            sortArr.splice(newIndex, 0, val);
+
+                        });
+
+
+                        console.log(sortArr);
+
+
+                        $.each(sortArr, function (key, val) {
+                            key++;
+                            if (parseFloat(val['total_fees']) < 0) {
+                                return false;
+                            }
+                            //$('.yr_fee' + key).text(val['total_fees']);
+                            //$('.yr_fee' + key).val(val['year']);
+                            feesArr.push(parseFloat(val['total_fees']).toFixed());
+                            $('#fee').val(parseFloat(val['total_fees']).toFixed());
+                            var html = '';
+                            html += '<div class="fee-show-label col-md-3" ><div class="radio-btn form-group">'
+                            html += '<input type="radio" name="year" class="yr_fee' + fee_no + '" id= "yr_fee' + fee_no + '" value="' + val['year'] + '" checked>'
+                            html += '<label for="yr_fee' + fee_no + '">' + fee_no + ' Year = Rs. ' + parseFloat(val["total_fees"]).toFixed() + '</label>'
+                            html += '</div></div>'
+
+//                            
+                            $('#feeShow').append(html);
+
+                            //console.log(val);
+                            fee_no++;
+                        });
+
+                        $('#feeShow').show();
+                        $('.showDiv').show();
+
+
+//                        if (response.status) {
+//                            bootstrapNotify.showMessage(response.msg, 'success');
+//                            if (response.status) {
+//                                window.location.href = '/admin/freeze-deal';
+//                            } else {
+//
+//                            }
+//                        } else {
+//                            bootstrapNotify.showMessage(response.msg, 'danger');
+//                        }
+                    },
+                    error: function (resData) {
+                        console.log(resData.responseJSON)
+                        bootstrapNotify.showMessage('Please fill all fields', 'danger');
+                    }
+                });
+    }
+
+
+//    $(document).on('change', '#service_details_id', function () {
+//        var thisObj = $(this);
+//        if ($("option:selected", thisObj).attr('service_detail_slug') == 'lease_deed_rent') {
+//            $('.document_value_month_class').text('Monthly Lease Rent');
+//        } else {
+//            $('.document_value_month_class').text('Document Value');
+//        }
+//
+//    });
+
+
+
+    $(document).on("change", "input[type=radio]", function () {
+        var year = $('[name="year"]:checked').val();
+        //console.log(feesArr);
+        //alert(year);
+        $('#fee').val(feesArr[year - 1]);
+    });
+
+
+
+    $(document).on('change', '#service_details_id', function () {
+
+        var thisObj = $(this);
+        var settingValueArr = $('.settingValueForMonthlyRent').text().split(',');
+        if ($.inArray($("option:selected", thisObj).text(), settingValueArr) >= 0) {
+            $('.document_value_month_class').text('Monthly Lease Rent');
+        } else {
+            $('.document_value_month_class').text('Document Value');
+        }
+    });
+
+    $('#myModal').on('hidden.bs.modal', function () {
+        setTimer(-1, "timer_rem_time", "resendOtpLink")
+    })
+
+
+</script>    

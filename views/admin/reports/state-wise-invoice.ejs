@@ -1,0 +1,214 @@
+<%# include ../helper/breadcrumb.ejs %>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">State wise Invoice</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form action="/admin/commission_distributions/state-wise-invoice" method="get" name="serchFrom" role="form">
+                        <input type="submit" class="btn btn-success blue" style="display:none">
+                        <div class="form-row-new row">
+                            <div class="col-md-2">
+                                <div class="form-group"><input type="text" name="start_date" placeholder="Start Date" id="start_date" class="form-control startdate" value="<%= serchData.start_date %>"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group"><input type="text" value="<%= serchData.end_date %>" name="end_date" placeholder="End Date" id="end_date" class="form-control enddate"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group custom-select-outer">
+                                    <select id="type" name="type" class="form-control select2" tabindex="-1" aria-hidden="true">
+                                        <option value="">Select Type</option>
+                                        <option value="0" <% if(serchData.type && serchData.type==0){ %>selected<% } %>>Nyaya Card</option>
+                                        <option value="1" <% if(serchData.type && serchData.type==1){ %>selected<% } %>>Membership</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group custom-select-outer">
+                                    <select class="form-control select2" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id'], [Number(this.value)], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id', 'tehsil_id']);">
+                                        <option value="">State</option> 
+                                        <% state.forEach(function(value,index){  %>
+                                        <option value="<%= value.state_name %>" <% if(serchData.state_id == value.state_name) { %>selected<% } %> data-tags="true"><%= value.state_name %></option>
+                                        <% });  %>
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-md-2">
+                                <div class="form-group custom-select-outer">
+                                    <select id="type" name="type_no" class="form-control select2" tabindex="-1" aria-hidden="true">
+                                        <option value="">Select Type</option>
+                                        <option value="0" <% if(serchData.type_no && serchData.type_no==0){ %>selected<% } %>>Invoice No.</option>
+                                        <option value="1" <% if(serchData.type_no && serchData.type_no==1){ %>selected<% } %>>Product No.</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <div class="form-group"><input type="text" value="<%= serchData.id %>" name="id" placeholder="Invoice/Product No." id="id" class="form-control"></div>
+                            </div>
+
+
+                            <div class="col-md-2">
+                                <a title="search" href="javascript:document.serchFrom.submit()" class="btn btn-success blue">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>        
+
+
+
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Date</th>
+
+                            <th>State</th>
+                            <th>Invoice No.</th>
+                            <th>Issued For</th>
+                            <th>Invoice amount with Tax</th>
+                            <th>Invoice amount without Tax</th>
+
+                            <th>Tax</th>
+
+                            <th>Incentive</th>
+                            <th>Bonus</th>
+
+                            <th>TDS</th>
+
+                            <th>Payable Incentive</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %></td>
+
+                            <td>
+                                <%= rows.invoice_state %>
+                            </td>
+
+                            <td>
+                                <%= rows.invoice_no %>
+                            </td>
+
+                            <td>
+                                <% if(rows.membership_plan_issue_id){ %>    
+                                MB No. :   <%= rows.ms_id %>   
+                                <% } %>
+                                <% if(rows.arbitration_agreements_id){ %>    
+                                NC No. :   <%= rows.ar_id %>   
+                                <% } %>
+                            </td>
+
+                            <td>
+                                <%= rows.total_fees %>
+                            </td>
+
+                            <td>
+                                <%= rows.commission_base_amount %>
+                            </td>
+
+
+
+                            <td><%= rows.total_tax %></td>
+                            <td>
+                                <%= rows.cd_commission_amount %>
+
+                            </td>
+                            <td><%= rows.cd_bonus_commission_amount %></td>
+
+                            <td><%= rows.cd_commission_tds %></td>
+
+                            <td><b><%= parseFloat(rows.cd_final_commission).toFixed(2) %></b></td>
+
+                            <td>
+                                <%                               
+                                if(rows.membership_plan_issue_id){ 
+                                var urlInvoice='/admin/membership_plans/invoice/'+rows.membership_plan_issue_id+'/1';
+                                var urlInvoice1='/admin/commission_distributions/commission_plan/'+rows.membership_plan_issue_id;
+                                }else{
+                                var urlInvoice='/admin/arbitration_agreements/invoice/'+rows.arbitration_agreements_id+'/1';
+                                var urlInvoice1='/admin/commission_distributions/commission/'+rows.arbitration_agreements_id;
+                                }
+                                
+                                %>   
+                                <a href="<%= urlInvoice %>" class="btn btn-xs">Invoice</a>
+                                <% if(loginUser.user_type.role_type_slug=='super_admin'){ %>
+                                <a class="btn btn-success btn-xs" href="<%= urlInvoice1 %>">Commissions</a>
+                                <% } %>
+                            </td>    
+
+
+                        </tr>
+                        <% }); %>
+
+
+
+                    </table>
+
+                    <% if(results.length==0){ %>
+                    <br><h5 class="box-title text-center">No record found</h5>
+                    <% } %>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+
+                    <%# include ../helper/page2.ejs %>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%# include ../helper/pagination.ejs %>
+                </div>
+            </div>
+        </div>
+         <input type="hidden" value="1" id="newSerialStartNo" >
+        <!-- /.col -->
+    </div>
+</section>
+
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true
+
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+</script>

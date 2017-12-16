@@ -1,0 +1,378 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'', titleNameAfter:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <% if(loginUser.user_type.role_type_slug != 'super_admin' && loginUser.user_type.role_type_slug != 'franchise'){ %>
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/arbitration_agreements/add/<%= pid %>" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Create Nyaya Card</a>
+            </div>
+        </div>
+        <% } %>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+
+            <form action="/admin/arbitration_agreements/<%= pid %>" method="get" name="serchFrom" role="form">
+                <input type="submit" class="btn btn-success blue" style="display:none">
+                <div class="form-row-new row">
+
+
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+
+                            <select class="form-control select2" name="service_details_id" id="service_details_id" onChange="getDbValuesByIds(this, 'ServiceDetailDocument', ['service_detail_id'], [Number(this.value)], 'documents_name asc', 'service_detail_documents_id', ['id', 'documents_name'], []);">
+                                <option value="">Select Document Type</option>
+                                <% dataDoc.forEach(function(rows){ %>
+                                <option value="<%= rows.service_details_name %>" service_detail_slug='<%= rows.service_details_slug %>'  document_value_text="(Monthly)" <% if(serchData.service_details_id==rows.service_details_name){ %>selected<% } %> ><%= rows.service_details_name %></option>
+                                <% }); %>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group"><input type="text" name="start_date" placeholder="From" id="start_date" class="form-control startdate" value="<%= serchData.start_date %>"></div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><input type="text" value="<%= serchData.end_date %>" name="end_date" placeholder="To" id="end_date" class="form-control enddate"></div>
+                    </div>
+
+
+
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" name="stamp_number" placeholder="Stamp No." id="stamp_number" class="form-control" value="<%= serchData.stamp_number %>"></div>
+                    </div>
+
+
+
+
+
+                    <% if(loginUser.user_type.user_role.role_slug == 'franchise' && loginUser['franchise_level']!='tehsil_level'){ %>
+
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+
+                            <select id="type" name="scale" class="form-control select2" tabindex="-1" aria-hidden="true">
+                                <option value="">Select Scale</option>
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                                <option value="1" <% if(serchData.scale && serchData.scale==1){ %>selected<% } %>>Scale-I</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                                <option value="2" <% if(serchData.scale && serchData.scale==2){ %>selected<% } %>>Scale-II</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+
+                                <option value="3" <% if(serchData.scale && serchData.scale==3){ %>selected<% } %>>Scale-III</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level'){ %>
+
+                                <option value="4" <% if(serchData.scale && serchData.scale==4){ %>selected<% } %>>Scale-IV</option>
+                                <% } %>                          
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group"><input type="text" value="<%= serchData.ap_name %>" name="ap_name" placeholder="AP Name/Scale wise" id="ap_name" class="form-control"></div>
+                    </div>
+
+                    <% }else{ %>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" name="c_name" placeholder="By Professional/SP name" id="c_name" class="form-control" value="<%= serchData.c_name %>"></div>
+                    </div>
+
+                    <% } %>
+
+                    <div class="col-md-2">
+                        <div class="form-group"><input type="text" value="<%= serchData.id %>" name="id" placeholder="Nyaya Card No." id="id" class="form-control"></div>
+                    </div>
+
+                    <% if(loginUser.user_type.user_role.role_slug == 'franchise' && loginUser['franchise_level']!='tehsil_level'){ %>
+
+                    <% }else{ %>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="form-group custom-select-outer">
+                                <select class="form-control select2" name="is_active" id="is_active">
+                                    <option value="">Status</option>
+                                    <% if(loginUser.user_type.role_type_slug != 'super_admin'){ %>
+                                    <option value="2" <% if(serchData.is_active == '2') { %>selected<% } %> data-tags="true">Saved</option>
+                                    <% } %>
+                                    <option value="1" <% if(serchData.is_active == '1') { %>selected<% } %> data-tags="true">Mature</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% } %>
+
+                    <div class="col-md-3">
+                        <a title="search" href="javascript:void(0)" class="btn btn-success blue" onclick="srchForm()">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <a title="Clear Search" href="/admin/arbitration_agreements/<%= pid %>" class="btn btn-success blue ml-5">Clear Search</a>
+                    </div>
+                </div>
+            </form>
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+
+                            <th>Document Details</th>
+                            <% if(locals.loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <% if(locals.loginUser.franchise_level == 'country_level'){ %>
+                            <th>AP Scale-4</th>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level'){ %>
+                            <th>AP Scale-3</th>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level' || locals.loginUser.franchise_level == 'division_level'){ %>
+                            <th>AP Scale-2</th>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level' || locals.loginUser.franchise_level == 'division_level' || locals.loginUser.franchise_level == 'district_level'){ %>
+                            <th>AP Scale-1</th>
+                            <% } %>
+                            <% } %>
+
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'professional' && locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <th>Professional Name & Contact</th>
+                            <% } %>
+
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'franchise' && locals.loginUser.user_type.user_role.role_slug != 'service_provider'){ %>
+                            <th>Service Provider Name & Contact</th>
+                            <% } %>
+
+                            <!--<th>Status</th>-->
+                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer' || locals.loginUser.user_type.user_role.role_slug == 'professional' || locals.loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <th>Payment Status</th>
+                            <% } %>
+                            <!--<th>Due Amount(Rs.)</th>
+                            <th>Due Date</th>-->
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'professional' && locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <th>Due's Detail</th>
+                            <% } %>
+                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer' || (locals.loginUser.user_type.user_role.role_slug == 'franchise' && locals.loginUser.franchise_level == 'tehsil_level')){ %>
+                            <th>Pay Now</th>
+                            <% } %>
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <th>Actions</th>
+                            <% } %>
+
+                        </tr>
+
+
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr>
+
+                            <td>
+
+                                Nyaya Card No. : <%= rows.ar_id %><br>
+                                Agreement No : <%= rows.aa_id %><br>
+                                Stamp No : <%= rows.stamp_number %><br>
+                                Document Type : <%= rows.service_details_id %><br>
+                                Created Date : <%= site.momentObj(dateTimeConvert(rows.added_date)).format('DD-MM-YYYY') %>
+                            </td>
+                            <% if(locals.loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <% if(locals.loginUser.franchise_level == 'country_level'){ %>
+                            <td>
+                                <%= rows.ap_level_4.first_name %>(<%= rows.ap_level_4.mobile %>)
+                                <% if(rows.ap_level_4.ap_level_4_business){ %>
+                                <br>
+                                Business Name: <%= rows.ap_level_4.ap_level_4_business.business_name %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level'){ %>
+                            <td>
+                                <%= rows.ap_level_3.first_name %>(<%= rows.ap_level_3.mobile %>)
+                                <% if(rows.ap_level_3.ap_level_3_business){ %>
+                                <br>
+                                Business Name: <%= rows.ap_level_3.ap_level_3_business.business_name %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level' || locals.loginUser.franchise_level == 'division_level'){ %>
+                            <td>
+                                <%= rows.ap_level_2.first_name %>(<%= rows.ap_level_2.mobile %>)
+                                <% if(rows.ap_level_2.ap_level_2_business){ %>
+                                <br>
+                                Business Name: <%= rows.ap_level_2.ap_level_2_business.business_name %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.franchise_level == 'country_level' || locals.loginUser.franchise_level == 'state_level' || locals.loginUser.franchise_level == 'division_level' || locals.loginUser.franchise_level == 'district_level'){ %>
+                            <td>
+                                <%= rows.ap_level_1.first_name %>(<%= rows.ap_level_1.mobile %>)
+                                <% if(rows.ap_level_1.ap_level_1_business){ %>
+                                <br>
+                                Business Name: <%= rows.ap_level_1.ap_level_1_business.business_name %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% } %>
+
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'professional' && locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <td>
+                                <% if(rows.freeze){ %>
+                                Id : <%= rows.freeze.gid %><br>
+                                Name : <%= rows.freeze.first_name %><br>
+                                Mobile No. : <%= rows.freeze.mobile %><br>
+                                <% } else if(rows.create.create_role_type.create_roles.role_slug == 'professional'){ %>
+                                Id : <%= rows.create.gid %><br>
+                                Name : <%= rows.create.first_name %><br>
+                                Mobile No. : <%= rows.create.mobile %><br>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'franchise' && locals.loginUser.user_type.user_role.role_slug != 'service_provider'){ %>
+                            <td>
+                                <% if(rows.create.create_role_type.create_roles.role_slug == 'service_provider'){ %>
+                                Id : <%= rows.create.gid %><br>
+                                Name : <%= rows.create.first_name %><br>
+                                Mobile No. : <%= rows.create.mobile %><br>
+                                <% } %>
+                            </td>
+                            <% } %>
+
+                            <!-- <td>
+                                 <% if(rows.is_active == 2){ %>
+                                 <span class="">Save as Draft</span>
+                                 <% } %>
+                             </td>-->
+                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer' || locals.loginUser.user_type.user_role.role_slug == 'professional' || locals.loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <td>
+                                <% if(rows.is_active == 3){ %>
+                                <div class="new-lable11">Used Offline Payment Mode and Amount Received in Cash from Client</div>
+                                <% } else if(rows.is_active == 1) {
+                                if(rows.paid_by){ %>
+                                <span class="label label-primary">Mature with Offline</span>
+                                <% } else { %>
+                                <span class="label label-success">Paid</span>
+                                <% } %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'professional' && locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <td>
+                                <% if(rows.is_active == 3){ %>
+                                <strong>Due Amount(Rs.):</strong> <%= rows.arbitration_agreement_fee.arbitration_agreement_total_fees %> </br>
+                                <strong>Due Date:</strong><%= site.momentObj(dateTimeConvert(rows.payment_duedate_deed_writer)).format('DD-MM-YYYY HH:mm:ss') %>
+                                <% } %>
+                            </td>
+                            <% } %>
+                            <!--<td>
+                                <% if(rows.is_active == 3){ %>
+                                <%= dateTimeConvert(rows.payment_duedate_deed_writer) %>
+                                <% } %>
+                            </td>-->
+                            <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer' || (locals.loginUser.user_type.user_role.role_slug == 'franchise' && locals.loginUser.franchise_level == 'tehsil_level')){ %>
+                            <td>
+                                <ul class="aggre-btnswrap">
+
+                                    <% if(rows.is_active == 3 ){ %>
+                                    <li>
+                                        <a class="btn orange-btn btn-xs" href="/admin/commission_distributions/pay/<%= rows.id %>/1" title="Pay Now" ><i class="fa fa-rupee"></i> Pay Now</a>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            </td>
+                            <% } %>
+                            <% if(locals.loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <td>
+                                <ul class="aggre-btnswrap">
+                                    <% if(rows.is_active == 2){ %>
+                                    <% if(loginUser.user_type.role_type_slug != 'super_admin'){ %>
+                                    <li> <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>/<%= rows.product_id %>" title="Edit" ><!--<i class="fa fa-edit"></i>-->Edit Draft</a></li>
+                                    <% } %>
+                                    <% } else if(rows.is_active == 3){ %>
+
+
+                                    <li> <a class="btn btn-xs" href="/admin/<%= extraVar.viewDirectory %>/view_agreement/<%= rows.id %>/1">Agreement</a>
+                                    <li> <a class="btn btn-xs" href="/admin/<%= extraVar.viewDirectory %>/invoice/<%= rows.id %>/1">Invoice</a></li>
+
+                                    <li style="display:block">  <a class="btn btn-xs" href="/admin/<%= extraVar.viewDirectory %>/naya_card/<%= rows.id %>/1">Nyaya Card</a></li>
+                                    <!--<li> <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/refund/<%= rows.id %>/<%= rows.product_id %>" title="Refund" ><i class="fa fa-edit"></i>Refund</a></li>-->
+                                    <% if(loginUser.user_type.role_type_slug=='super_admin'){ %>
+                                    <li>  <a class="btn btn-xs" href="/admin/commission_distributions/commission/<%= rows.id %>">Commissions</a></li>
+                                    <% } %>
+                                    <% } else { %>
+
+                                    <!--<li>  <a class="btn btn-primary btn-xs" href="/admin/<%= extraVar.viewDirectory %>/renew_agreement/<%= rows.id %>/1">Renew</a></li>-->
+                                    <li>   <a class="btn btn-xs" href="/admin/<%= extraVar.viewDirectory %>/view_agreement/<%= rows.id %>/1">Agreement</a></li>
+                                    <li>   <a class="btn btn-xs" href="/admin/<%= extraVar.viewDirectory %>/invoice/<%= rows.id %>/1">Invoice</a></li>
+                                    <br>
+                                    <li style="">  <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/naya_card/<%= rows.id %>/1">Nyaya Card</a></li>
+                                    <!--<li> <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/refund/<%= rows.id %>/<%= rows.product_id %>" title="Refund" ><i class="fa fa-edit"></i>Refund</a></li>-->
+                                    <% if(loginUser.user_type.role_type_slug=='super_admin'){ %>
+                                    <li><a class="btn btn-success btn-xs" href="/admin/commission_distributions/commission/<%= rows.id %>">Commissions</a></li>
+                                    <% } %>
+
+                                    <% } %>
+                                </ul>
+                            </td>
+                            <% } %>
+
+                        </tr>
+                        <% }); %>
+
+
+
+                    </table>
+                    <% if(results.rows.length==0){ %>
+                    <h5 class="box-title text-center">No record found</h5>
+                    <% } %>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%- include ../helper/pagination.ejs %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true
+
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+
+    function srchForm() {
+        if ($('#type').val() == '' && $('#ap_name').val() != '') {
+            bootstrapNotify.showMessage('Please select Scale', 'error');
+            return false;
+        }
+
+        javascript:document.serchFrom.submit()
+    }
+
+</script>

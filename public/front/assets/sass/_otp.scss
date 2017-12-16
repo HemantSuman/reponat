@@ -1,0 +1,39 @@
+.otpWrap
+{
+	 max-width: 500px;
+	 margin: 0 auto;
+	 text-align: center;
+	 .btn-orange
+	 {
+	 	 display: block; width: 100%;
+	 }
+}
+.otp-link
+{
+	position: relative;
+	 padding: 10px 0;
+	ul
+	{
+		li
+		{
+			display: inline-block;
+			margin: 0 10px;
+
+			a
+			{
+				display: inline-block;
+				border-bottom: 2px solid $bluebg;
+				color: $bluebg;
+				font-size: $font16;
+				&:hover
+				{
+					color: $orangebg;
+					border-bottom: 2px solid $orangebg;
+
+				}
+				
+			}
+		}
+	}
+	
+}

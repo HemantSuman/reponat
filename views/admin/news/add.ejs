@@ -1,0 +1,66 @@
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+
+            <div class="box-body">
+                
+<!--                <div class="row">    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Position<em>*</em></label>
+
+                            <input type="text" class="form-control" id="position" name='position'>
+                            <lable class="error_mgs_lable" id="position_error"></lable>
+
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">First News<em>*</em></label>
+                            <input type="text" class="form-control" id="first_news" name='first_news'>
+                            <lable class="error_mgs_lable" id="first_news_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Second News<em>*</em></label>
+                            <input type="text" class="form-control" id="second_news" name='second_news'>
+                            <lable class="error_mgs_lable" id="second_news_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+
+    <!-- /.box -->
+
+</section>

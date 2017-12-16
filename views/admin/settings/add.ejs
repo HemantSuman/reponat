@@ -1,0 +1,41 @@
+<% if(results.my_model.id){ %>
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<% } else { %>
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<% } %>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/settings/update' enctype="multipart/form-data">
+                    <input type="hidden" id="id" name='id' value='<%= results.my_model.id %>'>
+                    <div class="box-body">
+                        <div class="form-group col-md-12 custom-select-outer">
+                            <label for="exampleInputEmail1">Name<em>*</em></label>
+                            <input type="text" class="form-control" id="setting_name" placeholder="Name" name='setting_name' value="<%= results.my_model.setting_name %>" <% if(results.my_model.id) { %>readonly<% } %>>
+                            <label class="error_mgs_lable" id="setting_name_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-12 custom-select-outer">
+                            <label for="exampleInputEmail1">Value<em>*</em></label>
+                            <input type="text" class="form-control" id="setting_value" placeholder="Enter value" name='setting_value' value="<%= results.my_model.setting_value %>">
+                            <label class="error_mgs_lable" id="setting_value_error"></label>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a href="/admin/<%= extraVar.viewDirectory %>" class="btn btn-primary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>   

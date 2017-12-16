@@ -1,0 +1,147 @@
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='create' enctype="multipart/form-data">
+                    <input type="hidden" name='image_path' value='public/uploads/categories'>
+                    <div class="box-body">
+                        <div class="form-group col-md-12">
+                            <label for="exampleInputEmail1">Categories<em>*</em></label>
+                            <select class="form-control select2" name="category_id" id="category_id">
+                                <option value="">--Please Select--</option>
+
+                                <% if(typeof results.categories !== 'undefined'){ %>
+                                <% results.categories.forEach(function(value, index){  %>
+                                <option value="<%= value.id %>" ><%= value.category_name %></option>
+                                <% });  %>
+                                <% } %>
+                            </select>
+                            <label class="error_mgs_lable" id="category_id_error"></label>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Title</label>
+
+                            <input type="text" class="form-control" id="listing_title" placeholder="Enter Name" name='listing_title' value=''>
+                            <label class="error_mgs_lable" id="listing_title_error"></label>
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Keywords</label>
+
+                            <input type="text" class="form-control" id="listing_keywords" placeholder="Enter Name" name='listing_keywords' value=''>
+                            <label class="error_mgs_lable" id="listing_keywords_error"></label>
+
+                        </div>
+                        <div class="form-group col-md-12" id="map" style="height: 200px;">
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Latitude</label>
+
+                            <input type="text" class="form-control" id="lat" placeholder="Enter Name" name='lat' value=''>
+                            <label class="error_mgs_lable" id="lat_error"></label>
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Langitude</label>
+
+                            <input type="text" class="form-control" id="lng" placeholder="Enter Name" name='lng' value=''>
+                            <label class="error_mgs_lable" id="lng_error"></label>
+
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="checkbox">
+                                <label>                           
+                                    <input type="checkbox" name="is_active"  id="is_active" value='1' checked >Status
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button onclick="return false;" type="submit" class="btn btn-primary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+        </div>
+    </div>
+</section>
+<script>
+
+    var map;
+    function setMapObj() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+//            center: {lat: -34.397, lng: 150.644},
+            zoom: 12,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
+
+    function initMap() {
+
+        setMapObj();
+
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+//                infoWindow.setPosition(pos);
+//                infoWindow.setContent('Location found.');
+                map.setCenter(pos);
+
+                var marker = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                    draggable: true,
+                    title: 'You are here'
+                });
+                document.getElementById("lat").value = pos.lat;
+                document.getElementById("lng").value = pos.lng;
+
+                google.maps.event.addListener(marker, 'drag', function (event) {
+                    document.getElementById("lat").value = event.latLng.lat();
+                    document.getElementById("lng").value = event.latLng.lng();
+                });
+                
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrmOorgnrO-3CiDpF68S0-SB6h03_6NjA&callback=initMap&language=en-AU">
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<%# include ../helper/breadcrumb.ejs %>
+<section class="content-header">
+    <h1>Stamp Vendor Payment</h1>
+    
+</section>
+<section class="content">
+    <div class="box box-primary">
+
+        <div class="filterBar">
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="responsive-table">
+                <form action="/admin/commission_distributions/pay-to-sv" method="get" name="serchFrom" role="form">
+                    <input type="submit" class="btn btn-success blue" style="display:none">
+                    <div class="form-row-new row">
+                        <div class="col-md-4">
+                            <div class="form-group"><input type="text" name="stamp_number" placeholder="Stamp Number" id="stamp_number" class="form-control startdate" value="<%= serchData.stamp_number %>"></div>
+                        </div>
+
+
+
+                        <div class="col-md-4">
+                            <div class="form-group"><input type="text" name="first_name" placeholder="Stamp Vendor Name" id="first_name" class="form-control startdate" value="<%= serchData.first_name %>"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><input type="text" name="mobile" placeholder="Stamp Vendor Mobile Number" id="mobile" class="form-control startdate" value="<%= serchData.mobile %>"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group"><input type="text" value="<%= serchData.id %>" name="id" placeholder="Nyaya Card Number" id="id" class="form-control enddate"></div>
+                        </div>
+                        <input type="hidden" name="paid" value="0" class="">
+
+<!--                        <div class="col-md-4">
+                            <div class="form-group custom-select-outer">
+                                <select class="form-control select2" name="paid" id="paid">
+                                    <option value="">Status</option>
+                                    <option value="0" <% if(serchData.paid == '0') { %>selected<% } %> data-tags="true">UnPaid</option>
+                                    <option value="1" <% if(serchData.paid == '1') { %>selected<% } %> data-tags="true">Paid</option>
+
+
+                                </select>    
+                            </div>
+                        </div>-->
+
+                        <div class="col-md-4">
+                            <a title="search" href="javascript:document.serchFrom.submit()" class="btn btn-success blue">
+                                <i class="fa fa-search"></i>
+                            </a>
+                             <a title="Clear Search" href="/admin/commission_distributions/pay-to-sv?paid=0" class="btn btn-success blue">Clear Search</a>
+                        </div>
+                    </div>
+                </form>  
+
+            </div>
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responisve">
+                    <table class="table table-bordered">
+                        <tr>
+
+                            <th>#</th>
+                            <th>User Details</th>
+                            <th>Document Details</th>
+
+                            <th>Incentive</th>
+
+                            <th>Penalty</th>
+                            <th>TDS</th>
+                            <th>Payable Amount</th>
+                            <th>Status</th>
+
+                        </tr>
+                        <% 
+                        var total=0;
+                        var penalty=0;
+                        %>
+
+                        <% results.data.forEach(function(rows){ %>
+                        <tr>
+                            <td>
+                                <input type="checkbox" value="<%= rows.user_id %>_<%= rows.final_commission %>_<%= rows.cd_id %>" id="is_active" name="is_active">    
+                            </td>
+                            <td>
+                                Id : <%= rows.gid %><br>
+                                Name : <%= rows.first_name %><br>
+                                Email : <%= rows.email %><br>
+                                Mobile No.  : <%= rows.mobile %><br>
+                            </td>
+                            <td style="max-width: 100px;word-wrap:break-word;">
+                                Stamp Number : <%= rows.stamp_number %><br>
+                                Nyaya Card Number : <%= rows.ar_id %><br>
+
+                            </td>
+
+                            <td>
+                                <%= rows.commission_amount %>
+                            </td>
+
+
+                            <td><%= rows.penalty %></td>
+                            <td><%= rows.commission_tds %></td>
+                            <td><%= rows.final_commission %></td>
+                            <td>
+                                <% if(rows.paid){ %>
+                                <span class="label label-success">Paid</span>
+                                <% }else{ %>
+                                <span class="label label-danger">UnPaid</span>
+                                <% } %>
+
+                            </td>
+
+
+                        </tr>
+                        <% }); %>
+
+
+
+                    </table>
+                    <%- include('../element/no-record.ejs', {results:results}); %>
+                </div>
+            </form>
+
+            <% if(serchData.paid == '0' && results.data.length != 0) { %>
+            <a title="PAYMENT" href="javascript:void(0)" class="btn btn-success blue pull-right" onclick="pay()">
+                <i class="fa fa-credit-card">PAY</i>
+            </a>
+            <% } %>
+
+            <% if(results.data.length==0){ %>
+            <h5 class="box-title text-center">No record found</h5>
+            <% } %>
+
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+
+            <%# include ../helper/page2.ejs %>
+
+
+
+
+        </div>
+    </div>
+
+
+</section>
+
+
+<div id="payConform" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content  e-sign-popup">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Payment Confirmation</h3>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/commission_distributions/pay-sv" method="post" name="pay-to-sv" id="pay-to-sv" role="form">
+                    <input type="hidden" id="ids" name="ids" value=""/>    
+                    <input type="hidden" id="cd_id" name="cd_id" value=""/>    
+                    <input type="hidden" id="total" name="total" value=""/>    
+                </form>
+                <p>
+                    Are you sure to pay <b>Rs. <span id="amu"></span></b> to selected Stamp Vendors 
+                </p>
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" id="finalSubmit" onclick="payServer()">PAY</a>
+                <button type="button" class="btn btn-default" id="finalSubmit" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var payArr = [];
+    var total = 0;
+    function pay() {
+
+        var total = 0;
+        var payArr = [];
+        var payArr2 = [];
+        $('input[name="is_active"]:checked').each(function () {
+            console.log(this.value);
+
+            arrGet = this.value.split("_")
+            total = total + parseFloat(arrGet[1]);
+            payArr.push(arrGet[2]);
+            payArr2.push(arrGet[2]);
+
+        });
+        
+        
+        console.log(payArr2);
+
+
+        if (!payArr.length) {
+            bootstrapNotify.showMessage('Please select atleast one user', "error");
+            return false;
+        } else if (payArr.length > 9) {
+            bootstrapNotify.showMessage("Please don't select more than 10 users per transitions", "error");
+            return false;
+        }
+        else {
+            $('#amu').text(total);
+            $('#ids').val(payArr.toString());
+            $('#cd_id').val(payArr2.toString());
+            $('#total').val(total);
+            $('#payConform').modal('show');
+        }
+
+    }
+
+
+    function payServer() {
+
+        //$('#ids').val(payArr.toString());
+        ///$('#total').val(total);
+
+        $('#pay-to-sv').submit();
+//        $.ajax({
+//            type: "POST",
+//            url: '/admin/commission_distributions/',
+//            data: {ids: payArr, total: total},
+//            dataType: "json",
+//            json: true,
+//            cache: false,
+//            success: function (response) {
+//                if (response.status) {
+//                    //$("#credit_add_modal").modal("hide")
+//                    //$("#user_credit_limit_form")[0].reset()
+//                    //bootstrapNotify.showMessage(response.message, "success");
+//                    //window.location.href = response.url;
+//                } else {
+//                    bootstrapNotify.showMessage(response.message, "error");
+//                }
+//            }, error: function (resData) {
+//                bootstrapNotify.showMessage(response.message, "error");
+//            }
+//        });
+
+    }
+</script>
+
+
+

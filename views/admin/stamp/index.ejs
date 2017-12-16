@@ -1,0 +1,74 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>s/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Stamp Number</th>
+                            <th>Issue Date</th>
+                            <th>Issue To</th>
+                            <th>Total Commission</th>
+                            <th>Stamp Status</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= rows.stamp_no %></td>
+                            <td><%= rows.stamp_issue_date %></td>
+                            <td><%= rows.stamp_issue_to %></td>
+                            <td>
+                                <% if(rows.final_commission){ %>
+                                <b>Rs. <%= rows.final_commission %></b>
+                                <% } %>
+                            </td>
+                            
+                            <td>
+                                <% if(rows.pay_status==1){ %>
+                                <span class="label label-info">Mature</span>
+                                <% }else if(rows.pay_status==3){ %>                               
+                                <span class="label label-success">Mature With Credits</span>
+                                <% }else{ %>
+                                <span class="label label-success">Locked</span>
+                                <% } %>
+                            </td>    
+                            
+                            <td>
+                                <% if(! rows.pay_status){ %>
+                                <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>s/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                <% } %>
+                            </td>
+
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <%- include('../element/no-record.ejs', {results:results}); %>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include ../helper/pagination_with_product_id.ejs %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

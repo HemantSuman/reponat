@@ -1,0 +1,204 @@
+<!-- breadcrumbs -->
+<div class="breadcrumbWrap">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Request for Authorized Promoter</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumbs -->
+<section class="inner-page-content sectionForOtp" id="loadUi">
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <h1>Request for Authorized Promoter</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="signupWrap">
+                        <form action="/franchise_request/create" method="post" enctype="multipart/form-data" id="franchise-request-form">
+                            <div id="loading"><img src="/front/assets/img/loading.gif"></div>
+                            <div id="formData"></div>
+
+                            <div class="row form-row">
+                                <div class="col-sm-12">
+                                    <label><input type="radio" class="franchise_request_type" name="franchise_request_type" value="1" checked> Business/Firm</label>
+                                    <label><input type="radio" class="franchise_request_type" name="franchise_request_type" value="2"> Individual</label>
+                                </div>
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-6 col-sm-12 col-xs-12 for_businessfirm_type">
+                                    <label>Business Name <span class="required">*</span></label>
+                                    <input type="text" name="business_name" id="business_name" class="form-control">
+                                    <label class="errorMsg" id="business_name_error"></label>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12 contact_person_div">
+                                    <label>Contact Person <span class="required">*</span></label>
+                                    <input type="text" name="contact_person" id="contact_person" class="form-control">
+                                    <label class="errorMsg" id="contact_person_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Email <span class="required">*</span></label>
+                                    <input type="text" name="email" id="email" class="form-control">
+                                    <label class="errorMsg" id="email_error"></label>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Mobile <span class="required">*</span></label>
+                                    <input type="text" name="mobile" id="mobile" class="form-control">
+                                    <label class="errorMsg" id="mobile_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Correspondence Address <span class="required">*</span></label>
+                                    <input type="text" name="franchise_address" name="franchise_address" class="form-control">
+                                    <label class="errorMsg" id="franchise_address_error"></label>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Town <span class="required">*</span></label>
+                                    <input type="text" name="town" name="town" class="form-control">
+                                    <label class="errorMsg" id="town_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <label>Country <span class="required">*</span></label>
+                                    <select class="form-control custom-select" name="country_id" id="country_id" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [Number(this.value), 1], 'state_name asc', 'state_id', ['id', 'state_name'], ['division_id', 'district_id', 'tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+                                        <% data.country.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.country_name %></option>
+                                        <% });  %>
+                                    </select>
+                                    <label class="errorMsg" id="country_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <label>State <span class="required">*</span></label>
+                                    <select class="form-control custom-select" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [Number(this.value), 1], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id', 'tehsil_id']);"
+                                            >
+                                        <option value="">--Please Select--</option>
+                                        <% data.states.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.state_name %></option>
+                                        <% });  %>
+                                    </select>
+                                    <label class="errorMsg" id="state_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <label>Division <span class="required">*</span></label>
+                                    <select class="form-control custom-select" name="division_id" id="division_id" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [Number(this.value), 1], 'district_name asc', 'district_id', ['id', 'district_name'], ['tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+                                        <% data.divisions.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.division_name %></option>
+                                        <% });  %>
+                                    </select>
+                                    <label class="errorMsg" id="division_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <label>District <span class="required">*</span></label>
+                                    <select class="form-control custom-select" name="district_id" id="district_id" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [Number(this.value), 1], 'tehsil_name asc', 'tehsil_id', ['id', 'tehsil_name'], []);"
+                                            >
+                                        <option value="">--Please Select--</option>
+                                        <% data.districts.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.district_name %></option>
+                                        <% });  %>
+                                    </select>
+                                    <label class="errorMsg" id="district_id_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <label>Tehsil <span class="required">*</span></label>
+                                    <select class="form-control custom-select" name="tehsil_id" id="tehsil_id">
+                                        <option value="">--Please Select--</option>
+                                        <% data.tehsils.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.tehsil_name %></option>
+                                        <% });  %>
+                                    </select>
+                                    <label class="errorMsg" id="tehsil_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12 for_individual_type hide">
+                                    <label>Qualification <span class="required">*</span></label>
+                                    <input type="text" name="qualification" id="qualification" class="form-control" disabled>
+                                    <label class="errorMsg" id="qualification_error"></label>
+                                </div>
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Apply For</label><br/>
+                                    <label class=" radio-align-label"><input type="radio" name="apply_for" value="1" checked> District Level</label>
+                                    <label class=" radio-align-label"><input type="radio" name="apply_for" value="2"> Tehsil Level</label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>In which Area, you are interested to Work <span class="required">*</span></label>
+                                    <input type="text" name="working_interest" id="working_interest" class="form-control">
+                                    <label class="errorMsg" id="working_interest_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Profile Description <span class="required">*</span></label>
+                                    <textarea rows="4" class="form-control" name="profile_desc" id="profile_desc" placeholder="Min. 100 characters and Max. 500 characters"></textarea>
+                                    <label class="errorMsg" id="profile_desc_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>What do you know about Arbitration ? <span class="required">*</span></label>
+                                    <textarea rows="4" class="form-control" placeholder="Min. 100 characters and Max. 500 characters" name="info_about_arbitration" id="info_about_arbitration"></textarea>
+                                    <label class="errorMsg" id="info_about_arbitration_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row form-row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <label>Why are you interested to become Authorized Promoter ? <span class="required">*</span></label>
+                                    <textarea rows="4" class="form-control" placeholder="Min. 100 characters and Max. 500 characters" name="interest_to_become_authorized" id="interest_to_become_authorized"></textarea>
+                                    <label class="errorMsg" id="interest_to_become_authorized_error"></label>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-row">
+                                <div class="col-md-6 col-sm-12 col-xs-12" id="g_captcha_error">
+                                    <label>Resolve the captcha<span class="required">*</span></label>
+                                    <img src="../uploads/captcha/<%=data.captcha%>.png" >
+                                    <input type="hidden" name="current_time_stamp" value="<%=data.captcha%>">
+                                    <input type="text" class="form-control" id="captcha_client" name="captcha_client">
+                                    <label class="errorMsg" id="captcha_client_error"></label>
+                                </div>
+                                <!--                                <div class="form-row clearfix">
+                                                                    <div class="col-md-4 col-sm-12 col-xs-12" id="g_captcha_error">
+                                                                         for local use this key "6LfByRMUAAAAAPCSCcMoxFjrcRbypCAfgzB_kF8o" 
+                                                                         for testingnat use this key "6LefURsUAAAAAMF4vowJeMLWd2mQ9vXwUc6OoP8N" 
+                                                                         for nyayaportal use this key "6LditiYUAAAAAHOnNiCKB5JLkaaiXqGuGC7Sz0ge" 
+                                                                        <div class="g-recaptcha" data-sitekey="6LfByRMUAAAAAPCSCcMoxFjrcRbypCAfgzB_kF8o"></div>
+                                                                        <label class="errorMsg" id="g-recaptcha-response_error"></label>
+                                                                    </div>
+                                                                </div>-->
+                                <div class="col-md-8 col-sm-12 col-xs-12">
+                                    <button id="submit" type="submit" class="btn btn-orange">Submit</button>
+                                </div>
+                                <!--<input type='hidden' id="g_captcha">-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function () {
+        $('#country_id option[value="1"]').attr("selected", true).trigger('change');
+    });
+
+</script>

@@ -1,0 +1,401 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%# include('../helper/Heading-Page.ejs', {title:'Faq'}); %>
+<section class="content-header">
+    <h1>FAQ</h1>
+    <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li> FAQ</li>
+        <!--<li class="active"></li>-->
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-primary content-ul-heading txt-justify">
+        <% if(extraVar.user_type == 'stamp_vendor'){ %>
+        <div class="content-ul faq-section">
+            <div class="panel-group" id="faq">
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#1" aria-expanded="true">1. What is a dashboard? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            Dashboard is the index page of the control panel for a website's user that is linked to a database which allows the report to be constantly updated.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#2">2. What is "Add Stamp" section?<i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            To promote the arbitration, we are providing opportunities for Stamp Vendors to earn. You can upload details of the stamp sold to the customers for any agreement or contract and can earn incentives if the particular stamp is registered by any customer at Nyaya Portal. You can also upload details of all the stamp sold collectively by uploading excel sheet through "STAMP UPLOAD" option.
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#3">3. What is the valid time period for uploading the stamp details?<i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            A stamp vendor can upload the details of the stamps not more than 7 days older from the current date.<br>
+                            In case if you have sold the stamp and you have not uploaded the details and the stamp has been registered with us before you have uploaded then in this case you can upload the stamp details within 48 hours of its registration.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#4">4. What is incentive details?<i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            In this section, you can see the details of the Incentives you have earned by creating the Nyaya Card. You can also download the statement of incentive and TDS. You can also use the filters to search an incentive.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#5">5. What is Incentive Criteria?<i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="5" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            This section on your dashboard shows all the amount of incentive which you can earn. This section also shows the Additional Incentive details which Nyaya Portal offers time to time.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#6">6. How to change your Password?<i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="6" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            You can change your account password by clicking on the 'change password' button on the dashboard, by entering your old password and your new password.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        
+        <% } else if(extraVar.user_type == 'professional'){ %>
+        <div class="content-ul faq-section">
+            <div class="panel-group" id="faq">
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#1" aria-expanded="true">
+                            1. What is a dashboard? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="1" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            Dashboard is the index page of the control panel for a website's user that is linked to a database which allows the report to be constantly updated.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#2" aria-expanded="true">
+                            2. What is freeze the deal? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Freeze deal is a mechanism to create a Nyaya card with the help of a computer operator. This section is specially designed for lawyers, who are interested to create Nyaya card for their client in the court premises. 
+<br>
+To take the advantage of this section, simply click on “freeze deal” and fill the required details in field through your smart phone/computer and click on “Get Fee”. Duration wise applicable fee for Nyaya card will reflect on your screen. Then select any one of the fee reflecting on the screen, after selecting the fee a dialog box will open in which you need to fill the stamp number on which your client’s agreement is executed also with the client’s mobile number, after filling the required details click the ‘save’ button.
+<br>
+Simultaneously, the system will send an One-time password (OTP), on your client’s mobile number for his/her consent for freezing the deal, ask your client for the OTP number and enter the OTP in the field appeared, after verifying the OTP the stamp is freeze for next 48 hours and the particular stamp is linked with your profile.
+<br>
+Then you can ask any computer operator (service provider) who is registered with Nyaya Portal and available in the court premises to help you in creating the Nyaya Card. After the creation of Nyaya Card, incentives of the professional and computer operator are automatically credited to their bank accounts.
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#3" aria-expanded="true">
+                            3. What is listing freeze deal? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="3" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            Through this section you can view all the freeze deals and their status.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#4" aria-expanded="true">
+                            4. What are the document required to create a Nyaya Card? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Nyaya card can be created with “any agreement/contract which is already executed between the parties”. Details of the executed agreement are required to create a Nyaya Card.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#5" aria-expanded="true">
+                            5. How to create a Nyaya card? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="5" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Login into your account and click on the Nyaya Card section on the panel, then click on the ‘Create Nyaya Card section, after which a form will appear on the screen. Fill all the fields, review the filled data and proceed to make payment, on making the payment the Nyaya Card will be generated along with the Arbitration agreement and the Invoice.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#6" aria-expanded="true">
+                            6. What are the things which are needed to be selected carefully at the time of creating the Nyaya Card? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="6" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            There are two things which needs to be selected carefully, first is the procedure of arbitration i.e. single tier or two-tier arbitration. Secondly the place of arbitration, which means in case if any dispute arises what will be the place at which the parties would like to arbitrate their dispute.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#7" aria-expanded="true">
+                            7. What is View Membership plans? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="7" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            On selecting the ‘view membership plans’ in the membership section, you will be directed to a page showing the details of the current membership plans. 
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#8" aria-expanded="true">
+                            8. What are the documents required to create a Membership? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="8" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            For creating a membership, you need client’s business’s Pan Card Number, GST registration number, and the details of the Authority on behalf of the business.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#9" aria-expanded="true">
+                            9. What is incentive details? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="9" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            In this section, you can see the details of the Incentives you have earned by creating the Nyaya Card or Membership. You can also download the statement of incentive and TDS. You can also use the filters to search an incentive.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#10" aria-expanded="true">
+                            10. Who is an Authorised Promoter? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="10" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            Authorised Promoter is a person appointed by Nyaya Portal for your local assistance. You can always write to them or call them in case of any queries. 
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#11" aria-expanded="true">
+                            11. What is Incentive Criteria?  <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="11" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            This section on your dashboard shows all the amount of incentive which you can earn on creation of a Nyaya Card or Membership. This section also shows the Additional Incentive details which Nyaya Portal offers time to time. 
+
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#12" aria-expanded="true">
+                            12. What is Fee exemptions? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="12" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            In this section, you can view the exemption on fee which Nyaya Portal provide to Nyaya Card or Membership holders in case of any dispute. 
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#13" aria-expanded="true">
+                            13. What is Fee Calculator? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="13" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            For the ease of calculating fees, we have provided different calculators for calculating the Nyaya Card fee, the amount of exemption which we provide to Membership holders and the fee of arbitration as per the Schedule-I of National Arbitral (Procedural) Rules.
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading collapse-header">
+                        <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#14" aria-expanded="true">
+                            14.  How to change your Password? <i class="fa fa-plus"></i></a>
+                    </div>
+                    <div id="14" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            You can change your account password by clicking on the ‘change password’ button on the dashboard, by entering your old password and your new password. 
+                        
+                        </div>
+                    </div>
+                </div>
+               
+
+            </div>
+
+        </div>
+    <% } else { %>
+
+    <div class="content-ul faq-section">
+        <div class="panel-group" id="faq">
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#1" aria-expanded="true">1. What is a dashboard? <i class="fa fa-plus"></i></a>
+                </div>
+                <div id="1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        Dashboard is the index page of the control panel for a website's user that is linked to a database which allows the report to be constantly updated.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#2">2. What are the document required to create a Nyaya Card?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        yaya card can be created with “any agreement/contract which is already executed between the parties”. Details of the executed agreement are required to create a Nyaya Card.
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#3">3. How to create a Nyaya card?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Login into your account and click on the Nyaya Card section on the panel, then click on the ‘Create Nyaya Card section, after which a form will appear on the screen. Fill all the fields, review the filled data and proceed to make payment, on making the payment the Nyaya Card will be generated along with the Arbitration agreement and the Invoice.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#4">4. What are the things which are needed to be selected carefully at the time of creating the Nyaya Card?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        There are two things which needs to be selected carefully, first is the procedure of arbitration i.e. single tier or two-tier arbitration. Secondly the place of arbitration, which means in case if any dispute arises what will be the place at which the parties would like to arbitrate their dispute.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#5">5. What is incentive details?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="5" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        In this section, you can see the details of the Incentives you have earned by creating the Nyaya Card. You can also download the statement of incentive and TDS. You can also use the filters to search an incentive.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#6">6. What is offline facility?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="6" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        It is a unique feature of Nyaya Portal, we have developed this mechanism especially for our service providers. Many times one is not able to make payments online due to many reasons. We have provided a facility for you to create the Nyaya Card by offline payment mode. By this you accept that you had collected the amount in cash form the client and you will make the online payment later as per Nyaya Portal’s payment terms and conditions. This facility will be allotted to service providers through our local Authorised Promoters.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#7">7. Who is an Authorised Promoter?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="7" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        Authorised Promoter is a person appointed by Nyaya Portal for your local assistance. You can always write to them or call them in case of any further assistance.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#8">8. What is Incentive Criteria?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="8" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        This section on your dashboard shows all the amount of incentive which you can earn on creation of a single Nyaya Card. This section also shows the Additional Incentive details which Nyaya Portal offers time to time.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#9">9. What is Fee exemptions?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="9" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        In this section, you can view the exemption on fee which Nyaya Portal provide to Nyaya Card or Membership holders in case of any dispute.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#10">10. What is Fee Calculator?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="10" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        For the ease of calculating fees, we have provided different calculators for calculating the Nyaya Card fee, the amount of Exemption which we provide to Membership holders and the fee of arbitration as per the Schedule-I of National Arbitral (Procedural) Rules.
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading collapse-header">
+                    <a class="panel-title" data-parent="#faq" data-toggle="collapse" data-target="#11">11. How to change your Password?<i class="fa fa-plus"></i></a>
+                </div>
+                <div id="11" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        You can change your account password by clicking on the ‘change password’ button on the dashboard, by entering your old password and your new password.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <% } %>
+</div>
+
+</section>

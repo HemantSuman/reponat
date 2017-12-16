@@ -1,0 +1,502 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Panel of Arbitrators</h1>
+        <p>The panel of arbitrators and experts maintained by National Arbitral Tribunal includes eminent personalities from all over the country. This eminent panel of National Arbitral Tribunal majorly have former Supreme court, High Court and District court judges and various field experts. The National Arbitral Tribunal is bound to appoint arbitrators from this panel when exercising its role as an arbitrator appointing authority.</p>
+
+        <h2>The list of our panel Arbitrators:</h2>
+        <div class="row experts-list">
+            <% results.forEach(function(rows){ %>
+            <div class="col-lg-4 col-sm-6">
+                <h5><%= rows.arbitrator_name %></h5>
+                <p><%- rows.description %></p>
+            </div>
+            <% }) %>
+            <!--
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE ASHOK BHAN</h5>
+                <p>FORMER JUDGE, <br/>SUPREME COURT OF INDIA</p>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE DEEPAK VERMA</h5>
+                <p>FORMER JUDGE,<br/> SUPREME COURT OF INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE PRAKASH P. NAOLEKAR</h5>
+                <p>FORMER JUDGE, <br/>SUPREME COURT OF INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VIKAS SHRIDHAR SIRPURKAR</h5>
+                <p>FORMER JUDGE, <br/>SUPREME COURT OF INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE JASRAJ CHOPRA</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE N.N. MATHUR</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT <br/>GUJRAT HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE H.R. PANWAR</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE D.N. THANVI</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE B.R. ARORA</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE MEGHRAJ CALLA</h5>
+                <p>FORMER JUDGE,<br/>GUJARAT HIGH COURT</p></div>
+            
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE N.P. GUPTA</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE K.K. ACHARYA</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE A. D. MANE</h5>
+                <p>FORMER JUDGE, <br/>BOMBAY HIGH COURT</p></div>
+            
+            
+            
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE BABULAL CHANDULAL PATEL</h5>
+                <p>FORMER JUDGE, <br/>JAMMU & KASHMIR HIGH COURT,<br/>DELHI HIGH COURT</p></div>
+            
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE BABULAL CHANDULAL PATEL</h5>
+                <p>FORMER CHIEF JUSTICE, <br/> J&K HIGH COURT; DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE S. N. KAPOOR</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE DR. BHARAT BHUSHAN PRASOON</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE REVA KHETRAPAL</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE SURENDRA KUMAR</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE T. SUDANTHIRAM</h5>
+                <p>FORMER JUDGE, <br/>MADRAS HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE I. P. VASHISHTH</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE KARAM CHAND PURI</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VINEY MITTAL</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE N. K. SUD</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE SUDHIR KUMAR KATRIAR</h5>
+                <p>FORMER JUDGE, <br/>PATNA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE P. B. MAJUMDAR</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT <br/>GUJARAT HIGH COURT <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE B PRAKASH RAO</h5>
+                <p>FORMER JUDGE, <br/>ANDHRA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE GRANDHI BHAVANI PRASAD</h5>
+                <p>FORMER JUDGE, <br/>ANDHRA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE DR. SATISH CHANDRA</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE S. K. SURENDAR</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE Z.U. KHAN</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE BHUPENDRA KUMAR RATHI</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE DILIP KUMAR SETH</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE SRINATH SAHAY</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE R. R. MISRA</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE ALOYSIUS S. AGUIAR</h5>
+                <p>FORMER JUDGE, <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE DR. G. C. BHARUKA</h5>
+                <p>FORMER CHIEF JUSTICE, <br/>KARNATAKA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE MANMOHAN SARIN</h5>
+                <p>FORMER CHIEF JUSTICE, <br/>JAMMU &amp; KASHMIR HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE ARUNA SURESH</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE R. S. SODHI</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE S. N. AGGARWAL</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE B. A. KHAN</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE KAMAL MEHTA</h5>
+                <p>FORMER JUDGE, <br/>GUJRAT HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE S. L. BHAYANA</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE N. K. MODY</h5>
+                <p>FORMER JUDGE, <br/>MADHYA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE ABHAY GOHIL</h5>
+                <p>FORMER JUDGE, <br/>MADHYA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE PRABHAT CHANDRA AGARWAL</h5>
+                <p>FORMER JUDGE, <br/>MADHYA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE ARVIND KUMAR</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE RANJIT SINGH</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VINOD K. SHARMA</h5>
+                <p>FORMER JUDGE, <br/>PUNJAB &amp; HARAYANA HIGH COURT <br/>MADRAS HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VIJAYESHWAR NARAYAN SINHA</h5>
+                <p>FORMER JUDGE, <br/>PATNA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE KRISHAN CHAND GUPTA</h5>
+                <p>FORMER JUDGE, <br/>PATNA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE MANAK MOHTA</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT <br/>GUJRAT HIGH COURT <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE RAJESH TONDON</h5>
+                <p>FORMER JUDGE, <br/>UTTARAKHAND HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE R. D. VYAS</h5>
+                <p>FORMER JUDGE, <br/>GUJRAT HIGH COURT <br/>MADHYA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE P. S. NARAYANA</h5>
+                <p>FORMER JUDGE, <br/>ANDHRA PRADESH HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE S.R. DONGAONKAR</h5>
+                <p>FORMER JUDGE, <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE B. PADMARAJ</h5>
+                <p>FORMER JUDGE, <br/>KARNATAKA HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE SHARDA AGGARWAL</h5>
+                <p>FORMER JUDGE, <br/>DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VIKAS RAMCHANDRA KINGAONKAR</h5>
+                <p>FORMER JUDGE, <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE V. G. PALSHIKAR</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE POONAM SHRIVASTAVA</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT <br/>JHARKHAND HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE GANPAT SINGH BHANDARI</h5>
+                <p>FORMER JUDGE, <br/>RAJASTHAN HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VIRENDRA VIKRAM SINGH</h5>
+                <p>FORMER JUDGE, <br/>ALLAHABAD HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>JUSTICE VIJAY C. DAGA</h5>
+                <p>FORMER JUDGE, <br/>BOMBAY HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. T. P. GUPTA</h5>
+                <p>FORMER DISTRICT JUDGE, <br/>RAJASTHAN JUDICIARY</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. DEEPAK KUMAR SRIVASTAVA</h5>
+                <p>FORMER DISTRICT JUDGE, <br/>RAJASTHAN JUDICIARY</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. S.N. OJHA</h5>
+                <p>FORMER DISTRICT JUDGE, <br/>RAJASTHAN JUDICIARY</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. PRABIR KUMAR RAY</h5>
+                <p>FORMER EXECUTIVE DIRECTOR (LAW) <br/>AIPORT AUTHORITY OF INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. GIRISH CHANDRA SHUKLA</h5>
+                <p>CHARTERED ACOUNTANT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. HEMANT KUMAR SHARMA</h5>
+                <p>FORMER CHAIRMAN &amp; MANAGING DIRECTOR <br/>SJVNL, CPSU UNDER MINISTRY OF POWER.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. PREM DYAL SHARMA</h5>
+                <p>FORMER EXECUTIVE DIRECTOR, <br/>NATIONAL HYDROELECTRIC POWER CORPORATION LTD.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. L. RAM SAINI</h5>
+                <p>FORMER ASST. DIRECTOR OF SUPPLY, <br/>GOVT. OF INDIA. <br/>D.Y. GENERAL MANAGER, BHEL.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. JAG MOHAN LAL</h5>
+                <p>FORMER ADDITIONAL DIRECTOR GENERAL, <br/>CPWD</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MAJ. GEN. R. K. SANAN</h5>
+                <p>FORMER DIRECTOR GENERAL T.I.E. (INDIA)</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. A. K. SINGHAL</h5>
+                <p>FORMER DIRECTOR GENERAL, <br/>C.P.W.D.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SUJEET KUMAR</h5>
+                <p>DIRECTOR LEXMANTRA LLP.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. PRAVIN S. BORDIA</h5>
+                <p>CIVIL ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. ASHOK NARAYAN SHAMBHARKAR</h5>
+                <p>CIVIL ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. GOPAL KRISHAN NADAN</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>UTTAR HARYANA BIJLEE VITRAN NIGAM</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. H. S. MINHAS</h5>
+                <p>RETD. CHIEF ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. M. P. BHARTARI</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>IRRIGATION DEPARTMENT, <br/>UTTRAKHAND</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. N.R. RAO</h5>
+                <p>FORMER DGM, MECON <br/>(PSU ENGG. COMPANY)</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. RAJ KUMAR SARKAR</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>NORTHERN RAILWAY, DELHI</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. P. VELU</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>P.W.D</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. OMPRAKASH MOHANLAL SRIVASTAVA</h5>
+                <p>CHARTERED ENGINEER &amp; GOVT. REGISTERED VALUER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. S. N. MANE</h5>
+                <p>FORMER ADD. DIRECTOR GENERAL, <br/>BORDER ROADS ORGANISATION</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. O. P. SAXENA</h5>
+                <p>FORMER CHIEF ENGINEER <br/>GOVT. OF RAJASTHAN</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SAMEER SAWANT</h5>
+                <p>CONSULTING STRUCTURAL ENGINEER, <br/>APPROVED VALUER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. JITENDER SINGH KATOCH</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>H.P.P.W.D.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SANJAY CHABRA</h5>
+                <p>SR. CONSTRUCTION MANAGER, <br/>LARSEN &amp; TOURBO LTD.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SURESH CHAND THUKRAL</h5>
+                <p>RETD. ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. B.V.S. PRAKASA RAO</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>IRRIGATION &amp; CAD DEPARTMENT, <br/>GOVT. OF ANDHRA PRADESH</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>DR. VIJAYAN GURUMURTHY IYER</h5>
+                <p>FORMER TECHNICAL OFFICER, <br/>GOVT. OF INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. G. V. MERANI</h5>
+                <p>FORMER CHIEF ENGINEER, <br/>WESTERN RAILWAY, CHURCHGATE</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. AMOD K. DALELA</h5>
+                <p>LECTURER AT ILS, DELHI</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. P. N. GUPTA</h5>
+                <p>M/S FEDDERS LLOYD CORPORATION LTD., <br/>NEW DELHI</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. KUNAL KUNUNGO</h5>
+                <p>MANAGING PARTNER, <br/>COGITO LEGAL</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. M. S. SENTHIL</h5>
+                <p>PANEL VALUER &amp; CHARTERED ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SATISH K. VIJ</h5>
+                <p>FORMER PRESIDENT ASCE INDIA</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. KRISHAN KARLA</h5>
+                <p>FORMER PRESIDENT, <br/>ALL INDIA MANAGEMENT ASSOCIATION <br/>&amp; DELHI MANAGEMENT ASSOCIATION</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. GANGA PRASAD</h5>
+                <p>FORMER PRINCIPLE CHIEF ENGINEER</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>DR. SUBHASH C. GUPTA</h5>
+                <p>PRO VICE CHANCELLOR, <br/>K. R. MANGALAM UNIVERSITY</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. B. L. TEKRIWAL</h5>
+                <p>PROPRIETOR <br/>B.L. TEKRIWAL &amp; CO.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SAILESH DESAI</h5>
+                <p>SECRETARY, <br/>WATER RESOURCES, <br/>GOVT. OF GUJRAT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SOUGAT SINHA</h5>
+                <p>ADVOCATE,<br/> DELHI HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. ANJANI NARTH KHARE</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. HIMANSHU KUMAR BACHHIL</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. NIRAD KUMAR</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. RAJEEV KUMAR SINGH</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. ALOK SRIVASTAVA</h5>
+                <p>ADVOCATE,<br/> U.P HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. MANOJ KUMAR GUPTA</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SHAILESH KUMAR</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. SANJAY SAXENA</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. UDAY VIR SINGH</h5>
+                <p>PENAL ADVOCATE &amp; LEGAL CONSULTANT, <br/>INDIAN OIL CORPORATION LTD.</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. HIMANSHU UPADHYAYA</h5>
+                <p>ADVOCATE,<br/> SUPEREME COURT OF INDIA</p> </div>
+
+
+
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. Ram Nath Singh</h5>
+                <p>ADVOCATE,<br/> U.P. HIGH COURT</p></div>
+
+            <div class="col-lg-4 col-sm-6">
+                <h5>MR. KABINDRA PRASAD</h5>
+                <p>MOHANTY, <br/>FORMER CHIEF ENGINEER</p> </div>
+             -->
+        </div>
+
+    </div>
+</section>

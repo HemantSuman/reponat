@@ -1,0 +1,76 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+    
+            <!-- general form elements -->
+            <div class="box box-primary">
+                
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%=extraVar.viewDirectory%>s/update' enctype="multipart/form-data">
+                    <input type="hidden" name='id' value='<%= results.id %>'>
+                   
+
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="exampleInputEmail1">Stamp Number<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="stamp_no" placeholder="Stamp Number" name='stamp_no' value='<%= results["stamp_no"] %>'>
+                                    <lable class="error_mgs_lable" id="stamp_no_error"></lable>
+
+                                </div>
+                            </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Issue Date<em>*</em></label>
+
+                                <input type="text" class="form-control startdate" placeholder="Issue Date" id="stamp_issue_date" name='stamp_issue_date' value='<%= results["stamp_issue_date"] %>'>
+                                <lable class="error_mgs_lable" id="start_date_error"></lable>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Issue To<em>*</em></label>
+
+                                <input type="text" class="form-control" id="stamp_issue_to" name='stamp_issue_to' placeholder="Issue To" value='<%= results["stamp_issue_to"] %>'>
+                                <lable class="error_mgs_lable" id="start_date_error"></lable>
+
+                            </div>
+                        </div>
+                     </div>
+                </div>
+
+
+
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a class="btn btn-primary" href="/admin/dashboard">Cancel</a>
+                        <%# include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div> </div> </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-7d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+</script>

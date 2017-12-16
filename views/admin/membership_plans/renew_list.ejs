@@ -1,0 +1,393 @@
+<%# include ../helper/breadcrumb.ejs %>
+<% if(serchData.pdf_flag != 0){ %>
+<%- include('../helper/Heading-Page.ejs', {title:'',titleNameAfter:'Renew Listing'}); %>
+<% } %>
+<% if(serchData.pdf_flag == 0){ %>
+<style>
+
+    /*.wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) repeat-y center center;  background-size:contain; padding: 20px;min-height:<%=serchData.no_pages%>px;}*/
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    td, th { font-size: 8px; line-height: 12px;}
+    span{font-size: 8px  ; line-height: 12px;  }
+    div,strong,li,ul,ol{ line-height: 12px;}
+    strong{ font-weight: 400; color: #000}
+    .wrapperDoc {margin: 0 auto;max-width: 990px;padding:15px 15px;font-family: Verdana,Geneva,sans-serif;font-size:8px;line-height: 15px;
+                 /*color: #555555;*/
+    }
+    strong { font-weight:600;}
+    .headingtxt {text-align:center; margin-bottom:5px; font-weight:400;font-size:10px;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 7px; display: block; max-width: 200px; line-height: 10px;color:#000}
+    .headingtxt.mid{ padding: 7px 0; color: #333; margin-top:5px}
+    .trd-mid{ padding:0px 0; color: #333; margin-bottom:0px;  margin-top:0px}
+    .print-date { text-align:right;}
+    .print-date span {display:inline-block;margin-right:10px;font-size:8px;font-weight:400;}
+    .main-table td {padding:1px 3px;vertical-align:top}
+    .main-table {width:100%;margin-top:0px;}
+    .main-table td span {display:block; }
+    .text-right { text-align:right}
+    .text-left {text-align:left}
+    .bold-txt {font-weight:500;}
+    .text-center {text-align:center}
+    .benificary-table{ margin-top:0px; width:100%}
+    .benificary-table td {padding:1px 3px;vertical-align:top}
+    .benificary-table td span {display:block; }
+    .big-text{ font-size:10px;}
+    .thankmsg{ font-size:8px; text-align:center; margin-top:10px;}
+    .thankmsg span{ display:block;line-height: 13px; margin-bottom: 6px;}
+
+    /*new*/
+
+
+    .party-block{ clear: both; padding-top: 10px;  margin-bottom:10px;}
+    p{ margin-bottom: 0;}
+    .party-block p{ margin-bottom: 0px;}
+    .party-block p{ margin-top:0px;}
+    .party-block .benificary-table{ width:50%; float: left;}
+    .party-block .benificary-table:nth-child(even){ margin-right: 0;}
+    .party-block .benificary-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .party-block .benificary-table:nth-child(odd) tr td:nth-child(odd){ background: none;}
+    #Party-2.benificary-table tr td:first-child{border-left:none;}
+
+    .benificary-table.terms ul {list-style: decimal inside none;color: #555; margin-bottom:0px;}
+    .benificary-table.terms ul li{ padding:1px 3px; border-bottom: thin solid #f0efef;}
+    .benificary-table.terms ul li span{ display: inline-block;}
+    .benificary-table.terms ul li:last-child{ padding-bottom: 0; border-bottom: none}
+    .benificary-table.terms ul{ padding-left: 0;}
+    .benificary-table.terms td{ padding: 0}
+    .benificary-table.terms td:first-of-type{width: 10px;}
+    .benificary-table.terms tr:first-child{background:none}
+    .benificary-table.terms .terms-txt span{ padding:1px 3px;}
+    .header .left{ float: left; width:40%; text-align:left;}
+    .header .left >div{ display: inline-block;; margin-right: 10px; vertical-align: middle;}
+    .header .right{ float: right; width: 40%;  text-align: left;}
+    .header .right span{line-height: 11px;}
+    .thankmsg a{ color: #333333}
+    .footer > div{ display: inline-block; vertical-align: bottom; width: 49%}
+    .footer-left span{ display: block;}
+    .footer-right{ text-align: right;}
+
+    .exemptionWrap{ margin-top:10px; margin-bottom:0px;color: #555}
+    .exemptionWrap table tr:first-child{background: none; padding: 5px;}
+    .exemptionWrap table tr td{ padding:1px 3px; text-align: left;
+                                /*color: #555*/
+    }
+    /*.main-tableWrap table.main-table{ width: 100% ;float: none; height: auto}*/
+
+    .main-tableWrap table.main-table:nth-child(odd){ margin-right:0;}
+    .main-tableWrap table.main-table:nth-child(odd) tr td:nth-child(odd){ background: none; }
+    .main-tableWrap table.main-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:thin solid #000000}
+    .table-bordered{border-collapse: collapse;}
+    /*.main-tableWrap table.main-table tr td:nth-child(odd), .benificary-table tr td:nth-child(odd) span{ text-transform: lowercase;}*/
+    .main-tableWrap table.main-table tr td:nth-child(odd):first-letter,.benificary-table tr td:nth-child(odd) span:first-letter{ text-transform: uppercase;}
+
+    .header{ text-align:center;}
+    .mainlogo{ text-align:center; margin:0px auto; width:25%;margin-bottom: 20px;}
+    .sub-heading{border: 1px solid #000; padding: 2px 10px;}
+    .td-width2{width: 100px !important;}
+    .td-width1{width: 100px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 15px !important;}
+    .text-center{text-align: center;}
+    .individual-block{padding-top: 5px; width: 100%;clear: both;}
+    .individual-block p{margin-bottom: -15px;}
+    .individual-block table{padding-top: 0px;}
+    .offset-top-35{margin-top: 15px;}
+    .offset-top-50{margin-top: 25px;}
+    .offset-top-10{margin-top: 10px;}
+    .offset-top-20{margin-top: 10px;}
+    .footer > .fee-info {width: 100%;}
+    .footer-text-right .text-right{
+        display: block;
+    }
+    .tabale-col2 { width: 50%; float:left; margin-bottom: 10px; }
+    .table-outer .tabale-col2:nth-child(2n+1) { clear:left; }
+    .notDisplayClass{display: block;}
+    tr.align-left-pdf {
+        text-align: left;
+    }
+</style>
+
+<% } %>
+<div class="wrapperDoc" >
+    <div class="wrapperDoc-inner">
+        <div class="header clearfix notDisplayClass hide">
+            <div class="left">
+                <div class="headingtxt"> NATIONAL ARBITRAL TRIBUNAL <span style='color:#000'>(An Permanent Arbitral Institute constituted under the provision of Arbitration and Conciliation Act, 1996)</span> </div>
+            </div>
+            <div class="right">
+                <div><span>Legal Resolution Centre Pvt. Ltd.</span></div>
+                <div><span>Head Office: <%= settingData.head_office %></span></div>
+                <div><span>Website: <%= settingData.website %></span></div>
+                <div><span>Email: <%= settingData.email %></span></div>
+
+
+            </div>
+            <div class="mainlogo"><img src="<%= site.fullUrl %>/images/nat_logo_round.png"  style="height:70px; width:auto; vertical-align:middle"></div>
+
+        </div>
+        <section class="content">
+
+            <div class="box box-primary">
+                
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <% if(serchData.pdf_flag != 0){ %>
+                    <form action="/admin/membership_plans/renewable_list" method="get" name="serchFrom" role="form">
+                        <input type="submit" class="btn btn-success blue" style="display:none">
+                        <div class="form-row-new row">
+
+                            <div class="col-md-2">
+                                <div class="form-group"><input type="text" name="start_date" placeholder="From" id="start_date" class="form-control startdate" value="<%= serchData.start_date %>"></div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group"><input type="text" value="<%= serchData.end_date %>" name="end_date" placeholder="To" id="end_date" class="form-control enddate"></div>
+                            </div>
+
+
+                            <div class="col-md-5">
+                                <a title="search" href="javascript:void(0)" class="btn btn-success blue" onclick="srchForm()">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <a title="Clear Search" href="/admin/membership_plans/renewable_list" class="btn btn-success blue ml-5">Clear Search</a>
+                                <a target="_blank" href="/admin/membership_plans/renew_list_download?start_date=<%=serchData.start_date%>&end_date=<%=serchData.end_date%>&pdf_flag=0" class="btn btn-primary pull-right dwnPdfClass" style="margin-right:2px">Download PDF</a>
+                            </div>
+                        </div>
+                    </form>
+                    <% } %>
+                    <div class="table-responsive">
+
+                        <% if((loginUser.user_type.user_role.role_slug != 'franchise') || (loginUser.user_type.user_role.role_slug == 'franchise' && loginUser['franchise_level']=='tehsil_level')){ %>
+                        <div class="main-tableWrap clearfix">
+                        <div class="table-responsive">
+                            <table class="table table-bordered main-table table-bordered offset-top-20">
+                            <tr>
+                                <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                                <th>Professional Details</th>
+                                <% }else { %>
+                                <th>Member Details</th>
+                                <% } %>
+                                <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                                <th>GSTIN</th>
+                                <% } %>
+                                <th>Invoice No.</th>
+                                <th>Membership No.</th>
+                                <th>Plan Details</th>
+                                <th>Valid From</th>
+                                <th>Valid Upto</th>
+                                <th>Amount</th>
+                                <% if(serchData.pdf_flag != 0){ %>
+                                <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                                <th>Action</th>
+                                <% } %>
+                                <% } %>
+
+
+
+
+                            </tr>
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                                <td>
+                                    Id : <%= rows.user.gid %><br>
+                                    Name : <%= rows.user.first_name %><br>
+                                    Mobile No. : <%= rows.user.mobile %><br>
+                                </td>
+                                <% } else { %>
+                                <td>
+                                    Name : <%= rows.business_name %><br>
+                                    Registration number : <%= rows.business_registration_number %><br>
+                                    Email : <%= rows.authority_email %><br>
+                                    Mobile No. : <%= rows.authority_mobile %><br>
+                                    Name of Authority : <%= rows.authority_name %><br>
+                                </td>
+                                <% } %>
+                                <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                                <td><%= rows.gstin %></td>
+                                <% } %>
+                                <td><%= rows.invoice_no %></td>
+                                <td><%= rows.ms_id %></td>
+                                <td><%= rows.plan_name %></td>
+
+
+
+
+
+
+                                <td><%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %></td>
+                                <td>
+                                    <%= site.momentObj(rows.end_date).format("DD-MM-YYYY") %>
+                                </td>
+                                <td><%= rows.selected_plan_total_payable_amount %></td>
+                                <% if(serchData.pdf_flag != 0){ %>
+                                <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                                <td>
+                                    <ul class="aggre-btnswrap">
+                                        <li> <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/renew_membership/<%= rows.id %>" title="Renew" >Renew</a></li>
+
+                                    </ul>
+                                </td>
+                                <% } %>
+                                <% } %>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                            </div>
+                        <% }else{ %>
+
+
+
+
+
+
+
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+
+                                <th>Membership Details</th>
+                                <% if(loginUser['franchise_level']=='country_level'){ %>
+                                <th>Ap Scale-IV</th>
+                                <% } %>
+
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+                                <th>Ap Scale-III</th>
+                                <% } %>
+
+                                <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                                <th>Ap Scale-II</th>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                                <th>Ap Scale-I</th>
+                                <% } %>
+                            </tr>
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td>
+                                    Invoice No. : <%= rows.invoice_no %><br>
+                                    Invoice Date : <%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %><br>
+                                    Membership No. : <%= rows.ms_id %><br>
+                                    Plan Detail : <%= rows.plan_name %><br>
+                                    Vaild From-To : <%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %>-
+                                    <%
+                                    var new_date = site.momentObj(rows.add_date, "DD-MM-YYYY").add(parseInt(rows.selected_plan_year), 'Y');
+                                    %>
+                                    <%= site.momentObj(new_date).format("DD-MM-YYYY") %>
+                                    <br>
+                                    Amount : <%= rows.selected_plan_total_payable_amount %><br>
+                                </td>
+
+
+
+
+
+
+                                <% if(loginUser['franchise_level']=='country_level'){ %>
+                                <td>
+                                    Name : <%= rows.ap_level_4['first_name'] %><br>   
+                                    Mobile No. : <%= rows.ap_level_4['mobile'] %><br>    
+                                    Location : <%= apLoc[rows.ap_level_4['id']] %><br>    
+                                </td>
+                                <% } %>
+
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+                                <td>
+                                    Name : <%= rows.ap_level_3['first_name'] %><br>   
+                                    Mobile No. : <%= rows.ap_level_3['mobile'] %><br>    
+                                    Location : <%= apLoc[rows.ap_level_3['id']] %><br>    
+                                </td>
+                                <% } %>
+
+                                <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                                <td>
+                                    Name : <%= rows.ap_level_2['first_name'] %><br>   
+                                    Mobile No. : <%= rows.ap_level_2['mobile'] %><br>    
+                                    Location : <%= apLoc[rows.ap_level_2['id']] %><br>    
+                                </td>
+                                <% } %>
+
+                                <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                                <td>
+                                    Name : <%= rows.ap_level_1['first_name'] %><br>   
+                                    Mobile No. : <%= rows.ap_level_1['mobile'] %><br>    
+                                    Location : <%= apLoc[rows.ap_level_1['id']] %><br>    
+                                </td>
+                                <% } %>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        </div>
+                        <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <% if(results.rows.length==0){ %>
+                        <h5 class="box-title text-center">No record found</h5>
+                        <% } %> 
+                    </div>
+                    <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer clearfix">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <%- include ../helper/pagination.ejs %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+    </div></div>
+
+<% if(serchData.pdf_flag != 0){ %>
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true
+
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+
+
+    function srchForm() {
+        if (($('#start_date').val() == '') || ($('#end_date').val() == '')) {
+            bootstrapNotify.showMessage('Please select date', 'error');
+            return false;
+        }
+        console.log($('#end_date').val())
+
+        javascript:document.serchFrom.submit()
+    }
+</script>
+<% } %>

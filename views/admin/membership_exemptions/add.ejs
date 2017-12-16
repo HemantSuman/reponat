@@ -1,0 +1,72 @@
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Select Slab<em>*</em></label>
+                            <select class="form-control select2" name="slab_id" id="slab_id">
+                                <option value="" >--Please Select Slab--</option>
+                                <% results.slabs.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>"><%= rows.name %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="slab_id_error"></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Minimum value<em>*</em></label>
+
+                            <input type="text" class="form-control" id="min_value" name='min_value'>
+                            <lable class="error_mgs_lable" id="min_value_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Percentage<em>*</em></label>
+
+                            <input type="text" class="form-control" id="percentage" name='percentage' >
+                            <lable class="error_mgs_lable" id="percentage_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+
+    <!-- /.box -->
+
+</section>

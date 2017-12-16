@@ -1,0 +1,177 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Request Detail of '}); %>
+<section class="content">
+    
+        
+        
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="filterBar">
+                    <div class="filterBarRight">
+                        <a href="/admin/<%= extraVar.viewDirectory %>/" class="btn-view-list"><i class="fa fa-list"></i> View Listing</a>
+                    </div>
+                </div>
+                
+                <!-- /.box-header --> 
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+                    <div class="box-body">
+                    <div class="panel panel-default">
+                        
+                    <div class="panel-body request-promter-view-data">
+                            <div class="row">
+                            <label class="col-md-3">Authorized Promoter Request Type</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><% if(results.my_model.franchise_request_type == 1) { %>Business/Firm<% } else { %>Individual<% } %></span>
+                                </div>
+                            </div>
+                            
+                            <% if(results.my_model.franchise_request_type == 1) { %>
+                            <label class="col-md-3">Business Name</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.business_name %></span>
+                                </div>
+                            </div>
+                            <% } %>
+
+                            <label class="col-md-3">Contact Person</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.contact_person %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Email</label>
+                            <div class="col-md-3">
+                                <div class="form-group" style="word-wrap: break-word;">
+                                    <span><%= results.my_model.email %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Mobile</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.mobile %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Correspondence Address</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.franchise_address %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Town</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.town %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Country</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.country.country_name %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">State</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.state.state_name %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Division</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.division.division_name %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">District</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.district.district_name %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Tehsil</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.tehsil.tehsil_name %></span>
+                                </div>
+                            </div>
+
+                            <% if(results.my_model.franchise_request_type == 2) { %>
+                            <label class="col-md-3">Qualification</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><%= results.my_model.qualification %></span>
+                                </div>
+                            </div>
+                            <% } %>
+
+                            
+                            <label class="col-md-3">Apply For</label>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <span><% if(results.my_model.apply_for == 1) { %>District Level<% } else { %>Tehsil Level<% } %></span>
+                                </div>
+                            </div>
+                            </div>
+
+                            <div class="row">
+                            <label class="col-md-3">Working Interest</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <span><%= results.my_model.working_interest %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Profile Description</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <span style="overflow: auto;"><%= results.my_model.profile_desc %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Information about Arbitration</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <span style="overflow: auto;"><%= results.my_model.info_about_arbitration %></span>
+                                </div>
+                            </div>
+
+                            <label class="col-md-3">Interested to become Authorized</label>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <span style="overflow: auto;"><%= results.my_model.interest_to_become_authorized %></span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer text-right">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"><a href="/admin/franchises/add/5/<%= results.my_model.id %>" class="btn btn-primary">Proceed to Next</a> </h3>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+        
+ 
+</section>
+
+<script>
+
+</script>

@@ -1,0 +1,253 @@
+<!--Header-->
+
+<header class="main-header">
+ <!-- <div class="top-header">
+    <div class="container">
+      <div class="f_left social-icon">
+        <ul>
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        </ul>
+      </div>
+      <div class="f_right top-links">
+        <ul>
+          <li><a href="/users/login">Sign in</a></li>
+          <li><a href="/users/register">Register</a></li>
+         <li class="fontchangae"><a href="#">-A</a></li>
+          <li class="fontchangae"><a href="#">A</a></li>
+          <li class="fontchangae"><a href="#">A+</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>-->
+
+  <div class="bottom-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-4 col-xs-12 ">
+          <div  class="logo"><a href="/"><img src="/front/assets/img/new-img/logo.png" alt="NAT logo"></a></div>
+
+        </div>
+        <div class="col-md-7 col-sm-8 col-xs-12 ">
+           <div class="top-links">
+            <ul>
+                <% if(typeof loginUser !=='undefined' && typeof loginUser.id !=='undefined'){ %>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/logout">Sign Out</a></li>
+                <% } else { %>
+              <li><a href="/users/login">Sign in</a></li>
+              <li><a href="/users/register">Register</a></li>
+              <% } %>
+            </ul>
+           </div>
+          <div class="menu-btn"><div class="menu-icon"><span></span></div></div>
+          <div class="menuWrap">
+            <ul >
+              <li class="login-anchor"><a href="/users/login">Sign in</a></li>
+              <li class="login-anchor"><a href="/users/register">Register</a></li>
+              <li>
+                <a href="/pages/nyaya-card" >
+                 <!-- <span class="icon"><i class="fa fa-university" aria-hidden="true"></i></span>-->
+                  Nyaya Card
+                </a>
+              </li>
+              <li>
+                <a href="/pages/membership">
+                   <!--  <span class="icon"><i class="fa fa-balance-scale" aria-hidden="true"></i></span>  -->
+                 Membership
+                </a>
+                <!-- <div class="dropdown-menu">
+                <ul>
+                  <li><span class="fa fa-user"></span><a href="#">Agriculture</a></li>
+                   <li><span class="fa fa-user"></span><a href="#">Art & Culture</a></li>
+                    <li><span class="fa fa-user"></span><a href="#">Commerce</a></li>
+                     <li><span class="fa fa-user"></span><a href="#">Communications</a></li>
+                      <li><span class="fa fa-user"></span><a href="#">Education</a></li>
+
+                </ul>
+                 <ul>
+                  <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                   <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                    <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                     <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                      <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+
+                </ul>
+                 <ul>
+                  <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                   <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                    <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                     <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+                      <li><span class="fa fa-user"></span><a href="#">Services</a></li>
+
+                </ul>
+                </div> -->
+              </li>
+               <li>
+                <a href="/pages/file-disputes">
+                   <!--  <span class="icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>-->
+                  File A Claim/Appeal
+                </a>
+              </li>
+              <li class="dropdown">
+                <a href="javascript:void()">
+                   <!--  <span class="icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>-->
+                  Fee Calculator <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-content">
+                  <li><a href="/pages/fee-calculator">Nyaya Card</a></li>
+                  <li><a href="/pages/exemptions_membership">Membership</a></li>
+                  <li><a href="/pages/fee-calculator-sh1">Arbitration</a></li>
+                </ul>
+              </li>
+
+              <!--<li>
+                <a href="/pages/nyayapeeth">
+                  <span class="icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                  <span class="txt">Search</span>
+                </a>
+              </li>
+              <li>
+                <a href="/pages/client">
+                  <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                  <span class="txt">Clients</span>
+                </a>
+              </li>
+
+               <li>
+                <a href="#">
+                  <span class="icon"><svg viewBox="0 0 188 246" x="0px" y="0px"><g id="Layer_1" class="st0">
+
+    <image style="display:inline;overflow:visible;" width="82" height="72" xlink:href="data:image/jpeg;base64,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
+uQy/sz8P/9k=" transform="matrix(0.9999 0 0 0.9999 17 81)">
+  </image>
+  <g class="st1">
+    <path d="M118,105c0-0.3,0-0.7,0-1c3.9-5.8,7.7-11.7,11.8-17.4c1.2-1.6,3.4-3.4,5.2-3.5c16.1-0.3,32.2-0.2,48.4-0.1
+      c1,0,2.6,0.3,3.1,1c4.4,6.7,8.6,13.5,13.3,21C171.7,105,144.9,105,118,105z M173.4,87.7c-0.3,0.3-0.6,0.7-0.9,1
+      c5.5,3.9,11,7.7,16.5,11.6c0.2-0.3,0.5-0.7,0.7-1C184.3,95.4,178.9,91.5,173.4,87.7z"/>
+    <path d="M118,109c27.3,0,54.7,0,82,0c0,0.3,0,0.7,0,1c-3.1,7.8-8,9-12.4,8.8c-3.2-0.1-6-3.1-9.3-4.9c-1.8,2.6-4.3,5.3-9.1,5.3
+      c-4.9,0-7.6-2.3-9.1-4.9c-6,4.7-7.6,4.4-11.3,4.4c-3.5,0-7.1-2.7-10.8-4.4c-1.7,3.8-5.9,5.2-11.1,4.8c-5.1-0.4-6.7-4.4-8.8-8.1
+      C118,110.3,118,109.7,118,109z"/>
+    <path d="M128,122.5c7-1.5,7.3-3.4,10.8-5c0,7.5,0,15.6,0,24.1c13.6,0,26.6,0,40,0c0-8.3,0-16.4,0-24.2c2.9,2.5,5.9,4.4,11.2,5
+      c0,5.4,0,12,0,18.6c0.1,12.8,0.8,12-11.8,11.9c-14.7-0.1-29.3-0.1-44,0.1c-4.5,0.1-6.4-1.5-6.2-6.1
+      C128.2,138.6,128,130.1,128,122.5z"/>
+    <path d="M143.9,130.9c-1.7-1-3.5-2-5.2-3c0.8-0.9,1.5-1.7,2.3-2.6c6,4.3,12,8.5,18,12.8c-0.3,0.5-0.6,1.1-0.8,1.6
+      c-2.4-1.3-4.8-2.5-7.2-3.8C148.6,134.3,146.2,132.6,143.9,130.9z"/>
+    <path d="M143.9,130.9c2.4,1.7,4.7,3.3,7.1,5c-0.6,0.9-1.8,2.5-1.9,2.5c-3.2-2.3-6.4-4.6-9.5-7c0.3-0.4,0.5-0.8,0.8-1.3
+      C141.5,130.4,142.7,130.7,143.9,130.9z"/>
+    <path class="st2" d="M173.4,87.7c5.4,3.9,10.9,7.7,16.3,11.6c-0.2,0.3-0.5,0.7-0.7,1c-5.5-3.9-11-7.7-16.5-11.6
+      C172.8,88.3,173.1,88,173.4,87.7z"/>
+  </g>
+</g>
+<g id="Layer_2">
+  <g>
+    <path d="M180,238c-57.7,0-115.3,0-173,0c-0.1-1.2-0.2-2.3-0.2-3.5c0-74.3,0-148.7,0-223C6.8,10.3,6.9,9.2,7,8
+      c57.7,0,115.3,0,173,0c0.1,1.2,0.2,2.3,0.2,3.5c0,74.3,0,148.7,0,223C180.1,235.6,180,236.8,180,238z M93.4,23.8
+      c-19.3,0-38.6-0.1-57.9,0c-9.1,0-14.2,5.1-14.3,14.2c-0.1,6.7-0.1,13.3,0,20C21.3,66.8,26.6,72,35.4,72c38.8,0,77.6,0,116.4,0
+      c8.7,0,13.9-5.3,14-14c0.1-6.2,0-12.3,0-18.5c0-10.8-4.8-15.6-15.4-15.6C131.4,23.8,112.4,23.8,93.4,23.8z M165.8,193.1
+      c0-7.3,0-14.7,0-22c0-7.3-2.7-10-9.9-10.1c-3.5,0-7-0.1-10.5,0c-4.6,0.3-7.5,3.1-7.6,7.6c-0.1,16.3-0.1,32.7,0,49
+      c0,4.7,2.7,7.4,7.4,7.7c3.8,0.2,7.7,0.1,11.5,0.1c6.3-0.1,9-3,9.1-9.3C165.9,208.4,165.8,200.8,165.8,193.1z M88,101.2
+      c0-1.5,0-3,0-4.5c0-7.1-2.5-9.6-9.5-9.7c-3.5,0-7-0.1-10.5,0c-4.8,0.2-7.7,3-8,7.8c-0.2,4-0.2,8,0,11.9c0.3,4.6,3,7.4,7.6,7.6
+      c4.3,0.2,8.6,0.2,12.9,0c4.6-0.3,7.2-3.1,7.4-7.7C88.1,104.8,88,103,88,101.2z M113.3,87C113.3,87,113.3,87,113.3,87
+      c-1.7,0-3.3,0-5,0c-6.7,0.1-9.3,2.7-9.3,9.4c0,3.3-0.1,6.6,0,10c0.1,4.9,2.7,7.8,7.6,8c4.3,0.2,8.6,0.2,12.9,0
+      c4.4-0.3,7.1-2.9,7.4-7.3c0.3-4.1,0.3-8.3,0-12.4c-0.3-4.6-3-7.2-7.6-7.6C117.3,86.9,115.3,87,113.3,87z M74.3,124
+      C74.3,124,74.3,124,74.3,124c-1.3,0-2.7,0-4,0c-7.6,0-10.2,2.6-10.3,10c0,3.2-0.1,6.3,0,9.5c0.2,4.6,2.7,7.5,7.4,7.8
+      c4.5,0.3,9,0.3,13.4,0c4.4-0.3,7-2.9,7.1-7.4c0.1-4.1,0.1-8.3,0-12.4c-0.2-4.5-2.9-6.9-7.2-7.4C78.6,123.8,76.4,124,74.3,124z
+       M113.2,124C113.2,124,113.2,124,113.2,124c-1.7,0-3.3,0-5,0c-6.6,0.1-9.2,2.8-9.2,9.5c0,3.3-0.1,6.6,0,10
+      c0.1,4.7,2.6,7.6,7.2,7.9c4.5,0.3,9,0.3,13.4,0c4.4-0.3,7-3,7.3-7.4c0.3-4.1,0.3-8.3,0-12.4c-0.3-4.6-3.1-7.2-7.7-7.5
+      C117.2,123.9,115.2,124,113.2,124z M88,174.8c0-1.2,0-2.3,0-3.5c0-7.9-2.4-10.3-10.4-10.3c-3.2,0-6.3-0.1-9.5,0
+      c-4.8,0.2-7.8,3-8.1,7.8c-0.2,4-0.2,8,0,11.9c0.3,4.6,2.9,7.4,7.5,7.7c4.3,0.2,8.6,0.2,12.9,0c4.9-0.3,7.3-3.1,7.4-8.1
+      C88,178.4,88,176.6,88,174.8z M112.8,188.4C112.8,188.4,112.8,188.4,112.8,188.4c1.5,0.1,3,0.1,4.5,0.1c7-0.1,9.6-2.7,9.7-9.6
+      c0-3.3,0.1-6.6,0-9.9c-0.3-4.8-3.2-7.7-7.9-7.9c-4.1-0.2-8.3-0.2-12.4,0c-4.8,0.3-7.4,3.2-7.6,8.1c-0.1,3.8-0.1,7.6,0,11.4
+      c0.1,4.7,2.7,7.4,7.3,7.8C108.5,188.6,110.6,188.4,112.8,188.4z M88,211.7c0-1.2,0-2.3,0-3.5c0-7.7-2.4-10.2-10-10.2
+      c-3.3,0-6.6-0.1-9.9,0c-4.7,0.2-7.7,3.1-8,7.8c-0.2,4-0.2,8,0,11.9c0.3,4.6,2.9,7.4,7.6,7.6c4.3,0.2,8.6,0.2,12.9,0
+      c4.6-0.3,7.2-3.1,7.4-7.7C88.1,215.7,88,213.7,88,211.7z M99,211.2c0,1.7,0,3.3,0,5c0.1,6.5,2.6,9.1,8.9,9.2
+      c3.6,0.1,7.3,0.1,10.9,0c4.9-0.2,7.8-2.9,8.1-7.7c0.2-4,0.2-8,0-11.9c-0.3-4.7-3.3-7.6-8.1-7.8c-4-0.2-8-0.2-11.9,0
+      c-5.1,0.2-7.8,3.2-7.9,8.3C99,207.9,99,209.6,99,211.2z M49.2,138.1c0-1.5,0-3,0-4.5c-0.1-7-2.6-9.6-9.7-9.6c-3.5,0-7-0.1-10.5,0
+      c-4.4,0.2-7.2,2.8-7.7,7.1c-0.4,4.3-0.4,8.7-0.1,13c0.4,4.3,3,7,7.5,7.3c4.3,0.2,8.7,0.2,13,0c4.7-0.3,7.2-3,7.4-7.8
+      C49.2,141.8,49.2,139.9,49.2,138.1z M49.2,212.2c0-1.5,0-3,0-4.5c-0.1-7.1-2.6-9.6-9.6-9.7c-3.3,0-6.7-0.1-10,0
+      c-5.1,0.2-8.1,3-8.4,8.1c-0.2,3.8-0.2,7.7,0,11.5c0.3,4.6,2.8,7.5,7.5,7.8c4.3,0.3,8.7,0.3,13,0c4.7-0.3,7.2-3,7.4-7.7
+      C49.2,215.9,49.2,214,49.2,212.2z M49.2,100.9c0-1.2,0-2.3,0-3.5c0-8-2.4-10.3-10.4-10.4c-3.2,0-6.3-0.1-9.5,0
+      c-4.8,0.2-7.8,3.1-8,7.8c-0.2,4-0.3,8,0,12c0.3,4.3,2.8,7.2,7.3,7.5c4.5,0.3,9,0.4,13.5,0c4.3-0.3,7-2.9,7.1-7.5
+      C49.2,104.8,49.2,102.8,49.2,100.9z M151.8,87c-1.5,0-3,0-4.5,0c-6.8,0.1-9.4,2.7-9.5,9.3c0,3.3-0.1,6.7,0,10
+      c0.1,5,2.7,7.9,7.5,8.1c4.2,0.2,8.3,0.2,12.5,0c4.7-0.2,7.5-2.9,7.8-7.5c0.3-4.1,0.3-8.3,0-12.5c-0.4-4.6-3.2-7.2-7.9-7.4
+      C155.8,86.9,153.8,87,151.8,87z M137.8,137.4c0,1.3,0,2.7,0,4c0,7.7,2.4,10,10.2,10c3.3,0,6.7,0.1,10-0.1c4.5-0.2,7.2-2.8,7.6-7.1
+      c0.4-4.3,0.4-8.7,0-13c-0.4-4.3-3.1-7-7.5-7.3c-4.3-0.2-8.7-0.2-13,0c-4.5,0.3-7.1,3.3-7.3,7.9
+      C137.8,133.7,137.8,135.6,137.8,137.4z M35.1,161C35.1,161,35.1,161,35.1,161c-1.3,0-2.7,0-4,0c-7.2,0.1-9.9,2.8-9.9,10
+      c0,3.2-0.2,6.3,0,9.5c0.3,4.9,3.1,7.7,8,7.9c4.2,0.2,8.3,0.2,12.5,0c4.7-0.3,7.3-3,7.4-7.7c0.1-4,0.1-8,0-12
+      c-0.2-4.6-2.9-7.3-7.5-7.7C39.5,160.9,37.3,161,35.1,161z"/>
+    <path class="st2" d="M7,8c-0.1,1.2-0.2,2.3-0.2,3.5c0,74.3,0,148.7,0,223c0,1.2,0.1,2.3,0.2,3.5c-0.3-0.7-1-1.3-1-2
+      C6,160.6,6,85.3,6,10C6,9.3,6.7,8.7,7,8z"/>
+    <path class="st2" d="M180,238c0.1-1.2,0.2-2.3,0.2-3.5c0-74.3,0-148.7,0-223c0-1.2-0.1-2.3-0.2-3.5c0.3,0.7,1,1.3,1,2
+      c0,75.3,0,150.6,0,226C180.9,236.6,180.3,237.3,180,238z"/>
+  </g>
+</g></svg></span>
+                  <span class="txt">Fee Calculator</span>
+                </a>
+              </li>
+              <li>
+               <a href="/pages/faq">
+                 <span class="icon"><svg viewBox="0 0 84 72" x="0px" y="0px"> <path d="M1,27c0,0,8,18,20,3c0,0,10,15,21,1c0,0,12,13,20,0c0,0,17,15,21-4H1z"/>
+<polygon points="1,23 15,1 68,1 82,23 "/>
+<path d="M22,34v26h40V34c0,0,4,8,11,6v29c0,0-1,2-4,2s-55,0-55,0s-3-1-3-3s0-28,0-28S19,40,22,34z"/>
+<path d="M24,43l17,13c0,0,0,2-2,2L23,46C23,46,21,44,24,43z"/>
+<path d="M24,48l10,7.8c0,0,0,2.2-2,1.2l-9-7C23,50,22,49,24,48z"/></svg></span>
+                 <span class="txt">Faq</span>
+               </a>
+             </li>
+              <li>
+               <a href="/pages/contact-us">
+                 <span class="icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                 <span class="txt">Contact Us</span>
+               </a>
+             </li>-->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  <div class="searchWrap">
+    <div class="container">
+      <div class="search-block">
+        <input type="search" placeholder="Search Here" class="form-control">
+        <button class="btn btn-orange">Search</button>
+        <span class="advance-search">Advanced Search <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+      </div>
+
+    </div>
+  </div>-->
+</header>
+<!--/Header-->

@@ -1,0 +1,81 @@
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+<!-- general form elements -->
+            <div class="box box-primary">
+                <div class="filterBar">
+                    <div class="filterBarRight">
+                        <a href="/admin/stamps" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+                     </div>
+                </div>
+                
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>s/create' enctype="
+                    multipart/form-data">
+                    
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Stamp Number<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="stamp_no"  name='stamp_no' value=''>
+                                    <lable class="error_mgs_lable" id="stamp_no_error"></lable>
+
+                                </div> 
+                            </div>
+                                <div class="col-md-4">
+                                  <div class="form-group">
+                                        <label for="exampleInputEmail1">Issue Date<em>*</em></label>
+
+                                        <input type="text" class="form-control startdate" id="stamp_issue_date" name='stamp_issue_date'>
+                                        <lable class="error_mgs_lable" id="stamp_issue_date_error"></lable>
+
+                                     </div>
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Issue To</label>
+
+                                        <input type="text" class="form-control" id="stamp_issue_to" name='stamp_issue_to' >
+                                        <lable class="error_mgs_lable" id="stamp_issue_to_error"></lable>
+
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                 
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                                <a class="btn btn-primary" href="/admin/stamps">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-7d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+    
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+</script>

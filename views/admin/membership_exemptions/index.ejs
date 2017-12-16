@@ -1,0 +1,54 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/add" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Slab</th>
+                            <th>Minimum value</th>
+                            <th>Percentage(%)</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= rows.slabs.name %></td>
+                            <td><%= rows.min_value %></td>
+                            <td><%= rows.percentage %></td>
+                            <td>
+                                <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                <!--<a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>-->
+                            </td>
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <%- include('../element/no-record.ejs', {results:results}); %>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-12">
+                    <%- include ../helper/pagination_with_product_id.ejs %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

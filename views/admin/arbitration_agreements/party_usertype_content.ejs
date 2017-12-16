@@ -1,0 +1,27 @@
+<div class="panel panel-default position_relative" id="member_usertype_content_<%=data.party_no%>_<%=data.member_no%>">
+    <div class="panel-body">
+
+        <div class="row" >
+            <!--<div class="col-md-4 col-xs-12 memberCloseDivClass_<%=data.party_no%>_<%=data.member_no%>">-->
+            <a party_no="<%=data.party_no%>" member_no="<%=data.member_no%>" href="javascript:void(0);" class="closeMember memberCloseDivClass_<%=data.party_no%>_<%=data.member_no%>" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+            <!--</div>-->
+            <div class="col-md-12 col-xs-12">
+                <label>Select User type<em>*</em></label>
+                <select party_no="<%=data.party_no%>" member_no="<%=data.member_no%>" rendringType='htmlType' class="form-control emptyValidation userTypeCls user_types_id_<%=data.party_no%>_<%=data.member_no%>" id="role_id_<%=data.party_no%>_<%=data.member_no%>" name="arbitration_agreement_party_members[<%=data.party_no%>][<%=data.member_no%>][role_id]"
+                        renderTemplate='' modelNames="" destinationId='' url="/common/loadAgreementTypeContent" >
+                    <option usertypealias='' value="">--Please Select--</option>
+                    <% for(var i=0; i < data.roles.length; i++) { %>
+                    <option userTypeAlias="<%= data.roles[i]['role_slug'] %>" value="<%= data.roles[i]['id'] %>" >
+                        <%= data.roles[i]['role_name'] %>
+                    </option>
+                    <% } %>
+                </select>
+                <label class="errorMsg" id="role_id_id_<%=data.party_no%>_<%=data.member_no%>_error"></label>
+            </div>
+            <div id="member_content_<%=data.party_no%>_<%=data.member_no%>">
+
+            </div>
+        </div>
+
+    </div>
+</div>

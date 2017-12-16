@@ -1,0 +1,166 @@
+<style>
+
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) repeat-y center center;  background-size:contain; padding: 20px; min-height: 500px;}
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    td { font-size: 8px; line-height: 12px;}
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+    span{font-size: 8px  ; line-height: 12px;  }
+    div,strong,li,ul,ol{ line-height: 12px;}
+    strong{ font-weight: 400; color: #000}
+    .wrapperDoc {margin: 0 auto;max-width: 990px;padding:15px 15px;font-family: Verdana,Geneva,sans-serif;font-size:8px;line-height: 15px; color: #000000; }
+    strong { font-weight:600;}
+    .headingtxt {text-align:center; margin-bottom:5px; font-weight:400;font-size:10px;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 7px; display: block; max-width: 200px; line-height: 10px;}
+    .headingtxt.mid{ padding: 7px 0; color: #333; margin-top:5px}
+    .trd-mid{ padding:0px 0; color: #333; margin-bottom:0px;  margin-top:0px}
+    .print-date { text-align:right;}
+    .print-date span {display:inline-block;margin-right:10px;font-size:8px;font-weight:400;}
+    .main-table td {padding:1px 3px;vertical-align:top}
+    .main-table {width:100%;margin-top:0px;}
+    .main-table td span {display:block; }
+    .text-right { text-align:right}
+    .text-left {text-align:left}
+    .bold-txt {font-weight:500;}
+    .text-center {text-align:center}
+    .benificary-table{ margin-top:0px; width:100%}
+    .benificary-table td {padding:1px 3px;vertical-align:top}
+    .benificary-table td span {display:block; }
+    .big-text{ font-size:10px;}
+    .thankmsg{ font-size:8px; text-align:center; margin-top:10px;}
+    .thankmsg span{ display:block;line-height: 13px; margin-bottom: 6px;}
+
+    /*new*/
+
+
+    .party-block{ clear: both; padding-top: 10px;  margin-bottom:10px;}
+    p{ margin-bottom: 0;}
+    .party-block p{ margin-bottom: 0px;}
+    .party-block p{ margin-top:0px;}
+    .party-block .benificary-table{ width:50%; float: left;}
+    .party-block .benificary-table:nth-child(even){ margin-right: 0;}
+    .party-block .benificary-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .party-block .benificary-table:nth-child(odd) tr td:nth-child(odd){ background: none;}
+    #Party-2.benificary-table tr td:first-child{border-left:none;}
+
+    .benificary-table.terms ul {list-style: decimal inside none;color: #555; margin-bottom:0px;}
+    .benificary-table.terms ul li{ padding:1px 3px; border-bottom: thin solid #f0efef;}
+    .benificary-table.terms ul li span{ display: inline-block;}
+    .benificary-table.terms ul li:last-child{ padding-bottom: 0; border-bottom: none}
+    .benificary-table.terms ul{ padding-left: 0;}
+    .benificary-table.terms td{ padding: 0}
+    .benificary-table.terms td:first-of-type{width: 10px;}
+    .benificary-table.terms tr:first-child{background:none}
+    .benificary-table.terms .terms-txt span{ padding:1px 3px;}
+    .header .left{ float: left; width:30%; text-align:left;}
+    .header .left >div{ display: inline-block;; margin-right: 10px; vertical-align: middle;}
+    .header .right{ float: right; width: 30%;  text-align: left;}
+    .header .right span{line-height: 11px;}
+    .thankmsg a{ color: #333333}
+    .footer > div{ display: inline-block; vertical-align: bottom; width: 49%}
+    .footer-left span{ display: block;}
+    .footer-right{ text-align: right;}
+
+    .exemptionWrap{ margin-top:10px; margin-bottom:0px;color: #555}
+    .exemptionWrap table tr:first-child{background: none; padding: 5px;}
+    .exemptionWrap table tr td{ padding:1px 3px; text-align: left;
+                                /*color: #555*/
+    }
+    /*.main-tableWrap table.main-table{ width: 100% ;float: none; height: auto}*/
+
+    .main-tableWrap table.main-table:nth-child(odd){ margin-right:0;}
+    .main-tableWrap table.main-table:nth-child(odd) tr td:nth-child(odd){ background: none; }
+    .main-tableWrap table.main-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:thin solid #000000}
+    .table-bordered{border-collapse: collapse;}
+    /*.main-tableWrap table.main-table tr td:nth-child(odd), .benificary-table tr td:nth-child(odd) span{ text-transform: lowercase;}*/
+    .main-tableWrap table.main-table tr td:nth-child(odd):first-letter,.benificary-table tr td:nth-child(odd) span:first-letter{ text-transform: uppercase;}
+
+    .header{ text-align:center;}
+    .mainlogo{ text-align:center; margin:0px auto; width:40%;}
+    .sub-heading{border: 1px solid #000; padding: 2px 10px; font-size: 7.3px;}
+    .td-width2{width: 100px !important;}
+    .td-width1{width: 100px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 15px !important;}
+    .text-center{text-align: center;}
+    .individual-block{padding-top: 5px; width: 100%;clear: both;}
+    .individual-block p{margin-bottom: -15px;}
+    .individual-block table{padding-top: 0px;}
+    .offset-top-35{margin-top: 15px;}
+    .offset-top-50{margin-top: 25px;}
+    .offset-top-10{margin-top: 10px;}
+    .offset-top-20{margin-top: 10px;}
+    .offset-bottom-20{margin-bottom: 10px;}
+    .footer > .fee-info {width: 100%;}
+    .footer-text-right .text-right{
+        display: block;
+    }
+    .tabale-col2 { width: 50%; float:left; margin-bottom: 10px; }
+    .table-outer .tabale-col2:nth-child(2n+1) { clear:left; }
+    .td-width2.td-width3{width: 200px !important;}
+    .pdf-td-mid-width{width: 36px !important;}
+    .pdf-td-width{width: 200px !important}
+    .pdf-break-word{word-break: break-all;}
+    //.table-outer table:last-of-type .td-width1 { border-left: none; }
+    .firstPageFooter{height: 30px;}
+</style>
+<div class="wrapperDoc va-top">
+    <div class="wrapperDoc-inner">
+        <div class="header clearfix">
+            <div class="left left-40">
+                <div class="headingtxt"> NATIONAL ARBITRAL TRIBUNAL <span>(An Permanent Arbitral Institute constituted under the provision of Arbitration and Conciliation Act, 1996)</span><span>Wholly Owned by Legal Resolution Centre Pvt. Ltd.</span> </div>
+            </div>
+            <div class="right right-40">
+                <div><span>HEAD OFFICE: <%= settingData.head_office %></span></div>
+                <div><span><%= settingData.website %></span></div>
+                <div><span><%= settingData.email %></span></div>
+                <div><span>contact no : <%= settingData.phone %></span></div>
+            </div>
+            <div class="mainlogo"><img src="<%= site.fullUrl %>/images/nat_logo_round.png"  style="height:70px; width:auto; vertical-align:middle"></div>
+
+        </div>
+        <div class="main-tableWrap clearfix">
+            <div class="table-responsive offset-top-20">
+                <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+                    <tr>
+                        <td><strong>Document Type </strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td><%= results.doc_type%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Document Value</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= results.doc_value%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Date</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= site.momentObj(results.created).format('DD-MM-YYYY')%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Name</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= results.name%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Mobile no.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= results.number%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Email</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= results.email%></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Dispute Detail</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><%= results.dispute_details%></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

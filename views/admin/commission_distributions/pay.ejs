@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="shortcut icon" type="image/png" href="/front/assets/img/favicon-32.png"/>
+    <title>NyayaPortal Payment</title>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://www.tecprocesssolution.com/proto/p2m/client/lib/jquery.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <button id="btnSubmit" style="display:none">Make a Payment</button>
+
+   <!--  <script type="text/javascript" src="https://www.tecprocesssolution.com/proto/P2M/server/lib/checkout.js"></script> -->
+
+   <script type="text/javascript" src="https://www.paynimo.com/Paynimocheckout/server/lib/checkout.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            function handleResponse(res) {
+                if (typeof res != 'undefined' && typeof res.paymentMethod != 'undefined' && typeof res.paymentMethod.paymentTransaction != 'undefined' && typeof res.paymentMethod.paymentTransaction.statusCode != 'undefined' && res.paymentMethod.paymentTransaction.statusCode == '0300') {
+                    // success code
+                } else {
+                    // error code
+                }
+            };
+
+            $(document).off('click', '#btnSubmit').on('click', '#btnSubmit', function(e) {
+                e.preventDefault();
+                               
+                var configJson = {
+                    'tarCall': false,
+                    'features': {
+                        'showPGResponseMsg': true
+                    },
+                    'consumerData': {
+                        'deviceId': 'WEBSH2',
+                        'token':<%- JSON.stringify(hashKey) %> ,
+                        'returnUrl':<%- JSON.stringify(urlDone) %>,
+                        'redirectOnClose':<%- JSON.stringify(urlCancel) %>,
+                        'responseHandler': handleResponse,
+                        'paymentMode': 'all',
+                        'merchantId': <%- JSON.stringify(mid) %>,
+                        'txnId': '<%= id %>',
+                        'merchantLogoUrl':'https://www.nyayaportal.in/front/assets/img/new-img/logo.png',
+                        'items': <%- JSON.stringify(pay) %>
+                    }
+                };
+
+                new Card(configJson).init();
+            });
+            
+             $("#btnSubmit").trigger("click");
+        });
+    </script>
+</body>
+
+</html>

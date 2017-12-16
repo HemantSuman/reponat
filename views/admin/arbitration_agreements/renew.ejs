@@ -1,0 +1,646 @@
+<%- include('../helper/Heading-Page.ejs', {title:''}); %>
+
+
+<section class="content">
+<div class="box box-primary">
+      <div class="filterBar"></div>
+    <div class="box-body">
+    <div id="formWizard">
+        <div  style="display: none;" class="navbar">
+            <div class="navbar-inner">
+                <ul>
+                    <li><a href="#tab1" id="tab1Li" data-toggle="tab">Step 1</a></li>
+                    <!--tabStatus="second" destinationId="tab2" modelNames="countries" renderTemplate="admin/arbitration_agreements/view_detail" rendringType="htmlType" url="/admin/loadAgreementTypeContent"-->
+                    <li><a href="#tab2" id="tab2Li" data-toggle="tab">Step 2</a></li>
+                    <li><a  href="#tab3" id="tab3Li" data-toggle="tab">Step 3</a></li>
+                    <li><a  href="#tab4" id="tab4Li" data-toggle="tab">Step 4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            <!-- tab 1 -->
+            <div class="tab-pane" id="tab1">
+                <form role="form" id="formAgreement" name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/renew_agreement_create' enctype="multipart/form-data">
+                    <input type="hidden" name='id' value='<%= results.id %>'>
+                    <input disabled type="hidden" name='product_id' value='<%= extraVar.product_id %>'>
+                    <!--<input disabled name="image_path" type="hidden" value="public/uploads/signature">-->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <!--<h4></h4>-->
+                                
+                                   <h5 class="text-danger">* marked fields are mandatory.</h5>
+                                <br>
+                                <div class="chk-outer">
+                                   
+                                        <input disabled type="checkbox" name="term_conditions"  <% if(results.term_conditions == 1){ %> checked <% } %> id="term_conditions">
+                                               <label for="term_conditions"> <span>By creating Arbitration Agreement , you are agreeing <a target="_blank" href="/pages/terms-condition">terms and conditions</a> and you want to create Nyaya card with us</span>
+                                                 </label>
+                                </div>
+                                <div class="radio-btn">
+                                   
+                                        <input disabled type="radio" rendringType='htmlType' renderTemplate='admin/arbitration_agreements/default_member_form' modelNames="countries,states,service_details" destinationId='agreementTypeDiv' url="/common/loadAgreementTypeContent" class="agreementType1 agreementType" name="agreement_type" value="single" <% if(results.agreement_type == 'single'){ %> checked <% } %> id="singletier">  <label for="singletier"> Single Teir </label>
+                                    
+                                        <input disabled type="radio" rendringType='htmlType' renderTemplate='admin/arbitration_agreements/default_member_form' modelNames="countries,states,service_details" destinationId='agreementTypeDiv' url="/common/loadAgreementTypeContent" class="agreementType2 agreementType" name="agreement_type"  value="two" <% if(results.agreement_type == 'two'){ %> checked <% } %> id="twotier"> <label for="twotier"> Two Teir </label>
+                                </div>
+                            </div>
+                                <div class="form-group col2">
+                                    <span>This arbitration agreement made on this <strong> <%= site.momentObj(Date.now()).format('DD-MM-YYYY HH:MM:SS') %> </strong>at
+                                        <div><input disabled type="text" name="agreement_place" id="agreement_place" value="<%= results.agreement_place %>" class="inputtxt emptyValidation" placeholder="enter City/Town/Kasba">
+                                            <label class="errorMsg" id="agreement_place_error"></label>
+                                        </div>
+                                    </span>
+
+                                </div>
+                                <div class="form-group col2">
+                                    <span>
+                                        Previous Nyaya Card no - <strong><%= results.ar_id %></strong> and its valid <strong><%= site.momentObj(dateTimeConvert(results.arbitration_agreement_fees.nc_start_date)).format('DD-MM-YYYY') %></strong> To <strong><%= site.momentObj(dateTimeConvert(results.arbitration_agreement_fees.nc_end_date)).format('DD-MM-YYYY') %> </strong>
+                                    </span>
+                                    <input type="hidden" id="parent_arbitration_agreements_period" name="parent_arbitration_agreements_period" value="<%= site.momentObj(dateTimeConvert(results.arbitration_agreement_fees.nc_start_date)).format('DD-MM-YYYY') %> To <%=site.momentObj(dateTimeConvert(results.arbitration_agreement_fees.nc_end_date)).format('DD-MM-YYYY') %>" >
+                                </div>
+                           
+
+                            <div id="agreementTypeDiv">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Document Information</div>
+                                    <div class="panel-body">
+                                        <div class="">
+                                            <div class="position_relative party_group" id="">
+                                                <div class="position_relative party_content" id="">
+                                                    <div class="panel panel-default" id="">
+                                                        <div class="panel-body panel-grey">
+
+                                                            <div class="row form-row">
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Document Stamp Number <sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.stamp_number %>" name="stamp_number" class="inputtxt emptyValidation" placeholder="Enter Stamp Number">
+                                                                    <label class="errorMsg" id="stamp_number_error"></label>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Document Category<sup class="text-danger">*</sup> </label>
+                                                                    <input disabled type="text" value="<%= results.service_details_id %>" class="inputtxt" >
+
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Document Type<sup class="text-danger">*</sup> </label>
+                                                                    <input disabled type="text" value="<%= results.service_detail_documents_id %>" class="inputtxt" >
+
+                                                                </div>
+
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Document Executed On <sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" name="stamp_date" id="stamp_date" value="<%= site.momentObj(results.stamp_date).format('DD-MM-YYYY') %>" class="inputtxt emptyValidation">
+                                                                    <label class="errorMsg" id="stamp_date_error"></label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-heading no-left-padd no-top-padd"><strong>Document Executed At</strong></div>
+                                                    <div class="panel panel-default" id="">
+                                                        <div class="panel-body">
+                                                            <div class="row form-row">
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>State<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.stamp_state_id %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>Division<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.stamp_division_id %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>District<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.stamp_district_id %>" class="inputtxt" >
+                                                                </div>
+
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Town/Kasba <sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.stamp_town %>" name="stamp_town" id="stamp_town" class="inputtxt emptyValidation" placeholder="Enter Place">
+                                                                    <label class="errorMsg" id="stamp_town_error"></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="panel panel-default" id="">
+                                                        <div class="panel-body panel-grey">
+                                                            <div class="row form-row">
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label><span class="document_value_month_class">Document Value</span><sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= results.agreement_value %>" name="agreement_value" id="agreement_value" class="inputtxt emptyValidation" placeholder="Document Value">
+                                                                    <label class="errorMsg" id="agreement_value_error"></label>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>Document Valid Form<sup class="text-danger">*</sup></label>
+                                                                    <input style="background-color: #ebebe4;" readonly type="text" value="<%= site.momentObj(results.document_valid_from).format('DD-MM-YYYY') %>" name="document_valid_from" id="document_valid_from" class="inputtxt emptyValidation" placeholder="Document Valid Form">
+                                                                    <label class="errorMsg" id="member_name_0_0_error"></label>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>Document Valid Up To<sup class="text-danger">*</sup></label>
+                                                                    <input style="background-color: #ebebe4;" readonly type="text" value="<%= site.momentObj(results.document_valid_to).format('DD-MM-YYYY') %>" name="document_valid_to" id="document_valid_to" class="inputtxt emptyValidation" placeholder="Document Valid To">
+                                                                    <label class="errorMsg" id="member_name_0_0_error"></label>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>Select Place of Arbitration<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="Rajasthan" class="inputtxt" >
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="parties" id="parties">
+
+                                    <% var party_count = 0; %>
+
+                                    <% Object.keys(formValue).forEach(function(party, key){ %>
+
+                                    <% var member_count = 0; %>
+                                    <% party_count++ %>
+
+                                    <div class="panel panel-default position_relative" id="parties_<%= party %>">
+                                        <div class="panel-heading">Party No. <%= party %></div>
+                                        <div class="panel-body">
+                                            <div class="position_relative party_content" id="party_content_<%= party %>">
+                                                <% formValue[party].forEach(function(members){ %>
+                                                <% member_count++ %>
+
+                                                <div id="member_content_<%= party %>_<%= members.member_no %>" class="member_content_class">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body panel-grey">
+                                                            <div class="row form-row">
+                                                                <div class="col-sm-12">
+                                                                    <input disabled type="hidden" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][arbitration_agreement_party_number]" value="<%= party %>" >
+                                                                    <input disabled type="hidden" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][party_no]" value="<%= party %>" >
+                                                                    <input disabled type="hidden" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_no]" value="<%= members.member_no %>" >
+                                                                    <div class="radio-btn">
+                                                                        <input disabled name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][user_type]" type="radio" class="userTypeCls" userTypeAlias='individual' party_no='<%= party %>' member_no='<%= members.member_no %>' checked="checked" id="userTypeCls_individual"/> <label for="userTypeCls_individual"> Individual </label>
+                                                                      <input disabled name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][user_type]" type="radio" class="userTypeCls" userTypeAlias='behalf_of_company' party_no='<%= party %>' member_no='<%= members.member_no %>' id="userTypeCls_behalf_of_company"/>  <label for="userTypeCls_behalf_of_company"> Behalf of Company or Firm </label>
+                                                                        <input disabled name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][user_type]" type="radio" class="userTypeCls" userTypeAlias='power_of_attorney_holder' party_no='<%= party %>' member_no='<%= members.member_no %>'  id="userTypeCls_power_of_attorney_holder"/>   <label for="userTypeCls_power_of_attorney_holder">Power of Attorney Holder </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-row userTypeBehalf_<%= party %>_<%= members.member_no %>">
+
+                                                            </div>
+                                                            <div class="row form-row">
+                                                                <div class="col-md-1 col-xs-12">
+                                                                    <label class="labeled"><% if(members.user_type == 'behalf_of_company'){ %>
+                                                                Name of Designated person
+                                                                <% } else if(members.user_type == 'power_of_attorney_holder'){ %>
+                                                                Power of Attorney Holder 
+                                                                <% } else { %>
+                                                                Name of party
+                                                                <% } %><sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= members.member_title %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> &nbsp; </label>
+                                                                    <input disabled value="<%= members.member_name %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_name]" id="member_name_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt emptyValidation" placeholder="Party Full Name">
+                                                                    <label class="errorMsg" id="member_name_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <!--<label> Father's/Husband Name </label>-->
+                                                                    <label>
+                                                                        <input disabled type="radio" checked > <%=members.member_relation_of%>  
+                                                                    </label>
+                                                                    <input disabled value="<%= members.member_relation_name %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_relation_name]" id="member_relation_name_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt emptyValidation" placeholder="Party father or husband Name">
+                                                                    <label class="errorMsg" id="member_relation_name_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label> Age in Years <sup class="text-danger">*</sup></label>
+                                                                    <input disabled value="<%= members.member_age %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_age]" id="member_age_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt emptyValidation" placeholder="Age in Years">
+                                                                    <label class="errorMsg" id="member_age_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Caste </label>
+                                                                    <input disabled value="<%= members.member_caste %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_caste]"  type="text" class="inputtxt" placeholder="Caste of Party">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row form-row">
+                                                                <div class="col-md-4 col-xs-12">
+                                                                    <label>Full Address </label>
+                                                                    <input disabled value="<%= members.member_address %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_address]" type="text" class="inputtxt emptyValidation" placeholder="Party Full Address">
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label> Town/Kasba <sup class="text-danger">*</sup></label>
+                                                                    <input disabled value="<%= members.member_town %>" type="text" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_town]"  class="inputtxt emptyValidation" placeholder="Enter Place">
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Country <sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= members.member_country_id %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-3 col-xs-12">
+                                                                    <label>State <sup class="text-danger">*</sup> </label>
+                                                                    <input disabled type="text" value="<%= members.member_state_id %>" class="inputtxt" >
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row form-row">
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Division<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= members.member_division_id %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>District<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= members.member_district_id %>" class="inputtxt" >
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Tehsil<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<%= members.member_tehsil_id %>" class="inputtxt" >
+                                                                </div>
+
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Pincode</label>
+                                                                    <input disabled value="<%= members.member_pincode %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_pincode]" type="text" class="inputtxt" placeholder="Pin Code">
+                                                                </div>
+                                                                
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Govt. ID Type<sup class="text-danger">*</sup></label>
+                                                                    <input disabled type="text" value="<% if(members.govt_id_type_primary_id==1){ %>Voter Id<% }else{ %>PAN Number<% } %>" class="inputtxt" >
+
+                                                                </div>
+                                                                
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Govt ID Number<sup class="text-danger">*</sup></label>
+                                                                    <input disabled value="<%= members.govt_id_number %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][govt_id_number]" id="govt_id_number_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt" placeholder="Govt ID Number">
+                                                                    <label class="errorMsg" id="govt_id_number_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row form-row">
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Mobile Number<sup class="text-danger">*</sup></label>
+                                                                    <input disabled value="<%= members.member_mobile_number %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_mobile_number]" id="member_mobile_number_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt" placeholder="Mobile Number">
+                                                                    <label class="errorMsg" id="member_mobile_number_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                                <div class="col-md-4 col-xs-12">
+                                                                    <label>Email Address</label>
+                                                                    <input disabled value="<%= members.member_email %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_email]" id="member_email_<%= party %>_<%= members.member_no %>" type="email" class="inputtxt" placeholder="Email Address">
+                                                                    <label class="errorMsg" id="member_email_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12">
+                                                                    <label>Aadhar Number<sup class="text-danger">*</sup></label>
+                                                                    <input disabled value="<%= members.member_aadhar %>" name="arbitration_agreement_party_members[<%= party %>][<%= members.member_no %>][member_aadhar]" id="member_aadhar_<%= party %>_<%= members.member_no %>" type="text" class="inputtxt" placeholder="Aadhar Number">
+                                                                    <label class="errorMsg" id="member_aadhar_<%= party %>_<%= members.member_no %>_error"></label>
+                                                                </div>
+                                                                
+
+
+                                                            </div>
+                                                            <div class="row form-row userTypePowerOf_<%= party %>_<%= members.member_no %>">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <% }); %>
+
+                                            </div>    
+
+                                        </div>
+                                    </div>
+
+                                    <% }); %>
+                                </div>
+
+
+                                <br>
+
+
+                                <div class="row form-row">
+
+
+                                    <div class="col-md-4 col-xs-12 twoTeirDiv" style="display: none;">
+                                        <label>Select Place of Appeal (Second Arbitration)<sup class="text-danger">*</sup></label>
+                                        <input disabled type="text" value="Rajasthan" class="inputtxt" >
+
+                                    </div>
+                                </div>
+                                <br>
+
+                                <br>
+                                <div id="witness_detail_1" >
+                                    <% if(results.first_witness_name){ %>
+                                    <div class="panel panel-default position_relative">
+                                        <div class="panel-heading">First Witness Details</div>
+                                        <div class="panel-body">
+                                            <div class="">
+                                                <div class="position_relative party_group" id="">
+                                                    <div class="position_relative party_content" id="">
+                                                        <div class="panel panel-default" id="">
+                                                            <div class="panel-body panel-grey">
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-1 col-xs-12">
+                                                                        <label class="labeled">Full Name</label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_title%>" class="inputtxt" >
+
+
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label></label>
+                                                                        <input disabled type="text" value="<%= results.first_witness_name %>" name="first_witness_name" id="first_witness_name" class="inputtxt emptyValidation" placeholder="Full Name">
+                                                                        <label class="errorMsg" id="first_witness_name_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+
+                                                                        <label>
+                                                                            <input disabled type="radio" class="" checked="checked"> <%=results.first_witness_relation%>
+                                                                        </label>
+                                                                        <input disabled value="<%= results.first_witness_relation_name %>" name="first_witness_relation_name" id="first_witness_relation_name" type="text" class="inputtxt emptyValidation" placeholder="Full Name father or husband">
+                                                                        <label class="errorMsg" id="first_witness_relation_name_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Age in Years</label>
+                                                                        <input disabled value="<%= results.first_witness_age %>" name="first_witness_age" id="first_witness_age" type="text" class="inputtxt emptyValidation" placeholder="Age in Years">
+                                                                        <label class="errorMsg" id="first_witness_age_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label>Caste</label>
+                                                                        <input disabled value="<%= results.first_witness_caste %>" name="first_witness_caste" id="first_witness_caste" type="text" class="inputtxt" placeholder="Caste of party">
+                                                                        <label class="errorMsg" id="first_witness_caste_error"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <label>Witness Full Address </label>
+                                                                        <input disabled value="<%= results.first_witness_address %>" name="first_witness_address" id="first_witness_address" type="text" class="inputtxt emptyValidation" placeholder="Party Full Address">
+                                                                        <label class="errorMsg" id="first_witness_address_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label> Town/Kasba </label>
+                                                                        <input disabled value="<%= results.first_witness_town %>" type="text" name="first_witness_town" id="first_witness_town" class="inputtxt emptyValidation" placeholder="Enter Place">
+                                                                        <label class="errorMsg" id="first_witness_town"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Country </label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_country_id%>" class="inputtxt" >
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>State </label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_state_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Division</label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_division_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>District</label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_district_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Tehsil</label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_tehsil_id%>" class="inputtxt" >
+                                                                    </div>
+
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Pincode</label>
+                                                                        <input disabled value="<%= results.first_witness_pincode %>" name="first_witness_pincode" id="first_witness_pincode" type="text" class="inputtxt" placeholder="Pin Code">
+                                                                        <label class="errorMsg" id="first_witness_pincode_error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Aadhar Number</label>
+                                                                        <input disabled value="<%= results.first_witness_aadhar_no %>" name="first_witness_aadhar_no" id="first_witness_aadhar_no" type="text" class="inputtxt" placeholder="Aadhar Number">
+                                                                        <label class="errorMsg" id="first_witness_aadhar_no_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Mobile</label>
+                                                                        <input disabled value="<%= results.first_witness_mobile %>" name="first_witness_mobile" id="first_witness_mobile" type="text" class="inputtxt" placeholder="Mobile">
+                                                                        <label class="errorMsg" id="first_witness_mobile_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Govt. ID Type</label>
+                                                                        <input disabled type="text" value="<%=results.first_witness_govt_id_name%>" class="inputtxt" >
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Govt. ID Number</label>
+                                                                        <input disabled value="<%= results.first_witness_govt_id_number %>" name="first_witness_govt_id_number" id="first_witness_govt_id_number" type="text" class="inputtxt " placeholder="Govt. ID Number">
+                                                                        <label class="errorMsg" id="first_witness_govt_id_number_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Email Address</label>
+                                                                        <input disabled value="<%= results.first_witness_email %>" name="first_witness_email" id="first_witness_email" type="email" class="inputtxt" placeholder="Email Address">
+                                                                        <label class="errorMsg" id="first_witness_email_error"></label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <% } %>
+                                </div>
+
+                                <br>
+                                <div id="witness_detail_2" >
+
+                                    <% if(results.second_witness_name){ %>
+                                    <div class="panel panel-default position_relative">
+                                        <div class="panel-heading">Second Witness Details</div>
+                                        <div class="panel-body">
+                                            <div class="">
+                                                <div class="position_relative party_group" id="">
+                                                    <div class="position_relative party_content" id="">
+                                                        <div class="panel panel-default" id="">
+                                                            <div class="panel-body panel-grey">
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-1 col-xs-12">
+                                                                        <label class="labeled">Full Name</label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_title%>" class="inputtxt" >
+
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label></label>
+                                                                        <input disabled type="text" value="<%= results.second_witness_name %>" name="second_witness_name" id="second_witness_name" class="inputtxt emptyValidation" placeholder="Full Name">
+                                                                        <label class="errorMsg" id="second_witness_name_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label>
+                                                                            <input disabled type="radio" class="" checked="checked"> <%=results.second_witness_relation%>
+                                                                        </label>
+                                                                        <input disabled value="<%= results.second_witness_relation_name %>" name="second_witness_relation_name" id="second_witness_relation_name" type="text" class="inputtxt emptyValidation" placeholder="Full Name father or husband">
+                                                                        <label class="errorMsg" id="second_witness_relation_name_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Age in Years</label>
+                                                                        <input disabled value="<%= results.second_witness_age %>" name="second_witness_age" id="second_witness_age" type="text" class="inputtxt emptyValidation" placeholder="Age in Years">
+                                                                        <label class="errorMsg" id="second_witness_age_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label>Caste</label>
+                                                                        <input disabled value="<%= results.second_witness_caste %>" name="second_witness_caste" id="second_witness_caste" type="text" class="inputtxt " placeholder="Caste of party">
+                                                                        <label class="errorMsg" id="second_witness_caste_error"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-9 col-xs-12">
+                                                                        <label>Witness Full Address </label>
+                                                                        <input disabled value="<%= results.second_witness_address %>" name="second_witness_address" id="second_witness_address" type="text" class="inputtxt emptyValidation" placeholder="Party Full Address">
+                                                                        <label class="errorMsg" id="second_witness_address_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-xs-12">
+                                                                        <label> Town/Kasba </label>
+                                                                        <input disabled value="<%= results.second_witness_town %>" type="text" name="second_witness_town" id="second_witness_town" class="inputtxt emptyValidation" placeholder="Enter Place">
+                                                                        <label class="errorMsg" id="second_witness_town"></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Country </label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_country_id%>" class="inputtxt" >
+                                                                    </div>
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>State </label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_state_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Division</label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_division_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>District</label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_district_id%>" class="inputtxt" >
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Tehsil</label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_tehsil_id%>" class="inputtxt" >
+                                                                    </div>
+
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Pincode</label>
+                                                                        <input disabled value="<%= results.second_witness_pincode %>" name="second_witness_pincode" id="second_witness_pincode" type="text" class="inputtxt" placeholder="Pin Code">
+                                                                        <label class="errorMsg" id="second_witness_pincode_error"></label>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row form-row">
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Aadhar Number</label>
+                                                                        <input disabled value="<%= results.second_witness_aadhar_no %>" name="second_witness_aadhar_no" id="second_witness_aadhar_no" type="text" class="inputtxt" placeholder="Aadhar Number">
+                                                                        <label class="errorMsg" id="second_witness_aadhar_no_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Mobile</label>
+                                                                        <input disabled value="<%= results.second_witness_mobile %>" name="second_witness_mobile" id="second_witness_mobile" type="text" class="inputtxt" placeholder="Mobile">
+                                                                        <label class="errorMsg" id="second_witness_mobile_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Govt. ID Type</label>
+                                                                        <input disabled type="text" value="<%=results.second_witness_govt_id_name%>" class="inputtxt" >
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Govt. ID Number</label>
+                                                                        <input disabled value="<%= results.second_witness_govt_id_number %>" name="second_witness_govt_id_number" id="second_witness_govt_id_number" type="text" class="inputtxt " placeholder="Govt. ID Number">
+                                                                        <label class="errorMsg" id="second_witness_govt_id_number_error"></label>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-xs-12">
+                                                                        <label>Email Address</label>
+                                                                        <input disabled value="<%= results.second_witness_email %>" name="second_witness_email" id="second_witness_email" type="email" class="inputtxt" placeholder="Email Address">
+                                                                        <label class="errorMsg" id="second_witness_email_error"></label>
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <% } %>
+                                </div>
+
+
+                                <div class="row addMemberDiv_0 text-center">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary button-next" style="float: right;" id="proceedToView">Next to View</button>
+                                    </div>
+                                </div>
+
+                                <div class="row addMemberDiv_0 text-left">
+                                    <div class="col-md-12">
+                                        <p>
+                                            <strong>
+                                                Note : 
+                                            </strong>
+                                        </p>
+                                        <p>
+                                            <strong>
+                                                This Arbitration Agreement is created at www.nyayaprotal.in is valid only when it will be either e-signed or manually signed by all the party's and witnesses. At the time of dispute submission, orignal  arbitration agreement, either e-signed or manually has to be produced with the claim. Any discrepency in the agreement  will make this document invalid to take the benifits of Nyaya card at the time of dispute submission. Please make sure that all the parties to this agreement have exchanged the duly signed copies.
+                                            </strong>
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- /tab 1 -->
+            <!-- tab 2 -->
+            <div class="tab-pane" id="tab2">
+
+            </div>
+            <!-- /tab 2 -->
+            <!-- tab 3 -->
+            <div class="tab-pane" id="tab3">
+
+
+            </div>
+            <!-- /tab 3 -->
+            <div class="tab-pane" id="tab4">
+
+
+            </div>
+            <!-- /tab 4 -->
+        </div>
+    </div>
+</section>
+<%- include('../helper/confirmation_popup.ejs'); %>
+<script src="/admin/js/arbitration_agreement_form.js"></script>
+<script>
+    $(function () {
+
+        $('.onChangeForOnload').each(function (index, value) {
+            var thisVar = $(this);
+            var valueSelected = $('option:selected', thisVar).val();
+            var valueIdText = $(thisVar).attr('id');
+            var attrPrimaryIdSelected = $('option:selected', thisVar).attr('primaryid');
+            $('#' + valueIdText).trigger('change');
+
+        });
+    })
+
+</script>

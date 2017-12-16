@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        
+        <h2>Arbitration Agreement Fee Details</h2>
+        <p>For Stamp number (<%= results.stamp_number %>) and contract value Rs. <%= results.agreement_value %> on dated <%= results.stamp_date %> </p>
+        <% for(i=1; i <= data.length; i++) { 
+        if(typeof data[i] != 'undefined' ){ %>
+        
+        <input type="radio" class="feeValueRadio" year="<%= i %>" name="fee" id="fee" value="<%= data[i] %>" <% if(i==1){ %> checked <% } %> > <%= i %> year FEE including all taxes Rs. <%= site.formatCurrencyObj(data[i]); %> </br>
+        
+        <% } } %>
+        <input type="hidden" class="" name="year_nayacard" id="year_nayacard" value="" >
+        <input type="hidden" class="" name="arbitration_id" id="arbitration_id" value="<%= results.id %>" >
+        <button type="button" style="display: none;" class="btn btn-default downloadCertificate"><i class="fa fa-download" aria-hidden="true"></i> Download Certificate Copy</button>
+        <br>
+        <br>
+        <button type="button" id="makePaymentButton" class="btn btn-primary">Make Payment</button>
+<!--        <div class="checkbox">
+            <label>
+                <input type="checkbox"> We (both parties) have signed the agreement and exchanged signed agreement copy.</label>
+        </div>-->
+        
+    </div>
+</div>

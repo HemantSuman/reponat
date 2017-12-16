@@ -1,0 +1,197 @@
+<%# include ../helper/breadcrumb.ejs %>
+<% 
+var noObj={4:'IV',3:'III',2:'II',1:'I'};
+var title='List of Authorized Promoter Scale-'+ noObj[params.type]
+%>
+<%- include('../helper/Heading-Page.ejs', {title:title}); %>
+
+
+<section class="content">
+
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="#" class="btn-view-list" onclick="goBack()"><i class="fa fa-arrow-left" aria-hidden="true"></i> BACK</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form role="form" name='serchFrom' method='get' action='/admin/franchises/list-user'>
+                <div class="row form-row-new" style="display:none">
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="first_name" placeholder="Name" name="first_name" value="<% if(extraVar){ %><%= extraVar.first_name %><% } %>">
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="area" placeholder="Town/Kasba" name="area" value="<% if(extraVar){ %><%= extraVar.area %><% } %>">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="party_mobile_no" placeholder="Mobile Number" name="mobile" value="<% if(extraVar){ %><%= extraVar.mobile %><% } %>">  
+                    </div>
+                    <div class="col-sm-2 form-group custom-select-outer">
+                        <select class="form-control select2" name="order_by">
+                            <option value="">Select</option>
+                            <option value="desc">Latest</option>
+                            <option value="asc">Oldest</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Reset Password">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-success blue" href="/admin/franchises/list-user" title="Clear Search">
+                            Clear Search
+                        </a> 
+                    </div>
+
+                </div>
+
+            </form>
+            <div class="table-responsive">
+                <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                    <table class="table table-bordered">
+                        <tr>
+                            
+                            <th>S. No.</th>
+                            <th>Details Of AP Scale-<%= noObj[params.type] %></th>
+                            <th>Location</th>
+                            <th>Date of Joining</th>
+                            <% if(params.type==4){ %>
+                            <th>Associated AP Scale-III</th>
+                            <% } %>
+                            <% if(params.type==4 || params.type==3){ %>
+                            <th>Associated AP Scale-II</th>
+                            <% } %>
+                            <% if(params.type==4 || params.type==3 || params.type==2){ %>
+                            <th>Associated AP Scale-I</th>
+                            <% } %>
+                            <th>Associated Professional</th>
+                            <th><a href="<%= query_string%>?<%= sortStrNc %>" >NC Created</th>
+                            <th><a href="<%= query_string%>?<%= sortStrM %>" >Mem. Created</th>
+
+                        </tr>
+
+
+                        <% 
+                        var ap_scale_3 = 0;
+                        var ap_scale_2 = 0;
+                        var ap_scale_1 = 0;
+                        var professional_no = 0;
+                        var nc_no = 0;
+                        var mem_no = 0;
+                        results.forEach(function(rows, key){ %>
+                        <tr>
+
+                            <td><%=++key%></td>
+                            <td>
+                                ID : <%= rows.gid %><br>
+                                Name : <%= rows.first_name %><br>
+                                Mobile : <%= rows.mobile %><br>
+                                Email : <%= rows.email %>
+                                <% if(rows.business_name1){ %>
+                                <br>
+                                Business Name: <%= rows.business_name1 %>
+                                <% } %>
+                            </td>
+                            <td><%= rows.loc_list %></td>
+                            <td>
+                                <% if(site.momentObj(rows.join_date).format('DD-MM-YYYY') != 'Invalid date'){ %>
+                                <%= site.momentObj(rows.join_date).format('DD-MM-YYYY') %>
+                                <% } %>
+                            </td>
+                            <% if(params.type==4){ %>
+                            <td>
+                             <% if(rows.ap3!=0){ %>   
+                             <a class="text_uline" href="/admin/franchises/ap-scale/3/<%= rows.fl4 %>"><%= rows.ap3 %></a>
+                             <% }else{ %>
+                             <%= rows.ap3 %>
+                             <% } %>
+                            </td>
+                            <% } %>
+                            
+                            <% if(params.type==4 || params.type==3){ %>
+                            <td>
+                                <% if(rows.ap2!=0){ %>  
+                                <a class="text_uline" href="/admin/franchises/ap-scale/2/<%= rows.fl3 %>"><%= rows.ap2 %></a>
+                                <% }else{ %>
+                                <%= rows.ap2 %>
+                             <% } %>
+                            </td>
+                            <% } %>
+                            
+                            <% if(params.type==4 || params.type==3 || params.type==2){ %>
+                            <td>
+                                <% if(rows.ap1!=0){ %>  
+                                <a class="text_uline" href="/admin/franchises/ap-scale/1/<%= rows.fl2 %>"><%= rows.ap1 %></a>
+                                <% }else{ %>
+                                <%= rows.ap1 %>
+                             <% } %>
+                            </td>
+                            <% } %>
+                            <td><%= rows.total_pro %></td>
+                            <td><%= rows.total_ar %></td>
+                            <td><%= rows.total_mp %></td>
+
+
+                        </tr>
+                        <% 
+                        ap_scale_3 = parseFloat(ap_scale_3) + parseFloat(rows.ap3);
+                        ap_scale_2 = parseFloat(ap_scale_2) + parseFloat(rows.ap2);
+                        ap_scale_1 = parseFloat(ap_scale_1) + parseFloat(rows.ap1);
+                        professional_no = parseFloat(professional_no) + parseFloat(rows.total_pro);
+                        nc_no = parseFloat(nc_no) + parseFloat(rows.total_ar);
+                        mem_no = parseFloat(mem_no) + parseFloat(rows.total_mp);
+                        
+                        }); %>
+
+                         <% if(results.length > 0){ %>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <% if(params.type==4){ %>
+                                <th><%= ap_scale_3%></th>
+                                <% } %>
+                                <% if(params.type==4 || params.type==3){ %>
+                                <th><%= ap_scale_2%></th>
+                                <% } %>
+                                <% if(params.type==4 || params.type==3 || params.type==2){ %>
+                                <th><%= ap_scale_1%></th>
+                                <% } %>
+                                <th><%= professional_no%></th>
+                                <th><%= nc_no%></th>
+                                <th><%= mem_no%></th>
+
+                            </tr>
+                         <% } %>
+                    </table>
+                    <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                </form>
+                <% if(results.length==0){ %>
+                <h5 class="box-title text-center">No record found</h5>
+                <% } %>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer clearfix">
+            <div class="row">
+                <div class="col-md-12 text-right">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script> 

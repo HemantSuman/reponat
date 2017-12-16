@@ -1,0 +1,24 @@
+@media(min-width:1200px){
+      .admin-user-role-list .col-lg-4:nth-child(3n+1) { clear: left; }
+}
+
+@media(max-width:1199px){
+      .admin-user-role-list .col-sm-6:nth-child(2n+1) { clear: left; }
+}
+@media(max-width:767px){
+   .main-header .sidebar-toggle{ display: block; padding:10px 15px}
+   .main-header .navbar{ margin-left: 0; min-height: 1px;}
+   .main-header .logo img{ height: 40px; width: auto;}
+   .skin-blue .main-header .navbar .sidebar-toggle{ color: #E99243;}
+   .skin-blue .main-header .navbar .sidebar-toggle:hover{ color: #fff; background: #E99243}
+   .navbar-nav > .user-menu .user-image{ height: 25px; width: 25px}
+   .navbar-custom-menu > .navbar-nav > li > .dropdown-menu{ left: auto; right: 0;}
+   .navbar-nav > .user-menu > .dropdown-menu > .user-footer a{ background: #5eb985}
+   .navbar-nav > .user-menu > .dropdown-menu > .user-footer .btn-default:hover{ background: #e99243}
+   .btn{ padding: 5px 10px}
+   .navbar-custom-menu .navbar-nav > li > a{ padding-top: 10px; padding-bottom: 10px;}
+   .btn-view-list{ font-size: 12px;}
+   .content-header > h1{ font-size: 16px;}
+   .main-sidebar, .left-side{ padding-top: 103px;}
+
+}

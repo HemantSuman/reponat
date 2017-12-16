@@ -1,0 +1,176 @@
+<%# include ../helper/breadcrumb.ejs %>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <% if(loginUser.user_type && loginUser.user_type.role_type_slug=='deed_writer'){ %>
+                        Offline Facility Allotted By
+                        <% } else { %>
+                        Authorized Promoter Details
+                        <% } %>
+                    </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                            <tr>
+                            	<th>S. No.</th>
+                                <th>Authorized Promoter Name</th>
+                                <th>Email</th>
+                                <th>Phone No.</th>
+
+                                <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                                <th>Offline facility alloted</th>
+                                <th>Offline facility used</th>
+
+                            	<!--<th>Id</th>-->
+                                <!--<th>Level</th>-->
+
+
+
+                                <!--<th>Address</th>-->
+                                <th>Payment Status</th>
+                                <% } %>
+
+                            </tr>
+                    <%
+                    var chgObj = {};
+                    chgObj = {
+                        country_level: 'Scale -V',
+                        state_level: 'Scale-IV',
+                        division_level: 'Scale-III',
+                        district_level: 'Scale-II',
+                        tehsil_level: 'Scale-I',
+                    }
+                    dataAll.forEach(function(data,key){ key++ %>
+                    <% if(data){ %>
+                        <% if(loginUser.user_type && loginUser.user_type.role_type_slug=='deed_writer'){ %>
+                        <!--<span><b>Total Credit : <%= data.total_credit %></b></span>-->
+
+                        <!--<span class="pull-right"><b>Available Credit : <%= data.available_credit %></b></span>-->
+                        <% } %>
+
+                            <tr>
+                                <td><%= key %></td>
+                                <td><%= data.first_name %></td>
+                                <td><%= data.email %></td>
+                                <td><%= data.mobile %></td>
+                                <% if(locals.loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                                <td><%= data.total_credit %></td>
+                                <td><%= parseInt(data.total_credit) - parseInt(data.available_credit) %></td>
+
+                                <%
+                                var remCreadit=parseInt(data.total_credit) - parseInt(data.available_credit);
+                                %>
+
+                                <td>
+                                    <% if(parseInt(data.available_credit) < parseInt(data.total_credit)){ %>
+                                        <span class="label label-danger">Pending</span>
+                                    <% }else { %>
+                                        <% if(parseInt(data.available_credit) >0 && parseInt(data.total_credit) >0){ %>
+                                        <% if(remCreadit > 0){ %>
+                                        <span class="label label-success">Paid</span>
+                                        <%} %>
+                                        <%} %>
+                                    <%} %>
+                                </td>
+                                <%} %>
+                                <!--<td><%= data.id %></td>-->
+                                <!--<td><%= chgObj[data.franchise_level] %></td>-->
+                                <!--<td><%= data.residence_address %></td>-->
+
+                            </tr>
+
+<!--                            <% if(data.f5_name != 'country_level' && data.f5_name != 'state_level') { %>
+                            <tr>
+                                <td><%= data.f5_id %></td>
+                                <td><%= chgObj[data.f5_name] %></td>
+                                <td><%= data.f5_user_name %></td>
+                                <td><%= data.f5_user_email %></td>
+                                <td><%= data.f5_user_phone %></td>
+                                <td><%= data.f5_user_address %></td>
+
+                            </tr>
+                            <% } %>
+                            <% if(data.f4_name != 'country_level' && data.f4_name != 'state_level') { %>
+                            <tr>
+                                <td><%= data.f4_id %></td>
+                                <td><%= chgObj[data.f4_name] %></td>
+                                <td><%= data.f4_user_name %></td>
+                                <td><%= data.f4_user_email %></td>
+                                <td><%= data.f4_user_phone %></td>
+                                <td><%= data.f4_user_address %></td>
+
+                            </tr>
+                            <% } %>
+                            <% if(data.f3_name != 'country_level' && data.f3_name != 'state_level') { %>
+                            <tr>
+                                <td><%= data.f3_id %></td>
+                                <td><%= chgObj[data.f3_name] %></td>
+                                <td><%= data.f3_user_name %></td>
+                                <td><%= data.f3_user_email %></td>
+                                <td><%= data.f3_user_phone %></td>
+                                <td><%= data.f3_user_address %></td>
+
+                            </tr>
+                            <% } %>
+                            <% if(data.f2_name != 'country_level' && data.f2_name != 'state_level') { %>
+                            <tr>
+                                <td><%= data.f2_id %></td>
+                                <td><%= chgObj[data.f2_name] %></td>
+                                <td><%= data.f2_user_name %></td>
+                                <td><%= data.f2_user_email %></td>
+                                <td><%= data.f2_user_phone %></td>
+                                <td><%= data.f2_user_address %></td>
+
+                            </tr>
+                            <% } %>
+                            <% if(data.f1_name != 'country_level' && data.f1_name != 'state_level') { %>
+                            <tr>
+                                <td><%= data.f1_id %></td>
+                                <td><%= chgObj[data.f1_name] %></td>
+                                <td><%= data.f1_user_name %></td>
+                                <td><%= data.f1_user_email %></td>
+                                <td><%= data.f1_user_phone %></td>
+                                <td><%= data.f1_user_address %></td>
+
+                            </tr>
+                            <% } %>-->
+
+
+
+
+
+                        <%# include('../element/no-record.ejs', {results:data}); %>
+
+                    <% }else{ %>
+
+                    <% } %>
+                    <% }); %>
+
+                     <% if(dataAll.length==0){ %>
+                    <p>You are not associated with any Authorized Promoter</p>
+                    <% } %>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+
+                    <%# include ../helper/page2.ejs %>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>

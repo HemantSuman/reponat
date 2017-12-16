@@ -1,0 +1,167 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+    
+            <!-- general form elements -->
+
+            <div class="box box-primary">
+             <div class="filterBar">
+                    <div class="filterBarRight">
+                       <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+                    </div>
+                </div>    
+                <!-- /.box-header --> 
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/update' enctype="multipart/form-data">
+                    <input type="hidden" name='id' value='<%= results.my_model.id %>'>
+                    <input type="hidden" value="<%= extraVar.product_id %>" name="product_id" >
+                    <div class="box-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Start Date<em>*</em></label>
+
+                                            <input type="text" class="form-control startdate" value="<%= dateFormate(results.my_model.start_date) %>" id="start_date" name='start_date'>
+                                            <label class="error_mgs_lable" id="start_date_error"></label>
+
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">End Date<em>*</em></label>
+
+                                            <input type="text" class="form-control enddate" value="<%= dateFormate(results.my_model.end_date) %>" id="end_date" name='end_date'>
+                                            <label class="error_mgs_lable" id="end_date_error"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Name<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="bonus_name" name='bonus_name' value='<%= results.my_model.bonus_name %>'>
+                                            <label class="error_mgs_lable" id="bonus_name_error"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Value in Percentage<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="bonus_value" name='bonus_value' value='<%= results.my_model.bonus_value %>'>
+                                            <label class="error_mgs_lable" id="bonus_value_error"></label>
+
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <% if(type_id==4){ %>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Type</label>
+                                            <div class="radio-btn">
+                                               
+                                                    <input type="radio" name="bonus_type" value="0" id="Revised1" <%= (results.my_model.bonus_type == 0)? 'checked':'' %> > <label for="Revised1">
+                                                    Discount  
+                                                </label>
+                                               
+                                                    <input type="radio" name="bonus_type" value="1" id="Revised2" <%= (results.my_model.bonus_type == 1)? 'checked':'' %> > <label for="Revised1">
+                                                    <label for="Revised2"> Loading 
+                                                </label>
+
+
+                                            </div>
+                                            <label class="error_mgs_lable" id="revised_type_error"></label>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                    
+                                    
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <div class="chk-outer">
+
+
+                                            <% if(extraVar.product_id == 1 || extraVar.product_id == 3) { %>
+                                                    <div class="chk-outer">
+                                                     <input type="checkbox" name="is_default"  id="is_default" <%= (results.my_model.is_default==0)? '':'checked' %> > <label for="is_default"> Default Bonus
+                                                </label> 
+                                                    </div>
+                                            <% }else{ %>
+                                                    <div class="form-group custom-select-outer">
+                                                    
+                                                    <select class="form-control select2" name="product_type_id" id="product_type_id">
+                                                    <option value="">--Please Select Default Bonus--</option>
+                                                    <option value="1" <%= (results.my_model.product_type_id==1) ? 'selected':'' %>>Default Bonus For Nyaya Card</option>
+
+                                                    <option value="3" <%= (results.my_model.product_type_id==3)? 'selected':'' %>>Default Bonus For Membership</option>
+                                                    </select>
+                                                    </div>
+                                            <% } %>    
+
+
+
+
+
+
+
+
+
+                                                                          
+                                                    <input type="checkbox" name="is_active"  id="is_active" <%= (results.my_model.is_active==0)? '':'checked' %> > <label for="is_active"> Status
+                                                </label>
+
+
+
+                                            
+                                              
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                             <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                        </div>
+                    </div>
+                         
+                </div>
+
+                  
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+</script>

@@ -1,0 +1,288 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                </div>
+                <!-- /.box-header --> 
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/update' enctype="multipart/form-data">
+                    <input type='hidden' name='id' id="id" value='<%= results.my_model.id %>'>
+                    <div class="box-body">
+
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputEmail1">Plan Title</label>
+                            <input type="text" class="form-control" name='plan_title' id="plan_title" value="<%= results.my_model.plan_title %>">
+                            <label class="error_mgs_lable" id="plan_title_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputEmail1">Min. Turnover Value</label>
+                            <input type="text" class="form-control" id="min_amount" name='min_amount' value="<%= results.my_model.min_amount %>">
+                            <label class="error_mgs_lable" id="min_amount_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputEmail1">Max. Turnover Value</label>
+                            <input type="text" class="form-control" id="max_amount"  name='max_amount' value="<%= results.my_model.max_amount %>">
+                            <label class="error_mgs_lable" id="max_amount_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="exampleInputEmail1">Registration Fee</label>
+                            <input type="text" class="form-control" name='registration_fee' id="registration_fee" value="<%= results.my_model.registration_fee %>">
+                            <label class="error_mgs_lable" id="registration_fee_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Duration in years (Max. 10 years)</label>
+                            <select name="duration" class="form-control planRelatedField" id="duration">
+                                <option value="">---Please Select---</option>
+                                <% for(i = 1; i <= 10; i++) { %>
+                                    <option value="<%= i %>" <% if(results.my_model.duration == i) { %>selected<% } %>><%= i %> <% if(i > 1) { %>years<% } else { %>year<% } %></option>
+                                <% } %>
+                            </select>
+                            <label class="error_mgs_lable" id="duration_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="exampleInputEmail1">Plan Fee</label>
+                            <input type="text" class="form-control planRelatedField"  name='plan_fee' id="plan_fee">
+                            <label class="error_mgs_lable" id="plan_fee_error"></label>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label class="opacity-0lab" ></label>
+                            <button type="button" class="form-control btn btn-primary" id="addPlanFeeBtn">Add</button>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12" id="per_year_fee_table_div">
+                            <% if(results.my_model.membership_plan_fees.length > 0) { %>
+                                <div class="box">
+                                    <div class="box-body table-responsive no-padding">
+                                        <table class="table table-hover documentListingTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.No.</th>
+                                                    <th>Duration in years</th>
+                                                    <th>Fee Value</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% var plan_fee_array = [] %>
+                                                <% var plan_duration_array = [] %>
+                                                <% results.my_model.membership_plan_fees.forEach(function(rows, key) { %>
+                                                    <tr>
+                                                        <td><%= key+1 %></td>
+                                                        <td><%= rows.number_of_years %> <% if(rows.number_of_years > 1) { %>Years <% } else { %>Year<% } %></td>
+                                                        <td>
+                                                            <input type="text" name="membership_plan_fees[<%= key %>][fees]" class="form-control" value="<%= rows.fees %>">
+                                                            <input type="hidden" name="membership_plan_fees[<%= key %>][number_of_years]" value="<%= rows.number_of_years %>">
+                                                            <input type="hidden" name="membership_plan_fees[<%= key %>][membership_plan_id]" value="<%= rows.membership_plan_id %>">
+                                                            <input type="hidden" name="membership_plan_fees[<%= key %>][is_active]" value="<%= rows.is_active %>" class="inputForSavedPlanFeeStatus_<%= rows.id %>">
+                                                            <label class="error_mgs_lable" id="fees_<%= key %>_error"></label>
+                                                        </td>
+                                                        <td id="siblingStatusCol_<%= rows.id %>">
+                                                            <% if(rows.is_active == 1) { %>
+                                                                <span class="label label-success">Active</span>
+                                                            <% } else { %>
+                                                                <span class="label label-danger">Inactive</span>
+                                                            <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:void(0)" class="feeStatusChangeBtn" data-action="<%= (rows.is_active == 1) ? 0 : 1 %>" data-id="<%= rows.id %>">
+                                                                <i class="fa <%= (rows.is_active == 1) ? 'fa-lock' : 'fa-unlock' %>"></i>
+                                                            </a>
+                                                        </td>
+                                                        <!-- <td>
+                                                            <a class='btn btn-danger btn-xs removePlanBtn' href='javascript:void(0);' duration="<%= rows.number_of_year %>" arrarindex="<%= key %>"><i class='fa fa-close'></i></a>
+                                                        </td> -->
+                                                    </tr>
+                                                    <% 
+                                                    plan_fee_array.push({
+                                                        duration: rows.number_of_years,
+                                                        plan_fee: rows.fees,
+                                                        mPlanFeeId: rows.id,
+                                                        is_active: rows.is_active
+                                                    }) 
+                                                    plan_duration_array.push(rows.number_of_years)
+                                                    %>
+
+                                                <% }); %>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="chk-outer">
+                                    <input type="checkbox" name="is_active"  id="is_active" <%= (results.my_model.is_active==0)? '':'checked' %>> 
+                                    <label for="is_active">Status</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+        </div>
+    </div>
+</section>
+
+<script>
+    var planFeeArray = <%- JSON.stringify(plan_fee_array) %>;
+    var planDurationArray = <%- JSON.stringify(plan_duration_array) %>
+
+    console.log(planFeeArray)
+
+    $(document).on("click", "#addPlanFeeBtn", function(ev) {
+        if($("#duration").val() == '') {
+            bootstrapNotify.showMessage("Please select duration", "danger");
+            return false;
+        }
+        if($("#plan_fee").val() == '') {
+            bootstrapNotify.showMessage("Please enter fee for the plan", "danger");
+            return false;
+        }
+
+        if(planDurationArray.indexOf(parseInt($("#duration").val())) != -1) {
+            bootstrapNotify.showMessage("You have already added a plan for the selected duration", "danger");
+            return false;
+        } else {
+            planDurationArray.push(parseInt($("#duration").val()))
+            //var planFeeArray = [];
+            planFeeArray.push({
+                duration: $("#duration").val(),
+                plan_fee: $("#plan_fee").val()
+            });
+
+            if(planFeeArray.length >= 1) {
+                $("#per_year_fee_table_div").removeClass("hide");            
+            }
+            appendPlanFeeHtml()
+            $(".planRelatedField").val("")
+            console.log(planDurationArray)
+        }
+    })
+
+    $(document).on('click', '.removePlanBtn', function (e) {
+        if (!confirm("Are you sure you want to remove ?")) {
+            return false;
+        } else {
+            var thisObj = $(this);
+            var arrarindex = $(this).attr('arrarindex');
+            $(thisObj).parents('tr').remove();
+            planFeeArray.splice(arrarindex, 1);
+            planDurationArray.splice(planDurationArray.indexOf($(thisObj).attr("duration")), 1)
+
+            if (planFeeArray.length < 1) {
+                $("#per_year_fee_table_div").addClass("hide");
+            }
+            appendPlanFeeHtml()
+        }
+    });
+
+    function appendPlanFeeHtml() {
+        var rowHtml = "";
+        //console.log(planFeeArray)
+        var mpId = $("#id").val()
+        var feeVal = $("#plan_fee").val()
+        $('.documentListingTable tbody').html("");
+        $.each(planFeeArray, function (index, value) {
+            var indexPlus = parseInt(index) + 1;
+            var rowHtml = "";
+            rowHtml += "<tr dddd='" + index + "'>"
+            rowHtml += "<td>" + indexPlus + "</td>"
+            rowHtml += "<td>" + value.duration + " Years</td>"
+            rowHtml += "<td>"
+            rowHtml += "<input type='text' class='form-control' name='membership_plan_fees[" + index + "][fees]' value='" + value.plan_fee + "'>"
+            rowHtml += "<input type='hidden' name='membership_plan_fees[" + index + "][number_of_years]' value='" + value.duration + "'>"
+            rowHtml += "<input type='hidden' name='membership_plan_fees[" + index + "][membership_plan_id]' value='" + mpId + "'>"
+            rowHtml += "<label class='error_mgs_lable' id='fees_" + index + "_error'></label>"
+            rowHtml += "</td>"
+
+            if(typeof value.mPlanFeeId != 'undefined') {
+                rowHtml += "<td id='siblingStatusCol_" + value.mPlanFeeId + "'><span class= 'label " + (value.is_active == 1 ? 'label-success' : 'label-danger') + "'>" + (value.is_active == 1 ? 'Active' : 'Inactive') + "</td>"
+                rowHtml += "<td>"
+                rowHtml += "<a href='javascript:void(0)' class='feeStatusChangeBtn' data-action='" + (value.is_active == 1 ? 0 : 1) + "' data-id='" + value.mPlanFeeId + "'><i class='fa " + (value.is_active == 1 ? 'fa-lock' : 'fa-unlock') + "'></i></a>"
+                rowHtml += "<input type='hidden' class='inputForSavedPlanFeeStatus_" + value.mPlanFeeId + "' name='membership_plan_fees[" + index + "][is_active]' value='" + value.is_active + "'>"
+                rowHtml += "</td>"
+            } else {
+                rowHtml += "<td><input type='hidden' name='membership_plan_fees[" + index + "][is_active]' value='1'></td>"
+                rowHtml += "<td><a class='btn btn-danger btn-xs removePlanBtn' href='javascript:void(0);' arrarIndex='" + index + "' duration='" + value.duration + "'><i class='fa fa-close'></i></a></td>"
+            }
+            
+            // rowHtml += "<td>"
+            // rowHtml += "<a class='btn btn-danger btn-xs removePlanBtn' href='javascript:void(0);' arrarIndex='" + index + "' duration='" + value.duration + "'><i class='fa fa-close'></i></a>"
+            // rowHtml += "</td>"
+            rowHtml += "</tr>"
+            $('.documentListingTable tbody').append(rowHtml);
+        });
+        console.log(planFeeArray)
+    }
+
+    $(document).on("click", ".feeStatusChangeBtn", function(eve) {
+        var thisObj = $(this)
+        var currentDataAction = $(this).attr("data-action");
+        var dataActionId = $(this).attr("data-id")
+
+        var formData = {
+            status: currentDataAction,
+            data_id: $(this).attr("data-id"),
+            m_plan_id: $("#id").val()
+        }
+        $.ajax({
+            type: "POST",
+            url: '/admin/membership_plan_fees/change_status_of_membership_plan_fee',
+            data: formData,
+            dataType: "json",
+            //json: true,
+            cache: false,
+            success: function (response) {
+                if(response.status) {
+                    if(currentDataAction == 1) {
+                        thisObj.find("i").toggleClass("fa-lock fa-unlock");
+                        $("#siblingStatusCol_"+dataActionId+" span").toggleClass("label-danger label-success").text("Active");
+                        thisObj.attr("data-action", 0)
+                    } else {
+                        thisObj.find("i").toggleClass("fa-unlock fa-lock");
+                        $("#siblingStatusCol_"+dataActionId+" span").toggleClass("label-success label-danger").text("Inactive");
+                        thisObj.attr("data-action", 1)
+                    }
+
+                    $(".inputForSavedPlanFeeStatus_"+dataActionId).val(currentDataAction)
+                    $.each(planFeeArray, function(key, dataValues) {
+                        if(dataValues.mPlanFeeId == dataActionId) {
+                            dataValues.is_active = currentDataAction
+                        }
+                    })
+                    bootstrapNotify.showMessage(response.message);
+                } else {
+                    bootstrapNotify.showMessage(response.message);
+                }
+                //$("#per_year_fee_table_div").html(response)
+            },
+            error: function (resData) {
+                
+            }
+        });
+    })
+</script>

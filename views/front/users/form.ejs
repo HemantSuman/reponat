@@ -1,0 +1,111 @@
+<!-- breadcrumbs -->
+<% include ../element/breadcrumbs %>
+
+<style>
+.the-form-wrap{max-width: 600px; margin: 0 auto;}
+.form-type-inline .btn-orange{width: 20%; display: inline-block; margin-right: -3px; vertical-align: top;}
+.form-type-inline .form-control{height: 40px; width: 80%; display: inline-block; margin-right: -3px; vertical-align: top;}
+.steps{display: none;}
+</style>
+<!-- /breadcrumbs -->
+<section class="Innerpage sectionForOtp" id="loadUi">
+    <div class="container">
+        <div class="form-wrapper">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="signupWrap the-form-wrap">
+                         <h1>Title</h1>
+<!--                        <form action="">-->
+
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="form-group">
+                                  <div class="form-type-inline">
+                                    <label for="">Enter Nyaya Card No or Membership Card No.</label>
+                                    <input type="text" name="" value="" class="form-control">
+                                    <button class="form-step btn btn-orange">Submit</button>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="steps">
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Nyaya Card No</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Party Details</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Document Type</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Document Start Date</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Document End Date</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Nyaya Card Created Date</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Nyaya Card Valid up to</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6">
+                                  <div class="form-group">
+                                    <label for="">Paid Amount</label>
+                                    <input type="text" name="" value="" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label>Select User type<span class="required">*</span></label>
+                                    <select class="form-control custom-select" >
+                                    </select>
+                                    <label id="role_id_error"></label>
+                                </div>
+                                <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <textarea name="name" rows="8" cols="80" class="form-control"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <button id="submit" type="submit" class="btn btn-orange">Submit</button>
+                                </div>
+                              </div>
+                              <!-- /steps -->
+                            </div>
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+  $(document).ready(function(){
+    $('.form-step').on('click', function(){
+      $('.steps').slideToggle();
+    });
+  });
+</script>

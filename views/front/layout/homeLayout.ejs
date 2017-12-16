@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="google-site-verification" content="jnIQ_uhnTO3ff6IqCuINwfntgzrQF10bCjRsOQh-stM" />
+
+        <link rel="shortcut icon" type="image/png" href="/front/assets/img/favicon-32.png"/>
+        <title><%= site.siteTitle %></title>
+
+        <% include ../element/css %>
+
+
+    </head>
+
+    <body class="home-page">
+
+
+        <% include ../element/header %>
+
+        <%-body %>
+
+
+
+
+        <% include ../element/footer %>
+        <% include ../element/js %>
+        <%- script %>
+
+        <%# if(messages.flashMsg){ %>
+
+        <script>
+            $(".select2").select2();
+                    $(function(){
+                    <% if (messages.type_messages){ %>
+                            bootstrapNotify.showMessage('<%= messages.messages %>', '<%= messages.type_messages %>');
+                            <% } %>
+                    });
+        </script>
+
+        <%# } %>
+
+        <script src="/front/assets/plugins/pdfobject/pdfobject.js"></script>
+        <script>PDFObject.embed("/front/pdf/rules.pdf", "#rule-pdf");</script>
+        <script>PDFObject.embed("/uploads/arbitration_conciliation_act.pdf", "#acc-pdf");</script>
+    </body>
+</html>

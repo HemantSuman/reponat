@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><OTP aspId="UTII-900" ts="2016-05-16T12:13:58.315" txn="050b6a62-841d-42b5-8e63-6e034ea0f75f" uid="728033638686" ver="1.0">
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <DigestValue>MUakshYMaksbPAXKpv1o7zK3c1A=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>YcOJfkczUdlfvs3bN7dzuNLCwDhAGavnDwR6O1EeB0ENJQKkaHHV882wp8kPF+Y2B7Snu/UeKDJ7
+            p42kd0fng1jHRKJj7ltN0h5S2rH7FxrCV9v/MAnzxjilb6juVdaVIwaBq+jPCDo7sXGUvwOXF+rQ
+            T2bcbwfhQHHvMo4OMfoV3576c/XAec4Bn0rLKv40qf8sls8/i9OZyMfIIJ+cNPprTyIyId0kidER
+            +d8pb8cwQd3rgTTKe0emgQgbUCWt07GcLK8HjdE8CgHLISAWLR3FyHqM+XeGv7Xc+YBaY1ca7DKs
+            4Oe/uMPizkO/PIps4wgEGbuXafVPDEuTN/Vurw==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509SubjectName>ST=MAHARASHTRA,2.5.4.17=#0c06343030363134,2.5.4.5=#134038393832373944353736343135453130364537344430334532393542433338423041453335463733413142323334393746463145444244464432384338413631,CN=VICHARE SANDEEP,OU=INFORMATION TECHNOLOGY,O=UTI INFRASTRUCTURE TECHNOLOGY AND SERVICES LIMITED,C=IN</X509SubjectName>
+                <X509Certificate>MIIF7TCCBNWgAwIBAgIDGWnWMA0GCSqGSIb3DQEBCwUAMIGQMQswCQYDVQQGEwJJTjEqMCgGA1UE
+                    ChMhZU11ZGhyYSBDb25zdW1lciBTZXJ2aWNlcyBMaW1pdGVkMR0wGwYDVQQLExRDZXJ0aWZ5aW5n
+                    IEF1dGhvcml0eTE2MDQGA1UEAxMtZS1NdWRocmEgU3ViIENBIGZvciBDbGFzcyAyIE9yZ2FuaXNh
+                    dGlvbiAyMDE0MB4XDTE1MDQwODExNTkzOFoXDTE3MDQwODExNTkzOFowgfcxCzAJBgNVBAYTAklO
+                    MTswOQYDVQQKDDJVVEkgSU5GUkFTVFJVQ1RVUkUgVEVDSE5PTE9HWSBBTkQgU0VSVklDRVMgTElN
+                    SVRFRDEfMB0GA1UECwwWSU5GT1JNQVRJT04gVEVDSE5PTE9HWTEYMBYGA1UEAwwPVklDSEFSRSBT
+                    QU5ERUVQMUkwRwYDVQQFE0A4OTgyNzlENTc2NDE1RTEwNkU3NEQwM0UyOTVCQzM4QjBBRTM1Rjcz
+                    QTFCMjM0OTdGRjFFREJERkQyOEM4QTYxMQ8wDQYDVQQRDAY0MDA2MTQxFDASBgNVBAgMC01BSEFS
+                    QVNIVFJBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApseeehXoO25S+rKC+88D412K
+                    IIowXYywcedr03dV1e+RnTSFxp17MQ0uWLTdVTjYTvoOD77jSm1YooQeY91GgaNpSVsQji4HlZAt
+                    eyiitKGY5s0qrd6yfr4OdVg5fgELtnt4vz8n15kDgr52c+Ed0LPxdfrchXcVC9pKiu3xvMGejBT7
+                    zEnsv6MvMEgH5yCklW6pv6L3crdMXyqTjPNdSY+mzWVAcFIFZbev0gqDd5dLPss6TLoHz2be9yRL
+                    DPBt1sIShZHZ7XK8/vjn03tjELcUjnlfXQqg7M1e7A/16p/RSTlX7O9415fGHfBoncK0w4cPXgUn
+                    Y9MBdZdqabrZ9QIDAQABo4IB5TCCAeEwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMCMBMG
+                    A1UdIwQMMAqACEZhDhSFlgjAMHwGCCsGAQUFBwEBBHAwbjAlBggrBgEFBQcwAYYZaHR0cDovL29j
+                    c3AuZS1tdWRocmEuY29tLzBFBggrBgEFBQcwAoY5aHR0cDovL3d3dy5lLW11ZGhyYS5jb20vcmVw
+                    b3NpdG9yeS9jYWNlcnRzL0MyT1NDQTIwMTQuY3J0MIGMBgNVHSAEgYQwgYEwLQYGYIJkZAICMCMw
+                    IQYIKwYBBQUHAgIwFRoTQ2xhc3MgMiBDZXJ0aWZpY2F0ZTBQBgdggmRkAQgCMEUwQwYIKwYBBQUH
+                    AgEWN2h0dHA6Ly93d3cuZS1tdWRocmEuY29tL3JlcG9zaXRvcnkvY3BzL2UtTXVkaHJhX0NQUy5w
+                    ZGYwRwYDVR0fBEAwPjA8oDqgOIY2aHR0cDovL3d3dy5lLW11ZGhyYS5jb20vcmVwb3NpdG9yeS9j
+                    cmxzL0MyT1NDQTIwMTQuY3JsMB0GA1UdDgQWBBTTEraGSncdiPjqf6xdXgwRTQwQvjAOBgNVHQ8B
+                    Af8EBAMCBsAwJgYDVR0RBB8wHYEbU0FOREVFUC5WSUNIQVJFQFVUSUlUU0wuQ09NMA0GCSqGSIb3
+                    DQEBCwUAA4IBAQAteZHbZURR/nWJtpatAh/DjU+be/UOkhu26DLZY/NzS0MFL5zkhKb+s9TFXkPi
+                    3Sf27Pd9hpEcOEhix12V6gJ+4sa+U2+Uut8u+81hL9aoV0YFbtlUhjIpCB7qN2zrWRYqEEtvL+gt
+                    GDif6q7ER9C8qy8Foxt9naPF82mrgTNfU8csnfqkWojAAScd8BBC2IwUL0mBGoy7/hmItNuY4nkb
+                    KCZhyl67TOyFU1LXu8C4AAZQIgWCv1u83u2xqiN7d0APu6lqzUmjJBdvN3D8onAK1+CUJWj2iVXs
+                    kZxfNz5dN0wnJvL58O8Ge02Wk6kLzEOLhtYvPKd0jnl9to6s6hoa</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</OTP>

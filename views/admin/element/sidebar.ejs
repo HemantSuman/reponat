@@ -1,0 +1,281 @@
+
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- Sidebar user panel -->
+    <!--<div class="user-panel">
+        <div class="pull-left image">
+            <img src="<%= site.logoUrl %>" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p><%# loginUser['name'] %></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>-->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <!-- <li class="header">MAIN NAVIGATION</li>-->
+        <% rolesData.forEach(function(value, index){  %>
+
+        <% if(value.role_list.length){ %>
+
+        <%
+        if((value.slug=='add-user-professional-fr' || value.slug=='add-deed-writer-fr') && loginUser['franchise_level']!='tehsil_level'){
+        return false;
+        }
+        %>
+
+        <li class="treeview" >
+            <a href="#">
+                <i class="<%= value.icon %>"></i> <span><%= value.name %></span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <% value.role_list.forEach(function(sub_list, index2){  %>
+                <%# sub_list.acl_list_url %>
+                <li class="<% if(locals.site.requestUrl === sub_list.acl_list_url){ %>active-menu<% } %>" c_r_url="<%= locals.site.requestUrl %>" m_url="<%= sub_list.acl_list_url %>"><a href="<%= sub_list.acl_list_url %>" ><i class="fa fa-circle-o text-aqua"></i><%= sub_list.acl_list_name %></a></li>
+                <% });  %>
+            </ul>
+        </li>
+        <% }else{ %>
+
+        <%
+        if((value.slug=='scale1' || value.slug=='scale2' || value.slug=='scale3' || value.slug=='scale4') && loginUser['franchise_level']=='tehsil_level'){
+        return false;
+        }
+        %>
+        <%
+        if((value.slug=='scale2' || value.slug=='scale3' || value.slug=='scale4') && loginUser['franchise_level']=='district_level'){
+        return false;
+        }
+        %>
+        <%
+        if((value.slug=='scale4' || value.slug=='scale3') && loginUser['franchise_level']=='division_level'){
+        return false;
+        }
+        %>
+        <%
+        if((value.slug=='scale4') && loginUser['franchise_level']=='state_level'){
+        return false;
+        }
+        %>
+
+
+        <li class="<% if(locals.site.requestUrl === value.url){ %>active<% } %>">
+            <a href="<%= value.url %>" class="clickAction" data-action-class='' data-action="" data-action-id="">
+                <i class="<%= value.icon %>"></i> <span><%= value.name %></span>
+            </a>
+        </li>
+
+        <% } %>
+
+        <% });  %>
+
+
+        <% if(loginUser.user_type.role_type_slug != 'super_admin'){ %>
+
+        <% if(loginUser.user_type.user_role.role_slug != 'admin_users'){ %>
+        <li  class="<% if(locals.site.requestUrl === '/admin/commisions/incentives'){ %>active<% } %>">
+            <a href="/admin/commisions/incentives" class="clickAction" data-action-class='' data-action="" data-action-id="">
+                <i class="fa fa-th"></i> <span>Incentive Criteria</span>
+            </a>
+        </li>
+        <% } %>
+
+        <% if(loginUser.user_type.role_type_slug != 'stamp_vendor'){ %>
+        <li>
+            <a href="/pages/fee-exemptions" class="clickAction" data-action-class='' data-action="" data-action-id="" target="_blank">
+                <i class="fa fa-th"></i> <span>Fee Exemption</span>
+            </a>
+        </li>
+        <% } %>
+        <% } %>
+
+        <% if(loginUser.user_type.role_type_slug != 'stamp_vendor'){ %>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-th"></i> <span>Fee Calculator</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu" style="display: none;">
+
+                <li><a href="/pages/fee-calculator" target="_blank"><i class="fa fa-circle-o text-aqua"></i>Nyaya Card</a></li>
+                <% if(loginUser.user_type.user_role.role_slug != 'service_provider'){ %>
+                <li><a href="/pages/exemptions_membership" target="_blank"><i class="fa fa-circle-o text-aqua"></i> Membership Exemption</a></li>
+                <% } %>
+                <li><a href="/pages/fee-calculator-sh1" target="_blank"><i class="fa fa-circle-o text-aqua"></i>Schedule-1</a></li>
+
+            </ul>
+        </li>
+        <% } %>
+
+
+
+        <li class="<% if(locals.site.requestUrl === '/admin/users/change-password'){ %>active<% } %>">
+            <a href="/admin/users/change-password" class="clickAction" data-action-class='' data-action="" data-action-id="">
+                <i class="fa fa-th"></i> <span>Change Password</span>
+            </a>
+        </li>
+
+        <% if(loginUser.user_type.role_type_slug != 'super_admin' && loginUser.user_type.user_role.role_slug != 'admin_users'){ %>
+
+        <!--        <li class="<% if(locals.site.requestUrl === '/admin/users/how_to_use'){ %>active<% } %>">
+                    <a href="/admin/users/how_to_use" class="clickAction" data-action-class='' data-action="" data-action-id="" >
+                        <i class="fa fa-th"></i> <span>How To Use</span>
+                    </a>
+                </li>-->
+
+        <li class="treeview" >
+            <a href="javascript:void(0);">
+                <i class="fa fa-th"></i> <span>HELP </span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+            <ul class="treeview-menu">
+                <li class="">
+                    <a href="javascript::void(0);" ><i class="fa fa-circle-o text-aqua"></i>Tutotrial Videos</a>
+                </li>
+                <li class="">
+                    <a href="javascript:void(0);" ><i class="fa fa-circle-o text-aqua"></i>Professional
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="/admin/users/faq/professional" ><i class="fa fa-circle-o text-aqua"></i>FAQ - Dashboard</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/how_to_use/professional" ><i class="fa fa-circle-o text-aqua"></i>Tutotrial Videos</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/about_nyaya_card/professional" ><i class="fa fa-circle-o text-aqua"></i>About Nyaya Card</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/about_membership/professional" ><i class="fa fa-circle-o text-aqua"></i>About Membership</a>
+                        </li>
+                        
+                        <li class="">
+                            <a href="/admin/users/guidelines/professional" ><i class="fa fa-circle-o text-aqua"></i>Guidelines - Nyaya Card</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/model_clause/professional" ><i class="fa fa-circle-o text-aqua"></i> Model Clause</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="javascript:void(0);" ><i class="fa fa-circle-o text-aqua"></i>Service Provider
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="/admin/users/faq/deed_writer" ><i class="fa fa-circle-o text-aqua"></i>FAQ - Dashboard</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/how_to_use/deed_writer" ><i class="fa fa-circle-o text-aqua"></i>Tutotrial Videos</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/about_nyaya_card/deed_writer" ><i class="fa fa-circle-o text-aqua"></i>About Nyaya Card</a>
+                        </li>
+                        
+                        <li class="">
+                            <a href="/admin/users/guidelines/deed_writer" ><i class="fa fa-circle-o text-aqua"></i>Guidelines - Nyaya Card</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/model_clause/deed_writer" ><i class="fa fa-circle-o text-aqua"></i> Model Clause</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="javascript:void(0);" ><i class="fa fa-circle-o text-aqua"></i>Stamp Vender
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="">
+                            <a href="/admin/users/faq/stamp_vendor" ><i class="fa fa-circle-o text-aqua"></i>FAQ - Dashboard</a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/users/how_to_use/stamp_vendor" ><i class="fa fa-circle-o text-aqua"></i>Tutotrial Videos</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/pages/contact-us" class="clickAction" data-action-class='' data-action="" data-action-id="" target="_blank">
+                        <i class="fa fa-circle-o text-aqua"></i> <span>Contact Us</span>
+                    </a>
+                </li>
+            </ul>
+            <% } else { %>
+
+            <ul class="treeview-menu">
+                <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/faq/'+loginUser.user_type.user_role.role_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/faq/<%=loginUser.user_type.user_role.role_slug%>" ><i class="fa fa-circle-o text-aqua"></i>FAQ - Dashboard</a>
+                </li>
+                <% } else { %> 
+                <li class="<% if(locals.site.requestUrl === '/admin/users/faq/'+loginUser.user_type.role_type_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/faq/<%=loginUser.user_type.role_type_slug%>" ><i class="fa fa-circle-o text-aqua"></i>FAQ - Dashboard</a>
+                </li>
+                <% } %>
+                
+                <li class="<% if(locals.site.requestUrl === '/admin/users/how_to_use'){ %>active-menu<% } %>">
+                    <a href="/admin/users/how_to_use" ><i class="fa fa-circle-o text-aqua"></i>Tutotrial Videos</a>
+                </li>
+                <% if(loginUser.user_type.role_type_slug != 'stamp_vendor'){ %>
+
+                <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/about_nyaya_card/'+loginUser.user_type.user_role.role_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/about_nyaya_card/<%=loginUser.user_type.user_role.role_slug%>" ><i class="fa fa-circle-o text-aqua"></i>About Nyaya Card</a>
+                </li>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/about_membership/'+loginUser.user_type.user_role.role_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/about_membership/<%=loginUser.user_type.user_role.role_slug%>" ><i class="fa fa-circle-o text-aqua"></i>About Membership</a>
+                </li>
+                <% } else { %> 
+                <li class="<% if(locals.site.requestUrl === '/admin/users/about_nyaya_card/'+loginUser.user_type.role_type_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/about_nyaya_card/<%=loginUser.user_type.role_type_slug%>" ><i class="fa fa-circle-o text-aqua"></i>About Nyaya Card</a>
+                </li>
+                <%} %>
+                <% } %>
+
+                
+                <% if(loginUser.user_type.role_type_slug != 'stamp_vendor'){ %>
+
+                <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/guidelines/'+loginUser.user_type.user_role.role_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/guidelines/<%=loginUser.user_type.user_role.role_slug%>" ><i class="fa fa-circle-o text-aqua"></i>Guidelines - Nyaya Card</a>
+                </li>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/model_clause/'+loginUser.user_type.user_role.role_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/model_clause/<%=loginUser.user_type.user_role.role_slug%>" ><i class="fa fa-circle-o text-aqua"></i> Model Clause</a>
+                </li>
+                <% } else { %> 
+                <li class="<% if(locals.site.requestUrl === '/admin/users/guidelines'+loginUser.user_type.role_type_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/guidelines/<%=loginUser.user_type.role_type_slug%>" ><i class="fa fa-circle-o text-aqua"></i>Guidelines - Nyaya Card</a>
+                </li>
+                <li class="<% if(locals.site.requestUrl === '/admin/users/model_clause'+loginUser.user_type.role_type_slug){ %>active-menu<% } %>">
+                    <a href="/admin/users/model_clause/<%=loginUser.user_type.role_type_slug%>" ><i class="fa fa-circle-o text-aqua"></i> Model Clause</a>
+                </li>
+                <% } %>
+                <% } %>
+                <li>
+                    <a href="/pages/contact-us" class="clickAction" data-action-class='' data-action="" data-action-id="" target="_blank">
+                        <i class="fa fa-circle-o text-aqua"></i> <span>Contact Us</span>
+                    </a>
+                </li>
+            </ul>
+            <% }%>
+        </li>
+        <% } %>
+
+    </ul>
+</section>
+<!-- /.sidebar -->

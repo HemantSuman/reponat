@@ -1,0 +1,64 @@
+
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar" style="margin-top:20px">
+    <!-- Sidebar user panel -->
+    <!--<div class="user-panel">
+        <div class="pull-left image">
+            <img src="<%= site.logoUrl %>" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p><%# loginUser['name'] %></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>-->
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <!-- <li class="header">MAIN NAVIGATION</li>-->
+
+        <% rolesData.forEach(function(value, index){  %>
+
+        <% if(value.role_list.length){ %>
+       
+        <%        
+        if((value.slug=='add-user-professional-fr' || value.slug=='add-deed-writer-fr') && loginUser['franchise_level']!='tehsil_level'){
+        return false;
+        }
+        %>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="<%= value.icon %>"></i> <span><%= value.name %></span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <% value.role_list.forEach(function(sub_list, index2){  %>
+                <li><a href="<%= sub_list.acl_list_url %>" ><i class="fa fa-circle-o text-aqua"></i><%= sub_list.acl_list_name %></a></li>
+                <% });  %>
+            </ul>
+        </li>
+        <% }else{ %>
+
+        <li>
+            <a href="<%= value.url %>" class="clickAction" data-action-class='' data-action="" data-action-id="">
+                <i class="<%= value.icon %>"></i> <span><%= value.name %></span>
+            </a>
+        </li>
+
+        <% } %>
+
+        <% });  %>
+        
+        
+        <% if(loginUser.user_type.role_type_slug != 'super_admin'){ %>
+        <li>
+            <a href="/pages/contact-us" class="clickAction" data-action-class='' data-action="" data-action-id="" target="_blank">
+                <i class="fa fa-th"></i> <span>Contact Us</span>
+            </a>
+        </li>
+        <% } %>
+        
+    </ul>
+</section>
+<!-- /.sidebar -->

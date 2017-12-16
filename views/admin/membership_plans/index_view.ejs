@@ -1,0 +1,72 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing',titleNameAfter:'Plan'}); %>
+
+<section class="content">
+   
+            <div class="box box-primary">
+               
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+<!--                                <th>#ID</th>-->
+                                <th>Plan Title</th>
+                                
+                                <th>Min. Turnover Value</th>
+                                <th>Max. Turnover Value</th>
+                                <th>Registration Fee</th>
+                                <th>Plan Fee</th>
+                                
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+<!--                                <td><%= rows.id %></td>-->
+                                <td><%= rows.plan_title %></td>
+                                
+                                <td><%= rows.min_amount %></td>
+                                <td><%= rows.max_amount %></td>
+                                <td><%= rows.registration_fee %></td>
+                                <td>
+                                    <table class="table table-bordered1">
+                                        <% rows.membership_plan_fees.forEach(function(feeRows, key) { %>
+                                        <% if(feeRows.is_active==1){ %>
+                                        <tr>
+                                            <td><%= feeRows.number_of_years %> <% if(feeRows.number_of_years > 1) { %>Years <% } else { %>Year<% } %></td>
+                                            <td>Rs. <%= feeRows.fees %></td>
+                                        </tr>
+                                        <% } %>
+                                        <% }); %>  
+                                    </table>
+                                </td>
+                                
+                                
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <% if(results.rows.length==0){ %>
+                        <h5 class="box-title text-center">No record found</h5>
+                        <% } %>
+                     </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                          <%- include ../helper/pagination.ejs %>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+</section>

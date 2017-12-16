@@ -1,0 +1,1460 @@
+<section class="content" style="background:#ecf0f5">
+    <div class="row deshboard-static">
+        <%# JSON.stringify(loginUser.user_type.user_role.role_slug ) %>
+        <%# if(loginUser.user_type.role_type_slug == 'ca'){ %>
+        <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.user_role.role_slug == 'franchise' || loginUser.user_type.role_type_slug == 'deed_writer' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="/admin/arbitration_agreements/1">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><img src="/admin/dist/img/dashboard/Nyaya-Card.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Nyaya Card of the Year</span>
+                        <span class="info-box-number"><% if(results.total_nc[0].current_year_value){ %> <%= results.total_nc[0].current_year_value %> <% } else { %> 0 <% } %></span>
+                    </div>
+                    <!-- <a class="info-box-footer" href="/admin/arbitration_agreements/1"> More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>-->
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="/admin/arbitration_agreements/1">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><img src="/admin/dist/img/dashboard/Nyaya-Card.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Nyaya Card of the Month</span>
+                        <span class="info-box-number"><% if(results.total_nc[0].current_year_value){ %> <%= results.total_nc[0].current_month_value %> <% } else { %> 0 <% } %></span>
+                    </div>
+                    <!--<a class="info-box-footer" href="/admin/arbitration_agreements/1">
+                   More info <i class="fa fa-arrow-circle-right"></i>
+               </a>-->
+                </div>
+            </a>
+
+        </div>
+        <% } %>
+        <!-- ./col -->
+        <% if(loginUser.franchise_level == 'tehsil_level' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a 
+                <% if(loginUser.user_type.role_type_slug == 'super_admin'){ %>
+                href="/admin/users/1">
+                <% } else { %> 
+                href="/admin/franchises/list-user">
+                <%} %>
+                <div class="info-box">
+                    <span class="info-box-icon bg-green"><img src="/admin/dist/img/dashboard/Professionals.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Professionals</span>
+                        <span class="info-box-number"><% if(results.total_users[0].total_professional != null) { %><%= results.total_users[0].total_professional.toFixed(); %><% } else { %>0<% } %></span>
+                    </div>
+
+                    <!--<a class="info-box-footer" href="javascript:void(0)">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>-->
+                </div>
+            </a>
+        </div>
+        <% } %>
+
+        <% if(loginUser.user_type.user_role.role_slug == 'franchise' || loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="/admin/membership_plans/issue_listings">
+                <div class="info-box ">
+                    <span class="info-box-icon bg-olive"><img src="/admin/dist/img/dashboard/Membership.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Membership of the Year</span>
+                        <span class="info-box-number"><% if(results.total_membership[0].current_year_value){ %> <%= results.total_membership[0].current_year_value %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!--  <a class="info-box-footer" href="javascript:void(0);">
+                          More info <i class="fa fa-arrow-circle-right"></i>
+                      </a>-->
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a href="/admin/membership_plans/issue_listings">
+                <div class="info-box">
+                    <span class="info-box-icon bg-purple"><img src="/admin/dist/img/dashboard/Membership.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Membership of the Month</span>
+                        <span class="info-box-number"><% if(results.total_membership[0].current_year_value){ %> <%= results.total_membership[0].current_month_value %> <% } else { %> 0 <% } %></span>
+
+                        <p></p>
+                    </div>
+
+                    <!--<a class="info-box-footer" href="javascript:void(0);">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>-->
+                </div>
+            </a>
+        </div>
+        <% } %>
+        <!-- ./col -->
+        <% if(loginUser.franchise_level == 'tehsil_level' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+
+        <a href="/admin/franchises/list-deed-writer">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box">
+                    <span class="info-box-icon bg-maroon"><img src="/admin/dist/img/dashboard/Deed-Writters.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Deed Writers</span>
+                        <span class="info-box-number"><% if(results.total_users[0].total_deed_writer != null) { %><%= results.total_users[0].total_deed_writer %><% } else { %>0<% } %></span>
+
+
+                    </div>
+
+                    <!--<a class="info-box-footer" href="javascript:void(0);">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>-->
+                </div>
+            </div>
+        </a>
+
+        <% } %>
+        <!-- ./col -->
+        <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.user_role.role_slug == 'franchise' || loginUser.user_type.role_type_slug == 'deed_writer' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+        <a href="javascript:void(0)">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><img src="/admin/dist/img/dashboard/sales.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Sale of Current Year</span>
+                        <span class="info-box-number"><% if(results.total_sale[0].current_year_value ){ %> <%= site.formatCurrencyObj(results.total_sale[0].current_year_value.toFixed(2)) %> <% } else { %> 0 <% } %></span>
+
+                    </div>
+
+                    <!--<a class="info-box-footer" href="javascript:void(0);">
+                        &nbsp;
+                    </a>-->
+                </div>
+            </div>
+        </a>
+
+        <!-- ./col -->
+        <a href="javascript:void(0)">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box ">
+                    <span class="info-box-icon bg-yellow"><img src="/admin/dist/img/dashboard/sales.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Sale of Current Month</span>
+                        <span class="info-box-number"><% if(results.total_sale[0].current_month_value ){ %> <%= site.formatCurrencyObj(results.total_sale[0].current_month_value.toFixed(2)) %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="javascript:void(0);">
+                          &nbsp;
+                     </a>-->
+                </div>
+            </div>
+        </a>
+
+        <% } %>
+        <% } %>
+        <!-- ./col -->
+        <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.user_role.role_slug == 'franchise' || loginUser.user_type.role_type_slug == 'deed_writer' || loginUser.user_type.role_type_slug == 'super_admin'){ %>
+        <a href="/admin/commission_distributions/my_commission">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/commission.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Incentive of Current Year</span>
+                        <span class="info-box-number"><% if(results.total_commission_bonus.length > 0 ){ %> <%= site.formatCurrencyObj(results.total_commission_bonus[0].commission_for_year) %> <% } else { %> 0 <% } %></span>
+                    </div>
+
+                    <!--  <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                          More info <i class="fa fa-arrow-circle-right"></i>
+                      </a>-->
+                </div>
+            </div>
+        </a>
+
+
+
+        <a href="/admin/commission_distributions/my_commission">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box ">
+                    <span class="info-box-icon bg-blue"><img src="/admin/dist/img/dashboard/commission.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Incentive of Current Month</span>
+                        <span class="info-box-number"><% if(results.total_commission_bonus.length > 0 ){ %> <%=  site.formatCurrencyObj(results.total_commission_bonus[0].commission_for_month) %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </div>
+        </a>
+
+
+        <!-- ./col -->
+        <a href="/admin/commission_distributions/my_commission">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box">
+                    <span class="info-box-icon bg-teal"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Additional Incentive of Current Year</span>
+                        <span class="info-box-number"><% if(results.total_commission_bonus.length > 0 ){ %> <%= site.formatCurrencyObj(results.total_commission_bonus[0].bonus_for_year) %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!--<a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>-->
+                </div>
+            </div>
+        </a>
+        <!-- ./col -->
+
+        <!-- ./col -->
+
+        <!-- ./col -->
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="/admin/commission_distributions/my_commission">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Additional Incentive of Current Month</span>
+                        <span class="info-box-number"><% if(results.total_commission_bonus.length > 0 ){ %> <%= site.formatCurrencyObj(results.total_commission_bonus[0].bonus_for_month) %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </a>
+        </div>
+        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+        <!-- ./col -->
+        <a href="/admin/arbitration_agreements/renewable_list/1" >
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box ">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/renewal.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Due for Renewal</span>
+                        <span class="info-box-number"><% if(results.total_renewal[0].total_renewal ){ %> <%= results.total_renewal[0].total_renewal %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!--
+                     <a class="info-box-footer" href="/admin/arbitration_agreements/renewable_list/1">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </div>
+        </a>
+        <% } %>
+
+        <a href="javascript:void(0);">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="info-box ">
+                    <span class="info-box-icon bg-blue"><img src="/admin/dist/img/dashboard/Membership.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Due Payment</span>
+                        <span class="info-box-number"><% if(!results.total_due_payment[0].due_payment){ %> 0.00 <% } else { %> <%= site.formatCurrencyObj(results.total_due_payment[0].due_payment.toFixed(2)) %> <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="javascript:void(0);">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </div>
+        </a>
+
+
+
+        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="/admin/commission_distributions/my-franchise">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Remaining offline limit of document</span>
+                        <span class="info-box-number"><% if(results.total_offline.length > 0 ){ %> <%= results.total_offline[0]['offline_limit'] %><% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </a>
+        </div>
+
+
+        <% } %>
+
+
+        <% } %>
+
+
+
+        <% if(loginUser.user_type.role_type_slug == 'stamp_vendor'){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="javascript:void(0);">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><img src="/admin/dist/img/dashboard/Nyaya-Card.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Stamp Upload</span>
+                        <span class="info-box-number"><% if(results.stampVendorTotal.length > 0 ){ %> <%= results.stampVendorTotal[0].count_stamp %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12" style="display: none">
+            <!-- small box -->
+            <a  href="/admin/dashboard">
+                <div class="info-box">
+                    <span class="info-box-icon bg-blue"><img src="/admin/dist/img/dashboard/commission.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Cost of Sold Stamp</span>
+                        <span class="info-box-number"><% if(results.stampVendorTotal.length > 0 ){ %> <%= site.formatCurrencyObj(results.stampVendorTotal[0].total_stamp) %> <% } else { %> 0 <% } %></span>
+
+
+                    </div>
+
+                    <!-- <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                         More info <i class="fa fa-arrow-circle-right"></i>
+                     </a>-->
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="javascript:void(0);">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/Nyaya-Card.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Matured</span>
+                        <span class="info-box-number"><% if(results.stampVendorTotal.length > 0 ){ %> <%= results.stampVendorTotal[0].total_matured_stamp %> <% } else { %> 0 <% } %></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="/admin/commission_distributions/my_commission">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Incentive</span>
+                        <span class="info-box-number"><% if(results.stampVendorTotal.length > 0 ){ %> <%= site.formatCurrencyObj(results.stampVendorTotal[0].total_com_with_tds) %> <% } else { %> 0 <% } %></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="/admin/commission_distributions/my_commission">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total TDS</span>
+                        <span class="info-box-number"><% if(results.stampVendorTotal.length > 0 ){ %> <%= site.formatCurrencyObj(results.stampVendorTotal[0].total_tds) %> <% } else { %> 0 <% } %></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <% }else{ %>
+        <% if(loginUser.user_type.user_role.role_slug != 'admin_users'){ %>
+        <a href="/admin/commission_distributions/my_commission">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/commission.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total TDS</span>
+                        <span class="info-box-number"><% if(results.total_commission_bonus.length > 0 ){ %> <%= site.formatCurrencyObj(results.total_commission_bonus[0].tds_for_year) %> <% } else { %> 0 <% } %></span>
+                    </div>
+
+                    <!--  <a class="info-box-footer" href="/admin/commission_distributions/my_commission">
+                          More info <i class="fa fa-arrow-circle-right"></i>
+                      </a>-->
+                </div>
+            </div>
+        </a>
+        <% } %>
+        <% } %>
+
+        <% if(loginUser.user_type.role_type_slug == 'franchise' && loginUser.franchise_level == 'tehsil_level'){ %>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <!-- small box -->
+            <a  href="/admin/franchises/list-deed-writer">
+                <div class="info-box">
+                    <span class="info-box-icon bg-orange"><img src="/admin/dist/img/dashboard/bonus.png" alt=""></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Number of SP Allotted Offline Facility</span>
+                        <span class="info-box-number"><% if(results.total_no_sp_alloted_off_facility[0].no_of_sp > 0 ){ %> <%= results.total_no_sp_alloted_off_facility[0].no_of_sp %> <% } else { %> 0 <% } %></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <% } %>
+
+
+    </div>
+
+    <% if(loginUser.user_type.role_type_slug == 'stamp_vendor'){ %>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Add Stamp</h3>
+                <button class="btn btn-primary pull-right sv-blk-upld-btn" type="button">Stamp Upload</button>
+                <a href="/sample_xls.xls" class="btn btn-primary pull-right" style="margin-right:2px">Download Sample Excel</a>
+            </div>
+            <div class="box box-info">
+
+
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/stamps/create' enctype="
+                      multipart/form-data">
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Stamp No.<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="stamp_no"  name='stamp_no' value=''>
+                                    <label class="error_mgs_lable" id="stamp_no_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Issue Date</label>
+
+                                    <input type="text" class="form-control startdate" id="stamp_issue_date" name='stamp_issue_date'>
+                                    <label class="error_mgs_lable" id="stamp_issue_date_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Issue To</label>
+                                    <input type="hidden" class="form-control" id="url_is" name='url_is' value='/admin/dashboard'>
+
+                                    <input type="text" class="form-control" id="stamp_issue_to" name='stamp_issue_to' >
+                                    <label class="error_mgs_lable" id="stamp_issue_to_error"></label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button class="btn btn-primary" type="submit">Save</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Stamp List</h3>
+            </div>
+            <div class="box box-info">
+                <form action="/admin/dashboard" method="get" name="serchFromStampDash" >
+                    <div class="box-body">
+                        <div class="form-row-new row">
+                            <div class="col-md-3">
+                                <div class="form-group"><input type="text" name="start_date_search" placeholder="Start Date" id="start_date_search" class="form-control startdate_search" value="<%= serchFromStampDash.start_date_search %>"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group"><input type="text" value="<%= serchFromStampDash.end_date_search %>" name="end_date_search" placeholder="End Date" id="end_date_search" class="form-control enddate_search"></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group custom-select-outer">
+                                    <select id="type" name="stamp_status" class="form-control select2" tabindex="-1" aria-hidden="true">
+                                        <option value="">Select Payment Status</option>
+                                        <option value="1" <% if(serchFromStampDash.stamp_status && serchFromStampDash.stamp_status==1){ %>selected<% } %>>Paid/Matured</option>
+                                        <option value="0" <% if(serchFromStampDash.stamp_status && serchFromStampDash.stamp_status==0){ %>selected<% } %>>Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" value="search" class="btn btn-success blue">
+                                <a href="/admin/dashboard" class="btn btn-primary f-right" style="margin-right:2px">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Stamp No.</th>
+                            <th>Issue Date</th>
+                            <th>Issue To</th>
+
+                            <th>Date & Time</th>
+
+                            <th>Nyaya Card Creation Date</th>
+
+                            <th>Total Incentive</th>
+                            <th>Penalty</th>
+                            <th>TDS</th>
+                            <th>Payable Incentive</th>
+                            <th>Payment Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        <% if(results.stampVendor.length > 0){ %>
+                        <% results.stampVendor.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= rows.stamp_no %></td>
+                            <td><%= rows.stamp_issue_date %></td>
+                            <td><%= rows.stamp_issue_to %></td>
+
+                            <td>
+                                <% if(rows.created_at && rows.created_at != "") { %><%= site.momentObj(rows.created_at).format('DD-MM-YYYY hh:mm:ss') %><% } %>
+                            </td>
+                            <td><% if(rows.added_date && rows.added_date != "") { %><%= site.momentObj(rows.added_date).format('DD-MM-YYYY hh:mm:ss') %><% } %></td>
+
+                            <td>
+                                <% if(rows.commission_amount){ %>
+                                <%= rows.commission_amount %>
+                                <% } %>
+                            </td>
+
+
+                            <td><%= rows.penalty %></td>
+                            <td><%= rows.commission_tds %></td>
+
+                            <td>
+                                <% if(rows.final_commission){ %>
+                                <b><%= rows.final_commission %></b>
+                                <% } %>
+                            </td>
+
+                            <td>
+                                <% if(rows.paid==1){ %>
+                                <span class="label label-success">Paid</span>
+                                <% }else if(rows.paid==0){ %>
+                                <span class="label label-danger">Pending</span>
+                                <% }else{ %>
+                                <span class="label label-info">Locked</span>
+                                <% } %>
+                            </td>
+
+
+                            <td>
+                                <% if(! rows.pay_status){ %>
+                                <a class="btn btn-success btn-xs" href="/admin/stamps/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                <% } %>
+                            </td>
+
+
+                        </tr>
+                        <% }); %>
+
+
+
+                        <% } else { %>
+                        <tr>
+                            <td  style="border: none;">No Record Found</td>
+                        </tr>
+                        <% } %>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+    <% } %>
+
+
+
+
+    <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.role_type_slug == 'deed_writer' || loginUser.user_type.user_role.role_slug == 'franchise' || loginUser.user_type.role_type_slug == 'super_admin' ){ %>
+
+    <% if(loginUser.user_type.user_role.role_slug != 'franchise' && loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Freeze Deals</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S No.</th>
+                        <th>Stamp No.</th>
+                        <th>Party Name</th>
+                        <th>Mobile No.</th>
+                        <th>Document Type</th>
+                        <th>Status</th>
+                    </tr>
+                    <% if(results.freeze_deal.length > 0){ %>
+
+                    <% results.freeze_deal.forEach(function(rows, i){ i++ %>
+                    <tr>
+                        <td><%= i %></td>
+                        <td><%= rows.stamp_no %></td>
+                        <td><%= rows.party_name %></td>
+                        <td><%= rows.party_mobile_no %></td>
+                        <td><%= rows.master.service_details_name %></td>
+                        <td>
+                            <% if(rows.deal_status==1){ %>
+                            <span class="label label-success">Mature</span>
+                            <% } else if(rows.deal_status==2){ %>
+                            <span class="label label-success">Mature With Credits</span>
+
+                            <% }else{ %>
+
+
+
+                            <% var curDate=site.momentObj(Date.now()).format('YYYY-MM-DD HH:mm:SS')
+                            var curDate1=site.momentObj(Date.now()).format('YYYY-MM-DD HH:mm:SS')
+                            var a = site.momentObj(curDate);//now
+                            var b = site.momentObj(rows.expire_date);
+
+
+                            var x = new Date(curDate);
+                            var y = new Date(rows.is_expire);
+                            var diff=a.diff(b, 'minutes');
+
+                            var x = new Date(curDate);
+                            var y = new Date(curDate1);
+
+                            %>
+
+
+
+                            <%# x+'-----'+y+'==='+a.diff(b, 'minutes') %>
+                            <% if(parseInt(a.diff(b, 'minutes')) > 0){ %>
+                            <span class="label label-danger">Expired</span>
+                            <% }else{ %>
+                            <span class="label label-info">Freezed</span>
+                            <% } %>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <% } %>
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Due Payments</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th>S No.</th>
+                        <% if(loginUser.user_type.user_role.role_slug != 'professional' && loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                        <th>Date</th>
+                        <% } %>
+                        <th>Stamp No.</th>
+                        <th>Document Type</th>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <th>Service Provider & Mobile No.</th>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'  || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <th>Professional Name & Contact No.</th>
+                        <% } %>
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <th>Auth. Promoter Name & Phone No.</th>
+
+                        <th>Invoice No.</th>
+                        <% } %>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'  || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <th>Nyaya Card No.</th>
+                        <% } %>
+                        <th>Amount Due</th>
+                        <th>Due Date</th>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <th>Incentive</th>
+                        <th>Additional Incentive</th>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer' || (loginUser.user_type.user_role.role_slug == 'franchise' && loginUser.franchise_level == 'tehsil_level' )){ %>
+                        <th>Pay Now</th>
+                        <% } %>
+                        <!--                        <th>User Type</th>
+                                                <th>User Mobile</th>
+
+
+
+
+
+                                                <th>Incentive</th>
+                                                <th>Bonus</th>-->
+                    </tr>
+                    <% if(results.list_due_payment.length > 0){ %>
+                    <% results.list_due_payment.forEach(function(rows, i){ i++ %>
+
+                    <% var forRedColor = ''; %>
+
+                    <% if((loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.role_type_slug == 'deed_writer') && rows.red_deed_writer == 1){
+                    forRedColor = 'red_tbl_row';
+                    } else if(loginUser.user_type.user_role.role_slug == 'franchise' && rows.red_ap == 1) {
+                    forRedColor = 'red_tbl_row';
+                    } else {
+                    forRedColor = '';
+                    } %>
+                    <tr class="<%= forRedColor %>">
+                        <td><%= i %></td>
+                        <% if(loginUser.user_type.user_role.role_slug != 'professional'  && loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                        <td><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %></td>
+                        <% } %>
+                        <td><%= rows.stamp_number %></td>
+                        <td><%= rows.service_details_id %></td>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional' || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <td><%= rows.first_name %> <%if(rows.mobile != ''){%>& <%= rows.mobile %><%}%></td>
+                        <% } %>
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'  || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <td><%= rows.fz_name %> <%if(rows.fz_mobile != ''){%> & <%= rows.fz_mobile %> <%}%></td>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <td>
+                            <% if(rows.ap_name && rows.ap_name !='' && rows.ap_mobile !=''){ %>
+                            <%= rows.ap_name %>
+                            <%if(rows.ap_mobile != ''){%> & <%= rows.ap_mobile %><% } %>
+                            <% } %>
+                        </td>
+
+                        <td><%= rows.invoice_no %></td>
+                        <% } %>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'  || loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                        <td><%= rows.ar_id %></td>
+                        <% } %>
+
+                        <td><%= rows.arbitration_agreement_total_fees %></td>
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <td><%= site.momentObj(rows.payment_duedate_deed_writer).format('DD-MM-YYYY HH:mm:ss') %></td>
+                        <% } else { %>
+                        <td><%= site.momentObj(rows.payment_duedate_ap).format('DD-MM-YYYY HH:mm:ss') %></td>
+                        <% }%>
+
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <td><%= rows.final_commission %></td>
+                        <td><%= rows.bonus_commission_amount %></td>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer' || (loginUser.user_type.user_role.role_slug == 'franchise' && loginUser.franchise_level == 'tehsil_level')){ %>
+                        <td>
+
+                            <ul class="aggre-btnswrap">
+
+                                <% if(rows.is_active == 3 ){ %>
+                                <li>
+                                    <a class="btn orange-btn btn-xs" href="/admin/commission_distributions/pay/<%= rows.ag_id %>/1" title="Pay Now" ><i class="fa fa-rupee"></i> Pay Now</a>
+                                </li>
+                                <% } %>
+                            </ul>
+
+
+                        </td>
+                        <% } %>
+                        <!--                        <td><%= rows.mobile %></td>
+
+
+
+
+
+                                                <td><%= rows.commission %></td>
+                                                <td><%= rows.bonus %></td>-->
+
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td  style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Offline Due-Paid Nyaya Card</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S No.</th>
+                        <!--<th>Date</th>-->
+                        <!--<th>Document Type</th>-->
+                        <!--<th>Professional Name</th>-->
+
+
+                        <th>Document Details</th>
+
+                        <th>Document Creator</th>
+
+                        <th>Due Date</th>
+                        <th>Due Status</th>
+                        <th>Delay</th>
+                        <th>Paid By</th>
+
+                    </tr>
+                    <% if(results.list_nc_per_week_offline.length > 0){ %>
+
+                    <% results.list_nc_per_week_offline.forEach(function(rows, i){
+                    i++
+                    %>
+                    <tr>
+                        <td><%= i %></td>
+                        <!--<td><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %></td>-->
+                        <!--<td><%= rows.service_details_id %></td>-->
+                        <!--<td><%= rows.fz_name %></td>-->
+
+
+                        <td>
+
+                            Nyaya Card No. : <%= rows.ar_id %><br>
+                            Agreement No : <%= rows.aa_id %><br>
+                            Stamp No : <%= rows.stamp_number %><br>
+                            Document Type : <%= rows.service_details_id %><br>
+                            Created Date : <%= site.momentObj(rows.added_date).format('DD-MM-YYYY hh:mm A') %>
+
+                        </td>
+
+
+
+
+
+                        <td>
+
+                            Id : <%= rows.gid %><br>
+                            Name : <%= rows.u_first_name %><br>
+                            Mobile No. : <%= rows.u_mobile %><br>
+
+
+                        </td>
+
+
+                        <td>
+
+                            <%=
+
+
+
+
+
+                            site.momentObj(rows.added_date).add(settingData['deed_writer_due_clearance_hours_for'], 'hours').format('DD-MM-YYYY hh:mm A') %>
+                        </td>
+                        <td>
+                            <% if(rows.paid_on) { %>
+
+                            Paid on : <%= site.momentObj(rows.paid_on).format('DD-MM-YYYY hh:mm A') %>
+                            <% } %>
+                        </td>
+
+
+                        <td>
+                            <%
+                            <!--#var lastDate=site.momentObj(rows.added_date).add(settingData['deed_writer_due_clearance_hours_for'], 'hours').format('YYYY-MM-DD HH:mm');-->
+                            var lastDate=site.momentObj(rows.payment_duedate_deed_writer).format('YYYY-MM-DD HH:mm');
+                            var diff=site.timediffObj(lastDate,rows.paid_on,'H');
+
+
+                            %>
+                            <%#  JSON.stringify(lastDate) %>
+
+                            <% if(diff.hours > 0){ var day = (diff.hours/24) %>
+
+
+
+                            <%= Math.round(day) %> Day
+
+                            <% } %>
+                        </td>
+
+                        <td>
+
+                            <%= rows.pay_first_name %>
+
+                        </td>
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+
+
+
+
+
+
+
+    <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Membership of this Week</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S. No.</th>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <th>Client's Name</th>
+                        <% } %>
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <th>Professional Name & Contact</th>
+                        <% } %>
+                        <!--<th>User Type</th>-->
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <th>Contact No.</th>
+                        <% } %>
+                        <th>Membership No.</th>
+                        <th>Membership Plan</th>
+                        <th>Period</th>
+                        <th>invoice No.</th>
+                        <!--<th>Fee</th>-->
+                        <th>Incentive</th>
+                        <th>Add. Incentive</th>
+                        <!--<th>Date</th>-->
+                    </tr>
+                    <% if(results.list_membership_per_week.length > 0){ %>
+
+                    <% results.list_membership_per_week.forEach(function(rows, i){ i++ %>
+                    <tr>
+                        <td><%= i %></td>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <td><%= rows.business_name %></td>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <td><%= rows.first_name %> & <%= rows.mobile %></td>
+                        <% } %>
+                        <!--<td><%= rows.role_type_slug %></td>-->
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <td><%= rows.authority_mobile %></td>
+                        <% } %>
+                        <td><%= rows.ms_id %></td>
+                        <td><%= rows.plan_name %></td>
+                        <td><%=  site.momentObj(rows.add_date).format('DD-MM-YYYY')  %>
+                            To
+                            <% var new_date = site.momentObj(rows.add_date, "DD-MM-YYYY").add(parseInt(rows.selected_plan_year), 'Y'); %>
+                            <%= site.momentObj(new_date).format("DD-MM-YYYY") %>
+                        </td>
+                        <td><%= rows.invoice_no %></td>
+                        <!--<td><%= rows.selected_plan_total_payable_amount %></td>-->
+                        <td><%= rows.commission %></td>
+                        <td><%= rows.bonus %></td>
+                        <!--<td><%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %></td>-->
+
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Membership Due For Renewal</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S. No.</th>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <th>Client's Name</th>
+                        <% } %>
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <th>Professional Name & Contact</th>
+                        <% } %>
+                        <!--<th>User Type</th>-->
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <th>Contact No.</th>
+                        <% } %>
+                        <th>Membership No.</th>
+                        <th>Pervious Membership Plan</th>
+                        <th>Expiry Date</th>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <th>Action</th>
+                        <% } %>
+                        <!--<th>Fee</th>-->
+
+                        <!--<th>Date</th>-->
+                    </tr>
+                    <% if(results.list_membership_due.length > 0){ %>
+
+                    <% results.list_membership_due.forEach(function(rows, i){ i++ %>
+                    <tr>
+                        <td><%= i %></td>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <td><%= rows.business_name %></td>
+                        <% } %>
+
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <td><%= rows.first_name %> & <%= rows.mobile %></td>
+                        <% } %>
+                        <!--<td><%= rows.role_type_slug %></td>-->
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <td><%= rows.authority_mobile %></td>
+                        <% } %>
+                        <td><%= rows.ms_id %></td>
+                        <td><%= rows.plan_name %></td>
+                        <td>
+                            <% var new_date = site.momentObj(rows.add_date, "DD-MM-YYYY").add(parseInt(rows.selected_plan_year), 'Y'); %>
+                            <%= site.momentObj(new_date).format("DD-MM-YYYY") %>
+                        </td>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <td>
+
+                            <ul class="aggre-btnswrap">
+                                <li> <a class="btn btn-success btn-xs" href="/admin/membership_plans/renew_membership/<%= rows.id %>" title="Renew" >view and renew</a></li>
+
+                            </ul>
+
+                        </td>
+                        <% } %>
+                        <!--<td><%= rows.selected_plan_total_payable_amount %></td>-->
+
+                        <!--<td><%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %></td>-->
+
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <% } %>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Nyaya Card of this Week</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S No.</th>
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <th>Date</th>
+                        <th>Document Type</th>
+                        <% } %>
+
+
+                        <% if(loginUser.user_type.role_type_slug == 'franchise' || loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <th>Professional Name</th>
+                        <% } %>
+
+                        <th>Stamp No.</th>
+
+                        <th>Nyaya Card No.</th>
+                        <th>Invoice No.</th>
+                        <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+                        <th>Amount</th>
+                        <% } %>
+                        <th>Total Incentive</th>
+
+
+
+
+
+                        <th>Additional Incentive</th>
+                        <th>Total TDS</th>
+                        <th>Total Payable Incentive</th>
+                        <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+                        <th>Status</th>
+                        <% } %>
+
+                    </tr>
+                    <% if(results.list_nc_per_week.length > 0){ %>
+
+                    <% results.list_nc_per_week.forEach(function(rows, i){
+                    i++
+                    %>
+                    <tr>
+                        <td><%= i %></td>
+                        <% if(loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <td><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %></td>
+                        <td><%= rows.service_details_id %></td>
+                        <% } %>
+                        <% if(loginUser.user_type.role_type_slug == 'franchise' || loginUser.user_type.role_type_slug == 'deed_writer'){ %>
+                        <td>
+                            <% if(rows.fz_name){ %>
+                            <%= rows.fz_name %>
+                            <% } else if(rows.role_slug == 'professional') { %> 
+                            <%= rows.u_first_name %>
+                            <% } %>
+                        </td>
+                        <% } %>
+
+
+                        <td><%= rows.stamp_number %></td>
+
+
+
+
+
+                        <td><%= rows.ar_id %></td>
+                        <td><%= rows.invoice_no %></td>
+                        <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+                        <td><%= rows.arbitration_agreement_total_fees %></td>
+                        <% } %>
+
+                        <td><%= rows.commission %></td>
+
+                        <td><%= rows.bonus %></td>
+
+                        <td><%= rows.commission_tds %></td>
+                        <td><%= rows.final_commission %></td>
+                        <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+                        <td>
+                            <% if(rows.is_active == 3){ %>
+                            <span class="">Offline Payment</span>
+                            <% } else { %>
+                            <span class="label label-success">Paid</span>
+                            <% } %>
+                        </td>
+                        <% } %>
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+
+
+
+
+    <% if(loginUser.user_type.role_type_slug != 'deed_writer'){ %>
+    <div class="row">
+        <div class="col-lg-12 col-xs-12">
+            <div class="box-header">
+                <h3 class="box-title">Nyaya Card Due for Renewal</h3>
+            </div>
+            <div class="box box-info table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>S No.</th>
+                        <!--<th>Stamp No.</th>-->
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <th>Professional Name & Contact No.</th>
+                        <% } %>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <th>Client Name & Contact No.</th>
+                        <% } %>
+                        <!--<th>User Type</th>-->
+                        <th>Nyaya Card No.</th>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <!--<th>Previous Invoice Value</th>-->
+                        <th>No Claim Bonus</th>
+                        <% } %>
+                        <th>Date of Expiry</th>
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <th>Action</th>
+                        <% } %>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <th>Action</th>
+                        <% } %>
+                        <!--<th>Document Type</th>-->
+                        <!--<th>Fee</th>-->
+                        <!--<th>Due Date</th>-->
+                        <!--<th>Date</th>-->
+                    </tr>
+                    <% if(results.list_due_renewal.length > 0){ %>
+
+                    <% results.list_due_renewal.forEach(function(rows, i){ i++ %>
+
+                    <% var member_name = rows.member_name.split(",") %>
+                    <% var member_mobile = rows.member_mobile.split(",") %>
+                    <tr>
+                        <td><%= i %></td>
+                        <!--<td><%= rows.stamp_number %></td>-->
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <td>
+                            <% if(rows.freez_id){ %>
+                            <%= rows.freez_first_name %><br><%= rows.freez_mobile %>
+                            <% } else if(rows.role_slug == 'professional') {%>
+                            <%= rows.first_name %><br><%= rows.mobile %>
+                            <% } %>
+                        </td>
+                        <% } %>
+                        <!--<td><%= rows.role_type_slug %></td>-->
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <td>
+                            <% member_name.forEach(function(values, j){ %>
+                            <%= values %> (<%= member_mobile[j] %>)<br>
+                            <% }) %>
+                        </td>
+                        <% } %>
+                        <td><%= rows.ar_id %></td>
+                        <% if(loginUser.user_type.role_type_slug != 'franchise'){ %>
+                        <!--<td><%= rows.p_invoice_no %></td>-->
+                        <td><%= rows.arbitration_agreement_renew_discount %></td>
+                        <% } %>
+                        <td><%= site.momentObj(rows.nc_end_date).format('DD-MM-YYYY') %></td>
+                        <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                        <td>
+                            <ul class="aggre-btnswrap">
+                                <li>
+                                    <a class="btn orange-btn btn-xs reminderMailToPro" agId="<%= rows.ag_id %>" href="javascript:void(0);" title="Reminder Mail To Professional" >Reminder Mail To Professional</a>
+                                </li>
+                            </ul>
+                        </td>
+                        <% } %>
+                        <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                        <td>
+                            <ul class="aggre-btnswrap">
+                                <li>  <a class="btn btn-primary btn-xs" href="/admin/arbitration_agreements/renew_agreement/<%= rows.ag_id %>/1">Renew</a></li>
+                            </ul>
+                        </td>
+                        <% } %>
+                        <!--<td><%= rows.service_details_id %></td>-->
+                        <!--<td><%= rows.arbitration_agreement_total_fees %></td>-->
+                        <!--<td><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %></td>-->
+                        <!--<td><%= site.momentObj(rows.payment_duedate_ap).format('DD-MM-YYYY') %></td>-->
+
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+                    <tr>
+                        <td style="border: none;">No Record Found</td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <% } %>
+    <% } %>
+</section>
+<!-- Morris.js charts -->
+
+<% if(loginUser.user_type.role_type_slug == 'stamp_vendor') { %>
+<div class="modal" id="stamp_vendor_bulk_upload">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="xls_upload_form" method="post" action="/admin/stamps/xls-upload" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Stamp Upload</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name="xls_file" class="form-control xls_file_sv" id="xls_file_sv">
+                    <input type="hidden" name='file_path' value='public/uploads/stamps'>
+                    <label class="error_mgs_label" id="xls_file_sv_eror"></label><br>
+                </div>
+                <div id="b-u-errors" style="display: none">
+                    <p>Following errors need to be fixed in uploaded file :</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<% } %>
+
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-7d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+    $('.startdate_search').datepicker({
+        format: 'dd-mm-yyyy',
+//        startDate: '-7d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+
+    $('.enddate_search').datepicker({
+        format: 'dd-mm-yyyy',
+//        maxDate: 0,
+//        endDate: '1d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+</script>
+<script>
+    $(document).on('click', '.reminderMailToPro', function () {
+        $.ajax({
+            url: '/admin/arbitration_agreements/reminder_to_professional',
+            type: 'POST',
+            data: {agid: $(this).attr('agid')},
+            success: function (response) {
+                if (response.status) {
+                    bootstrapNotify.showMessage(response.message);
+                }
+            }
+        })
+    });
+</script>
+
+<% if(loginUser.user_type.role_type_slug == 'stamp_vendor') { %>
+<script type="text/javascript">
+    $(document).on("click", ".sv-blk-upld-btn", function (ev) {
+        $("#stamp_vendor_bulk_upload").modal("show")
+    })
+    $(document).on("submit", "#xls_upload_form", function (ev) {
+        ev.preventDefault();
+        $(".error_mgs_label").empty();
+        if ($(".xls_file_sv").val() == "") {
+            $("#xls_file_sv_eror").text("Please select a file").show();
+        } else {
+            var thisObj = $(this);
+            var form = $(thisObj)[0];
+            var formData = new FormData(form);
+            $.ajax({
+                url: $(thisObj).attr('action'),
+                data: formData,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                cache: false,
+                success: function (response) {
+                    if (response.status) {
+                        window.location.href = response.url;
+                    } else {
+                        $("#b-u-errors").html("")
+                        $("#xls_file_sv_eror").text(response.message).show();
+                    }
+                }, error: function (resData) {
+                    var errorsHtml = "<p style='margin-left: 3%'>Following errors need to be fixed in uploaded file :</p><ol>";
+                    $.each(resData.responseJSON.data, function (key, val) {
+                        errorsHtml += "<li>" + val.errors + "</li>"
+                    });
+                    $("#b-u-errors").html(errorsHtml + "</ol>").css("display", "block")
+                }
+            });
+        }
+    })
+
+</script>
+<% } %>

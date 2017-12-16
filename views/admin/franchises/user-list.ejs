@@ -1,0 +1,77 @@
+<%# include ../helper/breadcrumb.ejs %>
+<% if(role_type_id=='professional'){ %>
+<%- include('../helper/Heading-Page.ejs', {title:'List of Professional'}); %>
+<% }else{ %>
+<%- include('../helper/Heading-Page.ejs', {title:'List of Service Provider'}); %>
+<% } %>
+
+<section class="content">
+<div class="box box-primary">
+    <div class="filterBar">
+        <div class="filterBarLeft">
+            <a class="back-btn" href="/admin/franchises"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i></a>
+        </div>
+    </div>
+
+        <div class="box-body">
+             <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+               <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Mobile Number</th>
+                        <th>Email</th>
+                        <th>No. of Nyaya Card</th>
+                        <th>Total Business</th>
+                        <th>Date of associate</th>
+
+                    </tr>
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+
+                                <td><%= rows.id %></td>
+                                <td><%= rows.first_name %></td>
+                                <td><%= rows.mobile %></td>
+                                <td><%= rows.email %></td>
+
+                                <td><%= rows.no_card %></td>
+                                <td><%= rows.card_total %></td>
+
+                                <td><%= site.momentObj(rows.franchise_date).format('DD-MM-YYYY')  %></td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <% if(results.length==0){ %>
+                        <div class="col-sm-12 text-center">No record found</div>
+                        <% } %>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+               </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer clearfix">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="box-footer-txt">Total No. of <% if(role_type_id=='professional'){ %>Professional<% }else{ %>Service Provider<% } %> : <% if(results.length){ %><%= results[0].total_user %><% }else{ %>0<% } %></div>
+                        </div>
+                        <div class="col-md-7 pull-right"><%- include ../helper/pagination.ejs %></div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+
+        <!-- /.col -->
+    </div>
+</section>

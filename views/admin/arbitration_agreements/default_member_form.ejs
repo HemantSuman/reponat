@@ -1,0 +1,769 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading">Document Information</div>
+    <div class="panel-body">
+        <div class="parties">
+            <div class="position_relative party_group" id="">
+                <div class="position_relative party_content" id="">
+                    <div class="panel panel-default" id="">
+                        <div class="panel-body panel-grey">
+
+                            <div class="row form-row">
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Document Stamp Number <em>*</em></label>
+                                    <input type="text" name="stamp_number" id="stamp_number" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="stamp_number_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Document Category<em>*</em> </label>
+                                    <input type="hidden" value="" id="service_details_primary_id" name="service_details_primary_id" >
+                                    <span class="settingValueForMonthlyRent hide"><%= settingData.document_category_for_monthly_rent %></span>
+                                    <span class="settingValueForPopUp hide"><%= settingData.document_category_for_popup %></span>
+                                    <select  name="service_details_id" id="service_details_id" class="  inputtxt emptyValidation"
+                                             formType="agreement" onChange="getDbValuesByIds(this, 'ServiceDetailDocument', ['service_detail_id'], [this.options[this.selectedIndex].getAttribute('primaryId')], 'documents_name asc', 'service_detail_documents_id', ['id', 'documents_name'], []);"
+                                             >
+                                        <option value="">--Please Select--</option>
+                                        <% for(var i=0; i < data.service_details.length; i++) { %>
+                                        <option service_detail_slug="<%= data.service_details[i]['service_details_slug'] %>" primaryId="<%= data.service_details[i]['id'] %>" value="<%= data.service_details[i]['service_details_name'] %>" ><%= data.service_details[i]['service_details_name'] %></option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="service_details_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Document Type<em>*</em> </label>
+                                    <select  name="service_detail_documents_id" id="service_detail_documents_id" class="  inputtxt emptyValidation">
+                                        <option value="">--Please Select--</option>
+                                    </select>
+                                    <label class="errorMsg" id="service_detail_documents_id_error"></label>
+                                </div>
+
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Document Executed On <em>*</em></label>
+                                    <input type="text" name="stamp_date" id="stamp_date" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="stamp_date_error"></label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="panel-heading no-left-padd no-top-padd"><strong>Document Executed At</strong></div>
+                    <div class="panel panel-default" >
+                        <div class="panel-body">
+                            <div class="row form-row">
+                                <div class="col-md-3 col-xs-12">
+                                    <label>State<em>*</em></label>
+                                    <input type="hidden" value="" id="stamp_state_id_primary_id" name="stamp_state_primary_id" >
+                                    <select name="stamp_state_id" id="stamp_state_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'stamp_division_id', ['id', 'division_name'], ['stamp_district_id', 'stamp_tehsil_id']);"
+                                            >
+                                        <option value="">States</option>
+                                        <% for(var i=0; i < data.states.length; i++) { %>
+                                        <option primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                            <%= data.states[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="stamp_state_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Division<em>*</em></label>
+                                    <input type="hidden" value="" id="stamp_division_id_primary_id" name="stamp_division_primary_id" >
+                                    <select name="stamp_division_id" id="stamp_division_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'district_name asc', 'stamp_district_id', ['id', 'district_name'], ['stamp_tehsil_id']);"
+                                            >
+                                        <option value="">Division</option>
+                                    </select>
+                                    <label class="errorMsg" id="stamp_division_id_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>District<em>*</em></label>
+                                    <input type="hidden" value="" id="stamp_district_id_primary_id" name="stamp_district_primary_id" >
+                                    <select name="stamp_district_id" id="stamp_district_id" class="  inputtxt emptyValidation onChangeForPrimaryId">
+                                        <option value="">District</option>
+                                    </select>
+                                    <label class="errorMsg" id="stamp_district_id_error"></label>
+                                </div>
+
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Town/Kasba <em>*</em></label>
+                                    <input type="text" name="stamp_town" id="stamp_town" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="stamp_town_error"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default" >
+                        <div class="panel-body panel-grey">
+                            <div class="row form-row">
+                                <div class="col-md-3 col-xs-12">
+                                    <label><span class="document_value_month_class">Document Value</span><em>*</em></label>
+                                    <input type="text" name="agreement_value" id="agreement_value" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="agreement_value_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Document Valid From<em>*</em></label>
+                                    <input type="text" name="document_valid_from" id="document_valid_from" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="document_valid_from_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Document Valid Up To<em>*</em></label>
+                                    <input type="text" name="document_valid_to" id="document_valid_to" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="document_valid_to_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Select Place of Arbitration<em>*</em></label>
+                                    <input type="hidden" value="" id="place_of_arbitration_primary_id" name="place_of_arbitration_primary_id" >
+                                    <select name="place_of_arbitration" id="place_of_arbitration" class="inputtxt emptyValidation onChangeForPrimaryId" >
+                                        <option value="" >--Please Select--</option>
+                                        <% for(var i=0; i < data.states_is_business.length; i++) { %>
+                                        <option primaryId="<%= data.states_is_business[i]['id'] %>" value="<%= data.states_is_business[i]['state_name'] %>" >
+                                            <%= data.states_is_business[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="place_of_arbitration_error"></label>
+                                </div>
+                                <div class="col-md-6 col-xs-12 twoTeirDiv" style="display: none;">
+                                    <label>Select Place of Appeal (Second Arbitration)<em>*</em></label>
+                                    <input type="hidden" value="" id="place_of_appeal_primary_id" name="place_of_appeal_primary_id" >
+                                    <select name='place_of_appeal' id='place_of_appeal' class="inputtxt onChangeForPrimaryId" >
+                                        <option value="" >--Please Select--</option>
+                                        <% for(var i=0; i < data.states_is_business.length; i++) { %>
+                                        <option primaryId="<%= data.states_is_business[i]['id'] %>" value="<%= data.states_is_business[i]['state_name'] %>" >
+                                            <%= data.states_is_business[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class='errorMsg' id='place_of_appeal_error'></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="parties" id="parties">
+    <div class="panel panel-default position_relative" id="parties_1">
+        <div class="panel-heading">Party No. <span class="partyNoTitleCount">1</span></div>
+        <div class="panel-body">
+            <a party_no="1" href="javascript:void(0);" class="closeParty partyCloseDivClass" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+            <div class="position_relative party_content" id="party_content_1">
+                <div id="member_content_1_1" class="member_content_class">
+                    <a party_no="1" member_no="1" href="javascript:void(0);" class="closeMember memberCloseDivClass_1_1" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    <div class="panel panel-default">
+                        <div class="panel-body panel-grey">
+                            <div class="row form-row">
+                                <div class="col-sm-12">
+                                    <input type="hidden" name="arbitration_agreement_party_members[1][1][arbitration_agreement_party_number]" value="1" >
+                                    <input type="hidden" name="arbitration_agreement_party_members[1][1][party_no]" value="1" >
+                                    <input type="hidden" name="arbitration_agreement_party_members[1][1][member_no]" value="1" >
+                                    <div class="radio-btn">
+                                        <span class="userTypeCls_individual"><input name="arbitration_agreement_party_members[1][1][user_type]" type="radio" class="userTypeCls" userTypeAlias='individual' party_no='1' value='individual' member_no='1' checked="checked" id="userTypeCls_individual"/>
+                                            <label class="userTypeCls_individual" for="userTypeCls_individual"> Individual </label>
+                                        </span>
+                                        <span class="userTypeCls_behalf_of_company"><input name="arbitration_agreement_party_members[1][1][user_type]" type="radio" class="userTypeCls" userTypeAlias='behalf_of_company' value='behalf_of_company' party_no='1' member_no='1' id="userTypeCls_behalf_of_company"/>
+                                            <label class="userTypeCls_behalf_of_company" for="userTypeCls_behalf_of_company">Behalf of Company or Firm </label>
+                                        </span>
+                                        <span class="userTypeCls_power_of_attorney_holder"><input name="arbitration_agreement_party_members[1][1][user_type]" type="radio" class="userTypeCls" userTypeAlias='power_of_attorney_holder' value='power_of_attorney_holder' party_no='1' member_no='1' id="userTypeCls_power_of_attorney_holder"/>
+                                            <label class="userTypeCls_power_of_attorney_holder" for="userTypeCls_power_of_attorney_holder">Power of Attorney Holder </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-row userTypeBehalf_1_1">
+
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="labeled name_of_party_member_title_1_1">Name of party<em>*</em></label>
+                                    <select name="arbitration_agreement_party_members[1][1][member_title]" id="member_title_1_1" class=" inputtxt emptyValidation">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss.">Miss.</option><option value="Ms.">Ms.</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> &nbsp; </label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_name]" id="member_name_1_1" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="member_name_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <!--<label> Father's/Husband Name </label>-->
+                                    <label class="d-f">
+                                        <input name="arbitration_agreement_party_members[1][1][member_relation_of]" type="radio" class="" value="S/O" checked="checked"> S/O
+                                        &nbsp; <input name="arbitration_agreement_party_members[1][1][member_relation_of]" type="radio" class="" value="W/O" > W/O
+                                        &nbsp; <input name="arbitration_agreement_party_members[1][1][member_relation_of]" type="radio" class="" value="D/O" > D/O
+                                    </label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_relation_name]" id="member_relation_name_1_1" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="member_relation_name_1_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label> Age in Years <em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_age]" id="member_age_1_1" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="member_age_1_1_error"></label>
+                                </div>
+
+                                <!-- <div class="col-md-2 col-xs-12">
+                                    <label> Caste </label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_caste]" id="member_caste_1_1" type="text" class="inputtxt " >
+                                    <label class="errorMsg" id="member_caste_1_1_error"></label>
+                                </div> -->
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-4 col-xs-12">
+                                    <label class="label_of_party_full_address_1_1">Full Address<em>*</em> </label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_address]" id="member_address_1_1" type="text" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="member_address_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Town/Kasba <em>*</em></label>
+                                    <input type="text" name="arbitration_agreement_party_members[1][1][member_town]" id="member_town_1_1" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="member_town_1_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Country <em>*</em></label>
+                                    <input type="hidden" value="" id="member_country_id_1_1_primary_id" name="arbitration_agreement_party_members[1][1][member_country_primary_id]" >
+                                    <select   name="arbitration_agreement_party_members[1][1][member_country_id]" id="member_country_id_1_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                              formType="agreement" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'state_name asc', 'member_state_id_1_1', ['id', 'state_name'], ['member_division_id_1_1', 'member_district_id_1_1', 'member_tehsil_id_1_1']);"
+                                              >
+                                        <% for(var i=0; i < data.countries.length; i++) { %>
+                                        <option primaryId="<%= data.countries[i]['id'] %>" value="<%= data.countries[i]['country_name'] %>" >
+                                            <%= data.countries[i]['country_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="member_country_id_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>State <em>*</em> </label>
+                                    <input type="hidden" value="" id="member_state_id_1_1_primary_id" name="arbitration_agreement_party_members[1][1][member_state_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[1][1][member_state_id]" id="member_state_id_1_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'member_division_id_1_1', ['id', 'division_name'], ['member_district_id_1_1', 'member_tehsil_id_1_1']);"
+                                            >
+                                        <option value="">State</option>
+                                        <% for(var i=0; i < data.states.length; i++) { %>
+                                        <option primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                            <%= data.states[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="member_state_id_1_1_error"></label>
+                                </div>
+
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Division<em>*</em></label>
+                                    <input type="hidden" value="" id="member_division_id_1_1_primary_id" name="arbitration_agreement_party_members[1][1][member_division_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[1][1][member_division_id]" id="member_division_id_1_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'district_name asc', 'member_district_id_1_1', ['id', 'district_name'], ['member_tehsil_id_1_1']);"
+                                            >
+                                        <option value="">Division</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_division_id_1_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>District<em>*</em></label>
+                                    <input type="hidden" value="" id="member_district_id_1_1_primary_id" name="arbitration_agreement_party_members[1][1][member_district_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[1][1][member_district_id]" id="member_district_id_1_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'tehsil_name asc', 'member_tehsil_id_1_1', ['id', 'tehsil_name'], []);"
+                                            >
+                                        <option value="">District</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_district_id_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Tehsil<em>*</em></label>
+                                    <input type="hidden" value="" id="member_tehsil_id_1_1_primary_id" name="arbitration_agreement_party_members[1][1][member_tehsil_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[1][1][member_tehsil_id]" id="member_tehsil_id_1_1" class="  inputtxt emptyValidation onChangeForPrimaryId">
+                                        <option value="">Tehsil</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_tehsil_id_1_1_error"></label>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Pincode</label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_pincode]" id="member_pincode_1_1" type="text" class="inputtxt" >
+                                    <label class="errorMsg" id="member_pincode_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Mobile Number<em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_mobile_number]" id="member_mobile_number_1_1" type="text" class="emptyValidation mobileDigitValidation inputtxt" >
+                                    <label class="errorMsg" id="member_mobile_number_1_1_error"></label>
+                                </div>
+
+                            </div>
+
+                            <div class="row form-row">
+                                <!-- <div class="col-md-3 col-xs-12">
+                                    <label>Govt. ID Type</label>
+                                    <input type="hidden" value="" id="govt_id_type_1_1_primary_id" name="arbitration_agreement_party_members[1][1][govt_id_type_primary_id]">
+                                    <select  name="arbitration_agreement_party_members[1][1][govt_id_type]" id="govt_id_type_1_1" class=" onChangeForPrimaryId inputtxt govt_id_type_class" party="1" member="1">
+                                        <option value="">--Please Select--</option>
+                                        <% for(var i=0; i < data.government_id_types.length; i++) { %>
+                                        <option primaryId="<%= data.government_id_types[i]['id'] %>" value="<%= data.government_id_types[i]['government_id_type_name'] %>" ><%= data.government_id_types[i]['government_id_type_name'] %></option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="govt_id_type_1_1_error"></label>
+                                </div> -->
+                                <!-- <div class="col-md-3 col-xs-12">
+                                    <label>Govt ID Number</label>
+                                    <input name="arbitration_agreement_party_members[1][1][govt_id_number]" id="govt_id_number_1_1" type="text" class="inputtxt govt_id_number_class_1_1 govtIdValidation" >
+                                    <label class="errorMsg" id="govt_id_number_1_1_error"></label>
+                                </div> -->
+
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Email Address</label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_email]" id="member_email_1_1" type="text" class="inputtxt emailValidation">
+                                    <label class="errorMsg" id="member_email_1_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Aadhar Number for E-Sign<em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[1][1][member_aadhar]" id="member_aadhar_1_1" type="text" class="emptyValidation aadharDigitValidation inputtxt">
+                                    <label class="errorMsg" id="member_aadhar_1_1_error"></label>
+                                </div>
+                                <!--                                <div class="col-md-2 col-xs-12">
+                                                                    <label>PAN Number<em>*</em></label>
+                                                                    <input name="arbitration_agreement_party_members[1][1][member_pan_number]" id="member_pan_number_1_1" type="text" class="inputtxt">
+                                                                    <label class="errorMsg" id="member_pan_number_1_1_error"></label>
+                                                                </div>-->
+                                <!--                                <div class="col-md-2 col-xs-12 pull-right">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="button" class="btn btn-default inputtxt" value="Verify by e-KYC">
+                                                                </div>-->
+
+                            </div>
+                            <div class="row form-row userTypePowerOf_1_1">
+
+                            </div>
+                            <div class="row form-row" style="display: none;">
+                                <div class="col-sm-1">
+                                    <img src="http://www.tenderyears-school.in/wp-content/uploads/2015/04/dummy-image.jpg" alt="" class="img-responsive">
+                                </div>
+                                <div class="col-sm-11">
+                                    <p><strong>Register Information of the Party in Aadhar Card for e-KYC verification</strong></p>
+                                    <p>Name: &lt;name of the user come from e-KYC service &gt;</p>
+                                    <p>Address: &lt;address of the user come from e-KYC service &gt;</p>
+                                    <p>Mobile: &lt;mobile no. of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+                                    <p>Email: &lt;email of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row addMemberDiv_0 text-right">
+                <div class="col-md-12">
+                    <button type="button" party_no="1" member_no="1" renderTemplate="admin/arbitration_agreements/other_member_form" modelnames="countries,states,government_id_types" rendringType='appendType' destinationid="party_content_1" url="/common/loadAgreementTypeContent" class="btn btn-primary addMemberButton addMemberButton_0"><i class="fa fa-plus-square" aria-hidden="true"></i> Add More Member</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    <div class="text-center">
+            <strong>AND</strong>
+        </div>-->
+
+    <div class="panel panel-default position_relative"  id="parties_2">
+        <div class="panel-heading">Party No. <span class="partyNoTitleCount">2</span></div>
+        <div class="panel-body">
+            <a party_no="2" href="javascript:void(0);" class="closeParty partyCloseDivClass" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+            <div class="position_relative party_content" id="party_content_2">
+                <div id="member_content_2_1" class="member_content_class">
+                    <a party_no="2" member_no="1" href="javascript:void(0);" class="closeMember memberCloseDivClass_2_1" ><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+                    <div class="panel panel-default">
+                        <div class="panel-body panel-grey">
+                            <div class="row form-row">
+                                <div class="col-sm-12">
+                                    <input type="hidden" name="arbitration_agreement_party_members[2][1][arbitration_agreement_party_number]" value="2" >
+                                    <input type="hidden" name="arbitration_agreement_party_members[2][1][party_no]" value="2" >
+                                    <input type="hidden" name="arbitration_agreement_party_members[2][1][member_no]" value="1" >
+                                    <div class="radio-btn">
+                                        <input name="arbitration_agreement_party_members[2][1][user_type]" type="radio" class="userTypeCls" userTypeAlias='individual' value='individual' party_no='2' member_no='1' checked="checked" id="Individual1"/>  <label for="Individual1">Individual </label>
+                                        <input name="arbitration_agreement_party_members[2][1][user_type]" type="radio" class="userTypeCls" userTypeAlias='behalf_of_company' value='behalf_of_company' party_no='2' member_no='1' id="Behalfofcomp"/> <label for="Behalfofcomp">Behalf of Company or Firm </label>
+                                        <input name="arbitration_agreement_party_members[2][1][user_type]" type="radio" class="userTypeCls"  userTypeAlias='power_of_attorney_holder' value='power_of_attorney_holder' party_no='2' member_no='1' id="power_of_attorney"/> <label for="power_of_attorney"> Power of Attorney Holder </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-row userTypeBehalf_2_1">
+
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="labeled name_of_party_member_title_2_1">Name of party<em>*</em></label>
+                                    <select name="arbitration_agreement_party_members[2][1][member_title]" id="member_title_2_1" class=" inputtxt emptyValidation">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss.">Miss.</option><option value="Ms.">Ms.</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> &nbsp; </label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_name]" id="member_name_2_1" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="member_name_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="d-f">
+                                        <input name="arbitration_agreement_party_members[2][1][member_relation_of]" type="radio" class="" value="S/O" checked="checked"> S/O
+                                        <input name="arbitration_agreement_party_members[2][1][member_relation_of]" type="radio" class="" value="W/O" > W/O
+                                        <input name="arbitration_agreement_party_members[2][1][member_relation_of]" type="radio" class="" value="D/O" > D/O
+                                    </label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_relation_name]" id="member_relation_name_2_1" type="text" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="member_relation_name_2_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label> Age in Years <em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_age]" id="member_age_2_1" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="member_age_2_1_error"></label>
+                                </div>
+
+                                <!-- <div class="col-md-2 col-xs-12">
+                                    <label> Caste</label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_caste]" id="member_caste_2_1" type="text" class="inputtxt" >
+                                    <label class="errorMsg" id="member_caste_2_1_error"></label>
+                                </div> -->
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-4 col-xs-12">
+                                    <label class="label_of_party_full_address_2_1">Full Address <em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_address]" id="member_address_2_1" type="text" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="member_address_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Town/Kasba <em>*</em></label>
+                                    <input type="text" name="arbitration_agreement_party_members[2][1][member_town]" id="member_town_2_1" class="inputtxt emptyValidation" >
+                                    <label class="errorMsg" id="member_town_2_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Country <em>*</em></label>
+                                    <input type="hidden" value="" id="member_country_id_2_1_primary_id" name="arbitration_agreement_party_members[2][1][member_country_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[2][1][member_country_id]" id="member_country_id_2_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'state_name asc', 'member_state_id_2_1', ['id', 'state_name'], ['member_division_id_2_1', 'member_district_id_2_1', 'member_tehsil_id_2_1']);"
+                                            >
+                                        <% for(var i=0; i < data.countries.length; i++) { %>
+                                        <option primaryId="<%= data.countries[i]['id'] %>" value="<%= data.countries[i]['country_name'] %>" >
+                                            <%= data.countries[i]['country_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="member_country_id_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>State <em>*</em></label>
+                                    <input type="hidden" value="" id="member_state_id_2_1_primary_id" name="arbitration_agreement_party_members[2][1][member_state_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[2][1][member_state_id]" id="member_state_id_2_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'member_division_id_2_1', ['id', 'division_name'], ['member_district_id_2_1', 'member_tehsil_id_2_1']);"
+                                            >
+                                        <option value="">State</option>
+                                        <% for(var i=0; i < data.states.length; i++) { %>
+                                        <option primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                            <%= data.states[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="member_state_id_2_1_error"></label>
+                                </div>
+
+                            </div>
+                            <div class="row form-row">
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Division<em>*</em></label>
+                                    <input type="hidden" value="" id="member_division_id_2_1_primary_id" name="arbitration_agreement_party_members[2][1][member_division_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[2][1][member_division_id]" id="member_division_id_2_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'district_name asc', 'member_district_id_2_1', ['id', 'district_name'], ['member_tehsil_id_2_1']);"
+                                            >
+                                        <option value="">Division</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_division_id_2_1_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>District<em>*</em></label>
+                                    <input type="hidden" value="" id="member_district_id_2_1_primary_id" name="arbitration_agreement_party_members[2][1][member_district_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[2][1][member_district_id]" id="member_district_id_2_1" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'tehsil_name asc', 'member_tehsil_id_2_1', ['id', 'tehsil_name'], []);"
+                                            >
+                                        <option value="">District</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_district_id_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Tehsil<em>*</em></label>
+                                    <input type="hidden" value="" id="member_tehsil_id_2_1_primary_id" name="arbitration_agreement_party_members[2][1][member_tehsil_primary_id]" >
+                                    <select name="arbitration_agreement_party_members[2][1][member_tehsil_id]" id="member_tehsil_id_2_1" class="  inputtxt emptyValidation onChangeForPrimaryId">
+                                        <option value="">Tehsil</option>
+                                    </select>
+                                    <label class="errorMsg" id="member_tehsil_id_2_1_error"></label>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Pincode</label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_pincode]" id="member_pincode_2_1" type="text" class="inputtxt" >
+                                    <label class="errorMsg" id="member_pincode_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Mobile Number<em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_mobile_number]" id="member_mobile_number_2_1" type="text" class="emptyValidation mobileDigitValidation inputtxt" >
+                                    <label class="errorMsg" id="member_mobile_number_2_1_error"></label>
+                                </div>
+
+                            </div>
+                            <div class="row form-row">
+                                <!-- <div class="col-md-3 col-xs-12">
+                                    <label>Govt. ID Type</label>
+                                    <input type="hidden" value="" id="govt_id_type_2_1_primary_id" name="arbitration_agreement_party_members[2][1][govt_id_type_primary_id]">
+                                    <select  name="arbitration_agreement_party_members[2][1][govt_id_type]" id="govt_id_type_2_1" class=" onChangeForPrimaryId inputtxt govt_id_type_class" party="2" member="1">
+                                        <option value="">--Please Select--</option>
+                                        <% for(var i=0; i < data.government_id_types.length; i++) { %>
+                                        <option primaryId="<%= data.government_id_types[i]['id'] %>" value="<%= data.government_id_types[i]['government_id_type_name'] %>" ><%= data.government_id_types[i]['government_id_type_name'] %></option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="govt_id_type_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Govt ID Number</label>
+                                    <input name="arbitration_agreement_party_members[2][1][govt_id_number]" id="govt_id_number_2_1" type="text" class="inputtxt govt_id_number_class_2_1 govtIdValidation" >
+                                    <label class="errorMsg" id="govt_id_number_2_1_error"></label>
+                                </div> -->
+
+
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Email Address</label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_email]" id="member_email_2_1" type="text" class="inputtxt emailValidation" >
+                                    <label class="errorMsg" id="member_email_2_1_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>Aadhar Number for E-Sign<em>*</em></label>
+                                    <input name="arbitration_agreement_party_members[2][1][member_aadhar]" id="member_aadhar_2_1" type="text" class="emptyValidation aadharDigitValidation inputtxt" >
+                                    <label class="errorMsg" id="member_aadhar_2_1_error"></label>
+                                </div>
+                                <!--                                <div class="col-md-2 col-xs-12">
+                                                                    <label>PAN Number<em>*</em></label>
+                                                                    <input name="arbitration_agreement_party_members[2][1][member_pan_number]" id="member_pan_number_2_1" type="text" class="inputtxt" >
+                                                                    <label class="errorMsg" id="member_pan_number_2_1_error"></label>
+                                                                </div>
+                                                                <div class="col-md-2 col-xs-12 pull-right">
+                                                                    <label>&nbsp;</label>
+                                                                    <input type="button" class="btn btn-default inputtxt" value="Verify by e-KYC">
+                                                                </div>-->
+
+                            </div>
+                            <div class="row form-row userTypePowerOf_2_1">
+
+                            </div>
+                            <div class="row form-row" style="display: none;">
+                                <div class="col-sm-1">
+                                    <img src="http://www.tenderyears-school.in/wp-content/uploads/2015/04/dummy-image.jpg" alt="" class="img-responsive">
+                                </div>
+                                <div class="col-sm-11">
+                                    <p><strong>Register Information of the Party in Aadhar Card for e-KYC verification</strong></p>
+                                    <p>Name: &lt;name of the user come from e-KYC service &gt;</p>
+                                    <p>Address: &lt;address of the user come from e-KYC service &gt;</p>
+                                    <p>Mobile: &lt;mobile no. of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+                                    <p>Email: &lt;email of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row addMemberDiv_1 text-right">
+                <div class="col-md-12">
+                    <button type="button" party_no="2" member_no="1" renderTemplate="admin/arbitration_agreements/other_member_form" modelnames="countries,states,government_id_types" rendringType='appendType' destinationid="party_content_2" url="/common/loadAgreementTypeContent" class="btn btn-primary addMemberButton addMemberButton_1"><i class="fa fa-plus-square" aria-hidden="true"></i> Add More Member</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-right">
+    <button partynotitlecount="2" type="button" party_no="2" member_no="1" renderTemplate="admin/arbitration_agreements/party_element_content" modelnames="countries,states,government_id_types" rendringType='appendType' destinationid="parties" url="/common/loadAgreementTypeContent" class="btn btn-primary addPartyButton">
+        <i class="fa fa-plus-square" aria-hidden="true"></i> Add More Party</button>
+
+</div>
+<br>
+
+<div class="row">
+
+
+    <div class=" col-md-3 col-xs-12 witness_detail_button_div_1 ">
+
+        <button type="button" witness_no="1" renderTemplate="admin/arbitration_agreements/first_witness_element_content" modelnames="countries,states,government_id_types" rendringType='htmlType' destinationid="witness_detail_1" url="/common/loadAgreementTypeContent" class="btn btn-default addWitnessButton">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> Add First Witness</button>
+    </div>
+</div>
+
+<br>
+
+<div id="witness_detail_1"  style="display: none;"></div>
+<div class="row">
+    <div class=" col-md-3 col-xs-12 text-right witness_detail_button_div_2" style="float: right;display: none;">
+        <button type="button" witness_no="2" renderTemplate="admin/arbitration_agreements/second_witness_element_content" modelnames="countries,states,government_id_types" rendringType='htmlType' destinationid="witness_detail_2" url="/common/loadAgreementTypeContent" class="btn btn-default addWitnessButton">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> Add Second Witness</button>
+    </div></div>
+<br>
+
+<div id="witness_detail_2" style="display: none;"></div>
+
+
+<div id="invoiceInfoDiv">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Invoice Information</div>
+        <div class="panel-body">
+            <div class="">
+                <div class="position_relative" >
+                    <div class="position_relative">
+                        <div class="panel panel-default" id="">
+                            <div class="panel-body panel-grey">
+
+                                <div class="row form-row">
+                                    <div class="col-md-3 col-xs-12">
+                                        <label> Bill To <em>*</em></label>
+                                        <input type="text" name="invoice_billing_to" id="invoice_billing_to" class="inputtxt emptyValidation">
+                                        <label class="errorMsg" id="invoice_billing_to_error"></label>
+                                    </div>
+<!--                                    <div class="col-md-3 col-xs-12">
+                                        <label> State Code</label>
+                                        <input type="text" name="invoice_state_code" id="invoice_state_code" class="inputtxt">
+                                        <label class="errorMsg" id="invoice_state_code_error"></label>
+                                    </div>-->
+                                    <div class="col-md-3 col-xs-12">
+                                        <label> Address</label>
+                                        <input type="text" name="invoice_address" id="invoice_address" class="inputtxt" >
+                                        <label class="errorMsg" id="invoice_address_error"></label>
+                                    </div>
+
+                                    <div class="col-md-3 col-xs-12">
+                                        <label> GSTIN</label>
+                                        <input type="text" name="invoice_gst_no" id="invoice_gst_no" class="inputtxt">
+                                        <label class="errorMsg" id="invoice_gst_no_error"></label>
+                                    </div>
+<!--                                    <div class="col-md-3 col-xs-12">
+                                        <label>Country <em>*</em></label>
+                                        <input type="hidden" value="" id="invoice_country_id_primary_id" name="invoice_country_id_primary_id" >
+                                        <select name="invoice_country_id" id="invoice_country_id" class="  inputtxt onChangeForPrimaryId"
+                                                formType="agreement" forStateCode="yes" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'state_name asc', 'invoice_state_id', ['id', 'state_name','state_code'], ['invoice_division_id', 'invoice_district_id', 'invoice_tehsil_id']);"
+                                                >
+                                            <% for(var i=0; i < data.countries.length; i++) { %>
+                                            <option primaryId="<%= data.countries[i]['id'] %>" value="<%= data.countries[i]['country_name'] %>" >
+                                                <%= data.countries[i]['country_name'] %>
+                                            </option>
+                                            <% } %>
+                                        </select>
+                                        <label class="errorMsg" id="invoice_country_id_error"></label>
+                                    </div>-->
+                                    
+                                    <div class="col-md-3 col-xs-12">
+                                        <label>State <em>*</em> </label>
+                                        <input type="hidden" name="invoice_state_code" id="invoice_state_code" class="inputtxt">
+                                        <input type="hidden" value="" id="invoice_state_id_primary_id" name="invoice_state_id_primary_id" >
+                                        <select name="invoice_state_id" id="invoice_state_id" class="  inputtxt emptyValidation onChangeForPrimaryId onChangeForStateCode"
+                                                formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'invoice_division_id', ['id', 'division_name'], ['invoice_district_id', 'invoice_tehsil_id']);"
+                                                >
+                                            <option value="">State</option>
+                                            <% for(var i=0; i < data.states.length; i++) { %>
+                                            <option state_code="<%=data.states[i]['state_code']%>" primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                                <%= data.states[i]['state_name'] %>
+                                            </option>
+                                            <% } %>
+                                        </select>
+                                        <label class="errorMsg" id="invoice_state_id_error"></label>
+                                    </div>
+                                    
+                                </div>
+<!--                                <div class="row form-row">
+                                    <div class="col-md-2 col-xs-12">
+                                        <label> Town/Kasba</label>
+                                        <input type="text" name="invoice_town" id="invoice_town" class="inputtxt" >
+                                        <label class="errorMsg" id="invoice_town_error"></label>
+                                    </div>
+                                    
+                                    <div class="col-md-2 col-xs-12">
+                                        <label>Division</label>
+                                        <input type="hidden" value="" id="invoice_division_id_primary_id" name="invoice_division_id_primary_id" >
+                                        <select name="invoice_division_id" id="invoice_division_id" class="  inputtxt onChangeForPrimaryId"
+                                                formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'district_name asc', 'invoice_district_id', ['id', 'district_name'], ['invoice_tehsil_id']);"
+                                                >
+                                            <option value="">Division</option>
+                                        </select>
+                                        <label class="errorMsg" id="invoice_division_id_error"></label>
+                                    </div>
+                                    <div class="col-md-2 col-xs-12">
+                                        <label>District</label>
+                                        <input type="hidden" value="" id="invoice_district_id_primary_id" name="invoice_district_id_primary_id" >
+                                        <select name="invoice_district_id" id="invoice_district_id" class="  inputtxt onChangeForPrimaryId"
+                                                formType="agreement" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'tehsil_name asc', 'invoice_tehsil_id', ['id', 'tehsil_name'], []);"
+                                                >
+                                            <option value="">District</option>
+                                        </select>
+                                        <label class="errorMsg" id="invoice_district_id_error"></label>
+                                    </div>
+                                    <div class="col-md-2 col-xs-12">
+                                        <label>Tehsil</label>
+                                        <input type="hidden" value="" id="invoice_tehsil_id_primary_id" name="invoice_tehsil_id_primary_id" >
+                                        <select name="invoice_tehsil_id" id="invoice_tehsil_id" class="  inputtxt onChangeForPrimaryId">
+                                            <option value="">Tehsil</option>
+                                        </select>
+                                        <label class="errorMsg" id="invoice_tehsil_id_error"></label>
+                                    </div>
+
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row addMemberDiv_0 text-center">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-primary button-next" style=" float: left;" id="saveAsDraft">Save as Draft</button>
+        <button type="submit" class="btn btn-primary button-next" style="float: right;" id="proceedToView">Next to View</button>
+    </div>
+</div>
+
+<div class="row addMemberDiv_0 text-left">
+    <div class="col-md-12">
+        <p>
+            <strong>
+                Note :
+            </strong>
+        </p>
+        <p>
+            <strong>
+                This Arbitration Agreement is created at www.nyayaprotal.in is valid only when it will be either e-signed or manually signed by all the party's and witnesses. At the time of dispute submission, orignal  arbitration agreement, either e-signed or manually has to be produced with the claim. Any discrepency in the agreement  will make this document invalid to take the benifits of Nyaya card at the time of dispute submission. Please make sure that all the parties to this agreement have exchanged the duly signed copies.
+            </strong>
+        </p>
+    </div>
+</div>
+<%- include('../helper/confirmation_popup_for_nc.ejs'); %>
+<script>
+    $('#document_valid_from').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-2m',
+        todayHighlight: true,
+        autoclose: true,
+    });
+    $('#document_valid_to').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-2m',
+        todayHighlight: true,
+        autoclose: true,
+    });
+    $('#stamp_date').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-2m',
+        endDate: '+0d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+</script>
+<!-- Old code -->

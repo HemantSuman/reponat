@@ -1,0 +1,308 @@
+<%# include ../helper/breadcrumb.ejs %>
+
+<section class="content">
+    <div class="box box-primary">
+
+        <div class="filterBar">
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <% if(results.length){ %>
+            <div class="responsive-table">
+
+
+                <% if(results.length && results[0].arbitration_agreements_id){ %>
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th>Basic Fee</th>
+                        <th>Current Fee</th>
+                        <th>Advance Fee</th>
+                        <th>Total Fee Without Tax</th>
+                        <th>Tax</th>
+                        <th>Total Fee With Tax</th>
+                    </tr>
+                    
+                    <tr>
+                        <td><label style='color:red'><%= results[0].issue_ny.issue_ny_fee.arbitration_agreement_basic_fee %></td>
+                        <td><label style='color:red'><%= results[0].issue_ny.issue_ny_fee.arbitration_agreement_per_year_fee %></td>
+                        
+                        <td><label style='color:red'><%= results[0].year_amount %></td>
+                        <td><label style='color:red'><%= results[0].commission_base_amount %></td>
+                        <td><label style='color:red'>-<%= results[0].tax %></label></td>
+                        <td><label style='color:red'><%= results[0].pay %></td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+                    <tr>
+                        <th>Amount Transferred to Advance Fee Account</th>
+                        <th>Amount Transferred to Third Parties</th>
+                        <th>Amount Transferred to Basic Account</th>
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td><label style='color:red'><%= results[0].year_amount %></td>
+                        <td><label style='color:red'><%= parseFloat(results[0].total).toFixed(2) %></td>
+                        <td><label style='color:red'><%= results[0].base_amount %></td>
+                        
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+
+
+                    <tr>
+
+                        <th>Base Fee (<%= results[0].base_fee_per %>%)</th>
+                        <th>Year Fee</th>
+                        <th>Net Invoice value</th>
+                        <th>Tax</th>
+                        <th>Invoice value without tax</th>
+                        <th>Total Incentive (Without TDS)</th>
+                        <th>TDS</th>
+                        <th>Net Incentive</th>
+                        <th>Balance Amount</th>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><label style='color:red'><%= results[0].base_amount %></label></td>
+                        <td><label style='color:red'><%= results[0].year_amount %></label></td>
+                        <td><label style='color:red'><%= results[0].pay %></label></td>
+                        <td><label style='color:red'>-<%= results[0].tax %></label></td>
+                        <td><label style='color:red'><%= results[0].commission_base_amount %></label></td>
+                        <td><label style='color:red'><%= parseFloat(results[0].total).toFixed(2) %></label></td>
+                        <td><label style='color:red'><%= results[0].tds %></label></td>
+                        <td><label style='color:red' id="netAmu"><%= parseFloat(results[0].commission).toFixed(2) %></label></td>
+                        <td></td>
+                    </tr>
+
+
+                </table>
+                <% }else{ %>
+
+                <table class="table table-bordered">
+                    <tr>
+
+                        <th>Registration Fee</th>
+                        <th>Membership Fee</th>
+                        <th>Fee</th>
+                        <th>Tax</th>
+                        <th>Total</th>
+                        <th>Incentive with TDS</th>
+                        <th>Bonus</th>
+                        <th>TDS</th>
+                        <th>Payable Incentive</th>
+                        <th>Net Incentive</th>
+                        <th>Balance Amount</th>
+
+
+
+                    </tr>
+                    <tr>
+                        <td><label style='color:red'><%= results[0].issue_m.selected_plan_registration_fee %></label></td>
+                        <td><label style='color:red'><%= results[0].issue_m.selected_plan_membership_fee %></label></td>
+                        <td><label style='color:red'><%= parseFloat(results[0].issue_m.selected_plan_registration_fee)+parseFloat(results[0].issue_m.selected_plan_membership_fee) %></label></td>
+
+                        <td><label style='color:red'><%= results[0].tax %></label></td>
+
+
+                        <td><label style='color:red'><%= results[0].pay %></label></td>
+                        <td><label style='color:red'><%= parseFloat(results[0].commission).toFixed(2) %></label></td>
+                        <td><label style='color:red'><%= results[0].bonus %></label></td>
+                        <td><label style='color:red'><%= results[0].tds %></label></td>
+                        <td><label style='color:red'><%= results[0].total %></label></td>
+                        <td><label style='color:red' id="netAmu"><%= parseFloat(results[0].total)+parseFloat(results[0].tds) %></label></td>
+
+
+
+                        <td><label style='color:red'></label></td>
+                    </tr>
+                </table>
+
+
+
+                <% } %>
+
+
+
+                <table class="table" style="display: none">
+                    <tr>
+
+                        <th>Invoice Value</th>
+                        <th><label style='color:red'><%= results[0].pay %></label></th>
+
+
+                        <th>Tax</th>
+                        <th><label style='color:red'>-<%= results[0].tax %></label></th>
+
+                        <th>Incentive Calculated on</th>
+                        <th><label style='color:red'><%= results[0].commission_base_amount %></label></th>
+
+
+                        <th>Total Incentive (Without TDS)</th>
+                        <th><label style='color:red'><%= results[0].total %></label></th>
+
+
+                    </tr>
+                    <tr>
+
+
+                        <th>Total TDS</th>
+                        <th><label style='color:red'><%= results[0].tds %></label></th>
+
+
+                        <th>Base Fee (<%= results[0].base_fee_per %>%)</th>
+                        <th><label style='color:red'><%= results[0].base_amount %></label></th>
+                        <th>Year Fee</th>
+                        <th><label style='color:red'><%= results[0].year_amount %></label></th>
+
+                        <th>Total Incentive</th>
+                        <th><label style='color:red'><%= parseFloat(results[0].total+results[0].tds).toFixed(2) %></label></th>
+
+                    </tr>
+                </table>
+
+            </div>
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responisve">
+                    <table class="table table-bordered">
+                        <tr>
+
+                            <th>User Details</th>
+                            <th>User Role</th>
+                            <th>Incentive Rate</th>
+                            <th>Incentive</th>
+                            <th>Bonus Rate</th>
+                            <th>Bonus</th>
+                            <%if(results[0].arbitration_agreements_id){%><th>Penalty</th><%}%>
+                            <th>TDS (<%= results[0].tds_per %>%)</th>
+                            <th>Payable Incentive</th>
+                            <th>Net Incentive</th>
+                            <th>Status</th>
+
+                        </tr>
+                        <% 
+                        var total=0;
+                        var penalty=0;
+                        var finalTotal=0;
+                        %>
+
+                        <% results[0].list.forEach(function(rows){ %>
+                        <tr>
+                            <td>
+                                <% 
+                                if(rows.penalty > 0){
+                                penalty=rows.penalty;
+                                }
+                                %>
+                                <% if(rows.user){ %>
+                                Id : <%= rows.user.id %><br>
+                                <% if(rows.user.role){ %>
+                                Profession Type : <%= rows.user.role.role_type_name %><br>
+                                <% } %>
+                                Name : <%= rows.user.first_name %><br>
+                                Email : <%= rows.user.email %><br>
+                                Mobile No.  : <%= rows.user.mobile %><br>
+                                <% }else{%>
+
+                                Not Locked
+                                <% } %>
+                            </td>
+                            <td>
+                                <%= rows.activity.replace("_", " ") %>
+                                <% if(rows.activity_type){ %>
+                                (For <%= rows.activity_type %>)
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if(rows.commission_type==0){ %>
+                                Rs. 
+                                <% } %>
+                                <%= rows.commission_value %><% if(rows.commission_type==1){ %>% <% } %>
+
+
+                            </td>
+                            <td>
+                                <%= rows.commission_amount %>
+                            </td>
+
+                            <td><%= rows.bonus_rate %>%</td>
+                            <td><%= rows.bonus_commission_amount %></td>
+                            <%if(results[0].arbitration_agreements_id){%><td><%= rows.penalty %> (<%= rows.penalty_rate %>%)</td><%}%>
+                            <td><%= rows.commission_tds %></td>
+                            <td><%= rows.final_commission %></td>
+                            <td>
+                                <% var netAmu=rows.final_commission+rows.commission_tds; %>
+                                <%= parseFloat(netAmu).toFixed(2) %>
+                            </td>
+                            <td>
+                                <% if(rows.paid){ %>
+                                <span class="label label-success">Paid</span>
+                                <% }else{ %>
+                                <span class="label label-danger">Pending</span>
+                                <% } %>
+
+                            </td>
+
+                            <%
+
+                            total=total+parseFloat(rows.final_commission)
+                            finalTotal=finalTotal+parseFloat(netAmu)
+                            %>
+
+                        </tr>
+                        <% }); %>
+
+                        <tr>
+
+                            <th>Total</th>
+                            <th></th>
+                            <th></th>
+                            <th><%= results[0].commission %></th>
+                            <th></th>
+                            <th><%= results[0].bonus %></th>
+                            <%if(results[0].arbitration_agreements_id){%><th><%= penalty %></th><%}%>
+
+                            <th><%= results[0].tds %></th>
+                            <th><%= parseFloat(results[0].total).toFixed(2); %></th>
+                            <th><%= parseFloat(finalTotal).toFixed(2); %></th>
+                            <th></th>
+                        </tr>
+
+                    </table>
+                    <%- include('../element/no-record.ejs', {results:results}); %>
+                </div>
+            </form>
+            <% }else{ %>
+            <p class="text-center">No record found</p>
+            <% } %>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer clearfix">
+
+            <%# include ../helper/page2.ejs %>
+
+
+
+
+        </div>
+    </div>
+
+
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('#netAmu').text( < %= parseFloat(finalTotal).toFixed(2); % > );
+    });
+
+</script>

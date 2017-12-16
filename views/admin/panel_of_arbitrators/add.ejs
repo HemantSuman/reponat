@@ -1,0 +1,79 @@
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+
+            <div class="box-body">
+                <div class="row">    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name<em>*</em></label>
+
+                            <input type="text" class="form-control" id="arbitrator_name" name='arbitrator_name'>
+                            <lable class="error_mgs_lable" id="arbitrator_name_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="row">    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Position<em>*</em></label>
+
+                            <input type="text" class="form-control" id="position" name='position'>
+                            <lable class="error_mgs_lable" id="position_error"></lable>
+
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Description<em>*</em></label>
+
+                            <textarea onkeypress="onTestChange();"  rows="8" type="text" class="form-control" id="description" name='description' ></textarea>
+                            <lable class="error_mgs_lable" id="description_error"></lable>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+
+    <!-- /.box -->
+
+</section>
+<script>
+    function onTestChange() {
+        var key = window.event.keyCode;
+
+        // If the user has pressed enter
+        if (key === 13) {
+            $('#description').val($('#description').val()+"<br />");
+//            document.getElementById("description").value = document.getElementById("description").value + "\n*";
+            return false;
+        } 
+    }
+</script>

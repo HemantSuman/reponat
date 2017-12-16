@@ -1,0 +1,254 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:''}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+                <div class="filterBarRight">
+                </div>
+        </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                        <div class="table-responsive">
+
+
+                        <table class="table table-bordered1">
+                            <tr>
+
+                                <th width="30%">Type of Document</th>
+                                <th width="35%"></th>
+                                <th width="35%">My Incentives</th>
+
+
+                            </tr>
+
+
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+
+                                <td width="30%">Nyaya Card</td>
+                                <th width="35%"></th>
+
+                                <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                                <td width="35%">
+
+                                    <% if(rows.cid) { %>
+                                    <%
+                                    service_name = rows.service_details_name.split(',');
+                                    commission_type = rows.commission_type.split(',');
+                                    commission_value = rows.commission_value.split(',');
+                                    %>
+
+                                    <table class="table table-bordered1">
+                                        <tr>
+                                            <th width="50%">Document Head</th>
+                                            <th width="50%">Incentive</th>
+                                        </tr>
+                                        <% for(var j=0; j < service_name.length; j++) { %>
+                                        <tr>
+                                            <td><%= service_name[j] %></td>
+                                            <td>
+                                                <% if(commission_type[j]==0){ %>
+                                                Rs.
+                                                <% } %>
+                                                <%= commission_value[j] %>
+                                                <% if(commission_type[j]==1){ %>
+                                                %
+                                                <% } %>
+                                            </td>
+                                        </tr>
+
+
+                                        <% } %>
+                                        <% } %>
+                                    </table>
+
+
+
+                                </td>
+                                <% }else{ %>
+                                <td colspan="2">
+                                    <% if(rows.commission_type==0){ %>
+                                    Rs. <%= rows.commission_value %>
+                                    <% }else{ %>
+                                    <%= rows.commission_value %> %
+                                    <% } %>
+
+                                </td>
+                                <% } %>
+
+                            </tr>
+                            <% }); %>
+
+
+
+
+                            <% nc2.forEach(function(rows){ %>
+                            <tr>
+
+                                <td>Nyaya Card 2</td>
+
+                                <% if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                                <td>
+
+                                    <% if(rows.cid) { %>
+                                    <%
+                                    service_name = rows.service_details_name.split(',');
+                                    commission_type = rows.commission_type.split(',');
+                                    commission_value = rows.commission_value.split(',');
+                                    %>
+
+                                    <table class="table table-bordered1">
+                                        <tr>
+                                            <th>Document Head</th>
+                                            <th>Incentive</th>
+                                        </tr>
+                                        <% for(var j=0; j < service_name.length; j++) { %>
+                                        <tr>
+                                            <td><%= service_name[j] %></td>
+                                            <td>
+                                                <% if(commission_type[j]==0){ %>
+                                                Rs.
+                                                <% } %>
+                                                <%= commission_value[j] %>
+                                                <% if(commission_type[j]==1){ %>
+                                                %
+                                                <% } %>
+                                            </td>
+                                        </tr>
+
+
+                                        <% } %>
+                                        <% } %>
+                                    </table>
+
+
+
+                                </td>
+                                <% }else{ %>
+                                <td>
+                                    <% if(rows.commission_type==0){ %>
+                                    Rs. <%= rows.commission_value %>
+                                    <% }else{ %>
+                                    <%= rows.commission_value %> %
+                                    <% } %>
+
+                                </td>
+                                <% } %>
+
+
+
+
+
+
+
+
+                            </tr>
+                            <% }); %>
+
+
+
+                            <% mshp.forEach(function(rows){ %>
+                            <tr>
+
+                                <td width="30%">Membership</td>
+                                <td width="35%">&nbsp;</td>
+
+
+                                <td width="35%">
+                                    <% if(rows.commission_type==0){ %>
+                                    Rs. <%= rows.commission_value %>
+                                    <% }else{ %>
+                                    <%= rows.commission_value %> %
+                                    <% } %>
+
+                                </td>
+
+
+
+                            </tr>
+                            <% }); %>
+
+
+
+
+                        </table>
+
+
+                            <% if(loginUser.user_type.role_type_slug != 'stamp_vendor'){ %>
+                            <table class="table table-bordered1">
+                            <tr>
+
+                                <th width="30%">Type of Document</th>
+                                <th width="35%"></th>
+                                <th width="35%">My Additional Incentive</th>
+
+
+                            </tr>
+
+
+
+                            <%  if(sb && sb[0]['nc1']){ %>
+                            <tr>
+
+                                <td>Additional Incentive Nyaya Card<br>
+                                From :  <%= sb[0]['nc1'] %>
+                                </td>
+
+                                <td></td>
+
+
+                                <td>
+                                <%= sb[0]['nc1_b'] %> %
+
+                                </td>
+
+
+
+                            </tr>
+                            <% } %>
+
+
+                            <%  if(sb && sb[0]['nc3']){ %>
+                            <tr>
+
+                                <td>Additional Incentive Membership<br>
+                                From :  <%= sb[0]['nc3'] %>
+                                </td>
+                                <td></td>
+
+
+                                <td>
+                                    <%= sb[0]['nc3_b'] %> %
+
+                                </td>
+
+
+
+                            </tr>
+                            <% } %>
+
+
+                             </table>
+                            <% } %>
+
+
+
+                    </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                             <%- include ../helper/pagination_with_product_id.ejs %>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</section>

@@ -1,0 +1,219 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+   <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="filterBar">
+                <div class="filterBarRight">
+                    <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+                </div>
+            </div>
+             <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/membership_plans/create' enctype="multipart/form-data">
+                    <div class="box-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Plan Title <em>*</em></label>
+                                            <input type="text" class="form-control" name='plan_title' id="plan_title">
+                                            <label class="error_mgs_lable" id="plan_title_error"></label>
+                                         </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Min. Turnover Value<em>*</em></label>
+                                            <input type="text" class="form-control" id="min_amount" name='min_amount'>
+                                            <label class="error_mgs_lable" id="min_amount_error"></label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Max. Turnover Value<em>*</em></label>
+                                            <input type="text" class="form-control" id="max_amount"  name='max_amount'>
+                                            <label class="error_mgs_lable" id="max_amount_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Registration Fee<em>*</em></label>
+                                            <input type="text" class="form-control" name='registration_fee' id="registration_fee">
+                                            <label class="error_mgs_lable" id="registration_fee_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group custom-select-outer">
+                                            <label for="exampleInputEmail1">Duration in years (Max. 10 years)<em>*</em></label>
+                                            <select name="duration" class="form-control planRelatedField select2" id="duration">
+                                                <option value="">---Please Select---</option>
+                                                <% for(i = 1; i <= 10; i++) { %>
+                                                    <option value="<%= i %>"><%= i %> <% if(i > 1) { %>years<% } else { %>year<% } %></option>
+                                                <% } %>
+                                            </select>
+                                            <label class="error_mgs_lable" id="duration_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                         <div class="form-group">
+                                            <label for="exampleInputEmail1">Plan Fee<em>*</em></label>
+                                            <input type="text" class="form-control planRelatedField"  name='plan_fee' id="plan_fee">
+                                            <label class="error_mgs_lable" id="plan_fee_error"></label>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="opacity-0lab" ></label>
+                                            <button type="button" class="btn btn-primary" id="addPlanFeeBtn">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 hide" id="per_year_fee_table_div">
+                                          <div class="table-responsive">
+                                            <table class="table table-hover table-bordered documentListingTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Duration in years</th>
+                                                        <th>Fee Value</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    &nbsp;
+                                     <div class="col-md-12">
+                                         <div class="form-group">
+                                            <div class="chk-outer">
+                                                 <input type="checkbox" name="is_active"  id="is_active" checked> 
+                                                    <label for="is_active">Status</label>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                             <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                        </div>
+                    </div>
+                       
+                    </div>
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+            <!-- /.box -->
+
+</section>
+
+<script>
+
+    var planFeeArray = []
+    var planDurationArray = []
+    $(document).on("click", "#addPlanFeeBtn", function(ev) {
+        if($("#duration").val() == '') {
+            bootstrapNotify.showMessage("Please select duration", "danger");
+            return false;
+        }
+        if($("#plan_fee").val() == '') {
+            bootstrapNotify.showMessage("Please enter fee for the plan", "danger");
+            return false;
+        } else if(isNaN($("#plan_fee").val()) || $("#plan_fee").val() < 1) {
+            bootstrapNotify.showMessage("Please enter a valid amount", "danger");
+            return false;
+        }
+
+        if(planDurationArray.indexOf($("#duration").val()) != -1) {
+            bootstrapNotify.showMessage("You have already added a plan for the selected duration", "danger");
+            return false;
+        } else {
+            planDurationArray.push($("#duration").val())
+            planFeeArray.push({
+                duration: $("#duration").val(),
+                plan_fee: $("#plan_fee").val()
+            });
+
+            if(planFeeArray.length >= 1) {
+                $("#per_year_fee_table_div").removeClass("hide");            
+            }
+            appendPlanFeeHtml()
+            $(".planRelatedField").val("")
+        }
+    })
+
+    $(document).on('click', '.removePlanBtn', function (e) {
+        if (!confirm("Are you sure you want to remove ?")) {
+            return false;
+        } else {
+            var thisObj = $(this);
+            var arrarindex = $(this).attr('arrarindex');
+            $(thisObj).parents('tr').remove();
+            planFeeArray.splice(arrarindex, 1);
+            planDurationArray.splice(planDurationArray.indexOf($(thisObj).attr("duration")), 1)
+
+            if (planFeeArray.length < 1) {
+                $("#per_year_fee_table_div").addClass("hide");
+            }
+            appendPlanFeeHtml()
+        }
+    });
+
+    $(document).on("change", "#durationn", function(e) {
+        var formData = {
+            no_of_years: $(this).val(),
+            ie: 0
+        }
+        $.ajax({
+            type: "POST",
+            url: '/admin/membership_plans/get-year-wise-fee-ui',
+            data: formData,
+            dataType: "html",
+            //json: true,
+            cache: false,
+            success: function (response) {
+                $("#per_year_fee_table_div").html(response)
+            },
+            error: function (resData) {
+                
+            }
+
+        });
+    })
+
+    function appendPlanFeeHtml() {
+        //var rowHtml = "";
+        //console.log(planFeeArray)
+        $('.documentListingTable tbody').html("");
+        $.each(planFeeArray, function (index, value) {
+            var indexPlus = parseInt(index) + 1;
+            var rowHtml = "";
+            rowHtml += "<tr dddd='" + index + "'>"
+            rowHtml += "<td>" + indexPlus + "</td>"
+            rowHtml += "<td>" + value.duration + " Years</td>"
+            rowHtml += "<td>"
+            rowHtml += "Rs. " + value.plan_fee
+            rowHtml += "<input type='hidden' name='membership_plan_fees[" + index + "][number_of_years]' value='" + value.duration + "'>"
+            rowHtml += "<input type='hidden' name='membership_plan_fees[" + index + "][fees]' value='" + value.plan_fee + "'>"
+            rowHtml += "</td>"
+            rowHtml += "<td>"
+            rowHtml += "<a class='btn btn-danger btn-xs removePlanBtn' href='javascript:void(0);' arrarIndex='" + index + "' duration='" + value.duration + "'><i class='fa fa-close'></i></a>"
+            rowHtml += "</td>"
+            rowHtml += "</tr>"
+            $('.documentListingTable tbody').append(rowHtml);
+            $("#duration").val(null).trigger("change");
+        });
+        
+    }
+
+</script>

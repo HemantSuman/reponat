@@ -1,0 +1,196 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'List of Service Provider'}); %>
+
+<section class="content">
+
+            <div class="box box-primary">
+                 <div class="filterBar">
+                    <div class="filterBarRight">
+                        <a href="/admin/franchises/add-deed-writer" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                     </div>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row form-row-new">
+                        <div class="col-sm-12">
+                            <p>My Total Credit Limit : <strong><%= login_user_data['no_of_credits'] %></strong></p>
+                            <p>My Remaining Credit Limit :<strong> <%= login_user_data['remaining_no_of_credits'] %></strong></p>
+                        </div>
+
+                    </div>
+
+                    <form role="form" name='serchFrom' method='get' action='/admin/franchises/list-deed-writer'>
+                        <div class="row form-row-new">
+                            <div class="col-sm-2">
+                                     <input type="text" class="form-control" id="first_name" placeholder="Name" name="first_name" value="<% if(extraVar){ %><%= extraVar.first_name %><% } %>">
+                            </div>
+                            <div class="col-sm-2">
+                                     <input type="text" class="form-control" id="area" placeholder="Town/Kasba" name="area" value="<% if(extraVar){ %><%= extraVar.area %><% } %>">
+                            </div>
+                            <div class="col-sm-2">
+                                     <input type="text" class="form-control" id="created" placeholder="Allotment Date" name="created" value="<% if(extraVar){ %><%= extraVar.created %><% } %>">
+                            </div>
+<!--                            <div class="col-sm-2">
+                                     <input type="text" class="form-control" id="party_mobile_no" placeholder="Mobile Number" name="mobile" value="<% if(extraVar){ %><%= extraVar.mobile %><% } %>">
+                            </div>-->
+                            <div class="col-sm-2 form-group custom-select-outer">
+                                <select class="form-control select2" name="order_by">
+                                    <option value="desc">Latest</option>
+                                    <option value="asc">Oldest</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-1">
+                                 <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Search">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-3">
+                                 <a class="btn btn-success blue" href="/admin/franchises/list-deed-writer" title="Clear Search">
+                                    Clear Search
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Id</th>
+                                
+                                <th>Name</th>
+                                <th>Mobile Number</th>
+                                <th>Email</th>
+                                <th>Town/Kasba</th>
+                                <th>Date of Joining</th>
+                                <th>Offline Facility Allotment Date</th>
+                                <th>Available Offline Facility</th>
+                                <th>Remaining Offline Facility</th>
+                                <th>Actions</th>
+
+                            </tr>
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+
+                                
+                                <td><%= rows.gid %></td>
+                                <td><%= rows.first_name %></td>
+                                <td><%= rows.mobile %></td>
+                                <td><%= rows.email %></td>
+                                <td><%= rows.area %></td>
+                                <td><%= site.momentObj(rows.created).format('DD-MM-YYYY') %></td>
+                                <td><% if(site.momentObj(rows.offline_date).format('DD-MM-YYYY') !== 'Invalid date'){ %><%= site.momentObj(rows.offline_date).format('DD-MM-YYYY') %><% } %></td>
+                                <td><%= rows.total_credit %></td>
+                                <td><%= rows.available_credit %></td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-success btn-xs add-credit-btn" title="Add Credit" data-id="<%= rows.id %>" data-value="<%= rows.total_credit %>"><i class="fa fa-plus"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        </div>
+
+                    </form>
+                     <% if(results.length==0){ %>
+                    <h5 class="box-title text-center">No record found</h5>
+                    <% } %>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                     <%- include ../helper/pagination.ejs %>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>
+
+<div class="modal" id="credit_add_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="user_credit_limit_form" method="post" action="/admin/franchises/ap-add-credit">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Add Credit</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="no_of_credits" id="no_of_credits" class="form-control" placeholder="Enter Credit Limit">
+                    <input type="hidden" value="" name="user_id" id="user_id">
+                    <label class="" id="no_of_credits_error" style="color: red"></label>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).on("click", ".add-credit-btn", function(ev) {
+        $('.error_mgs_lable').html('');
+        $("#no_of_credits").val($(this).data("value"))
+        $("#user_id").val($(this).data("id"))
+        $("#credit_add_modal").modal("show")
+    })
+
+    $(document).on("submit", "#user_credit_limit_form", function(eve) {
+        eve.preventDefault()
+        $('.error_mgs_lable').html('');
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: $(this).serialize(),
+            dataType: "json",
+            json: true,
+            cache: false,
+            success: function (response) {
+                if(response.status) {
+                    $("#credit_add_modal").modal("hide")
+                    $("#user_credit_limit_form")[0].reset()
+                    //bootstrapNotify.showMessage(response.message, "success");
+                    window.location.href = '/admin/franchises/list-deed-writer';
+                } else {
+                    console.log(response.message);
+                    //bootstrapNotify.showMessageOnField(response.message,'no_of_credits_error');
+                    $('#no_of_credits_error').text(response.message);
+                    //bootstrapNotify.showMessage(response.message, "error");
+                }
+            }, error: function (resData) {
+                console.log(resData);
+                $.each(resData.responseJSON.data, function (key, val) {
+                    bootstrapNotify.showMessageOnField(val.message, val.path);
+                });
+            }
+        });
+    });
+
+    $('#created').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true
+
+    });
+</script>

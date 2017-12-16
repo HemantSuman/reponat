@@ -1,0 +1,30 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%# include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <% rolesData.forEach(function(value,index){  %>
+        <% if(value.role_list.length){ %>
+        <h2><%= value.name %></h2>
+        <h2>-------------------------------</h2>
+        <% value.role_list.forEach(function(value2,index2){  %>
+        <p>&nspar;</p>
+        <h4><%= value2.acl_list_name %></h4>
+        
+        
+        <%# JSON.stringify(value2) %>
+        <%# value2['position'] %>
+        
+        <% if(value2.position && value2.position != ''){ var res = value2.position.split(","); var icon = value2.icon.split(","); var counter=0; %>
+        
+        <% res.forEach(function(types,indexType){  %>
+        <input type="checkbox" value='<%= icon[counter] %>' name="acl_list[]"><%= types %>
+        <% counter++ });  %>    
+        <% } %>
+        
+        
+        <% });  %> 
+        <% } %>
+        <% });  %>   
+    </div>
+</section>

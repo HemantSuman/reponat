@@ -1,0 +1,109 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+   <div class="box box-primary">
+            <!-- general form elements -->
+            <div class="filterBar">
+                <div class="filterBarRight">
+                   <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+                </div>
+            </div>
+            
+               
+              
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+                    <input type="hidden" name='product_id' value='<%= extraVar.product_id %>'>
+                    <div class="box-body">
+                         <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Start Date<em>*</em></label>
+
+                                            <input type="text" class="form-control startdate" id="start_date" name='start_date'>
+                                            <label class="error_mgs_lable" id="start_date_error"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">End Date<em>*</em></label>
+
+                                            <input type="text" class="form-control enddate" id="end_date" name='end_date'>
+                                            <label class="error_mgs_lable" id="end_date_error"></label>
+
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Turnover Range from Minimum<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="min_amount" name='min_amount'>
+                                            <label class="error_mgs_lable" id="min_amount_error"></label>
+
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">to Maximum<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="max_amount" name='max_amount'>
+                                            <label class="error_mgs_lable" id="max_amount_error"></label>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Mediator Discount in percentage<em>*</em></label>
+
+                                            <input type="text" class="form-control" placeholder="value in %" id="turn_over_discount" name='turn_over_discount'>
+                                            <label class="error_mgs_lable" id="turn_over_discount_error"></label>
+
+                                        </div>
+                                    </div>
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="chk-outer">
+                                                                          
+                                                    <input type="checkbox" name="is_active"  id="is_active"  checked > <label for="is_active"> Status
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                     <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                              <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                        </div>
+                    </div>
+                         
+                </div>
+                  
+                </form>
+            </div>
+            <!-- /.box -->
+
+
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-d',
+        todayHighlight:true,
+        autoclose: true,
+    });
+</script>

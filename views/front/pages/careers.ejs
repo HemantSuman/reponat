@@ -1,0 +1,23 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Careers</h1>
+        <div class="row col-md-ib">
+            <% results.forEach(function(rows){ %>
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="careers-box">
+                    <h2><i class="fa fa-bookmark-o"></i> <%= rows.title%></h2>
+                    <%- rows.description%> 
+                </div>
+            </div>
+            <% }) %>
+        </div>
+
+
+        <p class="fs-18">Please send your CV <a href="mailto:info@nyayaportal.in">info@nyayaportal.in</a>.</p>
+</section>

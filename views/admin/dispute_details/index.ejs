@@ -1,0 +1,127 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <%- include('../helper/commonHtml.ejs', {htmlType:''}); %>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Name</th>
+                                <th>Mobile No.</th>
+                                <th>Email</th>
+                                <th>Disputed Property Situated at</th>
+                                <th>Case Facts</th>
+                                <th>Action</th>
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.name %></td>
+                                <td><%= rows.number %></td>
+                                <td><%= rows.email %></td>
+                                <td><%= rows.disputed_property_situated_at %></td>
+                                <td><%= rows.case_facts %></td>
+                                <td><a title="Download PDF" class="btn btn-success btn-xs" href="/admin/dispute-details/download_pdf/<%= rows.id %>" >PDF</a></td>
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <% if(results.rows.length==0){ %>
+                        <h5 class="box-title text-center">No record found</h5>
+                        <% } %>
+                        </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                        
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <%- include ../helper/pagination.ejs %>
+                        </div>
+                    </div>
+                </div>  
+
+        </div>
+</section>
+
+<div class="modal" id="contact_enq_resp_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="contact_enq_resp_form" method="post" action="/admin/contact-enquiries/respond">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Respond</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" name="remark" class="form-control" placeholder="Remark" id="c_enq_remark">
+                    <label class="error_mgs_lable" id="remark_error"></label>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" value="" id="con_enq_id">
+                    <input type="hidden" name="status" value="" id="con_enq_status">
+                    <button type="submit" class="btn btn-primary" >Save</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $(".con_enq_res_btn").change(function(ev) {
+            $("#con_enq_id").val($(this).next().attr("d-id"));
+            $("#c_enq_remark").val($(this).next().attr("d-remark"));
+            $("#con_enq_status").val($(this).val());
+            $("#contact_enq_resp_modal").modal("show")
+        })
+
+        $(document).on('submit', '#contact_enq_resp_form', (function (event, state) {
+
+            event.preventDefault()
+            $('.errorMsg').text('');
+            var data = $(this).serialize();
+            
+            var form = $('#contact_enq_resp_form')[0];
+            var formData = new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: $(this).attr("action"),
+                data: formData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                //json: true,
+                cache: false,
+                success: function (response) {
+                    if (response.status) {
+                        window.location.href = response.url;
+                    } else {
+                        bootstrapNotify.showMessage(response.msg, 'danger');
+                    }
+                },
+                error: function (resData) {
+                    console.log(resData)
+                    $.each(resData.responseJSON.data, function (key, val) {
+                        if (val.path != undefined) {
+                            bootstrapNotify.showMessageOnField(val.message, val.path);
+                        } else {
+                            bootstrapNotify.showMessageOnField(val.message, val.path);
+                        }
+                    });
+                }
+
+            });
+        }))
+    })
+</script>

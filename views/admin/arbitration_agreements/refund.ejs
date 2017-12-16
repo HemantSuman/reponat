@@ -1,0 +1,177 @@
+<%- include('../helper/Heading-Page.ejs', {title:''}); %>
+
+
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <!-- tab 1 -->
+            <form role="form" id="formSubmitRefund" method='post' action='/admin/<%= extraVar.viewDirectory %>/send_otp_for_members'>
+                <input type="hidden" name='id' id='id' value='<%= results.id %>'>
+                <input type="hidden" name='product_id' value='<%= extraVar.product_id %>'>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">Members Information</div>
+                    <div class="panel-body">
+                        <div class="panel panel-default" >
+                            <% results.arbitration_agreement_party_members.forEach(function(rows, key){ %>
+                            <div class="panel-body panel-grey">
+                                <div class="row form-row">
+                                    <input type="hidden" name='member_id[]' class="member_id_<%=rows.id%>" value='<%= rows.id %>'>
+                                    <div class="col-md-4 col-xs-12 Timer">
+                                        <label>Name: </label> <%= rows.member_name + ' ' + rows.member_relation_of + ' ' + rows.member_relation_name %>  <br>
+                                        <label>Mobile: </label><%= rows.member_mobile_number %> <br>
+                                        <label>Address: </label><%= rows.member_address + ', ' + rows.member_town + ', ' + rows.member_tehsil_id + ', ' + rows.member_district_id + ', ' + rows.member_division_id + ', ' + rows.member_state_id + ', ' + rows.member_country_id %> <br>
+                                    </div>
+                                    <div class="col-md-8 col-xs-12 member_id_div_<%=rows.id%>">
+                                        <span class="otp_span enter_otp_<%=key%>" style="display: none;">
+                                            <input type="text" value="" id="enter_otp_<%=key%>" placeholder="Enter OTP" member_id_input="<%=rows.id%>" class="inputtxt enter_otp" >
+                                        </span>
+                                        <span class="timer_span_<%=rows.id%>">ds
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 refund_btn_div">
+                                <button type="submit" class="btn btn-primary send_otp_btn" style="float: right;" id="send_otp">Send OTP</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- /tab 1 -->
+</section>
+<script src="/admin/js/arbitration_agreement_form.js"></script>
+<script>
+
+    $(document).on("keyup", ".enter_otp", function (e) {
+        var thisObj = $(this);
+        var member_id = $(thisObj).attr('member_id_input');
+        var id = $('#id').val();
+        var mobile_otp = $(thisObj).val();
+        console.log(id);
+        if (mobile_otp.length == 6) {
+            $.ajax({
+                url: '/admin/arbitration_agreements/check_otp_for_members',
+                data: {member_id: member_id, id: id, mobile_otp: mobile_otp},
+//                contentType: false,
+//                processData: false,
+                method: "POST",
+                cache: false,
+                success: function (response) {
+                    console.log(response);
+//                    $(thisObj).remove();
+                    $('.member_id_div_' + member_id).html('<span><i class="fa fa-check label-success"></i></span>');
+                    $('.timer_span_' + member_id).remove();
+
+                    if (!$('.enter_otp').height() || typeof $('.enter_otp').height() == 'undefined') {
+                        $('.refund_btn_div').html('<button type="submit" class="btn btn-primary submit_otp_btn" style="float: right;" id="submit_otp">Submit OTP</button>');
+                        console.log('0000000000')
+                    }
+
+
+//                if (response.status) {
+//                    bootstrapNotify.showMessage(response.message);
+//                    $('.otp_span').show(400);
+//                }
+                }, error: function (resData) {
+                    bootstrapNotify.showMessage(resData.responseJSON.message);
+                    console.log(resData.responseJSON);
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '.resend_link_cls', function () {
+        var thisObj = $(this);
+        var memid = $(thisObj).attr('memid');
+
+        $.ajax({
+            url: '/admin/arbitration_agreements/resend_otp_for_members',
+            data: {member_id: memid},
+//                contentType: false,
+//                processData: false,
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                if (response.status) {
+                    bootstrapNotify.showMessage(response.message);
+                }
+            }, error: function (resData) {
+                bootstrapNotify.showMessage(resData.responseJSON.message);
+                console.log(resData.responseJSON);
+            }
+        });
+
+        var mjID = clFunc();
+        mjID(memid, 30);
+
+    });
+
+    function clFunc() {
+
+        setInt = function (mem_id, aa) {
+
+            var setIntVar = setInterval(function () {
+                if (aa > 5) {
+                    $('.timer_span_' + mem_id).text(aa + " Seconds");
+                    aa -= 1;
+                } else {
+                    clearInterval(setIntVar);
+                    $('.timer_span_' + mem_id).html('<a href="javascript:void(0);" memid="' + mem_id + '" class="resend_link_cls">Resend OTP</a>');
+                }
+            }, 1000);
+
+        }
+        return setInt;
+    }
+
+    $(document).on("submit", "#formSubmitRefund", function (e) {
+        e.preventDefault();
+        var thisObj = $(this);
+
+        var form = $(thisObj)[0];
+        var formData = new FormData(form);
+
+//        var mjID = clFunc();
+//        mjID(174, 10);
+
+        $('.enter_otp').each(function (i, v) {
+            var thisEach = $(this);
+            var uniqe_id = $(thisEach).attr('member_id_input');
+            var uniqe_m_id = 'uniqe_m_id_' + uniqe_id
+
+            var mjID = clFunc();
+            mjID(uniqe_id, 30);
+        });
+
+
+        $.ajax({
+            url: $(thisObj).attr('action'),
+            data: formData,
+            contentType: false,
+            processData: false,
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                if (response.status) {
+                    bootstrapNotify.showMessage(response.message);
+                    $('.otp_span').show(400);
+                    $('.refund_btn_div').html('');
+                }
+            }, error: function (resData) {
+                console.log(resData);
+            }
+        });
+    });
+
+</script>

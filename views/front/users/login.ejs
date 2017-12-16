@@ -1,0 +1,98 @@
+<!-- breadcrumbs -->
+
+<div class="breadcrumbWrap">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li class="active">Login</li>
+    </ol>
+  </div>
+</div>
+<!-- /breadcrumbs -->
+<section class="Innerpage loginpage" id="">
+  <div class="container">
+    <div class="loginWrapper">
+     <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="login-form">
+             <h1>LOGIN</h1>
+             <img src="/front/assets/img/login-after.png" alt="login">
+            <form action="/admin/login" method="post" id="loginForm">
+              <input type="hidden" id="type" value="admin">
+              <div class="form-row">
+                <input class="form-control" type="email" placeholder="Email" name="email" id="email">
+              </div>
+              <div class="form-row">
+                <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+              </div>
+              <div class="form-row clearfix">
+                <label class="chekcbox f_left">
+                  <input type="checkbox">
+                  Remember me ! </label>
+                <label class="chekcbox f_right"> <a href="/users/forgot-password"><i class="fa fa-question-circle" aria-hidden="true"></i> forgot password ? </a></label>
+              </div>
+              <div class="form-row">
+                <button type="submit" class="btn btn-orange">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="login-right">
+                <img src="/front/assets/img/register-bg.jpg" alt="login">
+                <div class="login-right-txt">
+                    <!-- New to NyayaPortal ? Register Today. -->
+                    <h2>New to Nyaya Portal ? Register today and be a part of legal revolution.</h2>
+                    <a href="/users/register">Register</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+$(document).on('submit','#loginForm', function(event){
+  event.preventDefault();
+  var thisObj = $(this);
+
+        if($('#email').val()==''){
+           bootstrapNotify.showMessage('Please enter email','danger');
+           return false;
+        }
+         if (validateEmail(email)) {
+
+          bootstrapNotify.showMessage('Please enter vaild email','danger');
+           return false;
+         }
+
+
+        if($('#password').val()==''){
+           bootstrapNotify.showMessage('Please enter password','danger');
+           return false;
+        }
+
+    function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+    }
+
+  $.ajax({
+    url : $(thisObj).attr('action'),
+    data: {
+      'email' : $('#email').val(),
+      'password' : $('#password').val(),
+      'remember_me' : $('#remember_me').val(),
+    },
+    method: 'post',
+    success: function(response){
+      if(response.status){
+        window.location.href = '/admin' + '/' + response.url;
+        //bootstrapNotify.showMessage(response.msg,'success');
+      } else {
+        bootstrapNotify.showMessage(response.msg,'danger');
+      }
+    }
+  })
+  });
+</script>

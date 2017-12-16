@@ -1,0 +1,117 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+                <div class="filterBarRight">
+                    <a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add Incentive for Professionals</a>
+                </div>
+        </div>
+          
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                        <div class="table-responsive">
+
+
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#Id</th>
+                                <th>User Type</th>
+                                <th>Incentive</th>
+
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.cid %></td>
+                                <td><%= rows.master_name %></td>
+
+                                <td>
+
+                                    <% if(rows.cid) { %>  
+                                    <% 
+                                    service_name = rows.service_details_name.split(','); 
+                                    commission_type = rows.commission_type.split(',');
+                                    commission_value = rows.commission_value.split(',');
+                                    %>  
+
+                                    <table class="table table-bordered1">
+                                        <tr>
+                                            <th>Document Head</th>
+                                            <th>Incentive</th>
+                                        </tr>
+                                        <% for(var j=0; j < service_name.length; j++) { %>
+                                        <tr>
+                                            <td><%= service_name[j] %></td>
+                                            <td>
+                                                <% if(commission_type[j]==0){ %>
+                                                Rs.
+                                                <% } %>
+                                                <%= commission_value[j] %>
+                                                <% if(commission_type[j]==1){ %>
+                                                %
+                                                <% } %>   
+                                            </td>
+                                        </tr>
+
+
+                                        <% } %>
+                                        <% } %>  
+                                    </table>
+
+
+
+                                </td>
+
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+                                    <% 
+                                    if(rows.service_detail_id){
+                                    path='edit';
+                                    }else{
+                                    path='edit_provider';
+                                    }
+                                    %>
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= extraVar.product_id%>/<%= rows.cid %>/<%= rows.mid %>" title="Edit" >
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <!-- <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= extraVar.product_id%>/<%= rows.cid %>/<%= rows.mid %>" title="Add Document Head" >
+                                        <i class="fa fa-plus"></i>
+                                    </a> -->
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/commisions/delete/<%= rows.mid %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                    </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                             <%- include ../helper/pagination_with_product_id.ejs %>
+                        </div>
+                    </div>
+                </div>
+    </div>
+</section>

@@ -1,0 +1,791 @@
+<% if(show==1){ %>
+<style>
+
+    .wrapperDoc {
+        margin: 0 auto;
+        max-width: 1060px;
+        width: 100%;
+        padding:15px;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-size:12px;
+        font-weight:400;
+        background-color: white;
+    }
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) no-repeat center center; background-size:400px;}
+    .headingtxt {
+        text-align:center;
+        margin-bottom:15px;
+        font-weight:600;
+        font-size:15px;
+    }
+    .header .left .headingtxt { text-align: left; width:270px;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 11px; display: block;}
+    .headingtxt.mid{ padding: 1px 0; color: #e99243; border-top: 0px solid #707070; border-bottom: 0px solid #707070; margin-top: 1px; margin-bottom: 20px; text-decoration: underline;}
+    .trd-mid{ padding:0px 0; color: #333; margin-bottom:0px;  margin-top:0px}
+    .print-date {
+        text-align:right
+    }
+    .print-date span {
+        display:inline-block;
+        margin-right:10px;
+        font-size:14px;
+        color:#000;
+        font-weight:400;
+    }
+    .main-table td {
+        padding:1px 3px;
+        vertical-align:top
+    }
+    .main-table {
+        width:100%;
+        margin-top:0px;
+    }
+    #Party-2 tr td:first-child ,#Party-2.benificary-table tr td:first-child { border-left: medium none;}
+    .main-table td span {
+        display:block;
+    }
+    .text-right {
+        text-align:right
+    }
+    .footer-text-right .text-right{
+        display: block;
+    }
+    .text-left {
+        text-align:left
+    }
+    .bold-txt {
+        font-weight:600;
+    }
+    .text-center {
+        text-align:center !important
+    }
+
+    .benificary-table{ margin-top:2px; width:100%}
+    .benificary-table td {
+        padding:1px 3px;
+        vertical-align:top
+    }
+
+    .benificary-table td span {
+        display:block;
+    }
+    .big-text{ font-size:16px;}
+    .thankmsg{ font-size:13px; text-align:center; margin-top:10px;}
+    .thankmsg span{ display:block; margin-bottom:5px;}
+    /*new*/
+
+
+    /*.benificary-table tr, .main-table tr , .main-table td, .main-table td{border-color:#9f9f9f;}
+    .benificary-table , .main-table,.exemptionWrap table,.exemptionWrap table tr,.exemptionWrap table td{border-color:#9f9f9f;}*/
+
+    .party-block{ clear: both; padding-top: 10px; margin-bottom:15px;}
+    p{ margin-bottom: 0;}
+    .party-block .benificary-table{ width:50%; float: left;}
+    .party-block .benificary-table:nth-child(even){ margin-right:0;}
+
+
+    .benificary-table.terms ul {list-style: decimal inside none; margin-bottom:0px;}
+    .benificary-table.terms ul li{ padding:1px 3px; border-bottom: 1px solid #9f9f9f;}
+    .benificary-table.terms ul li span{ display: inline-block;}
+    .benificary-table.terms ul li:last-child{ padding-bottom: 0; border-bottom: none}
+    .benificary-table.terms ul{ padding-left: 0;}
+    .benificary-table.terms td{ padding: 0}
+    .benificary-table.terms td:first-of-type{width: 25px;}
+    .benificary-table.terms tr:first-child{background:none}
+    .benificary-table.terms .terms-txt span{ padding:1px 3px;}
+    .header .left{ float: left;}
+    .header .left > div{ display: inline-block;; margin-right: 10px; vertical-align: middle; width:100%; text-align:center;}
+
+    .header .right{ float: right; width: 30%; text-align:left;}
+    .thankmsg a{ color: #333333}
+    .footer > div{ display: inline-block; vertical-align: bottom; width: 49%}
+    .footer-left span{ display: block;}
+    .footer-right{ text-align: right;}
+
+    .exemptionWrap{ margin-top:15px; margin-bottom:0px;}
+    .exemptionWrap table tr:first-child{background: none}
+    .exemptionWrap table tr td{ padding:1px 3px; text-align: left;}
+    .main-tableWrap table.main-table{}
+
+    .main-tableWrap table.main-table:nth-child(odd){ margin-right:0;}
+    /*.main-tableWrap table.main-table tr td:nth-child(odd), .benificary-table tr td:nth-child(odd) span{ text-transform: lowercase;}*/
+    .main-tableWrap table.main-table tr td:nth-child(odd):first-letter,.benificary-table tr td:nth-child(odd) span:first-letter{ text-transform: uppercase;}
+
+    .main-tableWrap table.main-table:nth-child(odd) tr td:nth-child(odd){ background: none; }
+    .main-tableWrap table.main-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .table-bordered{border-collapse: collapse;}
+    .header{ text-align:center;}
+    .mainlogo{ display: inline-block;}
+    .sub-heading{border: 1px solid #9f9f9f; padding: 5px 10px;}
+    .td-width2{width: 250px;}
+    .td-width1{width: 235px;}
+    .td-middle-width{vertical-align: middle !important; width: 25px}
+    .text-center{text-align: center !important;}
+    .individual-block{padding-top: 20px; width: 100%; clear: both;}
+    .individual-block p{margin-bottom: -10px;}
+    .individual-block table{padding-top: 0px;}
+    .offset-top-35{margin-top: 35px;}
+    .offset-top-10{margin-top: 10px;}
+    .offset-top-20{margin-top: 20px;}
+    .offset-bottom-20{margin-bottom: 20px;}
+    .offset-top-50{margin-top: 50px;}
+    .footer > .fee-info {width: 100%;}
+    .tabale-col2 { width: 50%; float:left; margin-bottom: 10px; }
+    .table-outer .tabale-col2:nth-child(2n+1) { clear:left; }
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+</style>
+<% }else{ %>
+<style>
+
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) repeat-y center center;  background-size:contain; padding: 20px; min-height: 500px;}
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    td { font-size: 8px; line-height: 12px;}
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+    span{font-size: 8px  ; line-height: 12px;  }
+    div,strong,li,ul,ol{ line-height: 12px;}
+    strong{ font-weight: 400; color: #000}
+    .wrapperDoc {margin: 0 auto;max-width: 990px;padding:15px 15px;font-family: Verdana,Geneva,sans-serif;font-size:8px;line-height: 15px; color: #000000; }
+    strong { font-weight:600;}
+    .headingtxt {text-align:center; margin-bottom:5px; font-weight:400;font-size:10px;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 7px; display: block; max-width: 200px; line-height: 10px;}
+    .headingtxt.mid{ padding: 7px 0; color: #333; margin-top:5px}
+    .trd-mid{ padding:0px 0; color: #333; margin-bottom:0px;  margin-top:0px}
+    .print-date { text-align:right;}
+    .print-date span {display:inline-block;margin-right:10px;font-size:8px;font-weight:400;}
+    .main-table td {padding:1px 3px;vertical-align:top}
+    .main-table {width:100%;margin-top:0px;}
+    .main-table td span {display:block; }
+    .text-right { text-align:right}
+    .text-left {text-align:left}
+    .bold-txt {font-weight:500;}
+    .text-center {text-align:center}
+    .benificary-table{ margin-top:0px; width:100%}
+    .benificary-table td {padding:1px 3px;vertical-align:top}
+    .benificary-table td span {display:block; }
+    .big-text{ font-size:10px;}
+    .thankmsg{ font-size:8px; text-align:center; margin-top:10px;}
+    .thankmsg span{ display:block;line-height: 13px; margin-bottom: 6px;}
+
+    /*new*/
+
+
+    .party-block{ clear: both; padding-top: 10px;  margin-bottom:10px;}
+    p{ margin-bottom: 0;}
+    .party-block p{ margin-bottom: 0px;}
+    .party-block p{ margin-top:0px;}
+    .party-block .benificary-table{ width:50%; float: left;}
+    .party-block .benificary-table:nth-child(even){ margin-right: 0;}
+    .party-block .benificary-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .party-block .benificary-table:nth-child(odd) tr td:nth-child(odd){ background: none;}
+    #Party-2.benificary-table tr td:first-child{border-left:none;}
+
+    .benificary-table.terms ul {list-style: decimal inside none;color: #555; margin-bottom:0px;}
+    .benificary-table.terms ul li{ padding:1px 3px; border-bottom: thin solid #f0efef;}
+    .benificary-table.terms ul li span{ display: inline-block;}
+    .benificary-table.terms ul li:last-child{ padding-bottom: 0; border-bottom: none}
+    .benificary-table.terms ul{ padding-left: 0;}
+    .benificary-table.terms td{ padding: 0}
+    .benificary-table.terms td:first-of-type{width: 10px;}
+    .benificary-table.terms tr:first-child{background:none}
+    .benificary-table.terms .terms-txt span{ padding:1px 3px;}
+    .header .left{ float: left; width:30%; text-align:left;}
+    .header .left >div{ display: inline-block;; margin-right: 10px; vertical-align: middle;}
+    .header .right{ float: right; width: 30%;  text-align: left;}
+    .header .right span{line-height: 11px;}
+    .thankmsg a{ color: #333333}
+    .footer > div{ display: inline-block; vertical-align: bottom; width: 49%}
+    .footer-left span{ display: block;}
+    .footer-right{ text-align: right;}
+
+    .exemptionWrap{ margin-top:10px; margin-bottom:0px;color: #555}
+    .exemptionWrap table tr:first-child{background: none; padding: 5px;}
+    .exemptionWrap table tr td{ padding:1px 3px; text-align: left;
+                                /*color: #555*/
+    }
+    /*.main-tableWrap table.main-table{ width: 100% ;float: none; height: auto}*/
+
+    .main-tableWrap table.main-table:nth-child(odd){ margin-right:0;}
+    .main-tableWrap table.main-table:nth-child(odd) tr td:nth-child(odd){ background: none; }
+    .main-tableWrap table.main-table:nth-child(even) tr td:nth-child(odd){ background: none;}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:thin solid #000000}
+    .table-bordered{border-collapse: collapse;}
+    /*.main-tableWrap table.main-table tr td:nth-child(odd), .benificary-table tr td:nth-child(odd) span{ text-transform: lowercase;}*/
+    .main-tableWrap table.main-table tr td:nth-child(odd):first-letter,.benificary-table tr td:nth-child(odd) span:first-letter{ text-transform: uppercase;}
+
+    .header{ text-align:center;}
+    .mainlogo{ text-align:center; margin:0px auto; width:40%;}
+    .sub-heading{border: 1px solid #000; padding: 2px 10px; font-size: 7.3px;}
+    .td-width2{width: 100px !important;}
+    .td-width1{width: 100px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 15px !important;}
+    .text-center{text-align: center;}
+    .individual-block{padding-top: 5px; width: 100%;clear: both;}
+    .individual-block p{margin-bottom: -15px;}
+    .individual-block table{padding-top: 0px;}
+    .offset-top-35{margin-top: 15px;}
+    .offset-top-50{margin-top: 25px;}
+    .offset-top-10{margin-top: 10px;}
+    .offset-top-20{margin-top: 10px;}
+    .offset-bottom-20{margin-bottom: 10px;}
+    .footer > .fee-info {width: 100%;}
+    .footer-text-right .text-right{
+        display: block;
+    }
+    .tabale-col2 { width: 50%; float:left; margin-bottom: 10px; }
+    .table-outer .tabale-col2:nth-child(2n+1) { clear:left; }
+    .td-width2.td-width3{width: 200px !important;}
+    .pdf-td-mid-width{width: 36px !important;}
+    .pdf-td-width{width: 200px !important}
+    .pdf-break-word{word-break: break-all;}
+    //.table-outer table:last-of-type .td-width1 { border-left: none; }
+    .firstPageFooter{height: 30px;}
+</style>
+<% } %>
+<div class="wrapperDoc va-top">
+    <div class="wrapperDoc-inner">
+        <div class="header clearfix">
+            <div class="left left-40">
+                <div class="headingtxt"> NATIONAL ARBITRAL TRIBUNAL <span>(An Permanent Arbitral Institute constituted under the provision of Arbitration and Conciliation Act, 1996)</span><span>Wholly Owned by Legal Resolution Centre Pvt. Ltd.</span> </div>
+            </div>
+            <div class="right right-40">
+                <div><span>HEAD OFFICE: <%= settingData.head_office %></span></div>
+                <div><span><%= settingData.website %></span></div>
+                <div><span><%= settingData.email %></span></div>
+                <div><span>contact no : <%= settingData.phone %></span></div>
+            </div>
+            <div class="mainlogo"><img src="<%= site.fullUrl %>/images/nat_logo_round.png"  style="height:70px; width:auto; vertical-align:middle"></div>
+
+        </div>
+        <div class="headingtxt mid"><strong>NYAYA CARD CUM CERTIFICATE OF EXEMPTION </strong></div>
+        <div class="text-center sub-heading bordered">COMPANY'S DECLEARATION: - LEGAL RESOLUTION CENTRE PVT. LTD (LRC) is incorporated under the Companies Act, 1956 and LRC has established the Permanent Arbitral Institute under the name "NATIONAL ARBITRAL TRIBUNAL" for providing the Arbitration services to NYAYAY CARD holders in accordance with National Arbitral Tribunal (Procedural) Rules, 2017.</div>
+        <div class="main-tableWrap clearfix">
+            <!--<div class="individual-block">-->
+            <!-- New table  -->
+            <div class="table-responsive offset-top-20">
+                <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+                    <tr>
+                        <td align="center" colspan="3"><strong>Issuing Office Details </strong></td>
+                        <td align="center" colspan="3"><strong>Source Details </strong></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Issuing Office</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min" style="text-transform: capitalize;"> Legal Resolution Centre Pvt. Ltd., Jodhpur</td>
+                        <% JSON.stringify(data)%>
+                        <% if(data.user_freeze != null){ %>
+
+
+                        <td class="td-width1"><strong>Professional(<%= data.user_freeze.user_role_freeze.role_type_name %>)</strong></td>
+
+                        <td align="center" class="td-middle-width" >:</td>
+                        <td class="td-width2">
+                            <% if(data.user_freeze.gender=='male'){ %>
+                            Mr.
+                            <% }else{ %>
+                            Mrs.
+                            <% } %>
+                            <%= data.user_freeze.first_name %></td>
+
+                        <% } else if(data.user.user_role.role.role_slug == 'professional'){ %>
+                        <% JSON.stringify(data)%>
+
+                        <td class="td-width1"><strong>Professional(<%= data.user.user_role.role_type_name %>)</strong></td>
+
+                        <td align="center" class="td-middle-width" >:</td>
+                        <td class="td-width2">
+                            <% if(data.user.gender=='male'){ %>
+                            Mr.
+                            <% }else{ %>
+                            Mrs.
+                            <% } %>
+                            <%= data.user.first_name %>
+                        </td>
+
+                        <% } else { %>
+                        <td class="td-width1" ><strong>Professional</strong></td>
+                        <td align="center" class="td-middle-width" >:</td>
+                        <td class="td-width2" >&nbsp;</td>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Address</strong></td>
+                        <td align="center" class="td-middle-width"  >:</td>
+                        <td class="td-width2 td-width-min"><%= settingData.head_office %></td>
+                        <% if(data.user_freeze != null){ %>
+                        <td class="td-width1"><strong>Id No.</strong></td>
+                        <td align="center" class="td-middle-width"  >:</td>
+                        <td class="td-width2"><%= data.user_freeze.gid %></td>
+                        <% } else if(data.user.user_role.role.role_slug == 'professional'){ %>
+                        <td class="td-width1"><strong>Id No.</strong></td>
+                        <td align="center" class="td-middle-width"  >:</td>
+                        <td class="td-width2"><%= data.user.gid %></td>
+                        <% } else { %>
+                        <td class="td-width1" ><strong>Id No.</strong></td>
+                        <td align="center" class="td-middle-width" >:</td>
+                        <td class="td-width2" >&nbsp;</td>
+                        <% } %>
+
+                        <!--                        <td class="td-width1"><strong>Id No.</strong></td>
+                                                <td align="center" class="td-middle-width"  >:</td>
+                                                <td class="td-width2"><%= data.user.gid %></td>-->
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Phone No.</strong></td>
+                        <td align="center" class="td-middle-width"  >:</td>
+                        <td class="td-width2 td-width-min">0291-2546544/2547544</td>
+
+                        <% if(data.user_freeze != null){ %>
+                        <td class="td-width1"><strong>Mobile No.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.user_freeze.mobile %></td>
+                        <% } else if(data.user.user_role.role.role_slug == 'professional'){ %>
+                        <td class="td-width1"><strong>Mobile No.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.user.mobile %></td>
+                        <% } else { %>
+                        <td class="td-width1" ><strong>Mobile No.</strong></td>
+                        <td align="center" class="td-middle-width" >:</td>
+                        <td class="td-width2" >&nbsp;</td>
+                        <% } %>
+                        <!--                        <td class="td-width1"><strong>Mobile No.</strong></td>
+                                                <td align="center" class="td-middle-width">:</td>
+                                                <td class="td-width2"><%= data.user.mobile %></td>-->
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Email</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2 td-width-min"><span class="pdf-break-word">customercare@nyayaportal.in</span></td>
+                        <td class="td-width1"><strong>
+                                Service Provider
+                            </strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">
+                            <% if(data.user.user_role.role.role_slug == 'service_provider'){ %>
+                            <%= data.user.first_name %>
+                            <% } else { %>
+                            &nbsp;
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>GSTIN</strong></td>
+                        <td align="center" class="td-middle-width"  >:</td>
+                        <td class="td-width2 td-width-min"><%= settingData.gstin_no %></td>
+                        <td class="td-width1"><strong>Id No.</strong></td>
+                        <td align="center" class="td-middle-width"  :</td>
+                    <td class="td-width2">
+                        <% if(data.user.user_role.role.role_slug == 'service_provider'){ %>
+                        <%= data.user.gid %>
+                        <% } else { %>
+                        &nbsp;
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>State Code</strong></td>
+                    <td align="center" class="td-middle-width"  >:</td>
+                    <td class="td-width2 td-width-min"><%= settingData.state_code %></td>
+                    <td class="td-width1"><strong>Mobile No.</strong></td>
+                    <td align="center" class="td-middle-width"  >:</td>
+                    <td class="td-width2">
+                        <% if(data.user.user_role.role.role_slug == 'service_provider'){ %>
+                        <%= data.user.mobile %>
+                        <% } else { %>
+                        &nbsp;
+                        <% } %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!--</div>-->
+        <div class="individual-block" style="float: left;">
+            <div class="headingtxt sec-mid"><strong>Particulars</strong></div>
+            <div class="table-responsive offset-top-10">
+                <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+                    <tr>
+                        <td class="td-width1"><strong>Invoice/Receipt No.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.invoice_no %></td>
+                        <td class="td-width1"><strong>Type of Document</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.service_details_id %> (<%= data.service_detail_documents_id %>)</td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Invoice/Receipt Date</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.momentObj(data.added_date).format("DD-MM-YYYY") %></td>
+                        <td class="td-width1"><strong>Document Value</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.agreement_value %></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Gross Fee</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%
+                            var grFee=data.fess.arbitration_agreement_total_fees_without_tax;
+
+                            if(data.fess.arbitration_agreement_total_discount){
+                            grFee=grFee+parseFloat(data.fess.arbitration_agreement_total_discount)
+                            }
+
+                            %>
+                            <%= parseFloat(grFee).toFixed(2); %></td>
+                        <td class="td-width1"><strong>Document executed on stamp paper number</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.stamp_number %></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>No Claim Bonus
+                                <% if(data.fess.arbitration_agreement_renew_discount_per != '') {%>
+                                (<%= parseFloat(data.fess.arbitration_agreement_renew_discount_per) %> %)
+                                <% } %>
+                            </strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">
+                            <% if(data.fess.arbitration_agreement_renew_discount != '') {%>
+                            <%= parseFloat(data.fess.arbitration_agreement_renew_discount).toFixed(2); %>
+                            <% } else { %>
+                            0
+                            <% } %>
+                        </td>
+                        <td class="td-width1"><strong>Date of execution</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.momentObj(data.stamp_date).format("DD-MM-YYYY") %></td>
+
+                    </tr>
+                    <tr>
+
+                        <td class="td-width1"><strong>Discount (<%= data.fess.arbitration_agreement_services_discount_per %>%)</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">
+                            <% if(data.fess.arbitration_agreement_services_discount > 0){ %>
+                            -<%= data.fess.arbitration_agreement_services_discount %>
+                            <% } else { %>
+                            0
+                            <% } %>
+                        </td>
+                        <td class="td-width1"><strong>Document W.E.F.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.momentObj(data.document_valid_from).format("DD-MM-YYYY") %></td>
+
+                    </tr>
+                    <tr>
+                        <!--                        <td class="td-width1"><strong>No Dispute bonus (<%= data.fess.arbitration_agreement_renew_discount_per %>%)</strong></td>
+                                                <td align="center" class="td-middle-width">:</td>
+                                                <td class="td-width2">
+                                                    <% if(data.fess.arbitration_agreement_renew_discount > 0){ %>
+                                                    -<%= data.fess.arbitration_agreement_renew_discount %>
+                                                    <% } else { %>
+                                                    0
+                                                    <% } %>
+                                                </td>-->
+                        <td class="td-width1"><strong>GST</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= parseFloat(parseFloat(data.fess.arbitration_agreement_total_fees_tax) + parseFloat(data.fess.arbitration_agreement_total_fees_cess)).toFixed(2)  %></td>
+
+                        <td class="td-width1"><strong>Document valid up to</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.momentObj(data.document_valid_to).format("DD-MM-YYYY") %></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Net Fees</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.formatCurrencyObj(data.fess.arbitration_agreement_total_fees) %></td>
+
+                        <td class="td-width1"><strong>Document executed at</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.stamp_town %>,<%= data.stamp_district_id %>,<%= data.stamp_division_id %>,<%= data.stamp_state_id %></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Mode of Payment</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">
+                            <% if(data.is_active == 3 || data.paid_by != null){ %>
+                            Offline
+                            <% }else {%>
+                            Online
+                            <% } %>
+                        </td>
+
+                        <td class="td-width1"><strong>Others (if any)</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">&nbsp;</td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div class="individual-block">
+            <div class="table-responsive offset-top-10">
+                <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+                    <tr>
+                        <td class="td-width1"><strong>Nyaya Card No.</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.ar_id %></td>
+                        <td class="td-width1"><strong>Previous Nyaya Card No. (if any)</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><% if(data.parent_arbitration_agreements_id != 0){ %>
+                            <%= data.parent_date.ar_id %>
+                            <% } %></td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Valid Period of Nyaya Card</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= site.momentObj(data.fess.nc_start_date).format("DD-MM-YYYY") %> To <%= site.momentObj(data.fess.nc_end_date).format("DD-MM-YYYY") %> 11:59:59 PM</td>
+                        <td class="td-width1"><strong>Valid Period of Previous Nyaya Card (if any)</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2">
+                            <% if(data.parent_arbitration_agreements_period != null){ %>
+                            <%= data.parent_arbitration_agreements_period %>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-width1"><strong>Arbitration Agreement Id No. & Date</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"><%= data.aa_id %> & <%= site.momentObj(dateTimeConvert(data.added_date)).format('DD-MM-YYYY') %></td>
+                        <td class="td-width1"><strong>Other details (if any)</strong></td>
+                        <td align="center" class="td-middle-width">:</td>
+                        <td class="td-width2"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+        <!-- / individual-block -->
+
+        <div class="individual-block">
+            <div class="headingtxt sec-mid"><strong>Beneficiaries Details</strong></div>
+            <div class="table-outer">
+                <div class="table-responsive">
+                    <% data.members.forEach(function(rows,key){ %>
+                    <table cellpadding="0" cellspacing="0" class="main-table table-bordered offset-bottom-20" >
+                        <tr>
+                            <td class="td-width1"><strong>Name</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_title %> <%= rows.member_name %>
+                                <% if(rows.business_name && rows.business_name != ''){ %>
+                                <br>
+                                On Behalf of <%= rows.business_name %> (<%= rows.designation %>)
+                                <% } %>
+                                <% if(rows.on_behalf_of && rows.on_behalf_of != ''){ %>
+                                <br>
+                                On Behalf of <%= rows.on_behalf_of %>
+                                <% } %></td>
+                            <td class="td-width1"><strong>In Document beneficiary referred as</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2">Party-<%= rows.arbitration_agreement_party_number %></td>
+                        </tr>
+
+                        <!--                        <tr>
+                                                    <td class="td-width1"><strong>In Document beneficiary referred as</strong></td>
+                                                    <td align="center" class="td-middle-width">:</td>
+                                                    <td class="td-width2">Party-<%= rows.arbitration_agreement_party_number %></td>
+                                                </tr>-->
+
+                        <tr>
+                            <td class="td-width1"><strong>Address</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_address %></td>
+                            <td class="td-width1"><strong>City/Town</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_town %></td>
+                        </tr>
+
+                        <!--                        <tr>
+                                                    <td class="td-width1"><strong>City/Town</strong></td>
+                                                    <td align="center" class="td-middle-width">:</td>
+                                                    <td class="td-width2"><%= rows.member_district_id %></td>
+                                                </tr>-->
+
+                        <tr>
+                            <td class="td-width1"><strong>Pin code</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_pincode %></td>
+                            <td class="td-width1"><strong>Contact Number</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_mobile_number %></td>
+                        </tr>
+
+                        <!--                        <tr>
+                                                    <td class="td-width1"><strong>Contact Number</strong></td>
+                                                    <td align="center" class="td-middle-width">:</td>
+                                                    <td class="td-width2"><%= rows.member_mobile_number %></td>
+                                                </tr>-->
+
+                        <tr>
+                            <td class="td-width1"><strong>Email Id</strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.member_email %></td>
+                            <td class="td-width1"><strong><%= rows.govt_id_type %></strong></td>
+                            <td align="center" class="td-middle-width">:</td>
+                            <td class="td-width2"><%= rows.govt_id_number %></td>
+
+                        </tr>
+                    </table>
+                    <% if(show==0 && key == 0){ %>
+                    <div class="firstPageFooter"></div>
+                    <% } %>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+        <!-- / individual-block -->
+        <br>
+
+        <!--      <div class="header clearfix">
+                <div class="left">
+                  <div class="headingtxt"> NATIONAL ARBITRAL TRIBUNAL <span>(An Permanent Arbitral Institute constituted under the provision of Arbitration and Conciliation Act, 1996)</span> </div>
+                </div>
+                <div class="mainlogo"><img src="<%= site.fullUrl %>/images/nat_logo_round.png"  style="height:70px; width:auto; vertical-align:middle"></div>
+                <div class="right">
+                  <div><span>HEAD OFFICE: <%= settingData.head_office %></span></div>
+                  <div><span><%= settingData.website %>, <%= settingData.email %></span></div>
+                  <div><span>contact no : <%= settingData.phone %></span></div>
+                </div>
+              </div>-->
+
+    </div>
+    <div class="exemptionWrap">
+        <div class="offset-top-20">
+            <table cellpadding="0" cellspacing="0" class="table-bordered">
+                <tr>
+                    <td class="text-center"><div class="headingtxt trd-mid"><strong>LIMITS OF EXEMPTION</strong></div></td>
+                </tr>
+                <tr>
+                    <td style="text-align: justify;">
+                        <!--If any dispute arises between the beneficiaries of this Nyaya Card regarding to above-mentioned document and if that dispute is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of Nyaya card, then <strong>100%</strong> of arbitrator and administrative fee as specified in Schedule -1 of National Arbitral Tribunal (Procedural) Rules, 2017 shall be exempted. Arbitrating parties are entitled to enjoy the exemption from fee only once during the validity of Nyaya Card. If either party is in disagreement with the arbitration result and appeal to second arbitration is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of 60 days from the date of arbitration result, then <strong>40%</strong> of arbitrator and administrative fee as specified in <strong>Schedule - 1</strong> of National Arbitral Tribunal (Procedural) Rules shall be exempted.-->
+                        <% if(data.agreement_type == 'single'){ %>
+                        If any dispute arises between the beneficiaries of this Nyaya Card regarding to above-mentioned document and if that dispute is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of Nyaya card, then <strong>100%</strong> of arbitrator and administrative fee as specified in Schedule -1 of National Arbitral Tribunal (Procedural) Rules, 2017 shall be exempted. Arbitrating parties are entitled to enjoy the exemption from fee only once during the validity of Nyaya Card.
+                        <% } else if(data.agreement_type == 'two') {%>
+                        If any dispute arises between the beneficiaries of this Nyaya Card regarding to above-mentioned document and if that dispute is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of Nyaya card, then <strong>100%</strong> of arbitrator and administrative fee as specified in <strong>Schedule -1</strong> of National Arbitral Tribunal (Procedural) Rules, 2017 shall be exempted. Arbitrating parties are entitled to enjoy the exemption from fee only once during the validity of Nyaya Card. If either party is in disagreement with the arbitration result and appeal to second arbitration is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of 60 days from the date of arbitration result, then <strong>40%</strong> of arbitrator and administrative fee as specified in <strong>Schedule - 1</strong> of National Arbitral Tribunal (Procedural) Rules shall be exempted.
+                        <% } %>
+                    </td>
+                    <!-- <td><% if(data.agreement_type=='single'){ %>
+                      <p>If any dispute arises between the parties above mentioned and if that dispute is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period, then arbitrator and administrative fee as specified in <strong>Schedule- I</strong> of National Arbitral Tribunal (Procedural) Rules will be <strong><%= data.fess.examption_fee_payable %> %</strong> exempted. Arbitrating parties are entitled to enjoy the exemption from fee only once during the validity of Nyaya Card. </p>
+                      <% }else{ %>
+                      <p>If any dispute arises between the parties above mentioned and if that dispute is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period, then <strong><%= data.fess.examption_fee_payable %> %</strong> of arbitrator and administrative fee as specified in <strong>Schedule- I</strong> of National Arbitral Tribunal (Procedural) Rules shall be exempted. Arbitrating parties are entitled to enjoy the exemption from fee only once during the validity of Nyaya Card.
+                        If either party is in disagreement with the arbitration result and appeal to a second arbitration is submitted to NATIONAL ARBITRAL TRIBUNAL within a valid period of <strong>60 days</strong> from the date of arbitration result, then <strong><%= data.fess.examption_appeal_payable %> %</strong> of arbitrator and administrative fee as specified in <strong>Schedule- I</strong> of National Arbitral Tribunal (Procedural) Rules shall be exempted. </p>
+                      <% } %></td> -->
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- <div class="party-block clearfix">
+      <p><strong>THE BENEFICIARY(S) DETAIL</strong></p>
+      <% data.members.forEach(function(rows){ %>
+
+      <table cellpadding="0" cellspacing="0"  class="benificary-table table-bordered" id="Party-<%= rows.arbitration_agreement_party_number %>">
+        <tr>
+          <td><span>NAME</span></td>
+          <td><span> <strong> <%= rows.member_title %> <%= rows.member_name %>
+            <% if(rows.business_name && rows.business_name != ''){ %>
+            <br>
+            On Behalf of <%= rows.business_name %> (<%= rows.designation %>)
+            <% } %>
+            <% if(rows.on_behalf_of && rows.on_behalf_of != ''){ %>
+            <br>
+            On Behalf of <%= rows.on_behalf_of %>
+            <% } %>
+            </strong> </span></td>
+        </tr>
+        <tr>
+          <td><span>IN DOCUMENT BENEFICIARY(S) REFFERED AS</span></td>
+          <td><span><strong>Party-<%= rows.arbitration_agreement_party_number %></strong></span></td>
+        </tr>
+        <tr>
+          <td><span>CONTACT NUMBER</span></td>
+          <td><span><strong><%= rows.member_mobile_number %></strong></span></td>
+        </tr>
+        <tr>
+          <td><span>Email ID</span></td>
+          <td><span><strong><%= rows.member_email %></strong></span></td>
+        </tr>
+        <tr>
+          <td><span>ADDRESS </span></td>
+          <td><span><strong><%= rows.member_address %></strong></span></td>
+        </tr>
+        <tr>
+          <td><span>CITY</span></td>
+          <td><span><strong><%= rows.member_district_id %></strong></span></td>
+        </tr>
+        <tr>
+          <td><span>POSTAL CODE</span></td>
+          <td><span><strong><%= rows.member_pincode %></strong></span></td>
+        </tr>
+      </table>
+      <% }); %>
+    </div> -->
+
+    <table cellpadding="0" cellspacing="0" class="benificary-table terms offset-top-20">
+        <tr>
+            <td class="terms-txt" colspan="2"><div class="headingtxt text-left">Terms and Conditions</div></td>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td>If any dispute arises between the beneficiaries of this Nyaya Card regarding to above-mentioned document, that dispute will be finally settled/resolved by arbitration in accordance with National Arbitral Tribunal (Procedural) Rules, 2017.</td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>If any false/incorrect/misguiding information is furnished by any of the parties then beneficiaries of Nyaya Card would not be eligible for any benefits under this Nyaya Card.</td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Arbitration services is limited to National Arbitral Tribunal's regional office’s territory. </td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>After expiry of this Nyaya Card, exemptions granted won't be applicable.</td>
+        </tr>
+    </table>
+
+    <p class="thankmsg"><span style="text-align: justify;">We recommend that you read the Nyaya Card documentation carefully and contact us if there is anything incorrect. It is important to us that you furnish your all details correctly, which help us to provide you with fast and efficient services. </span>
+    </p>
+
+    <p class="thankmsg">
+        <span style="text-align: justify;">
+            We are available to assist you in relation to this Nyaya Card. Contact us by email: <a href="mailto:customercare@nyayaportal.in"> customercare@nyayaportal.in</a> Please refer your Nyaya Card No. for further correspondence.
+        </span>
+
+    </p>
+    <p class="thankmsg">
+        <span style="text-align: justify;">
+            <strong style="font-weight: 600;">Statutory Alert :</strong> The Authenticity of this Nyaya Card should be verified at <a href="http://www.nyayaportal.in/">www.nyayaportal.in</a> Any discrepancy in the details on this Nyaya Card and as available on the website renders it invalid.
+        </span>
+
+    </p>
+    <div class="footer clearfix offset-top-35">
+        <div class="footer-text-left">
+            <span class="text-left"> <strong>Date of Issue: <%= site.momentObj(dateTimeConvert(data.added_date)).format('DD-MM-YYYY') %></strong></span>
+        </div>
+        <div class="footer-text-right">
+            <div class="footer-logo" style="text-align: right;margin-right: 17px;">
+                <span > <img src="<%= site.fullUrl %>/images/nat_logo_round.jpeg"  style="height:50px; width:auto;vertical-align: middle;"> </span>
+                <span>Thank you for choosing us.</span>
+            </div>
+            <div>
+                <span class="text-right"><strong>Authorised Signatory, For & on behalf of</span> <span class="text-right">LEGAL RESOLUTION CENTRE PVT. LTD.</strong></span>
+            </div>
+        </div>
+
+        <!-- <div class="footer-left"> <span class="text-left">For & on behalf of</span> <span class="text-left">LEGAL RESOLUTION CENTRE PVT. LTD.</span> <span class="text-left">Duly authorized e-signatory. </span> <span class="big-text bold-text text-left">(E-signature)</span> </div> -->
+        <% if(show==1){ %>
+        <div class="fee-info offset-top-35 text-center"> 
+            <a class="btn btn-primary button-next" href="/admin/arbitration_agreements/download_naya_card/<%= data.id %>/0">Download Nyaya Card</a>
+            <a class="btn btn-primary button-next" href="/admin/arbitration_agreements/invoice/<%= data.id %>/1">Get Invoice</a> 
+        </div>
+        <% } %>
+    </div>
+    <% if(show==0){ %>
+    <p class="thankmsg" style="margin-top: 30px;">
+        <span style="text-align: justify;">
+            This is a computer generated document and does not require signature.
+        </span>
+
+    </p>
+    <% } %>
+</div>
+</div>

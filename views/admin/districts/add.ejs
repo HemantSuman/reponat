@@ -1,0 +1,89 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        <!-- /.box-header --> 
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Countries<em>*</em></label>
+                            <select   name="country_id" id="country_id" class="select2 form-control" 
+                                onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [Number(this.value), 1], 'state_name asc', 'state_id', ['id', 'state_name'], ['division_id']);">
+                                <option value="">--Please Select--</option>
+                                <% results.countries.forEach(function(val, key) { %>
+                                <option value="<%= val['id'] %>" ><%= val['country_name'] %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="country_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">States<em>*</em></label>
+                            <select name="state_id" id="state_id" class="select2 form-control"
+                                    onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [Number(this.value), 1], 'division_name asc', 'division_id', ['id', 'division_name'], []);"
+                                    >
+                                <option value="">--Please Select--</option>
+                            </select>
+                            <label class="error_mgs_lable" id="state_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Divisions<em>*</em></label>
+                            <select class="form-control select2" name="division_id" id="division_id" >
+                                <option value="">--Please Select--</option>
+                            </select>
+                            <label class="error_mgs_lable" id="division_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">   
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">District Name<em>*</em></label>
+                            <input type="text" class="form-control" id="district_name"  name='district_name' >
+                            <label class="error_mgs_lable" id="district_name_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">District Code<em>*</em></label>
+                            <input type="text" class="form-control" id="district_code"  name='district_code' >
+                            <label class="error_mgs_lable" id="district_code_error"></label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="chk-outer">
+                               <!-- <label class="opacity-0lab"></label>    -->     
+                                <input type="checkbox" name="is_active"  id="is_active" checked ><label for="is_active">    Status
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                            <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                            </div>
+                        </div>
+                    </div>
+        
+    </div>
+</section>
+
+<script>
+
+</script>

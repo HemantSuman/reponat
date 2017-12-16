@@ -1,0 +1,114 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+                <div class="filterBarRight">
+                   <a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-plus"></i> Add New</a> 
+                </div>
+            </div>
+                
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='get'>
+                         <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>#Id</th>
+                                    <th>Services Category</th>
+                                    <th>Slab Name</th>
+
+                                    <th>Head Name</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th >Actions</th>
+                                </tr>
+
+                                <tr>
+                                    
+
+                                    <th colspan="3">
+                                        <div class="custom-select-outer">
+                                        <select class="form-control select2"  name="service_details_id" id="service_details_id">
+                                            <option value='' selected>Select Category</option>    
+                                            <% resultSearch.services.forEach(function(rows){ %>
+                                            <option value="<%= rows.id %>" <% if(extraVar['query']['service_details_id']==rows.id){ %>selected<% } %>><%= rows.service_details_name %></option>
+                                            <% }); %>
+                                        </select>    
+                                         </div>
+
+                                    </th>
+
+
+                                    <th colspan="3">
+                                         <div class="custom-select-outer">
+                                        <select class="form-control select2" name="slab_id" id="slab_id">
+                                            <option value='' selected>Select Slab</option>
+                                            <% resultSearch.slabs.forEach(function(rows){ %>
+                                            <option value="<%= rows.id %>" <% if(extraVar['query']['slab_id']==rows.id){ %>selected<% } %> ><%= rows.name %></option>
+                                            <% }); %>
+                                        </select>     
+                                        </div>                 
+                                    </th>
+
+                                   
+                                    <th>
+                                        <a class="btn btn-success" href="javascript:document.getElementById('searchData').submit();" title="Search" >
+                                            <i class="fa fa-search"></i>
+                                        </a>    
+                                        <a title="search" href="/admin/slab-heads/<%= extraVar.product_id %>" class="btn btn-success blue">Clear Search</a>
+
+                                    </th>
+                                </tr>
+
+
+                                <% results.forEach(function(rows){ %>
+                                <tr>
+                                    <td><%= rows.fee_id %></td>
+                                    <td><%= rows.service_details_name %></td>
+                                    <td><%= rows.name %></td>
+                                    <td><%= rows.heads_name %></td>
+                                    <td>
+                                        <% if(rows.fee_type==1){ %>
+                                            <%= rows.amount %> %                              
+                                        <% }else{ %>
+                                            Rs. <%= rows.amount %>
+                                        <% } %> 
+                                    </td>
+                                    <td>
+                                        <% if(rows.is_active==1){ %>
+                                        <span class="label label-success">Active</span>                               
+                                        <% }else{ %>
+                                        <span class="label label-danger">Inactive</span>
+                                        <% } %>
+
+                                    </td>
+                                    <td>
+
+                                        <a class="btn btn-success btn-xs" href="/admin/slab-heads/edit/<%= extraVar.product_id %>/<%= rows.sh_id %>" title="Edit" >
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/slab-heads/delete/<%= rows.sh_id %>/<%= extraVar.product_id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                    </td>
+
+                                </tr>
+                                <% }); %>
+
+
+                            </table>
+                         </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                               <%- include ../helper/pagination_with_product_id.ejs %>
+
+                        </div>
+                    </div>
+                         
+         
+    </div>
+</section>

@@ -1,0 +1,413 @@
+<section class="content">
+
+    <div class="panel panel-default">
+        <input type="hidden" value="<%= data.id %>" id="arbitration_id1" >
+        <div class="panel-heading">Please Select Signature Procedure</div>
+        <div class="panel-body">
+
+            <div class="eaggrement">
+              <%# JSON.stringify(data.members.length); %>
+                <% if(data.members.length < 7){ %>
+                <div class="text-center">
+                <a id="get_esign" class="btn" href="/admin/arbitration_agreements/e_sign/<%= data.id %>">GET E-Sign For Your Document (Recommended)</a>
+                </div>
+
+                <p style="text-align:center"><b>OR</b></p>
+                <% } %>
+
+                <div class="text-center">
+                <a id="get_esign" class="btn" href="/admin/arbitration_agreements/view_agreement/<%= data.id %>/1/1">Go With Manual Signature Process</a>
+                </div>
+
+
+                
+                <br>
+                <p><strong>NOTE:</strong></p> 
+
+                <p>
+                For E-sign you must carry AADHAR NUMBER . Please ensure Aadhar number availability to proceed further.
+                </p>
+
+                <p>
+                For E-sign you must carry same mobile number,which is being registered with same aadhar number.
+                </p>
+               
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+<script src="/admin/js/digio.js" ></script>
+<script>
+var docId='<%= data.esign_id %>';
+var processId;
+var aa_id='<%= data.aa_id %>'
+var ar_id='<%= data.id %>'
+var m_otp;
+var m_id;
+
+
+function verify_opt(){
+
+	if(m_id=='w1' || m_id=='w2'){
+
+	$.ajax({
+           url: '/admin/arbitration_agreements/check_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:m_id,mobile_otp:$('#'+m_otp).val(),id:ar_id},
+           cache: false,
+           success: function (response) {
+           		 var response = JSON.parse(response);
+           	     if(response.status){
+               	 $(".hide_verify_click_"+m_id).hide();
+				 $('#myModal').modal('hide');
+				 $('#verify_sts_'+m_id).val(1);
+				 allChk();
+				}else{
+				alert(response.message);	
+				//bootstrapNotify.showMessage(response.message);	
+				}
+           }
+    });		
+
+	}else{
+
+	$.ajax({
+           url: '/admin/arbitration_agreements/check_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:m_id,mobile_otp:$('#'+m_otp).val(),id:ar_id},
+           cache: false,
+           success: function (response) {
+
+           		 var response = JSON.parse(response);
+
+           		 console.log(response);	
+           		 console.log(response.status);
+
+           	     if(response.status){
+               	 $(".hide_verify_click_"+m_id).hide();
+				 $('#myModal').modal('hide');
+				 $('#verify_sts_'+m_id).val(1);
+				 allChk();
+				 }else{
+				alert(response.message); 	
+				//bootstrapNotify.showMessage(response.message);	 	
+				}
+
+        }
+    });	
+
+    }
+    
+}
+
+
+	function m_verfiy(slug,id){
+
+	 if(id=='w1' || id=='w2'){
+
+	 var w_type='otp_w1';
+
+	 if(id=='w2')	
+     	w_type='otp_w2';
+
+	 $.ajax({
+           url: '/admin/arbitration_agreements/resend_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:id,id:ar_id},
+           cache: false,
+           success: function (response) {
+               	 $('.hide_pop').hide();	
+				 $('#'+slug+id).show(); 	
+				 $('#myModal').modal('show');
+
+				 m_otp=w_type;
+				 m_id=id;
+           }
+     });	
+	 
+	 }else{	
+	 $.ajax({
+           url: '/admin/arbitration_agreements/resend_otp_for_members',
+           dataType: 'html',
+           method: "POST",
+           data:{member_id:id},
+           cache: false,
+           success: function (response) {
+               	 $('.hide_pop').hide();	
+				 $('#'+slug+id).show(); 	
+				 $('#myModal').modal('show');
+
+				 m_otp='otp_'+id;
+				 m_id=id;
+           }
+       });
+	   }	
+	}
+
+
+
+
+
+    $(document).on('click', '#viewNextButton', function () {
+        var checkBoxStatus = false;
+        $('input[name="otp_manual"]').each(function (index, value) {
+            var thisObjChk = $(this);
+
+            if (!$(thisObjChk).is(':checked')) {
+                checkBoxStatus = true;
+            }
+        });
+        if (checkBoxStatus) {
+            $('#myModal').modal('show');
+        } else {
+            var hrefval = $('#finalSubmit').attr('href');
+            window.location = hrefval;
+        }
+
+    });
+
+//    $(document).on('click', '#finalSubmit', function () {
+//        var dataId = $('#arbitration_id1').val();
+//        $.ajax({
+//            url: '/admin/arbitration_agreements/view_agreement/' + dataId + '/1',
+//            dataType: 'html',
+//            method: "GET",
+//            cache: false,
+//            success: function (response1) {
+//                $('#myModal').modal('hide');
+//                $('body').removeClass('modal-open');
+//                $('.modal-backdrop').remove();
+//                $('#tab4').html(response1);
+//            }
+//        });
+//    });
+
+  $(document).on('click', '#get_esign', function () {
+
+  	var arrData=[];
+  	var r_type='sandbox';
+
+  	$('input[name="otp_manual"]').each(function (index, value) {
+
+
+    var thisObjChk = $(this);
+    var chkVal=thisObjChk.val();
+
+    if (!$(thisObjChk).is(':checked')) {
+    var dataObj={};	
+    dataObj['identifier']=$('#ph_'+chkVal).val();
+    dataObj['aadhaar_id']=$('#ad_'+chkVal).val();
+    dataObj['reason']=r_type;
+    arrData.push(dataObj);
+    
+    console.log(chkVal);
+    //$("#link_"+chkVal).show();
+    }
+    });
+
+  	if ($('#otpesign_w_1').length && !$('#otpesign_w_1').is(':checked')) {
+  	var dataObj={};	
+  	dataObj['identifier']=$('#ph_w1').val();
+    dataObj['aadhaar_id']=$('#ad_w1').val();
+    dataObj['reason']=r_type;
+    //$("#link_w1").show();
+    arrData.push(dataObj);	
+
+  	}	
+
+
+  	if ($('#otpesign_w_2').length && !$('#otpesign_w_2').is(':checked')) {
+  	var dataObj={};	
+  	dataObj['identifier']=$('#ph_w2').val();
+    dataObj['aadhaar_id']=$('#ad_w2').val();
+    dataObj['reason']=r_type;
+    //$("#link_w2").show();
+    arrData.push(dataObj);	
+
+  	}
+
+
+  	if(arrData.length){
+  	//if(0){
+  	$.ajax({
+           url: '/admin/arbitration_agreements/e_sign_api/'+aa_id,
+           //dataType: 'html',
+           data:{formData:arrData},
+           method: "POST",
+           cache: false,
+           success: function (response) {
+
+           	   if(response.status){
+               console.log(response.data);
+               docId=response.data
+               $("#get_esign").hide();
+
+               $('input[name="otp_manual"]').each(function (index, value) {
+               var thisObjChk = $(this);
+    		   var chkVal=thisObjChk.val();	
+               if (!$(thisObjChk).is(':checked')) {
+    			$(".link_"+chkVal).show();
+    		    }
+
+    		   });
+               $(".link_w2").show();
+               $(".link_w1").show();
+
+              }else{
+              alert('Invalid details');	
+              }
+           }
+       });   
+  	}
+  });
+  
+
+  // $(document).on('click', '#viewNextButton', function () {
+        
+  //       // var checkBoxStatus = false;
+  //       // $('input[name="otp_manual"]').each(function (index, value) {
+  //       //     var thisObjChk = $(this);
+
+  //       //     if (!$(thisObjChk).is(':checked')) {
+  //       //         checkBoxStatus = true;
+  //       //     }
+  //       // });
+  //       // if (checkBoxStatus) {
+  //       //     $('#myModal').modal('show');
+  //       // } else {
+  //       //     var hrefval = $('#finalSubmit').attr('href');
+  //       //     window.location = hrefval;
+  //       // }
+
+		// $.ajax({
+  //          url: '/admin/arbitration_agreements/e_sign_api',
+  //          dataType: 'html',
+  //          method: "POST",
+  //          cache: false,
+  //          success: function (response1) {
+  //              console.log(response1);
+  //          }
+  //      });        
+
+  //   });	
+
+
+   $(document).on('click', '#finalSubmit', function () {
+       var dataId = $('#arbitration_id1').val();
+       $.ajax({
+           url: '/admin/arbitration_agreements/view_agreement/' + dataId + '/1',
+           dataType: 'html',
+           method: "GET",
+           cache: false,
+           success: function (response1) {
+               $('#myModal').modal('hide');
+               $('body').removeClass('modal-open');
+               $('.modal-backdrop').remove();
+               $('#tab4').html(response1);
+           }
+       });
+   });
+
+
+  function loadDigio(phone,pc_id,id){
+  processId=pc_id;
+  var options = {
+
+			"callback": function(t){
+						if(t.hasOwnProperty('error_code'))
+						{
+							//document.getElementById("loading").style.display='none';
+							//document.getElementById("result").innerHTML="failed to sign with error : "+t.message;
+							alert(t.message);
+							console.log(t);
+						}
+						else
+						{ 
+							//document.getElementById("result").innerHTML="Sign Successful"
+							//success();
+							$.ajax({
+						           url: '/admin/arbitration_agreements/e_sign_verify/' + id+'/'+ar_id,
+						           dataType: 'html',
+						           method: "POST",
+						           cache: false,
+						           success: function (response) {
+
+						           $(".link_"+id).hide();
+						           $("#verify_sts_"+id).val(1);
+						           allChk()	
+
+						           }
+						    });
+						    
+							//alert(t.message);
+							//console.log(t);
+						}
+			          },
+			  "logo":  "https://www.nyayaportal.in/front/assets/img/new-img/logo.png"        
+		};
+
+  var digio = new Digio(options);
+  digio.init();		
+  digio.esign(docId,phone);
+
+  }
+
+
+  function allChk(){
+  var chkVal=1;
+  $('.verify_sts').each(function (index, value) {
+    var thisObjChk = $(this);
+    console.log(thisObjChk.val());
+    if(thisObjChk.val()==0)
+    chkVal=thisObjChk.val();
+  });	
+  //alert(chkVal);
+  if(chkVal==1){
+  //if(1){ 
+  $.ajax({
+		url: '/admin/arbitration_agreements/e_sign_api_download/' + docId+'/'+aa_id,
+		dataType: 'html',
+		method: "GET",
+		cache: false,
+		success: function (response) {
+		window.location ='/admin/arbitration_agreements/view_agreement/'+ar_id+'/1';	
+		}
+		});	
+  
+  }	
+
+ }
+
+
+$(document).ready(function(){
+
+setTimeout(function(){
+
+ $.ajax({
+        url: '/admin/arbitration_agreements/e_sign_cord_save',
+        dataType: 'html',
+        method: "POST",
+        data:{data:{},id:'<%= data.id %>'},
+        cache: false,
+        success: function (response) { 
+        var response=JSON.parse(response);
+        console.log(response); 
+        console.log(response.status); 
+        if(response.status){    
+        //window.location ='/admin/arbitration_agreements/e_sign/<%= data.id %>';    
+        }else{
+
+        }
+        }
+});
+
+}, 500);    
+});
+
+</script>

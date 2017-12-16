@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>
+Hi Team,
+</p>
+
+<p>
+Please map scheme to the MID <%= data.pay.mid %> .
+</p>
+<table style="width:100%;" border="1">
+  <tr>
+    <th>Merchant ID</th>
+    <th>Scheme Code</th> 
+    <th>Location</th>
+    <th>Scheme Name</th>
+    <th>Scheme Type(Liquid / Non Liquid)</th>
+    <th>Bank Name</th>
+    <th>Bank Branch</th>
+    <th>Account No</th>
+    <th>Account Name</th>
+    <th></th>
+    <th></th>
+    <th>Flag</th>
+    <th>IFSC Code</th>
+  </tr>
+  <tr>
+    <td><%= data.pay.mid %></td>
+    <td><%= data.user.id %></td>
+    <td><%= data.user.district.district_name %></td>
+    <td><%= data.pay.s_code %></td>
+    <td>NA</td>
+    <td><%= data.user.user_bank_details.bank_name %></td>
+    <td><%= data.user.user_bank_details.bank_branch %></td>
+    <td><%= data.user.user_bank_details.account_no %></td>
+    <td><%= data.user.user_bank_details.account_holder_name %></td>
+    <td></td>
+    <td></td>
+    <td>M</td>
+    <td><%= data.user.user_bank_details.ifsc_code %></td>
+  </tr>
+</table>
+
+
+	<p>noreply@nyayaportal.in</p>
+	<p>Additional Information:</p>
+	<p>User Name: <%= data.user.first_name %></p>
+	<p>Date of created: <%= data.user.added_date %></p>
+	<p>This is a system generated auto email.</p>
+	<p>Thank you,</p>
+	<p>Team Nyaya Portal</p>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>File your Claim/Appeal</h1>
+
+        <!-- <p>India is a dynamic country and its real estate market is developing at an incredible speed.  It has a distinct identity as a hub for trade and investment which is attractive to investors; however, with the real estate boom, there has been an increasing number of disputes involving developers, contractors and investors. In the past few years disputes have increased significantly and number of cases exists in courts since a very long time, cases are pending under Transfer of Property Act 1882; Indian Contract act 1872; Land Revenue Act; Specific relief Act; Co-Operative society act; Sarfesi Act; etc. Which can be referred to Arbitration, and for that we have created a special cell which will entertain only cases related to properties worth above 5 crores and will be resolved within the time frame mentioned in Section 29 A of Arbitration and Conciliation Amended Act 2015.</p> -->
+
+        <!--<h5>Interested parties can submit their case summary : <a href="javascript:void('0');" class="experts-form-open">Click Here</a></h5>-->
+        <h6><b>Submit your claim/appeal details below and our team will contact you soon with further support :<b></h6>
+        <div class="row mb-10">
+                <div class="form-row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <label class="d-b">Type of Document :</label>
+                        <input type="radio" name="doc_type" class="doc_type_radio" value="1" > Nyaya Card
+                        <input type="radio" name="doc_type" class="doc_type_radio" value="3" > Membership
+                        <input type="radio" name="doc_type" class="doc_type_radio" value="5" > Others
+                    </div>
+
+                </div>
+
+        </div>
+        <div class="row">
+          <div class="docValBtn" style="display: none;">
+              <div class="col-md-3 col-sm-12 col-xs-12">
+                  <label id="chgMe">Document Number</label>
+                  <input type="text" class="form-control" name="doc_num" id="doc_num">
+              </div>
+              <div class="col-md-3 col-sm-12 col-xs-12">
+                  <input type="button" value="Submit" class="btn btn-orange doc_verify_button">
+                  <!-- <a href="javascript:void(0)" class="btn btn-orange">Submit</a> -->
+              </div>
+          </div>
+        </div>
+        <div class="row mt-10">
+          <div class="col-md-12">
+            <div class="table-responsive verify-doc-detail-div no-border1"></div>
+          </div>
+        </div>
+        <div class="experts-form-outer"  style="display: none;">
+            <!-- <h4>Thereafter our experts will get in touch with you.</h4> -->
+
+            <div class="row">
+                <div class="form-row">
+                    <form class="experts-form" action="/admin/file-disputes/create" id="file-dispute-form" novalidate>
+                        <input type="hidden" name="doc_type" class="doc_type_input" value="" >
+                        <input type="hidden" name="doc_value" class="doc_value_input" value="" >
+                        <div class="col-sm-6 col-md-4">
+                            <input class="form-control" placeholder="Name" type="text" name="name" id="name">
+                            <label class="errorMsg" id="name_error"></label>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <input class="form-control" placeholder="Contact Number" type="text" name="number" id="number">
+                            <label class="errorMsg" id="number_error"></label>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <input class="form-control" placeholder="Email Id" type="email" name="email" id="email">
+                            <label class="errorMsg" id="email_error"></label>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <textarea rows="4" class="form-control" placeholder="Dispute details" name="dispute_details" id="dispute_details"></textarea>
+                            <label class="errorMsg" id="dispute_details_error"></label>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xs-12">
+                            <input class="submit btn btn-orange" value="Submit" type="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+
+    $(document).on('change', '.doc_type_radio', (function (event, state) {
+        if ($(this).val() == 5) {
+            $('.docValBtn').hide();
+            $('.verify-doc-detail-div').hide();
+            $('.experts-form-outer').show();
+            $('.doc_type_input').val('');
+            $('.doc_type_input').val('');
+        } else {
+            $('.verify-doc-detail-div').hide();
+            $('.docValBtn').show();
+            $('.experts-form-outer').hide();
+            $('#doc_num').val('');
+            if ($(this).val() == 1) {
+                $('#chgMe').text('Nyaya Card Number');
+                $('.doc_type_input').val('Nyaya Card');
+            } else if ($(this).val() == 3){
+                $('#chgMe').text('Membership Number');
+                $('.doc_type_input').val('Membership');
+            }
+        }
+    }));
+
+    $(document).on('click', '.doc_verify_button', (function (event, state) {
+        event.preventDefault();
+        if ($("#doc_num").val() == '') {
+            bootstrapNotify.showMessage('Please fill all fields', 'danger');
+            return false;
+        }
+        $('.doc_value_input').val($('#doc_num').val());
+        $.ajax({
+            type: "POST",
+            url: '/admin/users/verify_doc_file',
+            data: {doc_type: $('.doc_type_radio:checked').val(), doc_num: $('#doc_num').val()},
+            dataType: "json",
+            json: true,
+            cache: false,
+            success: function (response) {
+
+                if (response.status) {
+
+                    var gHtml = '';
+                    console.log("----===============))))))))))))))))))))")
+                    if (response.data) {
+                        console.log("----===============))))))))))))))))))))")
+                        var getData = response.data;
+                        console.log(getData.created_on)
+                        gHtml += '<table class="table table-bordered"><tbody>';
+                        if ($('.doc_type_radio:checked').val() == 1) {
+                            gHtml += '<tr>'
+                            gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - To)</th><th>Document Category</th><th>Document Type</th>'
+                            gHtml += '</tr>'
+
+                            gHtml += '<tr>'
+                            gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM</td><td>' + getData.doc_category + '</td><td>' + getData.doc_type + '</td>'
+                            gHtml += '</tr>'
+                        }
+                        if ($('.doc_type_radio:checked').val() == 3) {
+                            gHtml += '<tr>'
+                            gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - To)</th>'
+                            gHtml += '</tr>'
+
+                            gHtml += '<tr>'
+                            gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM</td>'
+                            gHtml += '</tr>'
+
+                        }
+
+                        gHtml += '</tbody></table>';
+
+                        $(".verify-doc-detail-div").html(gHtml);
+                        $(".verify-doc-detail-div").show();
+                        $('.experts-form-outer').show();
+                    }
+
+                } else {
+                    bootstrapNotify.showMessage(response.msg, 'danger');
+                }
+
+            }
+        });
+    }))
+</script>

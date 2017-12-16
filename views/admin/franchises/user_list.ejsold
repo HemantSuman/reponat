@@ -1,0 +1,82 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Authorized Promoter Listing'}); %>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><a class="btn btn-primary" href="/admin/franchises/add/5">Add New</a> </h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Franchise Type</th>
+                                <th>Franchise Level</th>
+                                <th>Franchise Details</th>
+                                <th>Franchis Name</th>
+                                <th>Mobile Number</th>
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+                            <% results.forEach(function(rows){ %>
+                            <tr>
+                                <td>
+                                    <% if(rows.franchise_type==0){ %>    
+                                    Professional
+                                    <% }else{ %>
+                                    Lawyers
+                                    <%} %>
+                                </td>
+                                <td><% if(rows.franchise_level){ %><%= rows.franchise_level.replace("_", " ") %><% } %></td>
+
+                                <td><%= rows.country_name %>/<%= rows.state_name %></td>
+
+                                <td><%= rows.first_name %></td>
+
+                                <td><%= rows.mobile %></td>
+                                <td>
+                                    <% if(rows.is_active==0){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-success btn-xs" href="/admin/franchises/edit/5/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-success btn-xs" href="/admin/franchises/view/<%= rows.id %>" title="View Users" ><i class="fa fa-eye"></i></a>
+
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer clearfix">
+
+                    <%- include ../helper/pagination.ejs %>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- /.col -->
+    </div>
+</section>

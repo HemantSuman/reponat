@@ -1,0 +1,109 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing of Request for'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+
+
+
+        <%# include('../helper/commonHtml.ejs', {htmlType:'AddButtom'}); %>
+        <!-- box-header -->
+        <div class="box-body">
+            <form role="form" name='serchFrom' method='get' action='/admin/franchise_requests %>'>
+                <div class="row form-row-new">
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="franchise_request_type" id="franchise_request_type">
+                                <option value="">---- Select ----</option>
+                                <option value="1" <% if(extraVar.query.franchise_request_type == 1) { %>selected<% } %>>Busines/Firm</option>V
+                                <option value="2" <% if(extraVar.query.franchise_request_type == 2) { %>selected<% } %>>Individual</option>
+                            </select>
+                        </div> 
+                    </div>
+                    <div class="col-md-4 <% if(extraVar.query.franchise_request_type != 1) { %>hide<% } %> filterBusinessNameCol">
+                        <div class="">
+                            <input type="text" class="form-control" id="business_name" placeholder="Business Name" name="business_name" id="business_name" value='<%= extraVar.query.business_name %>' <% if(extraVar.query.franchise_request_type != 1) { %>disabled<% } %>>
+                        </div> 
+                    </div>
+                    <div class="col-md-2">
+                        <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Search">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </form>
+
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <table class="table table-bordered">
+                    <tr>
+                        <th>#ID</th>
+                        <th>Type</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Contact Person</th>
+                        <th style="width: 100px">Actions</th>
+                    </tr>
+
+                    <% if(results.rows.length > 0) { %>
+                    <% results.rows.forEach(function(rows){ %>
+                    <tr>
+                        <td><%= rows.id %></td>
+                        <td><% if(rows.franchise_request_type == 1) { %>Busines/Firm<% } else { %>Individual<% } %></td>
+                        <td><%= rows.email %></td>
+                        <td><%= rows.mobile %></td>
+                        <td><%= rows.contact_person %></td>
+                        <td>
+
+                            <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/view/<%= rows.id %>" title="View" ><i class="fa fa-eye"></i></a>
+                            <a title="Download PDF" class="btn btn-success btn-xs" href="/admin/franchise_requests/download_pdf/<%= rows.id %>" >PDF</a>
+                            <!-- <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a> -->
+                        </td>
+
+                    </tr>
+                    <% }); %>
+                    <% } else { %>
+
+                    <% } %>
+
+
+                </table>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+
+            </form>
+
+            <% if(results.rows.length==0){ %>
+            <h5 class="box-title text-center">No record found</h5>
+            <% } %>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer clearfix">
+
+            <%- include ../helper/pagination.ejs %>
+
+
+
+
+        </div>
+
+
+
+
+        <!-- /.col -->
+    </div>
+</section>
+
+
+<script type="text/javascript">
+    $(document).on("change", "#franchise_request_type", function (ev) {
+        if ($(this).val() == 1) {
+            $(".filterBusinessNameCol").removeClass("hide")
+            $("#business_name").removeAttr("disabled")
+        } else {
+            $(".filterBusinessNameCol").addClass("hide")
+            $("#business_name").attr("disabled", "disabled")
+        }
+    })
+</script>

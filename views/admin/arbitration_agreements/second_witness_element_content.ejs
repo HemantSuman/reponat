@@ -1,0 +1,181 @@
+<div class="panel panel-default position_relative">
+    <div class="panel-heading">Second Witness Details</div>
+    <div class="panel-body">
+        <a witness_no="2" href="javascript:void(0);" class="witnessCloseDivClass witnessCloseDivClass_2"><i class="fa fa-times-circle-o" aria-hidden="true"></i></a>
+        <div class="parties">
+            <div class="position_relative party_group" id="">
+                <div class="position_relative party_content" id="">
+                    <div class="panel panel-default" id="">
+                        <div class="panel-body panel-grey">
+                            <div class="row">
+                                <div class="col-md-1 col-xs-12">
+                                    <label class="labeled"> Full Name <sup class="text-danger">*</sup></label>
+                                    <select name="second_witness_title" id="second_witness_title" class="  inputtxt emptyValidation">
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss.">Miss.</option><option value="Ms.">Ms.</option>
+                                    </select>
+
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label>&nbsp;</label>
+                                    <input type="text" name="second_witness_name" id="second_witness_name" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="second_witness_name_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="d-f">
+                                        <input name="second_witness_relation" type="radio" class="" value="S/O" checked="checked"> S/O
+                                        <input name="second_witness_relation" type="radio" class="" value="W/O" > W/O
+                                        <input name="second_witness_relation" type="radio" class="" value="D/O" > D/O
+                                    </label>
+                                    <input name="second_witness_relation_name" id="second_witness_relation_name" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="second_witness_relation_name_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Age in Years<sup class="text-danger">*</sup></label>
+                                    <input name="second_witness_age" id="second_witness_age" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="second_witness_age_error"></label>
+                                </div>
+                               <!--  <div class="col-md-3 col-xs-12">
+                                    <label>Caste</label>
+                                    <input name="second_witness_caste" id="second_witness_caste" type="text" class="inputtxt">
+                                    <label class="errorMsg" id="second_witness_caste_error"></label>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-9 col-xs-12">
+                                    <label>Witness Full Address<sup class="text-danger">*</sup> </label>
+                                    <input name="second_witness_address" id="second_witness_address" type="text" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="second_witness_address_error"></label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label> Town/Kasba <sup class="text-danger">*</sup></label>
+                                    <input type="text" name="second_witness_town" id="second_witness_town" class="inputtxt emptyValidation">
+                                    <label class="errorMsg" id="second_witness_town_error"></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Country <sup class="text-danger">*</sup></label>
+                                    <input type="hidden" value="" id="second_witness_country_id_primary_id" name="second_witness_country_primary_id" >
+                                    <select  name="second_witness_country_id" id="second_witness_country_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                             formType="agreement"  formType="agreement" onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'state_name asc', 'second_witness_state_id', ['id', 'state_name'], ['second_witness_division_id', 'second_witness_district_id', 'second_witness_tehsil_id']);"
+                                             >
+                                        <% for(var i=0; i < data.countries.length; i++)     { %>
+                                        <option primaryId="<%= data.countries[i]['id'] %>" value="<%= data.countries[i]['country_name'] %>" >
+                                            <%= data.countries[i]['country_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_country_id_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>State<sup class="text-danger">*</sup> </label>
+                                    <input type="hidden" value="" id="second_witness_state_id_primary_id" name="second_witness_state_primary_id" >
+                                    <select name="second_witness_state_id" id="second_witness_state_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'second_witness_division_id', ['id', 'division_name'], ['second_witness_district_id', 'second_witness_tehsil_id']);"
+                                            >
+                                        <option value="">State</option>
+                                        <% for(var i=0; i < data.states.length; i++) { %>
+                                        <option primaryId="<%= data.states[i]['id'] %>" value="<%= data.states[i]['state_name'] %>" >
+                                            <%= data.states[i]['state_name'] %>
+                                        </option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_state_id_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Division<sup class="text-danger">*</sup></label>
+                                    <input type="hidden" value="" id="second_witness_division_id_primary_id" name="second_witness_division_primary_id" >
+                                    <select name="second_witness_division_id" id="second_witness_division_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'division_name asc', 'second_witness_district_id', ['id', 'district_name'], ['second_witness_tehsil_id']);"
+                                            >
+                                        <option value="">Division</option>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_district_id_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>District<sup class="text-danger">*</sup></label>
+                                    <input type="hidden" value="" id="second_witness_district_id_primary_id" name="second_witness_district_primary_id" >
+                                    <select name="second_witness_district_id" id="second_witness_district_id" class="  inputtxt emptyValidation onChangeForPrimaryId"
+                                            formType="agreement" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id', 'is_active'], [this.options[this.selectedIndex].getAttribute('primaryId'), 1], 'tehsil_name asc', 'second_witness_tehsil_id', ['id', 'tehsil_name'], []);"
+                                            >
+                                        <option value="">District</option>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_district_id_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Tehsil<sup class="text-danger">*</sup></label>
+                                    <input type="hidden" value="" id="second_witness_tehsil_id_primary_id" name="second_witness_tehsil_primary_id" >
+                                    <select name="second_witness_tehsil_id" id="second_witness_tehsil_id" class="  inputtxt emptyValidation onChangeForPrimaryId">
+                                        <option value="">Tehsil</option>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_tehsil_id_error"></label>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Pincode</label>
+                                    <input name="second_witness_pincode" id="second_witness_pincode" type="text" class="inputtxt">
+                                    <label class="errorMsg" id="second_witness_pincode_error"></label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- <div class="col-md-2 col-xs-12">
+                                    <label>Govt. ID Type</label>
+                                    <input type="hidden" value="" id="second_witness_govt_identity_types_id_primary_id" name="second_witness_govt_identity_types_primary_id">
+                                    <select name="second_witness_govt_identity_types_id" id="second_witness_govt_identity_types_id" class=" onChangeForPrimaryId inputtxt">
+                                        <option value="">--Please Select--</option>
+                                        <% for(var i=0; i < data.government_id_types.length; i++) { %>
+                                        <option primaryId="<%= data.government_id_types[i]['id'] %>" value="<%= data.government_id_types[i]['government_id_type_name'] %>" ><%= data.government_id_types[i]['government_id_type_name'] %></option>
+                                        <% } %>
+                                    </select>
+                                    <label class="errorMsg" id="second_witness_govt_identity_types_id_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Govt. ID Number</label>
+                                    <input name="second_witness_govt_id_number" id="second_witness_govt_id_number" type="text" class="inputtxt govtIdValidation">
+                                    <label class="errorMsg" id="second_witness_govt_id_number_error"></label>
+                                </div> -->
+                                <div class="col-md-4 col-xs-12">
+                                    <label>Aadhar Number for E-Sign<em>*</em></label>
+                                    <input name="second_witness_aadhar_no" id="second_witness_aadhar_no" type="text" class="emptyValidation aadharDigitValidation inputtxt">
+                                    <label class="errorMsg" id="second_witness_aadhar_no_error"></label>
+                                </div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label>Mobile<em>*</em></label>
+                                    <input name="second_witness_mobile" id="second_witness_mobile" type="text" class="emptyValidation mobileDigitValidation inputtxt">
+                                    <label class="errorMsg" id="second_witness_mobile_error"></label>
+                                </div>
+
+                                <div class="col-md-4 col-xs-12">
+                                    <label>Email Address</label>
+                                    <input name="second_witness_email" id="second_witness_email" type="email" class="inputtxt emailValidation">
+                                    <label class="errorMsg" id="second_witness_email_error"></label>
+                                </div>
+<!--                                <div class="col-md-2 col-xs-12">
+                                    <label>&nbsp;</label>
+                                    <input type="button" class="btn btn-default inputtxt" value="Verify by e-KYC">
+                                </div>-->
+                            </div>
+
+                            <div class="row" style="display: none;">
+                                <div class="col-sm-1">
+                                    <img src="http://www.tenderyears-school.in/wp-content/uploads/2015/04/dummy-image.jpg" alt="" class="img-responsive">
+                                </div>
+                                <div class="col-sm-11">
+                                    <p><strong>Register Information of the Party in Aadhar Card for e-KYC verification</strong></p>
+                                    <p>Name: &lt;name of the user come from e-KYC service &gt;</p>
+                                    <p>Address: &lt;address of the user come from e-KYC service &gt;</p>
+                                    <p>Mobile: &lt;mobile no. of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+                                    <p>Email: &lt;email of the user come from e-KYC service if any otherwise text "Not Available" &gt;</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

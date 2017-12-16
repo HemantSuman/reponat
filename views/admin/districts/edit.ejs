@@ -1,0 +1,109 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<section class="content">
+  <div class="box box-primary">
+       <!-- form start -->
+       <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/update' enctype="multipart/form-data">
+        <input type='hidden' name='id' value='<%= results.my_model.id %>'>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group custom-select-outer">
+                        <label for="exampleInputEmail1">Countries<em>*</em></label>
+                        <select class="form-control select2" name="country_id" id="currency_id" 
+                                    onChange="getDbValuesByIds(this, 'State', ['country_id', 'is_active'], [Number(this.value), 1], 'state_name asc', 'state_id', ['id', 'state_name'], ['division_id','district_id', 'tehsil_id']);"
+                                    >
+                                <option value="">--Please Select--</option>
+                                 <% results.countries.forEach(function(val, key) { %>
+                                <option value="<%= val['id'] %>" <% if(results.my_model.country_id == val['id']){ %> selected <% } %> ><%= val['country_name'] %></option>
+                                <% }); %>
+                        </select>
+                        <label class="error_mgs_lable" id="country_id_error"></label>
+                    </div>
+                </div>
+                    <div class="col-md-4">
+                         <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">States<em>*</em></label>
+                            <select class="form-control select2" name="state_id" id="state_id"
+                                    onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [Number(this.value), 1], 'division_name asc', 'division_id', ['id', 'division_name'], []);"
+                                    >
+                                <option value="">--Please Select--</option>
+                                 <% results.states.forEach(function(val, key) { %>
+                                <option value="<%= val['id'] %>" <% if(results.my_model.state_id == val['id']){ %> selected <% } %> ><%= val['state_name'] %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="state_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Divisions<em>*</em></label>
+                            <select class="form-control select2" name="division_id" id="division_id" >
+                                <option value="">--Please Select--</option>
+                                 <% results.divisions.forEach(function(val, key) { %>
+                                <option value="<%= val['id'] %>" <% if(results.my_model.division_id == val['id']){ %> selected <% } %> ><%= val['division_name'] %></option>
+                                <% }); %>
+                            </select>
+                            <label class="error_mgs_lable" id="division_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">District Name<em>*</em></label>
+                            <input type="text" class="form-control" value="<%= results.my_model.district_name %>" id="district_name" name='district_name' >
+                            <label class="error_mgs_lable" id="district_name_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="exampleInputEmail1">District Code<em>*</em></label>
+                            <input type="text" class="form-control" value="<%= results.my_model.district_code %>" id="district_code" name='district_code' >
+                            <label class="error_mgs_lable" id="district_code_error"></label>
+                        </div>
+                    </div>
+                     
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="chk-outer">
+                                    <!--<label class="opacity-0lab"></label> -->                    
+                                    <input type="checkbox" name="is_active"  id="is_active" <%= (results.my_model.is_active==0)? '':'checked' %> > <label for="is_active">     Status
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+    </div>
+</section>
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '-d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        startDate: '+1d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+</script>

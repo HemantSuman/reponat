@@ -1,0 +1,209 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Add Professional'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/franchises/list-user" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View listing</a>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Registered Email</label>
+                        <input type="text" class="form-control" id="mobile" name='mobile' value=''>
+                        <label class="error_mgs_lable" id="registration_number_error"></label>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" class="opacity-0lab">&nbsp;</label>
+                        <a href="#" class="btn btn-primary" onclick="checkUser()">Submit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive addpromtable">
+                <table class="table table-bordered" id="showDiv" style="display: none">
+                    <tr>
+                        <td>Registered Mobile Number :</td>
+                        <td><label for="exampleInputEmail1" id="mobile_no"></label></td>
+                    </tr>
+                    <tr>
+                        <td>Name : </td>
+                        <td><label for="exampleInputEmail1" id="details"></label></td>
+                    </tr>
+                    <tr>
+                        <td>Address : </td>
+                        <td><label for="exampleInputEmail1" id="address"></label></td>
+                    </tr>
+                    <tr><td colspan="2" align="right"> <a href="#" class="btn btn-primary" onclick="showPopup()">Confirm</a></td></tr>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- /.box -->
+
+
+    </div>
+</section>
+
+<div id="SampleFileModel11" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="height:200px;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Thanks for Confirming the Professional</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Enter Otp : </label>
+
+                        <input type="text" value="" name="otp" placeholder="Enter Otp" id="otp" class="form-control">
+
+                        <label class="" id="otpError" style="color:red"></label><br>
+                        <p style="display: none">Time left for resend OTP option : <span id="timer_rem_time"></span> seconds</p>
+                        <a href='#' onclick="resendOtp()" id="resendOtpLink" style="display: none">Resend Otp</a>
+                        <input type="hidden" value="" name="id" id="id" >
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="error_xlsDiv">
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary" onclick="confirm_otp()">Save</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-primary">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function showPopup() {
+
+        if ($('#mobile').val() == '') {
+            bootstrapNotify.showMessage('Please enter Email ', 'danger');
+            return false;
+        }
+
+        $.ajax({
+            url: '/admin/franchises/resendOtp',
+            data: {
+                mobile: $('#mobile').val()
+            },
+            method: 'post',
+            success: function (response) {
+                bootstrapNotify.showMessage(response.msg);
+                $('#showDiv').hide();
+                $('#mobile').val('');
+                //setTimer(60, "timer_rem_time", "resendOtpLink")
+            }
+        })
+        
+    }
+
+
+    function resendOtp() {
+
+        $.ajax({
+            url: '/admin/franchises/resendOtp',
+            data: {
+                mobile: $('#mobile').val()
+            },
+            method: 'post',
+            success: function (response) {
+                //$('#otpError').css('color:red');
+                $('#otpError').text('OTP Sent Successfully');
+                setTimer(60, "timer_rem_time", "resendOtpLink")
+            }
+        })
+    }
+
+
+    function confirm_otp() {
+
+        if ($('#otp').val() == '' || $('#id').val() == '') {
+            $('#otpError').text('Please enter OTP ');
+            return false;
+        }
+
+        $.ajax({
+            url: '/admin/franchises/confirm_otp',
+            data: {
+                id: $('#id').val(),
+                otp: $('#otp').val()
+            },
+            method: 'post',
+            success: function (response) {
+                if (response.status) {
+                    window.location = response.data.url;
+                } else {
+                    //bootstrapNotify.showMessage(response.msg, 'danger');
+                    $('#otpError').text(response.msg);
+                }
+            }
+        })
+
+    }
+
+
+    function checkUser() {
+
+        var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+
+        if ($('#mobile').val() == '') {
+            bootstrapNotify.showMessage('Please enter email ', 'danger');
+            return false;
+        } else if (! validateEmail($('#mobile').val())) {
+            bootstrapNotify.showMessage('Please enter valid email ', 'danger');
+            return false;
+        }
+
+        $.ajax({
+            url: '/admin/franchises/check-user',
+            data: {mobile: $('#mobile').val()},
+            method: 'post',
+            success: function (response) {
+                //$('#parent_franchise').html(response);
+                //$('select').select2();
+                if (response.status) {
+
+                    $('#id').val(response.data.id);
+
+
+                    $('#mobile_no').text(response.data.mobile);
+                    $('#details').text(response.data.first_name);
+                    $('#address').text(response.data.residence_address);
+                    $('#showDiv').show();
+                } else {
+                    bootstrapNotify.showMessage(response.msg, 'danger');
+                }
+            }
+        })
+
+    }
+
+
+
+
+</script>

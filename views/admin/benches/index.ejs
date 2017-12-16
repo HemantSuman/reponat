@@ -1,0 +1,62 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <%- include('../helper/commonHtml.ejs', {htmlType:'AddButtom'}); %>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>#ID</th>
+                                <th>Bench Name</th>
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.bench_name %></td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        <% if(results.rows.length==0){ %>
+                        <h5 class="box-title text-center">No record found</h5>
+                        <% } %>
+                        </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <%- include ../helper/pagination.ejs %>
+                        </div>
+                    </div>
+                </div>  
+
+        </div>
+</section>

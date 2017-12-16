@@ -1,0 +1,139 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Exemptions from Fees</h1>
+
+        <h5><u>For Nyaya Card Holders</u></h5>
+        <p>This schedule of exemption is effective from 1 April,2017 and is applicable to all arbitrations/appeal to second arbitration commenced on or after 1 April,2017. This Schedule of Exemption may be amended from time to time and any revised Schedule of exemptions shall take effect as of the date determined by the board.</p>
+
+        <p>These exemptions can be availed only once during the valid period of Nyaya Card.</p>
+
+        <h4>Schedule of Exemptions for Nyaya Card Holders</h4>
+
+        <h5 style="margin-bottom: 5px;">Exemptions from</h5>
+        <p>Fees as specified in Schedule-I of National Arbitral Tribunal Rules</p>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Sum In Dispute/Claim Size</th>
+                    <th>Exemption from <br>Fees on Arbitration</th>
+                    <th>Exemption from <br>fees on Appeal</th>
+                </tr>
+                <tr>
+                    <td>Up to 1,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 1,00,001 and up to INR. 3,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 3,00,001 and up to INR. 5,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 5,00,001 and up to INR. 20,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above Rs. 20,00,001 And Up To Rs. 1,00,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above Rs. 1,00,00,001 And Up To Rs. 10,00,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above Rs. 10,00,00,001 And Up To Rs. 20,00,00,000</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+                <tr>
+                    <td>Above Rs. 20,00,00,001</td>
+                    <td>100%</td>
+                    <td>40%</td>
+                </tr>
+            </table>
+        </div>
+
+        <h5><u>For Membership Holder</u></h5>
+        <p>This schedule of exemption is effective from 1 April,2017 and is applicable to all arbitrations/appeal to second arbitration commenced on or after 1 April,2017. This Schedule of Exemption may be amended from time to time and any revised Schedule of exemptions shall take effect as of the date determined by the board.</p>
+
+        <p>These exemptions can be availed during the valid period of Membership without any limitation on number of disputes/claims.</p>
+
+        <h4 style="margin-bottom: 5px;">Schedule of Exemptions for Membership Holders</h4>
+        <p>Exemptions from fees as Specified in Schedule-I<br>
+            National Arbitral Tribunal (Procedural) Rules.</p>
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Sum in Dispute / Claim size</th>
+                        <th>Exemption in Fees for Member Only. (In Each Case)</th>
+                    </tr>
+
+                    <%
+                    results.forEach(function(rows,key){ %>
+                    <% key++ %>
+                    <tr>
+                    <% if(key == 1){ %>
+                        <td>Up to INR. <%=rows.slabs.max_value%></td>
+                    <% } else if(key == results.length){ %>
+                        <td>Above INR. <%= site.formatCurrencyObj(rows.slabs.max_value)%></td>
+                    <% } else { %>
+                        <td>Above INR. <%=site.formatCurrencyObj(rows.slabs.min_value)%> and up to INR. <%=site.formatCurrencyObj(rows.slabs.max_value)%></td>
+                    <% } %>    
+                        <td>Minimum INR <%= site.formatCurrencyObj(rows.min_value)%> or <%= rows.percentage%>% of Fee, Whichever Is High</td>
+                    </tr>
+
+                    <% }); %>
+
+                    <!--                <tr>
+                                        <td>Up to INR. 1,00,000</td>
+                                        <td>Minimum INR 11,000 or 50% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 1,00,001 and up to INR. 3,00,000</td>
+                                        <td>Minimum INR 12,000 or 50% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 3,00,001 and up to INR. 5,00,000</td>
+                                        <td>Minimum INR 17,000 or 50% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 5,00,001 and up to INR. 20,00,000</td>
+                                        <td>Minimum INR 22,000 or 50% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 20,00,001 and up to INR. 1,00,00,000</td>
+                                        <td>Minimum INR 45,000 or 40% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 1,00,00,001 and up to INR. 10,00,00,000</td>
+                                        <td>Minimum INR 1,60,000 or 40% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 10,00,00,001 and up to INR. 20,00,00,000</td>
+                                        <td>Minimum INR 4,50,000 or 30% of Fee, Whichever Is High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Above INR. 20,00,00,001</td>
+                                        <td>Minimum INR 7,00,000 or 30% of Fee, Whichever Is High</td>
+                                    </tr>-->
+                </tbody></table>
+        </div>
+
+    </div>
+</section>

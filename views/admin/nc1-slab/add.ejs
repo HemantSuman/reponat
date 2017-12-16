@@ -1,0 +1,144 @@
+<% if(data.id){ %>
+<%- include('../helper/Heading-Page.ejs', {title:'Edit'}); %>
+<% } else { %>
+<%-    include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<% } %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        
+            <!-- general form elements -->
+            
+                
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" id='formSubmit' name='' method='post' action='/admin/nc1-slab/create' enctype="multipart/form-data">
+                    <input type="hidden" id="id" name='id' value='<%= data.id %>'>
+                    <div class="box-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row from-row-new">
+                                    <div class="col-sm-6 ">
+                                        <div class="form-group custom-select-outer">
+                                            <label for="exampleInputEmail1">Category<em>*</em></label>
+                                            <select class="form-control select2" name="category_name" id="category_name">
+                                                <option value="domestic" <% if(data.category_name=='domestic'){ %>selected<% } %>>Domestic</option>
+                                                <option value="international" <% if(data.category_name=='international'){ %>selected<% } %>>International</option>
+                                            </select>
+                                            <label class="error_mgs_lable" id="category_name_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label for="exampleInputEmail1">Slab Name<em>*</em></label>
+
+                                            <input type="text" class="form-control" id="name" name='name' value='<%= data.name %>'>
+                                            <label class="error_mgs_lable" id="name_error"></label>
+
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading no-radius">
+                                Sum of Dispute
+                            </div>
+                            <div class="panel-body">
+                                <div class="row from-row-new">
+                                   <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Min Value of Dispute<em>*</em></label>
+                                            <input type="text" class="allownumericwithdecimal form-control" id="name" name='min_value' value='<%= data.min_value %>'>
+                                            <label class="error_mgs_lable" id="min_value_error"></label>
+                                        </div>
+                                   </div> 
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Max Value of Dispute<em>*</em></label>
+                                            <input type="text" class="allownumericwithdecimal form-control" id="name" name='max_value' value='<%= data.max_value %>'>
+                                            <label class="error_mgs_lable" id="max_value_error"></label>
+                                        </div>
+
+                                    </div>
+                                     <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Registration Fee <em>*</em></label>
+                                            <input type="text" class="allownumericwithdecimal form-control" id="name" name='registration_fee' value='<%= data.registration_fee %>'>
+                                            <label class="error_mgs_lable" id="registration_fee_error"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading no-radius">
+                                Administration or Arbitration Fees
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+
+                                                <label for="exampleInputEmail1">Amount<em>*</em></label>
+                                                <input type="text" class="allownumericwithdecimal form-control" id="name" name='arbitration_fee' value='<%= data.arbitration_fee %>'>
+                                                <label class="error_mgs_lable" id="arbitration_fee_error"></label>
+                           
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Plus(%) <em>*</em></label>
+                                            <input type="text" class="allownumericwithdecimal form-control" id="name" name='percentage_value' value='<%= data.percentage_value %>'>
+                                            <label class="error_mgs_lable" id="percentage_value_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">of the claim amount over and above Rs<em>*</em></label>
+                                            <input type="text" class="allownumericwithdecimal form-control" id="name" name='above_amount' value='<%= data.above_amount %>'>
+                                            <label class="error_mgs_lable" id="above_amount_error"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                             <label for="exampleInputEmail1">Ceiling<em>*</em></label>
+                                                <input type="text" class="allownumericwithdecimal form-control" id="aceiling_amount" placeholder="Amount" name='aceiling_amount' value='<% if(data.aceiling_amount) { %><%= data.aceiling_amount %><% } else { %>0<% } %>'>
+                                                <label class="error_mgs_lable" id="aceiling_amount_error"></label>
+                                        </div>
+                                    </div>
+                                
+                               
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                        <label for="exampleInputEmail1">% to be taken extra on the each slab value<em>*</em></label>
+
+                                        <input type="text" class="form-control" id="default_percentage_value" placeholder="Enter Slab Name" name='default_percentage_value' value='<% if(data.default_percentage_value>=0){%><%= data.default_percentage_value %><%}else{ %>25<% } %>'>
+                                        <label class="error_mgs_lable" id="default_percentage_value_error"></label>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="chk-outer">
+                                                <label></label>            
+                                                    <input type="checkbox" name="is_active"  id="is_active" value='<%= (data.is_active==0)? 0:1 %>' <%= (data.is_active==0)? '':'checked' %> > <label for="is_active">Status</label>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="row">
+                        <div class=" col-md-12 text-right">
+                         <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+    </div>
+</section>

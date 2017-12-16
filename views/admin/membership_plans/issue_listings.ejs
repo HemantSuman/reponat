@@ -1,0 +1,338 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'',titleNameAfter:'Listing'}); %>
+<section class="content">
+
+    <div class="box box-primary">
+        <% if(loginUser.user_type.role_type_slug != 'super_admin' && loginUser.user_type.role_type_slug != 'franchise'){ %>
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/issues_memberships" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Create Membership</a>
+            </div>
+        </div>
+        <% } %>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+
+            <form action="/admin/membership_plans/issue_listings" method="get" name="serchFrom" role="form">
+                <input type="submit" class="btn btn-success blue" style="display:none">
+                <div class="form-row-new row">
+                    <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" name="gstin" placeholder="GSTIN" id="gstin" class="form-control" value="<%= serchData.gstin %>"></div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" value="<%= serchData.business_name %>" name="business_name" placeholder="Business Name" id="business_name" class="form-control"></div>
+                    </div>
+                    <% } %>
+
+
+                    <% if(loginUser.user_type.user_role.role_slug == 'franchise' && loginUser['franchise_level']!='tehsil_level'){ %>
+
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+
+                            <select id="type" name="scale" class="form-control select2" tabindex="-1" aria-hidden="true">
+                                <option value="">Select Scale</option>
+
+
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                                <option value="1" <% if(serchData.scale && serchData.scale==1){ %>selected<% } %>>Scale-I</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                                <option value="2" <% if(serchData.scale && serchData.scale==2){ %>selected<% } %>>Scale-II</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+
+                                <option value="3" <% if(serchData.scale && serchData.scale==3){ %>selected<% } %>>Scale-III</option>
+                                <% } %>
+                                <% if(loginUser['franchise_level']=='country_level'){ %>
+
+                                <option value="4" <% if(serchData.scale && serchData.scale==4){ %>selected<% } %>>Scale-IV</option>
+                                <% } %>
+                            </select>
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" value="<%= serchData.ap_name %>" name="ap_name" placeholder="AP Name/Scale wise" id="ap_name" class="form-control"></div>
+                    </div>
+
+                    <% }else{ %>
+
+
+                    <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" value="<%= serchData.authority_name %>" name="authority_name" placeholder="Proffessional Name" id="authority_name" class="form-control"></div>
+                    </div>
+                    <% } %>
+                    <% } %>
+
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" value="<%= serchData.id %>" name="id" placeholder="Membership No." id="authority_name" class="form-control"></div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group"><input type="text" name="start_date" placeholder="Start Date" id="start_date" class="form-control startdate" value="<%= serchData.start_date %>"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group"><input type="text" value="<%= serchData.end_date %>" name="end_date" placeholder="End Date" id="end_date" class="form-control enddate"></div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-4">
+                        <a title="search" href="javascript:void(0)" class="btn btn-success blue" onclick="srchForm()">
+                            <i class="fa fa-search"></i>
+
+                        </a>
+                        <a title="Clear Search" href="/admin/membership_plans/issue_listings" class="btn btn-success blue">Clear Search</a>
+                    </div>
+                </div>
+            </form> 
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+
+                    <% if((loginUser.user_type.user_role.role_slug != 'franchise') || (loginUser.user_type.user_role.role_slug == 'franchise' && loginUser['franchise_level']=='tehsil_level')){ %>
+                    <table class="table table-bordered">
+                        <tr>
+                            <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <th>Professional Details</th>
+                            <% }else { %>
+                            <th>Member Details</th>
+                            <% } %>
+                            <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <th>GSTIN</th>
+                            <% } %>
+                            <th>Invoice No.</th>
+                            <th>Membership No.</th>
+                            <th>Plan Details</th>
+                            <th>Valid From</th>
+                            <th>Valid Upto</th>
+                            <th>Amount</th>
+                            <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <th>Action</th>
+                            <% } %>
+
+
+
+
+                        </tr>
+
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr>
+                            <% if(loginUser.user_type.user_role.role_slug == 'franchise'){ %>
+                            <td>
+                                Id : <%= rows.user.gid %><br>
+                                Name : <%= rows.user.first_name %><br>
+                                Mobile No. : <%= rows.user.mobile %><br>
+                            </td>
+                            <% } else { %>
+                            <td>
+                                Name : <%= rows.business_name %><br>
+                                Registration number : <%= rows.business_registration_number %><br>
+                                Email : <%= rows.authority_email %><br>
+                                Mobile No. : <%= rows.authority_mobile %><br>
+                                Name of Authority : <%= rows.authority_name %><br>
+                            </td>
+                            <% } %>
+                            <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <td><%= rows.gstin %></td>
+                            <% } %>
+                            <td><%= rows.invoice_no %></td>
+                            <td><%= rows.ms_id %></td>
+                            <td><%= rows.plan_name %></td>
+
+
+
+
+
+
+                            <td><%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %></td>
+                            <td>
+                                <% if(site.momentObj(rows.end_date).format("DD-MM-YYYY") != 'Invalid date'){ %>
+                                <%= site.momentObj(rows.end_date).format("DD-MM-YYYY") %>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if(rows.is_active != 2){ %>
+                                <%= rows.selected_plan_total_payable_amount %>
+                                <% } %>
+                            </td>
+                            <% if(loginUser.user_type.user_role.role_slug != 'franchise'){ %>
+                            <td>
+                                <ul class="aggre-btnswrap">
+                                    <% if(rows.is_active == 2){ %>
+                                    <% if(loginUser.user_type.role_type_slug != 'super_admin'){ %>
+                                        <li> <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit_issue/<%= rows.id %>" title="Edit" >Edit Draft</a></li>
+                                    <% } } else { %>
+                                        <li>  <a class="btn btn-primary btn-xs" href="/admin/membership_plans/certificate/<%= rows.id %>/1">MEMBERSHIP CARD</a></li><br/>
+                                        <li>  <a class="btn btn-primary btn-xs" href="/admin/membership_plans/invoice/<%= rows.id %>/1">Invoice</a></li><br/>
+                                    <% if(loginUser.user_type.role_type_slug=='super_admin'){ %>
+                                        <li>  <a class="btn btn-primary btn-xs" href="/admin/commission_distributions/commission_plan/<%= rows.id %>">Commission</a></li>
+                                    <% } } %>
+                                </ul>
+                            </td>
+                            <% } %>
+
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <% }else{ %>
+
+
+
+
+
+
+
+
+                    <table class="table table-bordered">
+                        <tr>
+
+                            <th>Membership Details</th>
+                            <% if(loginUser['franchise_level']=='country_level'){ %>
+                            <th>Ap Scale-IV</th>
+                            <% } %>
+
+                            <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+                            <th>Ap Scale-III</th>
+                            <% } %>
+
+                            <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                            <th>Ap Scale-II</th>
+                            <% } %>
+                            <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                            <th>Ap Scale-I</th>
+                            <% } %>
+                        </tr>
+
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr>
+                            <td>
+                                Invoice No. : <%= rows.invoice_no %><br>
+                                Invoice Date : <%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %><br>
+                                Membership No. : <%= rows.ms_id %><br>
+                                Plan Detail : <%= rows.plan_name %><br>
+                                Vaild From-To : <%= site.momentObj(rows.add_date).format('DD-MM-YYYY') %>-
+                                <%
+                                var new_date = site.momentObj(rows.add_date, "DD-MM-YYYY").add(parseInt(rows.selected_plan_year), 'Y');
+                                %>
+                                <%= site.momentObj(new_date).format("DD-MM-YYYY") %>
+                                <br>
+                                Amount : <%= rows.selected_plan_total_payable_amount %><br>
+                            </td>
+
+
+
+
+
+
+                            <% if(loginUser['franchise_level']=='country_level'){ %>
+                            <td>
+                                Name : <%= rows.ap_level_4['first_name'] %><br>   
+                                Mobile No. : <%= rows.ap_level_4['mobile'] %><br>    
+                                Location : <%= apLoc[rows.ap_level_4['id']] %><br>    
+                            </td>
+                            <% } %>
+
+                            <% if(loginUser['franchise_level']=='country_level' || loginUser['franchise_level']=='state_level'){ %>
+                            <td>
+                                Name : <%= rows.ap_level_3['first_name'] %><br>   
+                                Mobile No. : <%= rows.ap_level_3['mobile'] %><br>    
+                                Location : <%= apLoc[rows.ap_level_3['id']] %><br>    
+                            </td>
+                            <% } %>
+
+                            <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level'){ %>
+                            <td>
+                                Name : <%= rows.ap_level_2['first_name'] %><br>   
+                                Mobile No. : <%= rows.ap_level_2['mobile'] %><br>    
+                                Location : <%= apLoc[rows.ap_level_2['id']] %><br>    
+                            </td>
+                            <% } %>
+
+                            <% if(loginUser['franchise_level']=='country_level'|| loginUser['franchise_level']=='state_level' || loginUser['franchise_level']=='division_level' || loginUser['franchise_level']=='district_level'){ %>
+                            <td>
+                                Name : <%= rows.ap_level_1['first_name'] %><br>   
+                                Mobile No. : <%= rows.ap_level_1['mobile'] %><br>    
+                                Location : <%= apLoc[rows.ap_level_1['id']] %><br>    
+                            </td>
+                            <% } %>
+
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <% if(results.rows.length==0){ %>
+                    <h5 class="box-title text-center">No record found</h5>
+                    <% } %> 
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer clearfix">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%- include ../helper/pagination.ejs %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+<script>
+    $('.startdate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true
+
+    });
+    $('.enddate').datepicker({
+        format: 'dd-mm-yyyy',
+        //startDate: '-d',
+        todayHighlight: true,
+        autoclose: true,
+    });
+
+
+    function srchForm() {
+        if ($('#type').val() == '' && $('#ap_name').val() != '') {
+            bootstrapNotify.showMessage('Please select Scale', 'error');
+            return false;
+        }
+
+        javascript:document.serchFrom.submit()
+    }
+</script>

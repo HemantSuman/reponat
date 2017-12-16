@@ -1,0 +1,66 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>"  class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        <!-- /.box-header --> 
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Country Name<em>*</em></label>
+                            <input type="text" class="form-control" id="country_name" name='country_name' >
+                            <label class="error_mgs_lable" id="country_name_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Country Code<em>*</em></label>
+                            <input type="text" class="form-control" id="country_code"  name='country_code' >
+                            <label class="error_mgs_lable" id="country_code_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group custom-select-outer">
+                            <label for="exampleInputEmail1">Currency<em>*</em></label>
+                            <select class="form-control select2" name="currency_id" id="currency_id">
+                                <option value="">--Please Select--</option>
+                                 <% for(var i=0; i < results.currencies.length; i++) { %>
+                                <option value="<%= results.currencies[i]['id'] %>"><%= results.currencies[i]['currency_name']+' ('+results.currencies[i]['currency_symbol']+')' %></option>
+                                <% } %>
+                            </select>
+                            <label class="error_mgs_lable" id="currency_id_error"></label>
+                        </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="chk-outer">
+                                                              
+                                        <input type="checkbox" name="is_active"  id="is_active" checked ><label for="is_active"> Status
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                          <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </div>
+</section>
+
+<script>
+    
+</script>

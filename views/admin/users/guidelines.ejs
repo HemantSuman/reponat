@@ -1,0 +1,137 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%# include('../helper/Heading-Page.ejs', {title:'Guidelines'}); %>
+<section class="content-header">
+    <h1>Guidelines for Creating the Nyaya Card </h1>
+    <ol class="breadcrumb">
+        <li><a href="/admin/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li> Guidelines for Creating the Nyaya Card </li>
+        <!--<li class="active"></li>-->
+    </ol>
+</section>
+<section class="content">
+    <% if(extraVar.user_type == 'professional'){ %>
+  <div class="box box-primary txt-justify">
+    <div class="box-body content-ul-heading">
+      <p>One of the most important thing is the correctness of the data entered in the “Create Nyaya Card” form. If at the time of submission of claim, we found out any discrepancy in the details of the original agreement/contract and the Nyaya card details, it renders the Nyaya Card invalid. Please fill the details asked in the form carefully and review it before making the payment. Below are the few guidelines which are to be followed while filling the “Create Nyaya Card” Form:</p>
+      <h3>First Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>You need to select the arbitration procedure as single tier i.e. only one arbitration or two tier i.e. the client can also appeal to the second arbitration if client is not happy with the result of first arbitration. </li>
+          <li>You need to fill the place at which the arbitration agreement is executed in the next column. </li>
+        </ol>
+      </div>
+      <h3>Document Information Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>‘Stamp Number” you need to fill the stamp number of the party’s original agreement/contract. </li>
+          <li>‘Document Executed on’ will be the date of execution of original agreement/contract between the parties, Nyaya Card cannot be issued on the agreements/contracts 2 months old than the current date.</li>
+          <li>‘Document Executed at’ will be the place at which the original agreement/contract was executed between the parties.</li>
+          <li>‘Document valid from’ will be the date from which the original agreement/contract is valid from.</li>
+          <li>‘Document valid up to’ will be the date till which the original agreement/contract is valid up to. </li>
+        </ol>
+      </div>
+      <h3>Party Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>There can be three types of parties:
+            <ul>
+              <li>The party itself – You need to fill the details of the party itself such as name, age, address etc.</li>
+              <li>Any person on behalf of any company or firm – You need to fill the details of the business as well as the person/authority representing the business/firm in the original agreement/contract. </li>
+              <li>Any person who has a power of attorney- You need to fill the details of the Power of attorney holder i.e.in whose name the power of attorney is. In the ‘On the behalf of Power of Attorney’ column you need to fill the details of the person who has granted his/her power to the power of attorney holder.  </li>
+            </ul>
+          </li>
+          <li>You can add more members to a party by clicking on the “Add More Member” button.</li>
+          <li>You can also add more number of parties to the agreement by clicking on the “Add more party” button.</li>
+          <li>You CANNOT add any extra member or party in the form other than the ones mentioned in the original agreement/contract between the parties. </li>
+        </ol>
+      </div>
+      <h3>Witness Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>You can add the details of the witness if any, by clicking on the “Add Witness” button a form will open.</li>
+          <li>You need to fill the correct details of the witness.</li>
+        </ol>
+      </div>
+      <h3>Invoice Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>You need to fill the details of the person/business/firm etc. on whose name the client wants the invoice to be generated. </li>
+          <li>In case of Business/firm, please provide GSTIN. </li>
+        </ol>
+      </div>
+      <h3>Last Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>After completing the above details you will be directed to the ‘Review Arbitration Agreement’ page by clicking the ‘Proceed to Next’ button, where you can review the details of the agreement. </li>
+          <li>After confirming the details, you can proceed to "make payment", after making the payment you will be asked to E- sign the agreement, which is not mandatory. The arbitration agreement can also be signed manually. </li>
+          <li>To sign the arbitration agreement manually you need to download the arbitration agreement and print a copy of it. Along with this you can also download the Nyaya Card and the Invoice.</li>
+        </ol>
+      </div>
+      <p>NOTE: To avail the benefits of Nyaya Card, signing the arbitration agreement either manually or through the Aadhar based E-sign facility is mandatory. </p>
+    </div>
+  </div>
+    <% } else {%>
+        <div class="box box-primary txt-justify">
+    <div class="box-body content-ul-heading">
+      <p>One of the most important thing is the correctness of the data entered in the “Create Nyaya Card” form. If at the time of submission of claim, we found out any discrepancy in the details of the original agreement/contract and the Nyaya card details, it renders the Nyaya Card invalid. Please fill the details asked in the form carefully and review it before making the payment. Below are the few guidelines which are to be followed while filling the “Create Nyaya Card” Form:</p>
+      <h3>First Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>For creating the Nyaya Card you need to first enter the client’s original agreement/contract’s stamp number which has been freeze by the professional.</li>
+          <li>You need to select the arbitration procedure as single tier i.e. only one arbitration or two tier i.e. the client can also appeal to the second arbitration if client is not happy with the result of first arbitration. </li>
+          <li>You need to fill the place at which the arbitration agreement is executed in the next column. </li>
+        </ol>
+      </div>
+      <h3>Document Information Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>‘Stamp Number” you need to fill the stamp number of the party’s original agreement/contract. </li>
+          <li>‘Document Executed on’ will be the date of execution of original agreement/contract between the parties, Nyaya Card cannot be issued on the agreements/contracts 2 months old than the current date.</li>
+          <li>‘Document Executed at’ will be the place at which the original agreement/contract was executed between the parties.</li>
+          <li>‘Document valid from’ will be the date from which the original agreement/contract is valid from.</li>
+          <li>‘Document valid up to’ will be the date till which the original agreement/contract is valid up to. </li>
+        </ol>
+      </div>
+      <h3>Party Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>There can be three types of parties:
+            <ul>
+              <li>The party itself – You need to fill the details of the party itself such as name, age, address etc.</li>
+              <li>Any person on behalf of any company or firm – You need to fill the details of the business as well as the person/authority representing the business/firm in the original agreement/contract. </li>
+              <li>Any person who has a power of attorney- You need to fill the details of the Power of attorney holder i.e.in whose name the power of attorney is. In the ‘On the behalf of Power of Attorney’ column you need to fill the details of the person who has granted his/her power to the power of attorney holder.  </li>
+            </ul>
+          </li>
+          <li>You can add more members to a party by clicking on the “Add More Member” button.</li>
+          <li>You can also add more number of parties to the agreement by clicking on the “Add more party” button.</li>
+          <li>You CANNOT add any extra member or party in the form other than the ones mentioned in the original agreement/contract between the parties. </li>
+        </ol>
+      </div>
+      <h3>Witness Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>You can add the details of the witness if any, by clicking on the “Add Witness” button a form will open.</li>
+          <li>You need to fill the correct details of the witness.</li>
+        </ol>
+      </div>
+      <h3>Invoice Details Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>You need to fill the details of the person/business/firm etc. on whose name the client wants the invoice to be generated. </li>
+          <li>In case of Business/firm, please provide GSTIN. </li>
+        </ol>
+      </div>
+      <h3>Last Section: </h3>
+      <div class="content-ul">
+        <ol>
+          <li>After completing the above details you will be directed to the ‘Review Arbitration Agreement’ page by clicking the ‘Proceed to Next’ button, where you can review the details of the agreement. </li>
+          <li>After confirming the details, you can proceed to “make payment”, (we have also provided a facility for you to create the Nyaya Card by offline payment mode. By using this offline mode of payment you accept that you had collected the amount in cash form the client and you will make the online payment later as per Nyaya Portal’s payment terms and conditions.) After that you will be asked to E- sign the agreement, which is not mandatory. The arbitration agreement can also be signed manually. </li>
+          <li>To sign the arbitration agreement manually you need to download the arbitration agreement and print a copy of it. Along with this you can also download the Nyaya Card and the Invoice.</li>
+        </ol>
+      </div>
+      <p>NOTE: To avail the benefits of Nyaya Card, signing the arbitration agreement either manually or through the Aadhar based E-sign facility is mandatory. </p>
+    </div>
+  </div>
+    <% } %>
+
+</section>

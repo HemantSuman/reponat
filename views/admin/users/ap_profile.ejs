@@ -1,0 +1,825 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Update Profile'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/users/update-ap-profile' enctype="multipart/form-data">
+            <input type="hidden" name='image_path' value='public/uploads/users'>
+            <input type="hidden" name='id' value='<%= fromData.id %>'>
+            <div class="box-body">
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group custom-select-outer">
+                            <input type="hidden" name="is_active" value="1"/>
+                            <label for="exampleInputEmail1">Promoter Type</label>
+                            <select class="form-control select2 custom-select-outer" name="franchise_type" id="franchise_type" disabled>
+                                <option value="0" <% if(fromData.franchise_type=='0'){ %>selected<% } %>>Other than Lawyers</option>
+                                 <option value="1" <% if(fromData.franchise_type=='1'){ %>selected<% } %>>Authorized Promoter (Lawyers)</option>
+                            </select>
+                            <label class="error_mgs_lable" id="gender_error"></label>  
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group radio-btn">
+                            <label for="exampleInputEmail1">User Type <br></label>
+                            <input class="form-control" type="text" value="<% if(fromData){ %><%= fromData.franchise_is %><% } %>" disabled>
+                             
+                             
+                         </div>
+                    </div>
+               </div> 
+                
+                
+                
+                
+                <% if(fromData.franchise_is=='Business/Firm'){ %>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Business/Firm Info 
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Registration Number<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="registration_number"  name='user_busines_details[registration_number]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.registration_number %><% } %>'>
+                                    <label class="error_mgs_lable" id="registration_number_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Name<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="business_name"  name='user_busines_details[business_name]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.business_name %><% } %>'>
+                                    <label class="error_mgs_lable" id="business_name_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Email<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="business_email"  name='user_busines_details[business_email]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.business_email %><% } %>'>
+                                    <label class="error_mgs_lable" id="business_email_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Phone no<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="business_phone"  name='user_busines_details[business_phone]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.business_phone %><% } %>'>
+                                    <label class="error_mgs_lable" id="business_phone_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Full address<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="business_address"  name='user_busines_details[business_address]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.business_address %><% } %>'>
+                                    <label class="error_mgs_lable" id="business_address_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Country<em>*</em></label>
+
+                                    <select class="form-control select2 " name="user_busines_details[busines_country_id]" id="busines_country_id" onChange="getDbValuesByIds(this, 'State', ['country_id'], [Number(this.value)], 'state_name asc', 'busines_state_id', ['id', 'state_name'], ['busines_division_id', 'busines_district_id', 'busines_tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.country.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.country_id==value.id){ %>selected<% } %> ><%= value.country_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="busines_country_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">State<em>*</em></label>
+
+                                    <select class="form-control select2" name="user_busines_details[busines_state_id]" id="busines_state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id'], [Number(this.value)], 'division_name asc', 'busines_division_id', ['id', 'division_name'], ['busines_district_id', 'busines_tehsil_id']);"
+                                            >
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.states.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.state_id==value.id){ %>selected<% } %>><%= value.state_name %></option>
+                                        <% });  %>
+
+                                    </select>
+
+                                    <label class="error_mgs_lable" id="busines_state_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Division<em>*</em></label>
+
+                                    <select class="form-control select2" name="user_busines_details[busines_division_id]" id="busines_division_id" onChange="getDbValuesByIds(this, 'District', ['division_id'], [Number(this.value)], 'district_name asc', 'busines_district_id', ['id', 'district_name'], ['busines_tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.divisions.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.division_id==value.id){ %>selected<% } %> ><%= value.division_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="busines_division_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">District<em>*</em></label>
+
+                                    <select class="form-control select2" name="user_busines_details[busines_district_id]" id="busines_district_id" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id'], [Number(this.value)], 'tehsil_name asc', 'busines_tehsil_id', ['id', 'tehsil_name'], []);">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.districts.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.district_id==value.id){ %>selected<% } %> ><%= value.district_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="busines_district_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Tehsil<em>*</em></label>
+
+                                    <select class="form-control select2" name="user_busines_details[busines_tehsil_id]" id="busines_tehsil_id">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.tehsils.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.tehsil_id==value.id){ %>selected<% } %> ><%= value.tehsil_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="busines_tehsil_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">PIN Code</label>
+
+                                    <input type="text" class="form-control" id="pincode" name='user_busines_details[pincode]' value='<%= fromData.pincode %>'>
+                                    <label class="error_mgs_lable" id="business_pincode_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Town<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="area"  name='user_busines_details[busines_area]' value='<%= fromData.area %>'>
+                                    <label class="error_mgs_lable" id="busines_area_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Firm Pan No.<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="business_phone"  name='user_busines_details[business_pan_no]' value='<% if(fromData.user_busines_details){ %><%= fromData.user_busines_details.business_pan_no %><% } %>'>
+                                    <label class="error_mgs_lable" id="business_pan_no_error"></label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span style="float:left;">BANK INFO</span> <div class="tooltip1"><img src="/front/images/info-128.png" style="width:28px;height:28px;" >
+                                                                        <span class="tooltiptext">We require your bank details to transfer the incentive in your account</span>
+                                                                      </div>
+                     <%if(fromData.check_img){%><a style="float: right;" target="_blank" href="/uploads/users/<%=fromData.check_img%>" >View cancel Cheque </a><% } %>                                                   
+                    </div>
+                    
+
+
+                    <div class="panel-body">
+                        <div class="row deshboard-static">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Bank Account Holder Name<em>*</em></label>
+                                    <input type="text" class="form-control" id="account_holder_name"  name="user_bank_details[account_holder_name]" value='<% if(fromData.user_bank_details){ %><%= fromData.user_bank_details.account_holder_name %><% } %>'  <% if(fromData.user_bank_details && fromData.user_bank_details.account_holder_name){ %>readonly<% } %>>
+                                    <label class="error_mgs_lable" id="account_holder_name_error"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Account Type<em>*</em></label>
+                                    <select class="form-control select2 custom-select-outer" name="user_bank_details[account_type]" id="account_type" <% if(fromData.user_bank_details && fromData.user_bank_details.account_type){ %>disabled<% } %>>
+                                        <option value="">--Please Select--</option>
+                                        <option value="saving" <% if(fromData.user_bank_details && fromData.user_bank_details.account_type=='saving'){ %>selected<% } %> >Saving</option>
+                                        <option value="current" <% if(fromData.user_bank_details && fromData.user_bank_details.account_type=='current'){ %>selected<% } %>>Current</option>
+                                    </select>
+                                    <label class="error_mgs_lable" id="account_type_error"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Bank Account Number<em>*</em></label>
+                                    <input type="text" class="form-control" id="account_no"  name="user_bank_details[account_no]" value='<% if(fromData.user_bank_details){ %><%= fromData.user_bank_details.account_no %><% } %>' <% if(fromData.user_bank_details && fromData.user_bank_details.account_no){ %>readonly<% } %>>
+                                    <label class="error_mgs_lable" id="account_no_error"></label>
+                                </div>
+                            </div>
+                            <!--End Line-->
+
+                            <!--Next Line-->
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="exampleInputEmail1">Bank Name<em>*</em></label>
+                                    <input type="text" class="form-control" id="bank_name"  name="user_bank_details[bank_name]" value='<% if(fromData.user_bank_details){ %><%= fromData.user_bank_details.bank_name %><% } %>' <% if(fromData.user_bank_details && fromData.user_bank_details.bank_name){ %>readonly<% } %>>
+                                    <label class="error_mgs_lable" id="bank_name_error"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="exampleInputEmail1">IFSC Code<em>*</em></label>
+                                    <input type="text" class="form-control" id="ifsc_code" name="user_bank_details[ifsc_code]" value='<% if(fromData.user_bank_details){ %><%= fromData.user_bank_details.ifsc_code %><% } %>' <% if(fromData.user_bank_details && fromData.user_bank_details.ifsc_code){ %>readonly<% } %>>
+                                    <label class="error_mgs_lable" id="ifsc_code_error"></label>
+                                </div>
+                            </div>
+                            <!--End Line-->
+
+                            <!--Next Line-->
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Pan Card Number<em>*</em></label>
+                                    <input type="text" class="form-control" id="pan_no"  name="user_bank_details[pan_no]" value='<% if(fromData.user_bank_details){ %><%= fromData.user_bank_details.pan_no %><% } %>' <% if(fromData.user_bank_details && fromData.user_bank_details.pan_no){ %>readonly<% } %>>
+                                    <label class="error_mgs_lable" id="pan_no_error"></label>
+                                </div>
+                            </div>
+
+                            <% if(fromData.check_img ==''){ %>
+                             <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Upload Cancel Cheque Image <em style="color: #ff0000;">*</em></label>
+                                        <input type="file" class="form-control" id="check_img" name="check_img" value='<% if(fromData.check_img){ %><%= fromData.check_img %><% } %>'>
+                                        <label class="error_mgs_lable" id="check_img_error"></label>
+                                    </div>
+                            </div>
+                            <% } %>
+                            <!--End Line-->
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Contact Info
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Title</label>
+
+                                    <select class="form-control select2 custom-select-outer" name="gender" id="gender">
+
+
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Mrs.">Mrs.</option>
+                                        <option value="Miss.">Miss.</option>
+                                        <option value="Ms.">Ms.</option>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="gender_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Name<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="first_name"  name='first_name' value='<%= fromData.first_name %>'>
+                                    <label class="error_mgs_lable" id="first_name_error"></label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Designation</label>
+
+                                    <input type="text" class="form-control" id="designation" name='designation' value='<%= fromData.designation %>'>
+                                    <label class="error_mgs_lable" id="designation_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Mobile Number<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="mobile"  name='mobile' value='<%= fromData.mobile %>' readonly="">
+                                    <label class="error_mgs_lable" id="mobile_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email Address<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="email"  name='email' value='<%= fromData.email %>' readonly="">
+                                    <label class="error_mgs_lable" id="email_error"></label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Aadhaar Number</label>
+
+                                    <input type="text" class="form-control" id="aadhaar_number" name='aadhaar_number' value='<%= fromData.aadhaar_number %>'>
+                                    <label class="error_mgs_lable" id="aadhaar_number_error"></label>
+
+                                </div>
+                            </div>
+                            
+                            
+<!--                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Password<em>*</em></label>
+
+                                    <input type="password" class="form-control" id="password" name='password' value=''>
+                                    <label class="error_mgs_lable" id="password_error"></label>
+
+                                </div>
+                            </div>
+                            End Line
+
+
+
+                            Next Line
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Confirm Password<em>*</em></label>
+
+                                    <input type="password" class="form-control" id="password_confirm"  name='password_confirm' value=''>
+                                    <label class="error_mgs_lable" id="password_confirm_error"></label>
+
+                                </div>
+                            </div>-->
+                            
+                            
+                            
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Country<em>*</em></label>
+
+                                    <select class="form-control select2 " name="country_id" id="country_id" onChange="getDbValuesByIds(this, 'State', ['country_id'], [Number(this.value)], 'state_name asc', 'state_id', ['id', 'state_name'], ['division_id', 'district_id', 'tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.country.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.country_id==value.id){ %>selected<% } %> ><%= value.country_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="country_id_error"></label>
+
+                                </div>
+                            </div>
+                            <!--End Line-->
+
+
+
+                            <!--Next Line-->
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">State<em>*</em></label>
+
+                                    <select class="form-control select2" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id'], [Number(this.value)], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id', 'tehsil_id']);"
+                                            >
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.states.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.state_id==value.id){ %>selected<% } %>><%= value.state_name %></option>
+                                        <% });  %>
+
+                                    </select>
+
+                                    <label class="error_mgs_lable" id="state_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Division<em>*</em></label>
+
+                                    <select class="form-control select2" name="division_id" id="division_id" onChange="getDbValuesByIds(this, 'District', ['division_id'], [Number(this.value)], 'district_name asc', 'district_id', ['id', 'district_name'], ['tehsil_id']);">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.divisions.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.division_id==value.id){ %>selected<% } %> ><%= value.division_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="division_id_error"></label>
+
+                                </div>
+                            </div>
+                            <!--End Line-->
+
+
+
+
+
+
+
+                            <!--Next Line-->
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">District<em>*</em></label>
+
+                                    <select class="form-control select2" name="district_id" id="district_id" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id'], [Number(this.value)], 'tehsil_name asc', 'tehsil_id', ['id', 'tehsil_name'], []);"
+                                            >
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.districts.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.district_id==value.id){ %>selected<% } %> ><%= value.district_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="district_id_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Tehsil<em>*</em></label>
+
+                                    <select class="form-control select2" name="tehsil_id" id="tehsil_id">
+                                        <option value="">--Please Select--</option>
+
+
+                                        <% data.tehsils.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>" <% if(fromData.tehsil_id==value.id){ %>selected<% } %> ><%= value.tehsil_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="tehsil_id_error"></label>
+
+                                </div>
+                            </div>
+                            <!--End Line-->
+
+
+
+
+                            <!--Next Line-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Town<em>*</em></label>
+
+                                    <input type="text" class="form-control" id="area"  name='area' value='<%= fromData.area %>'>
+                                    <label class="error_mgs_lable" id="area_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="exampleInputEmail1">Pin Code</label>
+
+                                    <input type="text" class="form-control" id="pincode"  name='pincode' value='<%= fromData.pincode %>'>
+                                    <label class="error_mgs_lable" id="nearest_milestone_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Complete Address<em>*</em></label>
+                                    <input class='form-control' name="residence_address" id="residence_address" value="<%= fromData.residence_address %>">
+                                    <label class="error_mgs_lable" id="residence_address_error"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Govt.ID type</label>
+
+                                    <select class="form-control select2 custom-select-outer" name="id_type" id="id_type">
+                                        <option value="">--Please Select--</option>
+
+                                        <option value="voter_id" <% if(fromData.id_type=='voter_id'){ %>selected<% } %> >Voter Id</option>
+                                        <option value="license" <% if(fromData.id_type=='license'){ %>selected<% } %>>License</option>
+                                    </select>
+                                    <label class="error_mgs_lable" id="gender_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Govt.ID Number</label>
+
+                                    <input type="text" class="form-control" id="id_number" name='id_number' value='<%= fromData.id_number %>'>
+                                    <label class="error_mgs_lable" id="nearest_milestone_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Highest Qualification</label>
+
+                                    <input type="text" class="form-control" id="qualification" name='qualification' value='<%= fromData.qualification %>'>
+                                    <label class="error_mgs_lable" id="nearest_milestone_error"></label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                  <div class="form-group">
+                                <label for="exampleInputEmail1">Legal Documents</label>
+                                <input type="file" class="form-control" id="legal_documents" name='legal_documents'>
+                                <label class="error_mgs_lable" id="profile_image_error"></label>
+                                <% if(fromData.legal_documents && fromData.legal_documents != '') { %>
+                                    <a href="<%= site.fullUrl %>/uploads/docs/<%= fromData.legal_documents %>" target="_blank">Download Uploaded Document</a>
+                                <% } %>
+                            </div>                           
+                            </div>
+                            <%# if(fromData.legal_documents && fromData.legal_documents !=''){ %>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Legal Document</label>
+                                    <br>
+                                    <a href="<%= site.fullUrl %>/uploads/docs/<%= fromData.legal_documents %>" target="_blank">Download Document</a>
+
+                                </div>
+                            </div> -->
+                            <%# } %>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Profile Description</label>
+                                    <textarea class='form-control' name="profile_description" id="profile_description"><%= fromData.profile_description %></textarea>
+                                    <label class="error_mgs_lable" id="residence_address_error"></label>
+                                </div>
+                            </div>
+                            <!--End Line-->
+                        </div>  
+                    </div>
+                </div> 
+                
+                
+                
+                
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Promoter Info
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Location</label>
+
+                                    <input type="text" class="form-control" value='<%= fromData.p_location %>' disabled="">
+                                    
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Areas</label>
+
+                                    <input type="text" class="form-control" value='<%= fromData.ap_areas %>' disabled="">
+                                    
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Parent Franchise</label>
+
+                                    <input type="text" class="form-control" value='<%= fromData.p_name %>' disabled="">
+                                    
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                            <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Promoter Level</label>
+
+                                    <select class="form-control select2 " name="franchise_levels[franchise_level]" id="" disabled="">
+                                        <option value="">--Please Select--</option>
+                                        <% data.franchise_levels.forEach(function(value,index){  %>
+                                        <option value="<%= value.franchise_slug %>" <% if(fromData.franchise.franchise_level==value.franchise_slug){ %>selected<% } %> ><%= value.franchise_name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="country_id_error"></label>
+
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <div class="form-group custom-select-outer">
+                                    <label for="exampleInputEmail1">Select <%= fromData.franchise.franchise_level.replace("_level", " ") %></label>
+
+                                    <select class="form-control select2 " name="list_data" id="">
+                                        <option value="">--Please Select--</option>
+                                        <% data.levelData.forEach(function(value,index){  %>
+                                        <option value="<%= value.id %>"><%= value.name %></option>
+                                        <% });  %>
+
+                                    </select>
+                                    <label class="error_mgs_lable" id="country_id_error"></label>
+
+                                </div>
+                            </div> -->
+
+
+                            <span id="loadHtml"></span>
+                        </div> 
+                    </div>
+                </div>
+                
+                
+                
+
+
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            
+                        </div>
+                    </div>
+
+
+                </div>
+        </form>
+    </div>
+    <!-- /.box -->
+
+
+    <!-- /.box -->
+
+</div>
+</div>
+</section>
+
+
+
+
+<script>
+    //$('.hideSelect').hide();
+    $('input[type=radio][name=franchise_is]').change(function () {
+
+        if (this.value == 'Business/Firm') {
+            $('#bisId').show();
+        }
+        else {
+            $('#bisId').hide();
+        }
+    });
+
+    $(document).on('change', '#franchise_level', function () {
+//        alert(this.value);
+//        $('.hideSelect').hide();
+//        if (this.value == 'country_level') {
+//            $('#hideCountry').show();
+//            //$('#franchise_country_id').attr('multiple', 'multiple');
+//            //$("#franchise_country_id").select2("destroy").select2();
+//        }
+//
+//
+//        if (this.value == 'state_level') {
+//            $('#hideCountry').show();
+//            $('#hideState').show();
+//        }
+//
+//
+//        if (this.value == 'division_level') {
+//            $('#hideCountry').show();
+//            $('#hideState').show();
+//            $('#hideDivision').show();
+//        }
+//
+//
+//        if (this.value == 'district_level') {
+//            $('#hideCountry').show();
+//            $('#hideState').show();
+//            $('#hideDivision').show();
+//            $('#hideDistrict').show();
+//        }
+//
+//        if (this.value == 'tehsil_level') {
+//            $('#hideCountry').show();
+//            $('#hideState').show();
+//            $('#hideDivision').show();
+//            $('#hideDistrict').show();
+//            $('#hideTehsil').show();
+//        }
+
+        $('#loadHtml').html('');
+        $.ajax({
+            url: '/admin/franchises/load-level',
+            data: {
+                level: this.value
+            },
+            method: 'post',
+            success: function (response) {
+                $('#loadHtml').html(response);
+                $('select').select2();
+            }
+        })
+
+
+
+    });
+
+
+//    $(document).on('change', '#parent_franchise', function () {
+//        $.ajax({
+//            url: '/admin/franchises/load-level',
+//            data: {
+//                level: this.value
+//            },
+//            method: 'post',
+//            success: function (response) {
+//                $('#loadHtml').html(response);
+//                $('select').select2();
+//            }
+//        })
+//    });
+
+
+    function loadParent() {
+
+        sendDataObj = {};
+        var fl = $('#franchise_level').val();
+        franchise_level = fl;
+        if (fl == 'state_level') {
+            key = 'country_id';
+            value = $('#franchise_' + key).val();
+            franchise_level = 'country_level';
+        }
+
+        if (fl == 'division_level') {
+            key = 'state_id';
+            value = $('#franchise_' + key).val();
+            franchise_level = 'state_level';
+        }
+
+        if (fl == 'district_level') {
+            key = 'division_id';
+            value = $('#franchise_' + key).val();
+            franchise_level = 'division_level';
+        }
+
+        if (fl == 'tehsil_level') {
+            key = 'district_id';
+            value = $('#franchise_' + key).val();
+            franchise_level = 'district_level';
+        }
+
+
+        sendDataObj['value'] = value;
+        sendDataObj['key'] = key;
+        sendDataObj['franchise_type'] = $('#franchise_type').val();
+        sendDataObj['franchise_level'] = franchise_level;
+
+        console.log(sendDataObj);
+
+        $.ajax({
+            url: '/admin/franchises/load-parent',
+            data: sendDataObj,
+            method: 'post',
+            success: function (response) {
+                $('#parent_franchise').html(response);
+                //$('select').select2();
+            }
+        })
+
+    }
+</script>

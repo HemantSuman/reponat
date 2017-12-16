@@ -1,0 +1,16 @@
+<% if (htmlType =='AddButtom') {  %>
+
+ <div class="filterBar">
+    <div class="filterBarRight">
+    	<a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.product_id%>" class="btn-view-list"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+
+                
+            </div>
+        </div>
+
+
+<% } else if (htmlType =='SaveCancel') {  %>
+
+<button type="submit" class="btn btn-primary">Save</button>
+<a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>" class="btn btn-primary">Cancel</a>
+<% } %>

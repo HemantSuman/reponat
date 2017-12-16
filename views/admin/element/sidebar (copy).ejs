@@ -1,0 +1,152 @@
+
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="<%= site.logoUrl %>" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p><%# loginUser['name'] %></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+
+
+        <li>
+            <a href="#" class="clickAction" data-action-class='' data-action="" data-action-id="">
+                <i class="fa fa-th"></i> <span>Dashboard</span>
+            </a>
+        </li>
+
+        <!--        <li class="treeview">
+                    <a href="#">
+                        <i class="fa <%# iconOnView %>"></i> <span>User</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/users" ><i class="fa fa-circle-o text-aqua"></i>Show </a></li>
+                        <li class="active"><a href="/admin/users/add" ><i class="fa fa-circle-o text-green"></i>Add </a></li>            
+                    </ul>
+                </li>-->
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa <%# iconOnView %>"></i> <span>Masters</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/admin/role_types/1" ><i class="fa fa-circle-o text-aqua"></i>Professional Types</a></li>
+                <li><a href="/admin/role_types/2" ><i class="fa fa-circle-o text-aqua"></i>Service Provider Types</a></li>
+                <li><a href="/admin/business_types" ><i class="fa fa-circle-o text-aqua"></i>Business Types</a></li>
+                <li><a href="/admin/business_categories" ><i class="fa fa-circle-o text-aqua"></i>Business Category</a></li>
+                <li><a href="/admin/countries" ><i class="fa fa-circle-o text-aqua"></i>Countries</a></li>
+                <li><a href="/admin/states" ><i class="fa fa-circle-o text-aqua"></i>States</a></li>
+                <li><a href="/admin/divisions" ><i class="fa fa-circle-o text-aqua"></i>Divisions</a></li>
+                <li><a href="/admin/districts" ><i class="fa fa-circle-o text-aqua"></i>Districts</a></li>
+                <li><a href="/admin/tehsils" ><i class="fa fa-circle-o text-aqua"></i>Tehsils</a></li>
+                <li><a href="/admin/taxes" ><i class="fa fa-circle-o text-aqua"></i>Taxes</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="/admin/nc1-slab">
+                <i class="fa <%# iconOnView %>"></i> <span>Annexure-1 Fee</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa <%# iconOnView %>"></i> <span>Nyaya Card-1</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/admin/service_details/1" ><i class="fa fa-circle-o text-aqua"></i>Document Category </a></li>
+                <li><a href="/admin/nc1_heads/1" ><i class="fa fa-circle-o text-aqua"></i>Heads Details </a></li>
+                <li><a href="/admin/slab-heads/1" ><i class="fa fa-circle-o text-aqua"></i>Slab Heads Details</a></li>
+                <li><a href="/admin/revised_fees/1" ><i class="fa fa-circle-o text-aqua"></i>Revised Fee</a></li>
+                <li><a href="/admin/turn_over_based_deals/1" ><i class="fa fa-circle-o text-aqua"></i>Turnover Based Deal</a></li>
+                <li><a href="/admin/special_bonus/1" ><i class="fa fa-circle-o text-aqua"></i>Special Bonus</a></li>
+                <li><a href="/admin/commisions/1" ><i class="fa fa-circle-o text-aqua"></i>Professional Commission</a></li>
+                <li><a href="/admin/commisions/provider/1" ><i class="fa fa-circle-o text-aqua"></i>Service Provider Commission</a></li>
+                <li><a href="/admin/franchise-commissions/1" ><i class="fa fa-circle-o text-aqua"></i>Franchise Commissions</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa <%# iconOnView %>"></i> <span>Nyaya Card-2</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/admin/service_details/2" ><i class="fa fa-circle-o text-aqua"></i>Document Category </a></li>
+                <li><a href="/admin/nc1_heads/2" ><i class="fa fa-circle-o text-aqua"></i>Heads Details </a></li>
+                <li><a href="/admin/slab-heads/2" ><i class="fa fa-circle-o text-aqua"></i>Slab Heads Details</a></li>
+                <li><a href="/admin/revised_fees/2" ><i class="fa fa-circle-o text-aqua"></i>Revised Fee</a></li>
+                <li><a href="/admin/turn_over_based_deals/2" ><i class="fa fa-circle-o text-aqua"></i>Turnover Based Deal</a></li>
+                <li><a href="/admin/special_bonus/2" ><i class="fa fa-circle-o text-aqua"></i>Special Bonus</a></li>
+                <li><a href="/admin/commisions/2" ><i class="fa fa-circle-o text-aqua"></i>Commissions</a></li>
+                <li><a href="/admin/franchise-commissions/2" ><i class="fa fa-circle-o text-aqua"></i>Franchise Commissions</a></li>
+            </ul>
+        </li>
+
+
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa <%# iconOnView %>"></i> <span>User Profiles</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/admin/users/1" ><i class="fa fa-circle-o text-aqua"></i>Professionals</a></li>
+                <li><a href="/admin/users/2" ><i class="fa fa-circle-o text-aqua"></i>Service Providers</a></li>
+                <li><a href="/admin/users/3" ><i class="fa fa-circle-o text-aqua"></i>Others</a></li>
+            </ul>
+        </li>
+
+
+        <!--        <li class="treeview">
+                    <a href="#">
+                        <i class="fa <%# iconOnView %>"></i> <span>Annexure-1 Slab</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/nc1-slab" ><i class="fa fa-circle-o text-aqua"></i>Annexure-1 Slab Details</a></li>
+                        <li><a href="/admin/nc1-slab/add" ><i class="fa fa-circle-o text-aqua"></i>Annexure-1 Slab Add </a></li>
+                    </ul>
+                </li>-->
+
+
+
+        <!--        <li class="treeview">
+                    <a href="#">
+                        <i class="fa <%# iconOnView %>"></i> <span>Slab heads</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/slab-heads" ><i class="fa fa-circle-o text-aqua"></i>Slab Heads Details</a></li>
+                        <li><a href="/admin/slab-heads/add" ><i class="fa fa-circle-o text-aqua"></i>Slab Heads Add </a></li>
+                    </ul>
+                </li>-->
+
+
+
+    </ul>
+</section>
+<!-- /.sidebar -->

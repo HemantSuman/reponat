@@ -1,0 +1,221 @@
+
+
+<div class="office_address">
+
+    <div class="row form-row">
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Government type<span class="required">*</span></label>
+            <select class="form-control custom-select" id="govt_type_id" name="government_details[govt_type_id]" >            
+                <option value="">Please Select</option>
+                <% for(var i=0; i < government_type.length; i++) { %>
+
+                <option value="<%= government_type[i]['id'] %>">
+                    <%= government_type[i]['government_type_name'] %>
+                </option>
+                <% } %>
+            </select>
+            <label class="errorMsg" id="govt_type_id_error" ></label>
+        </div>
+        
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Ministry<span class="required">*</span></label>
+            <select class="form-control custom-select" id="ministry_id" name="government_details[ministry_id]"
+                    onChange="getDbValuesByIds(this, 'GovernmentDepartment', ['ministry_id','is_active'], [Number(this.value),1], 'government_department_name asc', 'govt_dept_id', ['id', 'government_department_name']);" >            
+                <option value="">Please Select</option>
+                <% for(var i=0; i < ministry.length; i++) { %>
+
+                <option value="<%= ministry[i]['id'] %>">
+                    <%= ministry[i]['ministry_name'] %>
+                </option>
+                <% } %>
+            </select>
+            <label class="errorMsg" id="ministry_id_error"></label>
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Government Department<span class="required">*</span></label>
+            <select class="form-control custom-select" id="govt_dept_id" name="government_details[govt_dept_id]" >
+                <option value="">Please Select</option>
+<!--                <%# for(var i=0; i < government_department.length; i++) { %>
+
+                <option value="<%= government_department[i]['id'] %>">
+                    <%= government_department[i]['government_department_name'] %>
+                </option>
+                <%# } %>-->
+            </select>
+            <label class="errorMsg" id="govt_dept_id_error"></label>
+        </div>
+
+<!--        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Select State<span class="required">*</span></label>
+            <select onChange="getDbValuesByIds(this, 'states', '', 'state_name asc', 'govt_type_state_id', ['id', 'state_name']);" class="form-control custom-select" id="govt_type_state_id" name="bussiness_details[govt_type_state_id]" >            
+                <option value="">Please Select</option>
+                
+            </select>
+            <label class="errorMsg" id="govt_type_state_id_error"></label>
+        </div>-->
+
+    </div>
+    
+
+    <h3>Office Address</h3>
+    <!-- <label>
+     <input type="checkbox" name="" id=""> Same as residence address?
+    </label> --> 
+
+    <div class="row">
+<!--        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Enter Company Name<span class="required">*</span></label>
+            <input type="text" class="form-control" id="bussiness_name" name="bussiness_details[bussiness_name]">
+            <label class="errorMsg" id="bussiness_name_error"></label>
+        </div>-->
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Office Address<span class="required">*</span></label>
+            <input type="text" class="form-control" id="office_address" name="government_details[office_address]">
+            <label class="errorMsg" id="office_address_error"></label>
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Country<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_country_id" name="government_details[govt_country_id]" onChange="getStates(this.value, 'office_state_id');">
+                <option value="">Please Select</option>
+                <% for(var i=0; i < countries.length; i++) { %>
+
+                <option value="<%= countries[i]['id'] %>">
+                    <%= countries[i]['country_name'] %>
+                </option>
+                <% } %>
+            </select>
+            <label class="errorMsg" id="govt_country_id_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>State<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_state_id" name="government_details[govt_state_id]" onChange="getDistricts(this.value, 'office_district_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="govt_state_id_error"></label>
+        </div>
+
+
+
+    </div> 
+
+    <div class="row form-row">
+
+        
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>District<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_district_id" name="government_details[govt_district_id]" onchange="getTehsils(this.value, 'office_tehsil_id');">            
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="govt_district_id_error"></label>
+        </div>
+
+
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Tehsil<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_tehsil_id" name="government_details[govt_tehsil_id]" onchange="getBlocks(this.value, 'office_block_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="govt_tehsil_id_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Block<span class="required">*</span></label>
+            <select class="form-control custom-select" id="office_block_id" name="government_details[govt_block_id]" onchange="getVillages(this.value, 'office_village_id');">
+                <option value="">Please Select</option>
+            </select>
+            <label class="errorMsg" id="govt_block_id_error"></label>
+        </div>
+
+
+
+    </div>
+
+    <div class="row form-row">
+
+        
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>PIN code</label>
+            <input type="text" class="form-control" id="govt_pincode" name="government_details[govt_pincode]">
+            <label class="errorMsg" id="govt_pincode_error"></label>
+        </div> 
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Registration number</label>
+            <input type="text" class="form-control" id="registration_number" name="government_details[registration_number]">
+            <label class="errorMsg" id="registration_number_error"></label>
+        </div> 
+    </div>
+
+
+    <h3>Contact person Details</h3>
+
+    <div class="row form-row">
+
+        
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Full Name<span class="required">*</span></label>
+            <input type="text" class="form-control" id="first_name" name="first_name">
+            <label class="errorMsg" id="first_name_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Email Address<span class="required">*</span></label>
+            <input type="text" class="form-control" id="email" name="email">
+            <label class="errorMsg" id="email_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Mobile<span class="required">*</span></label>
+            <input type="text" class="form-control" id="mobile" name="mobile">
+            <label class="errorMsg" id="mobile_error"></label>
+        </div>
+
+    </div>
+
+   
+
+    <div class="row form-row">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Contact Person Designation</label>
+            <input type="text" class="form-control" id="associated_user_designation" name="government_details[contact_person_designation]">
+            <label class="errorMsg" id="contact_person_designation_error"></label>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password" name="password">
+            <label class="errorMsg" id="password_error"></label>
+        </div>
+
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <label>Confirm Password<span class="required">*</span></label>
+            <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+            <label class="errorMsg" id="password_confirm_error"></label>
+        </div> 
+
+
+    </div> 
+
+     <div class="row form-row">
+
+
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <label>Description</label>
+            <textarea class="form-control" id="description" rows="5" name="government_details[contact_person_profile_desc]"></textarea>
+            <label class="errorMsg" id="contact_person_profile_desc_error"></label>
+        </div>
+
+    </div>
+
+</div>

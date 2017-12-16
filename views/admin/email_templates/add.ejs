@@ -1,0 +1,100 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Add'}); %>
+<section class="content">
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/<%= extraVar.product_id %>"  class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> View Listing</a>
+            </div>
+        </div>
+        <!-- /.box-header --> 
+        <!-- form start -->
+        <form role="form" id='formSubmit' name='' method='post' action='/admin/<%= extraVar.viewDirectory %>/create' enctype="multipart/form-data">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title<em>*</em></label>
+                            <input type="text" class="form-control" id="title" name='title' >
+                            <label class="error_mgs_lable" id="title_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Slug<em>*</em></label>
+                            <input type="text" class="form-control" id="slug"  name='slug' >
+                            <label class="error_mgs_lable" id="slug_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Subject</label>
+                            <input type="text" class="form-control" id="subject"  name='subject' >
+                            <label class="error_mgs_lable" id="subject_error"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Template for </label>
+                            <div class="radio-btn">
+                                <input name="template_for" value="1" id="template_for1" checked="checked" type="radio" class="template_for">
+                                <label for="template_for1"> Email  </label>
+                                <input name="template_for" value="2" id="template_for2" type="radio" class="template_for">
+                                <label for="template_for2"> Mobile </label>
+                            </div>
+                            <label class="error_mgs_lable" id="revised_type_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 email_content">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Content<em>*</em></label>
+                            <textarea name="email_content" rows="10" cols="80" id="email_content"></textarea>
+                            <label class="error_mgs_lable" id="content_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mobile_content" style="display: none">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Content<em>*</em></label>
+                            <textarea name="mobile_content" rows="6" id="mobile_content" class="form-control"></textarea>
+                            <span class="text-info">[use <code>%0a</code> for line break]</span>
+                            <label class="error_mgs_lable" id="content_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Fields<em>*</em></label>
+                            <input type="text" class="form-control" id="fields"  name='fields'>
+                            <label class="error_mgs_lable" id="fields_error"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                      <%- include('../helper/commonHtml.ejs', {htmlType:'SaveCancel'}); %>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    $(function() {
+        CKEDITOR.replace('email_content', {
+            basicEntities: false
+        });
+
+        $(".template_for").on("change", function(ev) {
+            if($(this).val() == 1) {
+                $(".mobile_content").hide();
+                $(".email_content").show();
+            } else {
+                $(".email_content").hide();
+                $(".mobile_content").show();
+            }
+        })
+    })
+</script>

@@ -1,0 +1,146 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+    <div class="box box-primary">
+        <%- include('../helper/commonHtml.ejs', {htmlType:'AddButtom'}); %>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <form action="/admin/tehsils" method="get" name="serchFrom" role="form">
+                <input type="submit" class="btn btn-success blue" style="display:none">
+                <div class="form-row-new row">
+
+                    <div class="col-md-2">
+                        <div class="form-group custom-select-outer">
+
+                            <select class="form-control select2" name="country_id" id="country_id" >
+                                <% results.data.countries.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" <% if(serchData.country_id==rows.id){ %>selected<% } %> ><%= rows.country_name %></option>
+                                <% }); %>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group custom-select-outer">
+
+                            <select class="form-control select2" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id', 'is_active'], [Number(this.value), 1], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id','tehsil_id']);">
+                                <option value="">Select States</option>
+                                <% results.data.states.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" <% if(serchData.state_id==rows.id){ %>selected<% } %> ><%= rows.state_name %></option>
+                                <% }); %>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group custom-select-outer">
+
+                            <select class="form-control select2" name="division_id" id="division_id" onChange="getDbValuesByIds(this, 'District', ['division_id', 'is_active'], [Number(this.value), 1], 'district_name asc', 'district_id', ['id', 'district_name'], ['tehsil_id']);">
+                                <option value="">Select Division</option>
+                                <% if(results.data.divisions){ %>
+                                <% results.data.divisions.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" <% if(serchData.division_id==rows.id){ %>selected<% } %> ><%= rows.division_name %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group custom-select-outer">
+
+                            <select class="form-control select2" name="district_id" id="district_id" >
+                                <option value="">Select District</option>
+                                <% if(results.data.districts){ %>
+                                <% results.data.districts.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" <% if(serchData.district_id==rows.id){ %>selected<% } %> ><%= rows.district_name %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group"><input type="text" name="tehsil_name" placeholder="Tehsil Name" id="tehsil_name" class="form-control" value="<%= serchData.tehsil_name %>"></div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <a title="search" href="javascript:void(0)" class="btn btn-success blue" onclick="srchForm()">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <a title="Clear Search" href="/admin/tehsils" class="btn btn-success blue ml-5">Clear Search</a>
+                    </div>
+                </div>
+            </form>
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+
+                            <th>Tehsil Name</th>
+                            <th>Tehsil Code</th>
+                            <th>Country Name</th>
+                            <th>State Name</th>
+                            <th>Division Name</th>
+                            <th>District Name</th>
+                            <th>Status</th>
+                            <th style="width: 100px">Actions</th>
+                        </tr>
+
+
+                        <% results.rows.forEach(function(rows){ %>
+                        <tr>
+                            <td><%= rows.tehsil_name %></td>
+                            <td><%= rows.tehsil_code %></td>
+                            <td><%= rows.Country.country_name %></td>
+                            <td><%= rows.State.state_name %></td>
+                            <td><%= rows.Division.division_name %></td>
+                            <td><%= rows.District.district_name %></td>
+                            <td>
+                                <% if(rows.is_active==1){ %>
+                                <span class="label label-success">Active</span>                               
+                                <% }else{ %>
+                                <span class="label label-danger">Inactive</span>
+                                <% } %>
+
+                            </td>
+                            <td>
+
+                                <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+
+                                <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                            </td>
+
+                        </tr>
+                        <% }); %>
+
+
+                    </table>
+                    <% if(results.rows.length==0){ %>
+                    <h5 class="box-title text-center">No record found</h5>
+                    <% } %>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer clearfix">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%- include ../helper/pagination.ejs %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+<script>
+    function srchForm() {
+
+        javascript:document.serchFrom.submit()
+    }
+
+</script>

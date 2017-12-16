@@ -1,0 +1,491 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+
+<section class="content">
+
+    <div class="box box-primary">
+        <div class="filterBar">
+            <div class="filterBarRight">
+                <a href="/admin/<%= extraVar.viewDirectory %>/add/<%= extraVar.role_id %>" class="btn-view-list"><i class="fa fa-list" aria-hidden="true"></i> <%= extraVar['btnName'] %></a>
+            </div>
+        </div>
+        <div class="box-body">
+
+            <%# if(extraVar['viewSlug']=='professional'){ %>
+            <div class="row form-row-new">
+
+                <div class="col-md-3">
+                    <div class="form-group custom-select-outer ">
+                        <select class="form-control select2" name="bonus" id="bonus" >
+                            <option value="">Select Bonus to Apply</option> 
+                            <% data.SpecialBonus.forEach(function(value, index){  %>
+                            <option value="<%= value.id %>" att-col="<%= value.product_id %>"><%= value.bonus_name %></option>
+                            <% });  %>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3 class="box-title"><a href="javascript:void(0)" class="btn btn-primary" onclick="ApplyBonus()">Apply Bonus</a> </h3>
+
+                    </div>
+                </div>
+                <!--</div>-->
+
+
+                <!--<div class="row form-row-new">-->
+
+                <div class="col-md-3">
+                    <div class="form-group custom-select-outer ">
+                        <select class="form-control select2" name="bonus_r" id="bonus_r" >
+                            <option value="">Select Bonus to Remove</option> 
+                            <option value="special_bonus_id">Special Bonus Nyaya Card</option>
+                            <% if(extraVar.role_id==1){ %>
+                            <option value="special_bonus_id_membership">Special Bonus Membership</option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <h3 class="box-title"><a href="javascript:void(0)" class="btn btn-primary" onclick="RemoveBonus()">Remove Bonus</a> </h3>
+
+                    </div>
+                </div>
+            </div>
+            <%# } %>
+            <!-- /.box-header -->
+
+            <form role="form" name='serchFrom' method='get' action='/admin/users/<%= extraVar.role_id %>'>
+                <div class="row form-row-new">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="aadhaar_number" placeholder="Name" name="first_name" value='<%= extraVar.query.first_name %>'>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="aadhaar_number" placeholder="Mobile Number" name="mobile" value='<%= extraVar.query.mobile %>'> 
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="text" class="form-control srchByEnterPressInput" id="aadhaar_number" placeholder="Aadhaar Number" name="aadhaar_number" value='<%= extraVar.query.aadhaar_number %>'>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="state_id" id="state_id" onChange="getDbValuesByIds(this, 'Division', ['state_id'], [Number(this.value)], 'division_name asc', 'division_id', ['id', 'division_name'], ['district_id', 'tehsil_id']);">
+                                <option value="">State</option> 
+                                <% data.state.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.state_id == value.id) { %>selected<% } %> data-tags="true"><%= value.state_name %></option>
+                                <% });  %>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="division_id" id="division_id" onChange="getDbValuesByIds(this, 'District', ['division_id'], [Number(this.value)], 'district_name asc', 'district_id', ['id', 'district_name'], ['tehsil_id']);">
+                                <option value="">Division</option>
+                                <% data.division.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.division_id == value.id) { %>selected<% } %> data-tags="true"><%= value.division_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="district_id" id="district_id" onChange="getDbValuesByIds(this, 'Tehsil', ['district_id'], [Number(this.value)], 'tehsil_name asc', 'tehsil_id', ['id', 'tehsil_name'], []);">
+                                <option value="">District</option>
+                                <% data.district.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.district_id == value.id) { %>selected<% } %> data-tags="true"><%= value.district_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="tehsil_id" id="tehsil_id">
+                                <option value="">Tehsil</option>
+                                <% data.tehsil.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.tehsil_id == value.id) { %>selected<% } %> data-tags="true"><%= value.tehsil_name %></option>
+                                <% });  %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group custom-select-outer">
+                            <select class="form-control select2" name="role_type_id" id="role_type_id">
+                                <option value="">User Type</option>
+                                <% data.professional.forEach(function(value,index){  %>
+                                <option value="<%= value.id %>" <% if(extraVar.query.role_type_id == value.id) { %>selected<% } %> data-tags="true"><%= value.role_type_name %></option>
+                                <% });  %>
+
+                            </select>    
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <a class="btn btn-success blue" href="javascript:document.serchFrom.submit()" title="Search"><i class="fa fa-search"> </i> </a> 
+                            <a title="Clear Search" href="/admin/users/<%= extraVar.role_id %>" class="btn btn-success blue">Clear Search</a>
+                            <button class="btn btn-primary pull-right users-blk-upld-btn" type="button">XLS Upload</button>
+                            <a href="/sample_users_xls.xls" class="btn btn-primary pull-right" style="margin-right:2px">Download Sample Excel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <%# if(extraVar['viewSlug']=='professional'){ %>
+                            <th>
+                        <div class="chk-outer">
+                            <input type="checkbox" class='check_all' id="check_all" name="check_all" value=''>
+                            <label for="check_all"></label>
+                        </div>
+                        </th>
+                        <%# } %>
+
+
+                        <th>#Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>User Type</th>
+                        <th>Special Bonus Nyaya Card</th>
+                        <% if(extraVar['viewSlug']=='professional'){ %>
+                        <th>Special Bonus Membership</th>
+                        <% } %>
+                        <th>Registration date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        </tr>
+
+                        <% if(results.length > 0) { %>
+                        <% results.forEach(function(rows){ %>
+                        <tr>
+                            <%# if(extraVar['viewSlug']=='professional'){ %>
+                            <td>
+                                <% if(rows.user_type.role_type_slug !='stamp_vendor'){ %>
+                                <div class="chk-outer">
+                                    <input type="checkbox" class='check_row' name="check_row" value='<%= rows.id %>' id="<%= rows.id %>">
+                                    <label for="<%= rows.id %>"></label>
+                                </div>
+                                <% } %>
+                            </td>
+                            <%# } %> 
+
+                            <td><%= rows.gid %></td>
+                            <td><%= rows.first_name %></td>
+                            <td><%= rows.email %></td>
+                            <td><%= rows.mobile ? rows.mobile : 'N/A' %></td>
+                            <td><%= rows.user_type.role_type_name %></td>
+
+                            <td>
+                                <% if(rows.bonus_n1){ %>
+                                Bonus Value : <b><%= rows.bonus_n1.bonus_value %>%</b><br>
+                                Name : <%= rows.bonus_n1.bonus_name %>                            
+                                <% } %>
+                            </td>
+
+                            <% if(extraVar['viewSlug']=='professional'){ %>
+                            <td>
+
+
+                                <% if(rows.bonus_m){ %>
+                                Bonus Value : <b><%= rows.bonus_m.bonus_value %>%</b><br>
+                                Name : <%= rows.bonus_m.bonus_name %>                            
+                                <% } %>
+
+                            </td>
+                            <% } %>
+
+                            <td>
+                                <% if(rows.added_date) { %><%= site.momentObj(rows.added_date).format('DD-MM-YYYY') %><% } %>
+                            </td>
+
+                            <td>
+                                <% if(rows.is_active==1){ %>
+                                <span class="label label-success">Active</span>                               
+                                <% }else{ %>
+                                <span class="label label-danger">Inactive</span>
+                                <% } %>
+
+                            </td>
+                            <td>
+
+                                <a class="btn btn-success btn-xs" href="/admin/users/edit/<%= rows.user_type.role_id %>/<%= rows.id %>/0" title="Edit" >
+                                    <i class="fa fa-edit"></i></a>
+
+                                <a class="btn btn-success btn-xs blue" href="/admin/users/edit/<%= rows.user_type.role_id %>/<%= rows.id %>/1" title="View"  ><i class="fa fa-eye"></i></a>
+
+                                <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/users/delete/<%= rows.id %>/<%= extraVar.role_id %>" href="javascript:void(0);" title="Active/Inactive"><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+
+                                <a  class="btn  btn-xs deleteEntry" style="background-color:<%= (rows.active_commission==1)? '#5eb985':'#dd4b39' %>;border:1px solid <%= (rows.active_commission==1)? '#5eb985':'#dd4b39' %>" statusUpdated="<%= (rows.active_commission==1)? 0:1 %>" action="/admin/users/active_commission/<%= rows.id %>/<%= extraVar.role_id %>" href="javascript:void(0);" title="Active/Deactive Incentive"><i class="fa <%= (rows.active_commission==1)? 'fa-inr':'fa-inr' %>"></i></a>
+
+
+                                <a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="sendBank('<%= rows.email %>')" title="Send Bank detail mail to TPSL" >
+                                    <i class="fa fa-credit-card"></i></a>
+
+                            </td>
+
+                        </tr>
+                        <% }); %>
+                        <% } else { %>
+                        <td colspan="11" class="text-center">No Record Found.</td>
+                        <% } %>
+
+
+                    </table>
+                </div>
+                <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+            </form>
+
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+
+                <%- include ../helper/user_page.ejs %>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- /.col -->
+
+</section>
+
+
+<div class="modal" id="users_bulk_upload">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="xls_upload_form" method="post" action="/admin/users/xls-upload" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">XLS Upload</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Role Type<em>*</em></label>
+                            <input type="hidden" value="1" name="allowChk" id="allowChk"/>
+                            <select name="xls_role_type_id" class="form-control" id="xls_role_type_id">
+                                <option value="">Please select</option>
+                                <% data.professional.forEach(function(value,index){  %>
+                                    <option value="<%= value.id %>"><%= value.role_type_name %></option>
+                                <% });  %>
+                            </select>
+                            <label class="error_mgs_lable" id="xls_role_type_id_error"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Upload file<em>*</em></label>
+                            <input type="file" name="xls_file" class="form-control xls_file_users" id="xls_file_users">
+                        </div>
+                        <label class="error_mgs_lable" id="xls_file_users_eror"></label><br>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="b-u-errors" style="display: none">
+                            <p>Following errors need to be fixed in uploaded file :</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name='file_path' value='public/uploads/users-xls'>
+                    <input type="hidden" name="role_id" value="<%= extraVar.role_id %>">
+                    <button type="submit" class="btn btn-primary users-xls-sbmt-btn">Upload</button>
+                    <span class="prcs-txt hide">Please Wait ...</span>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<script>
+
+    function ApplyBonus() {
+
+        arr = [];
+        $('input:checkbox.check_row').each(function () {
+            var sThisVal = (this.checked ? $(this).val() : "");
+            if (sThisVal != '')
+                arr.push(sThisVal);
+        });
+
+        var special_bonus_id = $('#bonus').val();
+
+        if (special_bonus_id == '') {
+            bootstrapNotify.showMessage('Please select Bonus', 'error');
+            return false;
+        }
+        //alert(arr.length);
+        if (arr.length == 0) {
+            bootstrapNotify.showMessage('Please select users', 'error');
+            return false;
+        }
+        if ($('#bonus :selected').attr('att-col') == '1') {
+            col_name = 'special_bonus_id';
+        } else if ($('#bonus :selected').attr('att-col') == '3') {
+            col_name = 'special_bonus_id_membership';
+        } else {
+            col_name = 'special_bonus_id';
+        }
+
+
+        $.ajax({
+            url: '/admin/users/apply-bonus',
+            data: {ids: arr, special_bonus_id: special_bonus_id, col: col_name},
+            dataType: "json",
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                if (response.status) {
+                    //window.location.href = response.url;
+                    bootstrapNotify.showMessage(response.message);
+                    setTimeout(function () {
+                        //window.location.reload();
+                        window.location.replace("/admin/users/<%= extraVar.role_id %>");
+                    }, 600);
+                } else {
+                    bootstrapNotify.showMessage(response.message);
+                }
+            }, error: function (resData) {
+                console.log(resData);
+                $.each(resData.responseJSON.data, function (key, val) {
+                    bootstrapNotify.showMessageOnField(val.message, val.path);
+                });
+            }
+        });
+
+
+    }
+
+
+    function RemoveBonus() {
+
+        arr = [];
+        $('input:checkbox.check_row').each(function () {
+            var sThisVal = (this.checked ? $(this).val() : "");
+            if (sThisVal != '')
+                arr.push(sThisVal);
+        });
+
+        var special_bonus_id = $('#bonus_r').val();
+
+        if (special_bonus_id == '') {
+            bootstrapNotify.showMessage('Please select Bonus Type ', 'error');
+            return false;
+        }
+        //alert(arr.length);
+        if (arr.length == 0) {
+            bootstrapNotify.showMessage('Please select users', 'error');
+            return false;
+        }
+
+
+
+        $.ajax({
+            url: '/admin/users/apply-bonus',
+            data: {ids: arr, special_bonus_id: 0, col: special_bonus_id},
+            dataType: "json",
+            method: "POST",
+            cache: false,
+            success: function (response) {
+                if (response.status) {
+                    //window.location.href = response.url;
+                    bootstrapNotify.showMessage(response.message);
+                    setTimeout(function () {
+                        //window.location.reload();
+                        window.location.replace("/admin/users/<%= extraVar.role_id %>");
+                    }, 600);
+                } else {
+                    bootstrapNotify.showMessage(response.message);
+                }
+            }, error: function (resData) {
+                console.log(resData);
+                $.each(resData.responseJSON.data, function (key, val) {
+                    bootstrapNotify.showMessageOnField(val.message, val.path);
+                });
+            }
+        });
+
+
+    }
+
+    $("#check_all").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+    
+    
+    $(document).on("click", ".users-blk-upld-btn", function (ev) {
+        $("#users_bulk_upload").modal("show")
+    })
+    
+    
+    $(document).on("submit", "#xls_upload_form", function (ev) {
+        ev.preventDefault();
+        $(".error_mgs_lable").empty();
+        var status = 1;
+        if($("#xls_role_type_id").val() == "") {
+            $("#xls_role_type_id_error").text("Please select role type").show();   
+            status = 0;
+        }
+        if ($(".xls_file_users").val() == "") {
+            $("#xls_file_users_eror").text("Please select a file").show();
+            status = 0;
+        }
+
+        if(status) {
+            var thisObj = $(this);
+            var form = $(thisObj)[0];
+            var formData = new FormData(form);
+            $(".users-xls-sbmt-btn").addClass("hide");
+            $(".prcs-txt").removeClass("hide")
+            $.ajax({
+                url: $(thisObj).attr('action'),
+                data: formData,
+                contentType: false,
+                processData: false,
+                method: "POST",
+                cache: false,
+                success: function (response) {
+                    $(".prcs-txt").addClass("hide")
+                    $(".users-xls-sbmt-btn").removeClass("hide");
+                    if (response.status) {
+                        window.location.href = response.url;
+                    } else {
+                        $("#b-u-errors").html("")
+                        $("#xls_file_users_eror").text(response.message).show();
+                    }
+                }, error: function (resData) {
+                    var errorsHtml = "<p style='margin-left: 3%'>Following errors need to be fixed in uploaded file :</p><ol>";
+                    $.each(resData.responseJSON.data, function (key, val) {
+                        errorsHtml += "<li>" + val.errors + "</li>"
+                    });
+                    $("#b-u-errors").html(errorsHtml + "</ol>").css("display", "block")
+                    $(".prcs-txt").addClass("hide")
+                    $(".users-xls-sbmt-btn").removeClass("hide");
+                }
+            });
+        } else {
+            return false;
+        }
+    })
+
+
+   
+
+</script>

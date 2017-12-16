@@ -1,0 +1,229 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Nyaya Card Fee Calculator</h1>
+        <p>The Nyaya Card fee calculator enables the party to get the fee for Nyaya card for their particular document, Nyaya Card holder can 
+ access the Institutional Arbitration services at National Arbitral Tribunal. In case of dispute, the cost of arbitration and administrative 
+fee as specified in Schedule - I of National Arbitral Tribunal Procedural Rules will be exempted up to 100%* in majority of cases. </p>
+        <!-- <p>Content Coming Soon</p> -->
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/users/signup" method="post" enctype="multipart/form-data" id="register">
+                    <div class="row form-row">
+                        <div class="col-md-3 col-sm-12 col-xs-12 mb-10">
+                            <label>Document Head</label>
+                            <select class="form-control custom-select common-inp" id="service_details_id" onChange="getDbValuesByIds(this, 'ServiceDetailDocument', ['service_detail_id'], [Number(this.value)], 'documents_name asc', 'service_detail_documents_id', ['id', 'documents_name'], []);">
+                                <option value="">--Please Select--</option>
+                                <% data.professional.forEach(function(rows){ %>
+                                <option value="<%= rows.id %>" service_detail_slug='<%= rows.service_details_slug %>'  document_value_text="(Monthly)"><%= rows.service_details_name %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12 mb-10">
+                            <label>Document Type</label>
+                            <select class="form-control custom-select common-inp" id="service_detail_documents_id">
+                                <option value="">--Please Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12 mb-10">
+                            <span class="settingValueForMonthlyRent hide"><%= settingData.document_category_for_monthly_rent %></span>
+                            <label class="document_value_month_class">Document Value</label>
+                            <input type="text" class="form-control common-inp" id="document_value">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <a href="javascript:void(0)" class="btn btn-orange" onclick="get_fee()">Get Fee</a>
+                            <a href="javascript:void(0)" class="btn btn-orange" onclick="location.reload()">Reset</a>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="table-responsive fee-detail-table-div calc-tbl no-border1" style="display: none;">
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <div class="container">
+        <% if(loginUser && loginUser.user_type.user_role.role_slug == 'super_admin'){%>
+        <div class="row">
+            <div class="col-sm-12 hideMe" style="display:none">
+                <h2>Fee for Non-Nyaya Card Holders </h2>
+                <h4>(As per Schedule-1 of National Arbitral Tribunal(Procedures) Rules)</h4>
+                <form action="" method="post" enctype="multipart/form-data" id="an1-fee-calculator">
+                    <div class="form-row">
+<!--                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <label class="an1_document_value_month_class">Document Value</label>
+                            <input type="text" class="form-control" id="an1_document_value" name="an1_document_value">
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <a href="javascript:void(0)" class="btn btn-orange" onclick="get_an_fee()">Get Fee</a>
+                            <a href="javascript:void(0)" class="btn btn-orange" onclick="location.reload()">Reset</a>
+                        </div>-->
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="table-responsive an1-table-div calc-tbl no-border1" style="display: none;">
+
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p style="margin-bottom: 0px;">* Taxes are all inclusive in the displayed Fee</p>
+                <p style="margin-bottom: 0px;">* Terms and conditions apply</p>
+                <p style="margin-bottom: 0px;">* Where the dispute cannot be expressed in terms of money, the Registrar shall determine the amount of fee in such case</p>
+                <p style="margin-bottom: 0px;">* The estimation has no legal implications and should not be considered as necessarily reflecting NAT will fix in any given case</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    function get_an_fee() {
+        
+        var data = $('#service_detail_documents_id').select2('data')
+        //alert(data[0].text);
+        //alert(data[0].id);
+        $(".an1-table-div").hide()
+
+        $.ajax({
+            type: "GET",
+            url: '/admin/users/get-an1-fee/' + $('#document_value').val() + '/' + data[0].text,
+            cache: false,
+            success: function (response) {
+                console.log(response)
+                if (response.status) {
+                    var getFeeData = response.data;
+                    var gHtml = ''
+                    if (getFeeData) {
+                        gHtml += '<table style="width:40%;" class="table table-bordered" width="50%"><tbody><tr>'
+                        //gHtml += '<th>Registration fee</th><th>Arbitration fee</th>'
+                        //gHtml += '<th>Payable Fee without Tax</th><th>Tax</th><th>Payable Fee with Tax</th>'
+                        gHtml += '<th>Arbitration Fee</th>'
+                        //gHtml += '<tr>'
+                        //gHtml += '<td>' + getFeeData.reg_fee + '</td><td>' + getFeeData.t_a_fs + '</td>'
+                        //gHtml += '<td>' + (getFeeData.reg_fee + getFeeData.t_a_fs) + '</td><td>' + getFeeData.t_p_amt + '</td>'
+                        gHtml += '<td>' + parseFloat(getFeeData.tot_fee).toFixed(); + '</td></tr></tbody></table>'
+
+                        $(".an1-table-div").html(gHtml)
+                        $(".an1-table-div").show()
+                        $("#an1_document_value").prop("disabled", true);
+                        $('.hideMe').show();
+                    }
+                } else {
+                    bootstrapNotify.showMessage(response.msg, 'danger');
+                }
+            },
+            error: function (resData) {
+                // console.log(resData.responseJSON)
+                // bootstrapNotify.showMessage('Please fill all fields', 'danger');
+            }
+        });
+    }
+    function get_fee() {
+        if ($('#service_detail_documents_id').val() == '' || $('#document_value').val() == '' || $('#service_details_id').val() == '') {
+            bootstrapNotify.showMessage('Please fill all the fields', 'danger');
+            return false;
+        }
+
+        if ($('#document_value').val() == '') {
+            bootstrapNotify.showMessage('Please fill document value', 'danger');
+            return false;
+        } else if (isNaN($('#document_value').val())) {
+            bootstrapNotify.showMessage('Invalid value', 'danger');
+            return false;
+        }
+        
+
+        var data = $('#service_detail_documents_id').select2('data')
+        //console.log(data);
+        //alert(data[0].text);
+        get_an_fee();
+        $(".fee-detail-table-div").hide();
+        $.ajax({
+            type: "GET",
+            url: '/admin/users/fessCall/' + $('#document_value').val() + '/' + $('#service_details_id').val() + '/1/' + $('#service_detail_documents_id').val() + '/' + data[0].text,
+            cache: false,
+            success: function (response) {
+                console.log(response)
+                var getFeeData = response.data.fees;
+
+                var headRow = '', valRow = '';
+                var gHtml = '';
+                if (getFeeData.length > 0) {
+
+                    sortArr = [];
+                    var fee_no = 1;
+                    $.each(getFeeData, function (key, val) {
+
+                        var newIndex = parseInt(val['year']) - 1;
+
+                        console.log(newIndex);
+
+                        sortArr.splice(newIndex, 0, val);
+
+                    });
+
+                    console.log("-------->>>>>>")
+                    console.log(sortArr)
+                    console.log("-<<<<<<")
+
+                    $.each(sortArr, function (key, val) {
+                        key++;
+                        if (parseFloat(val['total_fees']) < 0) {
+                            return false;
+                        }
+                        headRow += '<th>' + fee_no + ' year</th>';
+                        valRow += '<td> Rs. ' + val.total_fees + '</td>';
+
+                        fee_no++;
+                    })
+
+                    gHtml += '<h2>Fee details :</h2>';
+                    gHtml += '<table class="table table-bordered">';
+                    gHtml += '<tbody>';
+                    gHtml += '<tr>';
+                    gHtml += headRow;
+                    gHtml += '</tr>';
+                    gHtml += '<tr>';
+                    gHtml += valRow;
+                    gHtml += '</tr>';
+                    gHtml += '</tbody></table>';
+
+                    $(".fee-detail-table-div").html(gHtml)
+                    $(".fee-detail-table-div").show();
+                    $(".common-inp").prop("disabled", true);
+                }
+            },
+            error: function (resData) {
+                // console.log(resData.responseJSON)
+                // bootstrapNotify.showMessage('Please fill all fields', 'danger');
+            }
+        });
+    }
+
+    $(document).on('change', '#service_details_id', function () {
+        console.log("ppppppppppp")
+        var thisObj = $(this);
+        var settingValueArr = $('.settingValueForMonthlyRent').text().split(',');
+        if ($.inArray($("option:selected", thisObj).text(), settingValueArr) >= 0) {
+            $('.document_value_month_class').text('Monthly Lease Rent');
+        } else {
+            $('.document_value_month_class').text('Document Value');
+        }
+    });
+</script>

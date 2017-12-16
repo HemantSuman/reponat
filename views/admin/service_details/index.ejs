@@ -1,0 +1,76 @@
+<%- include('../helper/Heading-Page.ejs', {title:'Listing'}); %>
+<section class="content">
+     <div class="box box-primary">
+
+                <%- include('../helper/commonHtml.ejs', {htmlType:'AddButtom'}); %>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    
+                    
+                    <form id='searchData' name='searchData' enctype="multipart/form-data" method='post'>
+                        <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#Id</th>
+                                <th>Document Head name</th>
+                                <th>Dry Period</th>
+                                <th>Is Renewable</th>
+                                <th>Renewable %</th>
+                                <th>Nyaya card Age</th>
+                                <th>Status</th>
+                                <th style="width: 100px">Actions</th>
+                            </tr>
+
+
+                            <% results.rows.forEach(function(rows){ %>
+                            <tr>
+                                <td><%= rows.id %></td>
+                                <td><%= rows.service_details_name %></td>
+                                <td><%= rows.dry_period %></td>
+                                <td>
+                                    <% if(rows.is_renewable==1){ %>
+                                    <span class="label label-success"><i class="fa fa-check"></i></span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger"><i class="fa fa-close"></i></span>
+                                    <% } %>
+
+                                </td>
+                                <td><%= rows.renew_percentage %></td>
+                                <td><%= rows.age_for_service %></td>
+                                <td>
+                                    <% if(rows.is_active==1){ %>
+                                    <span class="label label-success">Active</span>                               
+                                    <% }else{ %>
+                                    <span class="label label-danger">Inactive</span>
+                                    <% } %>
+
+                                </td>
+                                <td>
+
+                                    <a class="btn btn-success btn-xs" href="/admin/<%= extraVar.viewDirectory %>/edit/<%= rows.id %>/<%= extraVar.product_id %>" title="Edit" ><i class="fa fa-edit"></i></a>
+
+                                    <a class="btn btn-danger btn-xs deleteEntry" statusUpdated="<%= (rows.is_active==1)? 0:1 %>" action="/admin/<%= extraVar.viewDirectory %>/delete/<%= rows.id %>/<%= extraVar.product_id %>" href="javascript:void(0);" title="Active/Inactive" ><i class="fa <%= (rows.is_active==1)? 'fa-lock':'fa-unlock' %>"></i></a>
+                                </td>
+
+                            </tr>
+                            <% }); %>
+
+
+                        </table>
+                        </div>
+                        <%# include('../element/helper.ejs', {type:'empty_table',data:data}); %>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                              <%- include ../helper/pagination_with_product_id.ejs %>
+                        </div>
+                    </div>
+                         
+                </div>
+
+        <!-- /.col -->
+    </div>
+</section>

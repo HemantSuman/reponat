@@ -1,0 +1,45 @@
+<div class="pull-right hidden-xs">
+    <b>Version</b> <%= site.version %>
+</div>
+<strong><%= site.copyRight %></strong>
+
+
+
+
+
+
+
+<div id="payConformWeek" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content  e-sign-popup">
+            <div class="modal-header">
+
+<!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                <h3 class="modal-title">Reminder Stamp Vendor Payment</h3>
+            </div>
+            <div class="modal-body">
+
+                <p>
+                    Please initiate this week due payments for stamp vendor
+                </p>
+
+
+                <div class="chk-outer" >
+
+                    <input type="checkbox" id="alertConfirm" class="" name="is_active" value="1">
+                    <label for="alertConfirm">Don't Show again</label>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="/admin/commission_distributions/pay-to-sv?paid=0" class="btn btn-default" id="finalSubmit" onclick="payServer()">OK</a>
+<!--                <button type="button" class="btn btn-default" id="finalSubmit" data-dismiss="modal">Cancel</button>-->
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<%# include ../helper/breadcrumb.ejs %>
+<%# include('../helper/Heading-Page.ejs', {title:'How To Use'}); %>
+<section class="content">
+    <div class="vbox-section">
+        <div class="tabbable" id="tabs-938203">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#panel-254523" data-toggle="tab">Hindi</a>
+                </li>
+                <li>
+                    <a href="#panel-180197" data-toggle="tab">English</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="panel-254523">
+                    <div class="video-box">
+                        <video width="800" height="500" controls>
+                            <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                                <source src="/admin/videos/hindi/<%=extraVar.user_type%>.mp4" type="video/mp4">
+                                
+                            <% } else if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                            
+                                <source src="/admin/videos/hindi/<%=loginUser.user_type.user_role.role_slug%>.mp4" type="video/mp4">
+                            <%} else { %>
+                                <source src="/admin/videos/hindi/<%=loginUser.user_type.role_type_slug%>.mp4" type="video/mp4">
+                            <% } %>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                <div class="tab-pane" id="panel-180197">
+                    <div class="video-box">
+                        <video width="800" height="500" controls>
+                            <% if(loginUser.user_type.role_type_slug == 'franchise'){ %>
+                                <source src="/admin/videos/english/<%=extraVar.user_type%>.mp4" type="video/mp4">
+                            <% } else if(loginUser.user_type.user_role.role_slug == 'professional'){ %>
+                            
+                                <source src="/admin/videos/english/<%=loginUser.user_type.user_role.role_slug%>.mp4" type="video/mp4">
+                            <%} else { %>
+                                <source src="/admin/videos/english/<%=loginUser.user_type.role_type_slug%>.mp4" type="video/mp4">
+                            <% } %>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.box -->
+
+
+</section>

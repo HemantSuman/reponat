@@ -1,0 +1,157 @@
+<%- contentFor('body') %>
+
+<!-- Banner start -->
+<% include ../element/inner_banner %>
+<!-- Banner end -->
+
+<section class="inner-page-content">
+    <div class="container">
+        <h1>Verify Your Document</h1>
+
+        <!-- <p>Content Coming Soon</p> -->
+        <div class="row">
+            <form action="/admin/users/verify-doc" method="post" enctype="multipart/form-data" id="verify-doc-form">
+                <div class="form-row">
+                    <div class="col-md-3 col-sm-12 col-xs-12 mb-10">
+                        <label>Type of Document</label>
+                        <select class="form-control custom-select" name="doc_type" id="doc_type" onchange="chgNam()">
+                            <option value="">-- Please Select --</option>
+                            <option value="1">Nyaya Card</option>
+                            <option value="3">Membership</option>
+                            <option value="4">Invoice No.</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12 mb-10">
+                        <label id="chgMe">Document Number</label>
+                        <input type="text" class="form-control" name="doc_num" id="doc_num">
+                    </div>
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <input type="submit" value="Submit" class="btn btn-orange">
+                        <!-- <a href="javascript:void(0)" class="btn btn-orange">Submit</a> -->
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="row mt-10">
+          <div class="col-md-12">
+              <div class="table-responsive verify-doc-detail-div no-border1" style="display: none;">
+
+            </div>
+          </div>
+        </div>
+
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function () {
+        $(document).on('submit', '#verify-doc-form', (function (event, state) {
+            event.preventDefault()
+            $(".verify-doc-detail-div").html("");
+            $(".verify-doc-detail-div").hide();
+            if ($("#doc_type").val() == '' || $("#doc_num").val() == '') {
+                bootstrapNotify.showMessage('Please fill all fields', 'danger');
+                return false;
+            }
+
+            var data = $(this).serialize();
+
+            var form = $('#verify-doc-form')[0];
+            var formData = new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: $(this).attr("action"),
+                data: formData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                //json: true,
+                cache: false,
+                success: function (response) {
+
+                    if (response.status) {
+                        var gHtml = '';
+                        console.log("----===============))))))))))))))))))))")
+                        if (response.data) {
+                            console.log("----===============))))))))))))))))))))")
+                            var getData = response.data;
+                            console.log(getData.created_on)
+                            gHtml += '<table class="table table-bordered"><tbody>';
+                            if ($("#doc_type").val() == 1) {
+                                gHtml += '<tr>'
+                                gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - to)</th><th>Document Category</th><th>Document Type</th>'
+                                gHtml += '</tr>'
+
+                                gHtml += '<tr>'
+                                gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM </td><td>' + getData.doc_category + '</td><td>' + getData.doc_type + '</td>'
+                                gHtml += '</tr>'
+                            }
+                            if ($("#doc_type").val() == 3) {
+                                gHtml += '<tr>'
+                                gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - to)</th>'
+                                gHtml += '</tr>'
+
+                                gHtml += '<tr>'
+                                gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM </td>'
+                                gHtml += '</tr>'
+
+                            }
+
+                            if ($("#doc_type").val() == 4) {
+                                if (getData.type == 'n') {
+                                    gHtml += '<tr>'
+                                    gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - to)</th><th>Document Category</th><th>Document Type</th>'
+                                    gHtml += '</tr>'
+
+                                    gHtml += '<tr>'
+                                    gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM </td><td>' + getData.doc_category + '</td><td>' + getData.doc_type + '</td>'
+                                    gHtml += '</tr>'
+                                } else {
+                                    gHtml += '<tr>'
+                                    gHtml += '<th>Document Created on</th><th>Document Number</th><th>Document Validity (From - to)</th>'
+                                    gHtml += '</tr>'
+
+                                    gHtml += '<tr>'
+                                    gHtml += '<td>' + getData.created_on + '</td><td>' + getData.number + '</td><td>' + getData.val_from + ' to ' + getData.val_to + ' 11:59:59 PM </td>'
+                                    gHtml += '</tr>'
+
+                                }
+
+                            }
+                            gHtml += '</tbody></table>';
+
+                            gHtml += 'If you need any further assistance, please <a href="/pages/contact-us" target="_blank">Contact Us</a>.'
+
+
+
+                            $(".verify-doc-detail-div").html(gHtml);
+                            $(".verify-doc-detail-div").show();
+                        }
+                    } else {
+                        bootstrapNotify.showMessage(response.msg, 'danger');
+                    }
+
+                }
+            });
+        }))
+    })
+
+    function chgNam() {
+
+
+        var txt = 'Nyaya Card Number';
+        if ($('#doc_type').val() == 3) {
+            txt = 'Membership Number';
+        }
+        if ($('#doc_type').val() == 4) {
+            txt = 'Invoice No.';
+        }
+        if ($('#doc_type').val() == '') {
+            txt = 'Document Number';
+        }
+        $('#chgMe').text(txt);
+
+    }
+
+</script>

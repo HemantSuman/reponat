@@ -1,0 +1,781 @@
+<% if(show==1){ %>
+<style>
+    .wrapperDoc-inner{ background:url(<%= site.fullUrl %>/images/imgpsh_fullsize_nc.jpg) no-repeat center center; background-size:400px;}
+    .wrapperDoc {
+        margin: 0 auto;
+        max-width:1060px;
+        width: 100%;
+        padding:5px 0;
+        border:1px solid #ddd;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-size:13px; font-weight:400;
+        background-color: white;
+    }
+    .headingtxt {
+        text-align:center;
+        font-weight:600;
+        font-size:17px;
+    }
+    .print-date {
+        text-align:right;background-color:#fff;
+    }
+    .print-date span {
+        display:inline-block;
+        margin-right:10px; font-size:10px; color:#000; font-weight:400;
+    }
+    .main-table td {
+        padding:4px;
+        vertical-align:top
+    }
+    .main-table {
+        width:100%;
+        margin-top:0;
+    }
+    .main-table table{ width: 100%}
+    .main-table td span {
+        display:block;
+    }
+    .text-right{ text-align:right;margin-top: 0px;display: block;}
+    .bold-txt{ font-weight:600;}
+    .text-center{ text-align:center}
+    .thankmsg{ font-size:10px; margin:0; padding:0px;}
+    .fix-wid span span{ display: inline-block; width: 40%; margin-right: 10px; vertical-align: top}
+    .fix-wid span strong{ display: inline-block; width: 50%; }
+    span.total-amount-fee{border-top:1px dotted #000; border-bottom:1px dotted #000; padding:5px 0; display: inline-block !important}
+    .total-amount-txt{border-top:1px dotted transparent; border-bottom:1px dotted transparent; padding:5px 0}
+
+    /*new*/
+    .header{ padding:10px;}
+    .header .left{ float: left; width: 30%;}
+    .header .left > div{ display: inline-block; margin-right: 10px; vertical-align: middle;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 11px; display: block;}
+    .header .right{ float: right; width: 30%;}
+    .header .mainlogo {margin: 0 auto; text-align: center;}
+    .header .mainlogo > img { height: 70px;}
+    .headingtxt.mid{ padding: 7px 0; color: #e99243; /*border-top: 1px solid #707070;border-bottom: 1px solid #707070;*/ margin-top: 10px}
+    .party-heading{ background: #ffebd9; padding:10px;}
+    .document-table tr td:first-child{background: #d6f2e2}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:1px solid #000}
+    .table-bordered{border-collapse: collapse;}
+    .main-table .invoice-table > tbody > tr > td > div{width:49%;padding:0; display: inline-block; vertical-align: top}
+    .main-table .invoice-table > tbody > tr > td:nth-child(odd){ padding-right: 2%}
+
+    .td-width2{width: 250px !important;}
+    .td-width1{width: 235px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 25px}
+    .offset-top-35{margin-top: 20px;}
+    .offset-top-50{margin-top: 50px;}
+    .offset-top-10 {margin-top: 10px;}
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    .right-table, .left-table{width: 50%; padding: 0 !important; border: 1px solid #9f9f9f; border-top: 0;}
+
+
+    .left-table td:first-of-type{border-right: 1px solid #9f9f9f;9f9f9f;}
+    .left-table thead td{border: 1px solid #9f9f9f; padding: 10px;}
+    .right-table thead td:first-of-type,
+    .left-table thead td:first-of-type{border-left: 0;}
+    .left-table thead td:last-of-type,
+    .right-table thead td:last-of-type{border-right: 0;}
+    .left-table tbody tr:last-of-type td{border-bottom: 1px solid #9f9f9f;}
+    .right-table .table-bordered>tbody>tr>td:first-of-type{border-left: 0;}
+    .right-table .table-bordered>tbody>tr>td:last-of-type{border-right: 0;}
+    .newBlockDiv{width:100%;display: inline-block;margin: 10px 0px;}
+    .footer-text-left{float: left;}
+    .all-border {border: 1px solid #9f9f9f;}
+    .p-4 {padding: 4px;}
+    .p-t-20 {padding-top: 20px;}
+    .m-0 { margin: 0px;}
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+</style>
+<% }else{ %>
+
+<style>
+    .wrapperDoc-inner{}
+    .va-top table > tbody > tr > td { vertical-align: top !important;}
+    .clearfix:before, .clearfix:after{content: " ";display: table; box-sizing:border-box;}
+    .clearfix:after {clear: both;}
+    td {font-size: 8px; line-height: 12px;}
+    span{font-size: 8px  ; line-height: 15px;  }
+    div,strong,li,ul,ol{ line-height: 12px;}
+    strong{ font-weight: 600; color: #000}
+    .wrapperDoc { margin: 0 auto;max-width: 990px;padding:0 15px;border:none;font-family: Verdana,Geneva,sans-serif;font-size:8px;font-weight:300;line-height: 15px;color: #000; }
+    .headingtxt {text-align:center; margin-bottom:5px; font-weight:400;font-size:10px;}
+    .print-date { text-align:right;}
+    .print-date span {display:inline-block;margin-right:10px;font-size:8px;font-weight:400;}
+    .main-table td {padding:1px 3px;vertical-align:top}
+    .main-table {width:100%;margin-top:15px;}
+    .main-table td span {display:block; }
+    .text-right { text-align:right}
+    .text-left {text-align:left}
+    .bold-txt {font-weight:500;}
+    .text-center {text-align:center}
+
+    .big-text{ font-size:10px;}
+    .thankmsg{ font-size:8px; text-align:center; margin-top:0px; color: #555; margin-bottom: 0px;}
+    .thankmsg span{ display:block; margin-bottom:0px;}
+
+    .fix-wid span span{ display: inline-block; width: 40%; margin-right: 10px; vertical-align: top}
+    .fix-wid span strong{ display: inline-block; width: 50%; }
+    span.total-amount-fee{border-top:thin dotted #000; border-bottom:thin dotted #000; padding:5px 0; display: inline-block !important}
+    .total-amount-txt{border-top:thin dotted transparent; border-bottom:thin dotted transparent; padding:5px 0}
+
+    /*new*/
+    /*.header{ padding:10px;}*/
+    .header .left{ float: left; width: 32%;}
+    .header .left >div{ display: inline-block; margin-right: 10px; vertical-align: middle;}
+    .header .left .headingtxt { text-align: left;}
+    .header .left .headingtxt span{ font-weight:300; font-size: 7px; display: block; line-height: 10px;max-width: 200px;}
+    .header .right{ float: right; width: 30%;}
+    .header .mainlogo {margin: 0 auto; text-align: center;}
+    .header .mainlogo > img { height: 70px;}
+    .headingtxt.mid{ padding: 7px 0; color: #000; font-weight: 600; /*border-top:thin solid #f0efef;border-bottom: thin solid #f0efef;*/ margin-top: 5px}
+    .party-heading{ background: #ffebd9; padding:5px 10px;}
+    .document-table tr td:first-child{background: #d6f2e2}
+    .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{ border:thin solid #000}
+    .table-bordered{border-collapse: collapse;}
+    .main-table .invoice-table > tbody > tr > td > div{width:100%;padding:0;}
+    .main-table .invoice-table > tbody > tr > td:nth-child(odd){ padding-right: 0}
+    .invoicetxt{ color: #555}
+    .td-width2{width: 100px !important;}
+    .td-width1{width: 100px !important;}
+    .td-middle-width{vertical-align: middle !important; width: 15px !important;}
+    .offset-top-35{margin-top: 15px;}
+    .offset-top-50{margin-top: 25px;}
+    .offset-top-10 {margin-top: 10px;}
+    .right-table, .left-table{width: 50%; padding: 0 !important;}
+    .left-table, .right-table{border: 1px solid #f0efef; border-top: 0;}
+    .left-table thead td{border: 1px solid #f0efef;}
+    .left-table td:first-of-type{border-right: 1px solid #f0efef;}
+    .right-table thead td:first-of-type,
+    .left-table thead td:first-of-type{border-left: 0;}
+    .left-table thead td:last-of-type,
+    .right-table thead td:last-of-type{border-right: 0;}
+    .left-table tbody tr:last-of-type td{border-bottom: 1px solid #f0efef;}
+    .right-table .table-bordered>tbody>tr>td:first-of-type {
+        border-left: 0;
+    }
+    .footer-text-right .text-right{
+        display: block;
+    }
+    .footer-text-left{float: left;}
+    .all-border {border: 1px solid #000;}
+    .p-4 {padding: 4px;}
+    .p-t-20 {padding-top: 10px;}
+    .m-0 { margin: 0px;}
+    .new-text1{font-size: 9px;color: #000;}
+    .header .right span {
+    line-height: 10px;
+    .sub-heading {
+    border: 1px solid #000;
+    padding: 2px 10px;
+    font-size: 7.3px;
+}
+}
+</style>
+<% } %>
+
+<div class="wrapperDoc va-top"><div class="wrapperDoc-inner">
+        <div class="header clearfix">
+            <div class="left">
+
+                <div class="headingtxt">
+                    NATIONAL ARBITRAL TRIBUNAL
+                    <span>(An Permanent Arbitral Institute constituted under the provision of Arbitration and Conciliation Act, 1996)</span>
+                    <span>Wholly Owned by Legal Resolution Centre Pvt. Ltd.</span>
+                </div>
+            </div>
+            <div class="right">
+                <div><span>HEAD OFFICE: <%= settingData.head_office %></span></div>
+                <div><span><%= settingData.website %>, <%= settingData.email %></span></div>
+                <div><span>contact no : <%= settingData.phone %></span></div>
+            </div>
+            <div class="mainlogo">
+                <img src="<%= site.fullUrl %>/images/nat_logo_round.png"></div>
+
+        </div>
+
+        <div class="headingtxt mid">MEMBERSHIP CERTIFICATE </div>
+        <div class="text-center all-border p-4 sub-heading">COMPANY'S DECLEARATION: - LEGAL RESOLUTION CENTRE PVT.LTD (LRC) is incorporated under the Companies Act, 1956 and LRC has established the Permanent Arbitral Institute under the name "NATIONAL ARBITRAL TRIBUNAL" for providing the Arbitration services to Membership holders in accordance with National Arbitral Tribunal (Procedural) Rules, 2017. </div>
+
+
+
+        <div class="main-tableWrap clearfix">
+
+            <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-35">
+                <tr><td colspan="3" style="text-align: center;"><strong>Issuing Office Details</strong></td><td  style="text-align: center;"  colspan="3"><strong>Source Details</strong></td></tr>
+                <tr>
+                    <td class="td-width1"><strong>Issuing Office</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"> Legal Resolution Centre Pvt. Ltd., Jodhpur</td>
+                    <td class="td-width1"><strong><%= data.role_type_name %></strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><% if(data.gender=='male'){ %>
+                        Mr.
+                        <% }else{ %>
+                        Mrs.
+                        <% } %>
+                        <%= data.first_name %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Address</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= settingData.address %></td>
+                    <td class="td-width1"><strong>Id No.</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.gid %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Phone No.</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= settingData.phone %></td>
+                    <td class="td-width1"><strong>Mobile No.</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.mobile %>    </td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Email</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= settingData.email %></td>
+                    <td class="td-width1"><strong>Service Provider </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>GSTIN</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= settingData.gstin_no %></td>
+                    <td class="td-width1"><strong>Id No. </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>State Code</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= settingData.state_code %></td>
+                    <td class="td-width1"><strong>Mobile No. </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"></td>
+                </tr>
+            </table>
+
+            <div class="headingtxt sec-mid p-t-20">Particulars</div>
+            <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-10">
+
+                <tr>
+                    <td class="td-width1"><strong>Invoice/Receipt No.</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.invoice_no %></td>
+                    <td class="td-width1"><strong>Membership Id</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['ms_id'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Invoice/Receipt Date</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= site.momentObj(data['created']).format("DD-MM-YYYY") %></td>
+                    <td class="td-width1"><strong>Membership Issue Date</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= site.momentObj(data['add_date']).format("DD-MM-YYYY") %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Gross Fee</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <% var total=parseFloat(data['selected_plan_registration_fee']) + parseFloat(data['selected_plan_membership_fee']) %>
+                        <%= site.formatCurrencyObj(total) %>    
+                    </td>
+                    <td class="td-width1"><strong>Membership Plan</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['plan_name'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Discount </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <% if(data['selected_plan_discount']){ %>
+                        <%= data['selected_plan_discount'] %>
+                        <% } else { %>
+                        0
+                        <% }%>
+                    </td>
+                    <td class="td-width1"><strong>Period of Membership </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['selected_plan_year'] %> Years</td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>GST</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <%= parseFloat(data.selected_plan_total_taxes).toFixed(2)  %>
+
+                    </td>
+                    <td class="td-width1"><strong>Membership valid up to </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <%
+                        var new_date = site.momentObj(data.add_date, "DD-MM-YYYY").add(parseInt(data['selected_plan_year']), 'Y');
+                        %>
+                        <%= site.momentObj(data.end_date).format("DD-MM-YYYY") %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Net Fees</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['selected_plan_total_payable_amount'] %></td>
+                    <td class="td-width1"><strong>Previous Membership No.(if any) </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <% if(data['parent_membership_id_parent']){ %>
+                        <%= data['parent_membership_id_parent'] %>
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Mode of Payment</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">Online</td>
+                    <td class="td-width1"><strong>Valid period of previous Membership (if any) </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2">
+                        <% if(data['parent_membership_period']){ %>
+                        <%= data['parent_membership_period'] %>
+                        <% } %>
+                    </td>
+                </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-35">
+
+                <tr>
+                    <td class="td-width1"><strong>Business type</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.business_type %></td>
+                    <td class="td-width1"><strong>Place of Arbitration</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.place_of_arbitration %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Business Category</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.business_category %></td>
+                    <td class="td-width1"><strong>GSTIN </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.gstin %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Annual Business turnover</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.business_turn_over %></td>
+                    <td class="td-width1"><strong>Pan Card Number</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.business_pan_number %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Business Registration No. </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.business_registration_number %></td>
+                    <td class="td-width1">&nbsp;</td>
+                    <td align="center" class="td-middle-width">&nbsp;</td>
+                    <td class="td-width2">&nbsp;</td>
+                </tr>
+
+            </table>
+            <% if(show==0){ %>
+            <br>
+            <% } %>
+            <div class="headingtxt sec-mid p-t-20">Beneficiary Details</div>
+            <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-10">
+
+                <tr>
+                    <td class="td-width1"><strong>Name of Business</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_name'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Address</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_address'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>City/Town</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_kasba'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Pin Code </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_pincode'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>State</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_state_id'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Contact Number</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_mobile'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Email Id</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['business_email'] %></td>
+                </tr>
+            </table>
+
+            <div class="headingtxt sec-mid p-t-20">Authority Details</div>
+            <table cellpadding="0" cellspacing="0" style="width:100%" class="main-table table-bordered offset-top-10">
+                <tr>
+                    <td class="td-width1"><strong>Name of Authority</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_name'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Designation </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_designation'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Address </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_address'] %> <br>
+
+                        <%= data.business_country_id %>,
+                        <%= data.business_state_id %>,
+                        <%= data.business_division_id %>,
+                        <%= data.business_district_id %>,
+                        <%= data.business_tehsil_id %>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>City/Town</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.authority_kasba %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Pin Code </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data.authority_pincode %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Contact Number</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_mobile'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Email Id</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_email'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Govt. Id type</strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_government_type'] %></td>
+                </tr>
+                <tr>
+                    <td class="td-width1"><strong>Govt. Id Number </strong></td>
+                    <td align="center" class="td-middle-width">:</td>
+                    <td class="td-width2"><%= data['authority_government_id_number'] %></td>
+                </tr>
+            </table>
+
+            <!--            <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+            
+                            <tr>
+                                <td>MEMBERSHIP No.</td>
+                                <td><strong><%= data['id'] %></strong></td>
+                                <td> AUTHORITY DETAILS  </td>
+                                <td>
+                                    <strong>NAME : <%= data['authority_name'] %><br>
+                                        ADDRESS : <%= data['authority_address'] %> <br>
+            
+                                        <%= data.business_country_id %>,
+                                        <%= data.business_state_id %>,
+                                        <%= data.business_division_id %>,
+                                        <%= data.business_district_id %>,
+                                        <%= data.business_tehsil_id %>,
+                                        <%= data.business_kasba %>
+            
+                                        <br>
+                                        Mobile No. : <%= data['authority_mobile'] %> <br>
+                                    </strong>
+                                </td>
+                            </tr>
+            
+            
+            
+                            <tr>
+                                <td> VALID PERIOD OF MEMBERSHIP </td>
+                                <td><strong>FROM
+                                        <%= site.momentObj(data['add_date']).format("DD-MM-YYYY")  %>
+            
+                                        <%
+                                        var new_date = site.momentObj(data['add_date'], "DD-MM-YYYY").add(parseInt(data['selected_plan_year']), 'Y').subtract(1,'days');
+                                        %>
+            
+                                        To
+                                        <%= site.momentObj(new_date).format("DD-MM-YYYY") %></strong></td>
+                                <td> Registration Fee</td>
+                                <td><strong>
+                                        <%= data['selected_plan_registration_fee'] %></strong></td>
+                            </tr>
+            
+                            <tr>
+                                <td>ISSUING OFFICE</td>
+                                <td><strong>4- JASOL HOUSE, PAOTA, B – ROAD, JODHPUR 342006</strong></td>
+                                <td> Membership Fee</td>
+                                <td><strong>
+                                        <%= data['selected_plan_membership_fee'] %></strong></td>
+                            </tr>
+            
+            
+            
+                            <tr>
+            
+                                <td>MEMBER DETAILS  </td>
+                                <td>
+                                    <strong>
+                                        Business Name : <%= data['business_name'] %><br>
+                                        Business Type : <%= data['business_type'] %><br>
+                                        Business Category : <%= data['business_category'] %><br>
+                                        PAN No. : <%= data['business_pan_number'] %><br>
+                                        Registration N0. : <%= data['business_registration_number'] %><br>
+                                        Name of Authority : <%= data['authority_name'] %><br>
+                                    </strong>
+                                </td>
+                                <td> TAX(S)</td>
+                                <td><strong><%= data['selected_plan_total_taxes'] %></strong></td>
+            
+                            </tr>
+            
+            
+            
+                            <tr>
+                                <td>Business Turn Over :</td>
+                                <td>
+                                    <strong>Rs. <%= data['business_turn_over'].replace('--',' To Rs. ') %></strong>
+                                </td>
+                                <td> Total Fee</td>
+                                <td><strong>
+                                        <%= data['selected_plan_total_payable_amount'] %></strong></td>
+                            </tr>
+                            <tr>
+                                <td>PLACE OF ARBITRATION</td>
+                                <td>
+                                    <strong><%= data['place_of_arbitration'] %></strong>
+                                </td>
+                                <td>MODE OF PAYMENT</td>
+                                <td><strong>Online</strong></td>
+                            </tr>
+            
+                            <tr>
+                                <td> <%= data['role_type_name'] %></td>
+                                <td>
+                                    <strong>
+                                        Id : <%= data['id'] %><br>
+                                        Name : <%= data['first_name'] %><br>
+                                        Mobile No. : <%= data['mobile'] %><br></strong></td>
+                                <td>INVOICE/ Receipt NO.</td>
+                                <td><strong><%= data['invoice_no'] %></strong></td>
+                            <tr>
+                                <td>INVOICE/ Receipt NO.</td>
+                                <td><strong><%= data['invoice_no'] %></strong></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>INVOICE/ Receipt DATE </td>
+                                <td><strong><%= site.momentObj(data['add_datedata']).format("DD-MM-YYYY")  %></strong></td>
+                            </tr>
+                            </tr>
+            
+            
+            
+            
+                        </table>-->
+
+            <!--  <table cellpadding="0" cellspacing="0" class="main-table table-bordered">
+                  <tr>
+                      <td> AUTHORITY DETAILS  </td>
+                      <td>
+                          <strong>NAME : <%= data['authority_name'] %><br>
+                              ADDRESS : <%= data['authority_address'] %> <br>
+
+                              <%= data.business_country_id %>,
+                              <%= data.business_state_id %>,
+                              <%= data.business_division_id %>,
+                              <%= data.business_district_id %>,
+                              <%= data.business_tehsil_id %>,
+                              <%= data.business_kasba %>
+
+                              <br>
+                              Mobile No. : <%= data['authority_mobile'] %> <br>
+                          </strong>
+                      </td>
+                  </tr>
+
+                  <tr>
+                      <td> Registration Fee</td>
+                      <td><strong>
+                              <%= data['selected_plan_registration_fee'] %></strong></td>
+                  </tr>
+
+
+                  <tr>
+                      <td> Membership Fee</td>
+                      <td><strong>
+                              <%= data['selected_plan_membership_fee'] %></strong></td>
+                  </tr>
+
+
+
+
+                  <tr>
+                      <td> TAX(S)</td>
+                      <td><strong><%= data['selected_plan_total_taxes'] %></strong></td>
+                  </tr>
+
+                  <tr>
+                      <td> Total Fee</td>
+                      <td><strong>
+                      <%= data['selected_plan_total_payable_amount'] %></strong></td>
+                  </tr>
+
+                  <tr>
+                      <td>MODE OF PAYMENT</td>
+                      <td><strong>Online</strong></td>
+                  </tr>
+                  <tr>
+                      <td>INVOICE/ Receipt NO.</td>
+                      <td><strong><%= data['invoice_no'] %></strong></td>
+                  </tr>
+                  <tr>
+                      <td>INVOICE/ Receipt DATE </td>
+                      <td><strong><%= site.momentObj(data['add_datedata']).format("DD-MM-YYYY")  %></strong></td>
+                  </tr>
+              </table>-->
+        </div>
+        <div class="exemptionWrap">
+            <div class="headingtxt sec-mid p-t-20">LIMITS OF EXEMPTION</div>
+            <table cellpadding="0" cellspacing="0" class="table-bordered offset-top-10">
+                <tr><td>
+                        <p class="p-4 m-0">
+                            If any dispute is submitted by membership holder to NATIONAL ARBITRAL TRIBUNAL and such dispute being finally resolved by arbitration in accordance with the National Arbitral Tribunal (Procedural) Rules, 2017, the arbitral tribunal shall consist of a sole arbitrator. Then in such dispute arbitrator and administrative fee as specified in Schedule-I of National Arbitral Tribunal (Procedural) Rules, 2017 will be exempted as per under mentioned schedule of exemptions These exemptions can be availed during the valid period of Membership without any limitation on number of disputes/ claims.
+                        </p>
+
+                    </td></tr>
+            </table>
+        </div>
+
+        <div class="exemptionWrap">
+            <div class="headingtxt sec-mid p-t-20">
+                <p class="text-center">
+                    <STRONG>SCHEDULE OF EXEMPTIONS </STRONG><br>
+                    <STRONG>Exemptions on Arbitrator and Administrative fees as Specified in Schedule – I of  </STRONG><br>
+                    <STRONG>National Arbitral Tribunal (Procedural) Rules, 2017  </STRONG>
+                </p>
+            </div>
+            <table  cellpadding="0" cellspacing="0" class="table-bordered main-table innertabel-1" style="width:100%;">
+
+                <tr>
+                    <td><STRONG>Sum in Dispute / Claim size</STRONG></td>
+                    <td><STRONG>Exemption on Arbitrator & Administrative Fees for Member Only (In Each Case)</STRONG></td>
+                </tr>
+                <tr>
+                    <td>Up to 1,00,000</td>
+                    <td>
+                        Minimum INR 11,000 Or Fifty Per Cent of Arbitrator and administrative Fee, Whichever Is High </td>
+                </tr>
+                <tr>
+                    <td>Above INR. 1,00,001 and up to INR. 3,00,000</td>
+                    <td>Minimum INR 12,000 Or Fifty Per Cent of Arbitrator and administrative Fee, Whichever Is High</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 3,00,001 and up to INR. 5,00,000</td>
+                    <td>Minimum INR 17,000 Or Fifty Per Cent of Arbitrator and administrative Fee, Whichever Is High </td>
+                </tr>
+                <tr>
+                    <td>Above INR. 5,00,001 and up to INR. 20,00,000</td>
+                    <td>Minimum INR 22,000 Or Fifty Per Cent of Arbitrator and administrative Fee, Whichever Is High</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 20,00,001 and up to INR. 1,00,00,000</td>
+                    <td>Minimum INR 45000 Or Forty Per Cent of Arbitrator and administrative Fee, Whichever Is High</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 1,00,00,001 and up to INR. 10,00,00,000</td>
+                    <td>Minimum INR 160000 Or Forty Per Cent of Arbitrator and administrative Fee, Whichever Is High</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 10,00,00,001 and up to INR. 20,00,00,000</td>
+                    <td>Minimum INR 450000 Or Thirty Per Cent of Arbitrator and administrative Fee, Whichever Is High</td>
+                </tr>
+                <tr>
+                    <td>Above INR. 20,00,00,001</td>
+                    <td>Minimum INR 700000 or Thirty per cent of Arbitrator and administrative Fee, whichever is high</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="headingtxt sec-mid p-t-20 text-left">Terms and Conditions</div>
+        <table cellpadding="0" cellspacing="0" width="100%" class="benificary-table terms ">
+            <tr> <td>
+                    <ol style="padding:0px 0px 0px 30px;">
+                        <li>If any dispute is submitted by the beneficiary of this membership card, such dispute will be finally settled/resolved by arbitration in accordance with National Arbitral Tribunal (Procedural) Rules, 2017.</li>
+                        <li>If any false/incorrect/misguiding information is furnished by the beneficiary of the Membership would not be eligible for any benefits under this membership.</li>
+                        <li>Arbitration services is limited to National Arbitral Tribunal's regional office’s territory.</li>
+                        <li>After expiry of this Membership, exemptions granted won't be applicable. </li>
+                        <li>For enjoying the benefits of this Membership, the beneficiary should comply with the provision mentioned in Section 7 of Arbitration and Conciliation (Amended) Act, 2015. </li>
+                        <li>Dispute related to beneficiary’s business will only be entertained under this membership.</li>
+                        <li>The total amount of sum in dispute(s) submitted during the period of every 12 months, should not exceed more than the annual business turnover mentioned in this membership certificate.</li>
+                        <li>The exemptions mentioned in the Schedule of Exemptions will not apply on the dispute(s) of value exceeding the annual business turnover of the membership holder. </li>
+                    </ol>
+                </td></tr>
+        </table>
+        <p class="p-4 new-text1"><span style="text-align: justify;">We recommend that you read the Membership documentation carefully and contact us if there is anything incorrect. It is important to us that you furnish your all details correctly, which will help us to provide you with fast and efficient services.</span></p>
+        <p class="p-4 new-text1"><span style="text-align: justify;">We are available to assist you in relation to this membership certificate. Contact us by email: <a href="mailto:customercare@nyayaportal.in">customercare@nyayaportal.in</a> Please refer your Membership No. for further correspondence.</span></p>
+        <p></p>
+        <div class="footer clearfix p-4">
+            <div class="footer-left">
+                <span class="text-left"><strong>Statutory Alert : </strong>The Authenticity of this Membership certificate should be verified at <a href="http://www.nyayaportal.in/">www.nyayaportal.in</a> Any discrepancy in the details on this membership certificate and as available on the website renders it invalid.</span>
+                <!--<span class="text-left">For & on behalf of</span>-->
+                <!--<span class="text-left">LEGAL RESOLUTION CENTRE PVT. LTD.</span>-->
+
+
+                <!--<span class="text-left">Duly authorized e-signatory. </span>-->
+
+                <!--<span class="big-text bold-text text-left">(E-signature)</span>-->
+            </div>
+            <div class="newBlockDiv" >
+                <div class="footer-text-left">
+                    <span class="text-left"> <strong>Date of Issue:</strong> <%= site.momentObj(dateTimeConvert(data.created)).format('DD-MM-YYYY') %></span>
+                </div>
+                <div class="footer-text-right">
+
+                    <div class="footer-logo" style="text-align: right;margin-right: 17px;">
+                <span > <img src="<%= site.fullUrl %>/images/nat_logo_round.jpeg"  style="height:50px; width:auto;vertical-align: middle;"> </span>
+                <span>Thank you for choosing us.</span>
+            </div>
+
+            <div>
+                <span class="text-right">For & on behalf of</span>
+                <span class="text-right">LEGAL RESOLUTION CENTRE PVT. LTD.</span>
+            </div>
+
+
+
+                    
+                </div>
+            </div>
+
+
+            <% if(show==1){ %>
+            <div class="fee-info" style="text-align: right;">
+                <a class="btn btn-primary button-next" href="/admin/membership_plans/invoice/<%= data.id %>/1">Get Invoice</a>
+                <a class="btn btn-primary button-next" href="/admin/membership_plans/download_certificate/<%= data.id %>/0">Download CERTIFICATE</a>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>

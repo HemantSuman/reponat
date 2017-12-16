@@ -1,0 +1,79 @@
+<!-- breadcrumbs -->
+<% include ../element/breadcrumbs %>
+<!-- /breadcrumbs -->
+<section class="Innerpage sectionForOtp" id="loadUi">
+    <div class="container">
+        <div class="form-wrapper">
+            
+            <div class="row">
+                <div class="col-md-7 col-sm-12 col-xs-12">
+                    <div class="signupWrap">
+                         <h1>Register</h1>
+                        <form action="/users/signup" method="post" enctype="multipart/form-data" id="register">
+                            <input type="hidden" name="user_bank_details[is_active]" value="1" >
+                            <input type="hidden" name="user_busines_details[is_active]" value="1" >
+                            <!-- user types -->
+                            <div class="row  profession_type_element_destination">
+                                <div class="col-md-6 col-sm-12 col-xs-12">
+                                    <label>Select User type<span class="required">*</span></label>
+                                    <select class="form-control custom-select" id="role_id" name="role_id">
+                                        <option alias="select" value="">Please Select</option>
+                                        <% results.roles.forEach(function(value){ %>
+                                        <option alias="<%= value['role_slug'] %>" value="<%= value['id'] %>">
+                                            <%= value['role_name'] %>
+                                        </option>
+                                        <% }); %>
+                                    </select>
+                                    <label id="role_id_error"></label>
+                                </div>
+                            </div>
+                            <!-- /user types -->
+                            <!-- loading -->
+                            <div id="loading"><img src="/front/assets/img/loading.gif"></div>
+                            <!-- /loading -->
+                            <!-- form data -->
+                            <div id="formData">
+                            </div>
+                            <!-- form data -->
+                            <div class="row">
+                                <div class="clearfix">
+                                    <div class="col-md-6 col-sm-12 col-xs-12" id="g_captcha_error">
+                                         <label>Resolve the captcha below<span class="required">*</span></label>
+                                         <img src="../uploads/captcha/<%=results.captcha%>.png" >
+                                         <input type="hidden" name="current_time_stamp" value="<%=results.captcha%>">
+                                         <input type="text" class="form-control" id="captcha_client" name="captcha_client">
+                                         <label class="errorMsg" id="captcha_client_error"></label>
+                                    </div>
+<!--                                    <div class="col-md-6 col-sm-12 col-xs-12" id="g_captcha_error">
+                                         for local use this key "6LfByRMUAAAAAPCSCcMoxFjrcRbypCAfgzB_kF8o" 
+                                         for testingnat use this key "6LefURsUAAAAAMF4vowJeMLWd2mQ9vXwUc6OoP8N" 
+                                         for nyayaportal use this key "6LditiYUAAAAAHOnNiCKB5JLkaaiXqGuGC7Sz0ge" 
+                                        <div class="g-recaptcha" data-sitekey="6LfByRMUAAAAAPCSCcMoxFjrcRbypCAfgzB_kF8o"></div>
+                                        <label class="errorMsg" id="g-recaptcha-response_error"></label>
+                                    </div>-->
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <button id="submit" type="submit" class="btn btn-orange">Register</button>
+                                </div>
+<!--                                <input type='hidden' id="g_captcha">-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12 col-xs-12">
+                   <div class="login-right register-right">
+                       <img src="/front/assets/img/login-bg.jpg" alt="login">
+                    <div class="login-right-txt register-right-txt">
+
+                        <h2>Already Registered?</h2>
+
+                        <a href="/users/login">Login</a>
+                    </div>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+</script>
