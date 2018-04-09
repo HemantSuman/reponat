@@ -2,24 +2,24 @@ var db = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'pws@123',
+    password: '',
     database: 'nat_blank'
 };
 
 
 var facebook = {
-    clientID: '206866863088403',
-    clientSecret: 'b163694920e5a3fbde5ecf5c0fe17736',
-    callbackURL: 'http://acadonia.planetwebsolution.com:4001/auth/facebook/callback',
+    clientID: '',
+    clientSecret: '',
+    callbackURL: '',
     successRedirect: '/dashboard',
     failureRedirect: '/'
 };
 
 
 var google = {
-    clientID: '906308791031-3pncpjn5bvjjc3qbpaq6p4p53bfo7ft5.apps.googleusercontent.com',
-    clientSecret: 'j_k85dd8IkXXx4yk_s4vFL01',
-    callbackURL: 'http://acadonia.planetwebsolution.com:4001/auth/google/callback',
+    clientID: '',
+    clientSecret: '',
+    callbackURL: '',
     successRedirect: '/dashboard',
     failureRedirect: '/'
 };
@@ -27,34 +27,33 @@ var google = {
 
 var mail = {
     //from: '"Nyaya Portal " <noreply@nyayaportal.in>',
-    from: 'Nyaya Portal',
-    config: "smtps://hemant.suman%40planetwebsolution.com:hemant1234@smtp.gmail.com"
-    //config:"smtps://noreply%40nyayaportal.in:noreply#@!A@smtp.gmail.com"
+    from: '',
+    config: "smtps://hemantsuman177%40gmail.com:password@smtp.gmail.com"
 };
 
 var otp = {
-    authkey: "138408AafWEW1cQyP5887191d",
-    senderid: "NEWONE"
+    authkey: "",
+    senderid: ""
 };
 
 var bbb = {
 //url:"http://192.168.100.172/bigbluebutton/",
-    url: "http://203.100.77.134/bigbluebutton/",
-    key: "91d041360369b58d74834b8f37e60dbc"
+    url: "",
+    key: ""
 };
 
 var pay={
-    mid:"T198767",
-    s_code:"Lega",
-    e_key:"8241820639EXXTIX",
-    e4_key:"9868415382IJTPVM",
-    email:"abhishek.sharma@planetwebsolution.com",
-    cc_email:"abhishek.sharma@planetwebsolution.com",
-    base_itemId:"NAT1"
+    mid:"T1983453,
+    s_code:"L345",
+    e_key:"82418243543534IX",
+    e4_key:"98684153345345VM",
+    email:"",
+    cc_email:"",
+    base_itemId:"456etet4
     }
 
 var e_sign={
-    token:"QUlWMVA2VTk5NEpDV1Y0NDczSVBaQThSSDlMNUkyNFU6TjY3MkhPTVZYRzVCWkVZSUFPVTM2QkZHVkI5SDRDUDQ="
+    token:"QUlWMVA2Vtyrtggdgdg5t45t45yyfb bfghMNUkyNFU6TjY3MkhPTVZYRzVCWkVZSUFPVTM2QkZHVkI5SDRDUDQ="
     }    
 
 module.exports.db = db;
