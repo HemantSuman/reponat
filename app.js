@@ -88,8 +88,8 @@ var modelsAll = require('./models');
 
 
 app.get('*',function(req,res,next){  
-    if((req.headers.host == 'nyayaportal.in' || req.headers.host == 'www.nyayaportal.in') && req.protocol == 'http'){
-        res.redirect('https://www.nyayaportal.in'+req.url);
+    if((req.headers.host == '*****.in' || req.headers.host == 'www.*****.in') && req.protocol == 'http'){
+        res.redirect('https://www.*****.in'+req.url);
 //        res.redirect(['https://', req.get('Host'), req.url].join(''))
     } else {
         next();
@@ -118,12 +118,12 @@ app.use(flash());
 var converter = require('number-to-words');
 
 app.locals.site = {
-    logoName: "Nyaya Portal",
+    logoName: "*****",
     logoUrl: "/images/nat_logo.png",
-    siteTitle: "NyayaPortal",
-    pageTitle: "Nat",
-    author: "Nat",
-    description: "Nat",
+    siteTitle: "*****",
+    pageTitle: "*****",
+    author: "*****",
+    description: "*****",
     page: 10,
     theme: 'skin-blue sidebar-mini',
     logo: '',
